@@ -54,6 +54,10 @@ smart-emobility-hub/
 ├── .github/
 │   └── pull_request_template.md
 ├── docs/
+│   ├── meeting-minutes/
+│   │   ├── Meeting_01_20260908.md
+│   │   └── README.md
+│   ├── tasks-assignment.md
 │   └── README.md
 ├── src/
 │   ├── app.py                     # Entry point chính
@@ -71,8 +75,8 @@ smart-emobility-hub/
 │   └── data/
 │       └── mock_hubs.json         # Dữ liệu mock 6 Hub
 ├── requirements.txt
-├── README.md
-└── setup_github.sh
+├── .gitignore
+└── README.md
 ```
 
 ---
