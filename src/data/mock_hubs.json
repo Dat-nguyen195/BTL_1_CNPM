@@ -1,0 +1,132 @@
+[
+  {
+    "hub_id": "HUB-001",
+    "name": "Hub KTX Khu A",
+    "description": "Trạm trung chuyển tại Ký túc xá Khu A – ĐHQG-HCM",
+    "latitude": 10.8781,
+    "longitude": 106.8056,
+    "total_slots": 40,
+    "available_slots": 15,
+    "charging_ports": {
+      "total": 10,
+      "available": 4
+    },
+    "current_vehicles": [
+      {"vehicle_id": "EV-A001", "type": "scooter", "battery_soc": 85, "status": "parked"},
+      {"vehicle_id": "EV-A002", "type": "bike", "battery_soc": 42, "status": "charging"},
+      {"vehicle_id": "EV-A003", "type": "scooter", "battery_soc": 15, "status": "parked"},
+      {"vehicle_id": "EV-A004", "type": "car", "battery_soc": 70, "status": "reserved"},
+      {"vehicle_id": "EV-A005", "type": "bike", "battery_soc": 90, "status": "parked"},
+      {"vehicle_id": "EV-A006", "type": "scooter", "battery_soc": 8, "status": "parked"},
+      {"vehicle_id": "EV-A007", "type": "scooter", "battery_soc": 55, "status": "charging"},
+      {"vehicle_id": "EV-A008", "type": "bike", "battery_soc": 30, "status": "parked"}
+    ]
+  },
+  {
+    "hub_id": "HUB-002",
+    "name": "Hub KTX Khu B",
+    "description": "Trạm trung chuyển tại Ký túc xá Khu B – gần Ga Metro Đại học Quốc gia",
+    "latitude": 10.8755,
+    "longitude": 106.8012,
+    "total_slots": 60,
+    "available_slots": 8,
+    "charging_ports": {
+      "total": 15,
+      "available": 2
+    },
+    "current_vehicles": [
+      {"vehicle_id": "EV-B001", "type": "scooter", "battery_soc": 60, "status": "parked"},
+      {"vehicle_id": "EV-B002", "type": "car", "battery_soc": 25, "status": "charging"},
+      {"vehicle_id": "EV-B003", "type": "scooter", "battery_soc": 12, "status": "parked"},
+      {"vehicle_id": "EV-B004", "type": "bike", "battery_soc": 95, "status": "parked"},
+      {"vehicle_id": "EV-B005", "type": "scooter", "battery_soc": 18, "status": "charging"},
+      {"vehicle_id": "EV-B006", "type": "car", "battery_soc": 50, "status": "reserved"},
+      {"vehicle_id": "EV-B007", "type": "bike", "battery_soc": 72, "status": "parked"},
+      {"vehicle_id": "EV-B008", "type": "scooter", "battery_soc": 33, "status": "parked"},
+      {"vehicle_id": "EV-B009", "type": "scooter", "battery_soc": 5, "status": "parked"},
+      {"vehicle_id": "EV-B010", "type": "bike", "battery_soc": 88, "status": "charging"}
+    ]
+  },
+  {
+    "hub_id": "HUB-003",
+    "name": "Hub Nhà Khách ĐHQG",
+    "description": "Trạm trung chuyển tại Nhà Khách Đại học Quốc gia TP.HCM",
+    "latitude": 10.8802,
+    "longitude": 106.8065,
+    "total_slots": 25,
+    "available_slots": 12,
+    "charging_ports": {
+      "total": 6,
+      "available": 3
+    },
+    "current_vehicles": [
+      {"vehicle_id": "EV-C001", "type": "car", "battery_soc": 40, "status": "parked"},
+      {"vehicle_id": "EV-C002", "type": "scooter", "battery_soc": 78, "status": "charging"},
+      {"vehicle_id": "EV-C003", "type": "bike", "battery_soc": 65, "status": "parked"},
+      {"vehicle_id": "EV-C004", "type": "scooter", "battery_soc": 10, "status": "parked"},
+      {"vehicle_id": "EV-C005", "type": "car", "battery_soc": 92, "status": "reserved"}
+    ]
+  },
+  {
+    "hub_id": "HUB-004",
+    "name": "Hub Trường ĐH Bách Khoa",
+    "description": "Trạm trung chuyển trước cổng chính Trường Đại học Bách Khoa – ĐHQG-HCM",
+    "latitude": 10.8800,
+    "longitude": 106.8030,
+    "total_slots": 50,
+    "available_slots": 20,
+    "charging_ports": {
+      "total": 12,
+      "available": 5
+    },
+    "current_vehicles": [
+      {"vehicle_id": "EV-D001", "type": "scooter", "battery_soc": 55, "status": "parked"},
+      {"vehicle_id": "EV-D002", "type": "bike", "battery_soc": 20, "status": "charging"},
+      {"vehicle_id": "EV-D003", "type": "car", "battery_soc": 80, "status": "parked"},
+      {"vehicle_id": "EV-D004", "type": "scooter", "battery_soc": 14, "status": "parked"},
+      {"vehicle_id": "EV-D005", "type": "scooter", "battery_soc": 67, "status": "reserved"},
+      {"vehicle_id": "EV-D006", "type": "bike", "battery_soc": 45, "status": "parked"},
+      {"vehicle_id": "EV-D007", "type": "car", "battery_soc": 30, "status": "charging"}
+    ]
+  },
+  {
+    "hub_id": "HUB-005",
+    "name": "Hub Trường ĐH KHXH&NV",
+    "description": "Trạm trung chuyển tại Trường Đại học Khoa học Xã hội & Nhân văn – ĐHQG-HCM",
+    "latitude": 10.8770,
+    "longitude": 106.8090,
+    "total_slots": 30,
+    "available_slots": 18,
+    "charging_ports": {
+      "total": 8,
+      "available": 6
+    },
+    "current_vehicles": [
+      {"vehicle_id": "EV-E001", "type": "scooter", "battery_soc": 73, "status": "parked"},
+      {"vehicle_id": "EV-E002", "type": "bike", "battery_soc": 48, "status": "parked"},
+      {"vehicle_id": "EV-E003", "type": "car", "battery_soc": 22, "status": "charging"},
+      {"vehicle_id": "EV-E004", "type": "scooter", "battery_soc": 91, "status": "parked"},
+      {"vehicle_id": "EV-E005", "type": "bike", "battery_soc": 7, "status": "parked"}
+    ]
+  },
+  {
+    "hub_id": "HUB-006",
+    "name": "Hub Trường ĐH Công nghệ Thông tin",
+    "description": "Trạm trung chuyển tại Trường Đại học Công nghệ Thông tin – ĐHQG-HCM",
+    "latitude": 10.8710,
+    "longitude": 106.8030,
+    "total_slots": 35,
+    "available_slots": 22,
+    "charging_ports": {
+      "total": 8,
+      "available": 5
+    },
+    "current_vehicles": [
+      {"vehicle_id": "EV-F001", "type": "scooter", "battery_soc": 62, "status": "parked"},
+      {"vehicle_id": "EV-F002", "type": "bike", "battery_soc": 35, "status": "charging"},
+      {"vehicle_id": "EV-F003", "type": "car", "battery_soc": 85, "status": "parked"},
+      {"vehicle_id": "EV-F004", "type": "scooter", "battery_soc": 11, "status": "parked"},
+      {"vehicle_id": "EV-F005", "type": "bike", "battery_soc": 50, "status": "reserved"}
+    ]
+  }
+]

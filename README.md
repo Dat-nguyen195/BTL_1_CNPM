@@ -1,0 +1,150 @@
+# 🚲 Smart E-Mobility Hub
+
+## Hệ thống Điều phối Phương tiện Điện trong Khu đô thị ĐHQG-HCM
+
+> **Môn học:** Công nghệ Phần mềm (Software Engineering) – HK1/2025-2026  
+> **Trường:** Đại học Bách Khoa – ĐHQG TP.HCM (HCMUT – VNU-HCM)  
+> **Loại dự án:** Evolutionary Prototype (Agile/Scrum)
+
+---
+
+## 📋 Mô tả Dự án
+
+**Smart E-Mobility Hub** là hệ thống quản lý và điều phối phương tiện điện (EV) thông minh tại Khu đô thị Đại học Quốc gia TP.HCM. Hệ thống giúp:
+
+- 🎓 **Sinh viên** dễ dàng tìm và đặt xe điện / chỗ đỗ xe tại các Hub
+- 🔌 **Quản lý sạc thông minh** dựa trên ưu tiên pin & booking
+- 📊 **Giám sát** tình trạng toàn bộ mạng lưới Hub theo thời gian thực
+- 🚨 **Xử lý sự cố** và điều phối phương tiện giữa các Hub
+- 📈 **Mô phỏng What-if** để dự đoán nhu cầu và kiểm tra khả năng chịu tải
+
+---
+
+## 👥 Thành viên Nhóm & Phân công
+
+| STT | Họ và Tên | MSSV | Vai trò | Subsystem |
+|-----|-----------|------|---------|-----------|
+| 1 | [Tên thành viên 1] | [MSSV] | **Project Manager** | SS1: Quản lý & Đặt xe cho SV |
+| 2 | [Tên thành viên 2] | [MSSV] | Developer | SS2: Đăng ký dịch vụ Xe cá nhân |
+| 3 | [Tên thành viên 3] | [MSSV] | Developer | SS3: Giám sát mạng lưới Hub |
+| 4 | [Tên thành viên 4] | [MSSV] | Developer | SS4: Điều phối & Xử lý sự cố |
+| 5 | [Tên thành viên 5] | [MSSV] | Developer | SS5: Lập lịch sạc thông minh |
+| 6 | [Tên thành viên 6] | [MSSV] | Developer | SS6: Mô phỏng nhu cầu SV |
+| 7 | [Tên thành viên 7] | [MSSV] | Developer | SS7: Mô phỏng sự cố hạ tầng |
+
+---
+
+## 🛠️ Công nghệ sử dụng
+
+| Thành phần | Công nghệ |
+|------------|-----------|
+| Ngôn ngữ | Python 3.10+ |
+| Framework UI | Streamlit |
+| Xử lý dữ liệu | Pandas |
+| Trực quan hoá | Plotly, Matplotlib |
+| Dữ liệu | In-memory JSON (st.session_state) |
+| Quản lý mã nguồn | Git + GitHub |
+
+---
+
+## 📁 Cấu trúc Thư mục
+
+```
+smart-emobility-hub/
+├── .github/
+│   └── pull_request_template.md
+├── docs/
+│   └── README.md
+├── src/
+│   ├── app.py                     # Entry point chính
+│   ├── components/
+│   │   ├── student_booking.py     # SS1: Đặt xe & chỗ đỗ
+│   │   ├── personal_ev.py         # SS2: Xe cá nhân
+│   │   ├── hub_monitor.py         # SS3: Dashboard giám sát
+│   │   ├── dispatch_incident.py   # SS4: Điều phối & sự cố
+│   │   ├── smart_charging.py      # SS5: Sạc thông minh
+│   │   ├── sim_demand.py          # SS6: Mô phỏng nhu cầu
+│   │   └── sim_infrastructure.py  # SS7: Mô phỏng hạ tầng
+│   ├── core/
+│   │   ├── scheduler.py           # Logic hàng đợi sạc
+│   │   └── simulator.py           # Logic mô phỏng sự kiện
+│   └── data/
+│       └── mock_hubs.json         # Dữ liệu mock 6 Hub
+├── requirements.txt
+├── README.md
+└── setup_github.sh
+```
+
+---
+
+## 🔧 Quy trình Phát triển
+
+**Software Process Model:** Incremental Development (Agile/Scrum)
+
+- **Sprint Duration:** 2 tuần
+- **Ceremonies:** Sprint Planning, Daily Standup, Sprint Review, Retrospective
+- **Branching Strategy:** Feature Branch → Pull Request → Code Review → Merge to `main`
+- **Naming Convention:** `feature/<mssv>-<tên-tính-năng>` (ví dụ: `feature/2211234-booking-ui`)
+
+---
+
+## 🚀 Cài đặt & Chạy ứng dụng
+
+### Yêu cầu
+- Python 3.10 trở lên
+- pip (Python package manager)
+
+### Cài đặt
+
+```bash
+# Clone repository
+git clone https://github.com/<your-org>/smart-emobility-hub.git
+cd smart-emobility-hub
+
+# Tạo virtual environment (khuyến nghị)
+python -m venv venv
+source venv/bin/activate        # Linux/Mac
+# venv\Scripts\activate         # Windows
+
+# Cài đặt dependencies
+pip install -r requirements.txt
+```
+
+### Chạy ứng dụng
+
+```bash
+streamlit run src/app.py
+```
+
+Ứng dụng sẽ mở tại: `http://localhost:8501`
+
+---
+
+## 🤖 Tuyên bố Minh bạch về Sử dụng AI Tạo sinh (Generative AI Transparency Statement)
+
+> **Bắt buộc theo quy định học thuật.**
+
+### Mục đích sử dụng AI
+Nhóm phát triển đã sử dụng công cụ AI tạo sinh (Generative AI – cụ thể: AI Coding Assistant) cho các mục đích sau:
+
+1. **Scaffolding & Boilerplate:** AI được sử dụng để khởi tạo cấu trúc thư mục, tạo mã boilerplate ban đầu cho 7 subsystem, và thiết lập mock data. Điều này giúp tiết kiệm thời gian thiết lập ban đầu để nhóm tập trung vào logic nghiệp vụ.
+
+2. **Code Generation:** AI hỗ trợ tạo giao diện Streamlit cơ bản, thuật toán lập lịch sạc, và logic mô phỏng sự kiện.
+
+3. **Documentation:** AI hỗ trợ soạn thảo README, PR template, và inline comments.
+
+### Xác minh của Con người (Human Verification)
+- ✅ Toàn bộ mã nguồn do AI tạo ra đã được **mỗi thành viên nhóm đọc hiểu, kiểm tra**, và chỉnh sửa cho phù hợp với yêu cầu nghiệp vụ thực tế.
+- ✅ Logic nghiệp vụ (thuật toán ưu tiên sạc, kịch bản mô phỏng) được **nhóm thiết kế** dựa trên phân tích yêu cầu, AI chỉ hỗ trợ hiện thực hoá.
+- ✅ Mock data (toạ độ Hub, thông số xe) được **nhóm xác minh** dựa trên bản đồ thực tế ĐHQG-HCM.
+- ✅ Giao diện người dùng được **nhóm tuỳ chỉnh** về UX/UI sau khi AI tạo khung cơ bản.
+
+### Cam kết
+> Nhóm cam kết rằng việc sử dụng AI là công cụ hỗ trợ, không thay thế quá trình học tập và tư duy thiết kế phần mềm. Mọi quyết định thiết kế, kiến trúc, và logic nghiệp vụ đều do nhóm chủ động đưa ra.
+
+---
+
+## 📝 Giấy phép
+
+Dự án phục vụ mục đích học tập tại HCMUT – ĐHQG-HCM.  
+© 2025 – Nhóm Sinh viên Công nghệ Phần mềm, Trường Đại học Bách Khoa TP.HCM.
