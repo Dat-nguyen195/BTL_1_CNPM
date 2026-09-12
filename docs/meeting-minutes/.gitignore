@@ -1,0 +1,5 @@
+# Chỉ theo dõi và push file PDF trong thư mục meeting-minutes
+*
+!*/
+!*.pdf
+!.gitignore
