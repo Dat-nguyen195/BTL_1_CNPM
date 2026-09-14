@@ -2,10 +2,24 @@
 
 ## Mục lục
 
+- [Danh mục tài liệu kỹ thuật](#danh-mục-tài-liệu-kỹ-thuật)
 - [Tổng quan kiến trúc](#tổng-quan-kiến-trúc)
 - [Mô tả các Subsystem](#mô-tả-các-subsystem)
 - [Luồng dữ liệu](#luồng-dữ-liệu)
 - [Hướng dẫn phát triển](#hướng-dẫn-phát-triển)
+
+---
+
+## Danh mục tài liệu kỹ thuật
+
+| Tài liệu | Đường dẫn | Mô tả nội dung |
+| :--- | :--- | :--- |
+| **Phân tích yêu cầu (Requirements Analysis)** | [`requirements-analysis.md`](./requirements-analysis.md) | Ma trận Stakeholder, Danh sách User Stories (SS1–SS7), Mapping Functional Requirements, Đánh giá độ sẵn sàng |
+| **Kiểm toán tuân thủ Đề bài (Compliance Audit)** | [`compliance-check.md`](./compliance-check.md) | Bảng đối chiếu tiến độ với yêu cầu BTL Đợt 1 (73% đạt, checklist khắc phục) |
+| **Kế hoạch & Phân công (Tasks Assignment)** | [`tasks-assignment.md`](./tasks-assignment.md) | Phân chia công việc 7 thành viên, lộ trình các Sprint, quy định đóng góp |
+| **Sơ đồ thiết kế (Diagrams Hub)** | [`diagrams/README.md`](./diagrams/README.md) | Quy chuẩn nộp sơ đồ Use-case cá nhân trực tiếp vào `docs/diagrams/` và sơ đồ toàn hệ thống |
+| **Biên bản họp nhóm (Meeting Minutes)** | [`meeting-minutes/`](./meeting-minutes/) | Toàn bộ biên bản họp nhóm định kỳ (Meeting #01,...) |
+| **Nhật ký Prompt AI (Prompt History)** | [`prompt-history/`](./prompt-history/) | Thư mục lưu vết prompt cá nhân của 7 thành viên theo quy định tính minh bạch |
 
 ---
 
