@@ -2,10 +2,10 @@
 
 ## Student EV Booking & Shared Services — Quản lý & Đặt xe điện dùng chung cho Sinh viên
 
-> **Dự án:** Smart E-Mobility Hub — ĐHQG-HCM  
-> **Phân hệ:** SS1 — Student EV Booking & Shared Services  
-> **Tác giả:** Nguyễn Thành Đạt (TV1 — Leader / PM)  
-> **Nhóm:** Nhóm 7 Thành viên — BTL Công nghệ Phần mềm (CO3001) — HCMUT  
+> **Dự án:** Smart E-Mobility Hub — ĐHQG-HCM
+> **Phân hệ:** SS1 — Student EV Booking & Shared Services
+> **Tác giả:** Nguyễn Thành Đạt (TV1 — Leader / PM)
+> **Nhóm:** Nhóm 7 Thành viên — BTL Công nghệ Phần mềm (CO3001) — HCMUT
 
 ---
 
@@ -45,7 +45,7 @@
     </tr>
     <tr>
       <td><strong>Description:</strong></td>
-      <td colspan="3">Sinh viên tra cứu vị trí Hub (KTX, Ga Metro, Trường học), lọc xe theo dung lượng pin (SoC &gt; 20%), chọn loại xe (đạp/máy điện) và đặt giữ chỗ xe trong 15 phút.</td>
+      <td colspan="3">Sinh viên tra cứu vị trí Hub (KTX, Ga Metro, Trường học), lọc xe theo dung lượng pin (SoC > 20%), chọn loại xe (đạp/máy điện) và đặt giữ chỗ xe trong 15 phút.</td>
     </tr>
     <tr>
       <td><strong>Trigger:</strong></td>
@@ -70,16 +70,17 @@
       <td><strong>Normal Flow:</strong></td>
       <td colspan="3">
         1. Sinh viên mở ứng dụng, chọn Hub xuất phát và Hub điểm đến.<br/>
-        2. Hệ thống truy vấn <code>st.session_state["hubs"]</code> và hiển thị danh sách xe khả dụng kèm % pin (SoC) và loại xe.<br/>
-        3. Sinh viên chọn xe mong muốn và nhấn "Xác nhận đặt xe".<br/>
-        4. Hệ thống kiểm tra điều kiện khả dụng và thực hiện khóa giữ chỗ xe trong 15 phút.<br/>
-        5. Hệ thống hiển thị thông báo đặt xe thành công kèm mã QR/PIN nhận xe và bắt đầu đếm ngược 15 phút.
+        2. Hệ thống truy vấn <code>st.session_state["hubs"]</code> <br/>
+        3. Hiển thị danh sách xe khả dụng kèm % pin (SoC) và loại xe.<br/>
+        4. Sinh viên chọn xe mong muốn và nhấn "Xác nhận đặt xe".<br/>
+        5. Hệ thống kiểm tra điều kiện khả dụng và thực hiện khóa giữ chỗ xe trong 15 phút.<br/>
+        6. Hệ thống hiển thị thông báo đặt xe thành công kèm mã QR/PIN nhận xe và bắt đầu đếm ngược 15 phút.
       </td>
     </tr>
     <tr>
       <td><strong>Alternative Flows:</strong></td>
       <td colspan="3">
-        <strong>Alternative 1 (Lọc xe pin cao):</strong> Tại bước 2, sinh viên bật bộ lọc "Mức pin &gt; 80%" cho hành trình xa. Hệ thống cập nhật danh sách xe đáp ứng bộ lọc.<br/>
+        <strong>Alternative 1 (Lọc xe pin cao):</strong> Tại bước 2, sinh viên bật bộ lọc "Mức pin > 80%" cho hành trình xa. Hệ thống cập nhật danh sách xe đáp ứng bộ lọc.<br/>
         <strong>Alternative 2 (Đổi Hub xuất phát):</strong> Tại bước 2, sinh viên chọn Hub lân cận khác trên bản đồ mạng lưới. Hệ thống tải lại danh sách xe của Hub mới.
       </td>
     </tr>
@@ -92,7 +93,7 @@
     </tr>
     <tr>
       <td><strong>Notes and Issues:</strong></td>
-      <td colspan="3">Thời gian xử lý giữ chỗ &lt; 1.5s; Giao diện chuẩn hóa trên di động; Dữ liệu đồng bộ realtime với Dashboard Operator (SS3).</td>
+      <td colspan="3">Thời gian xử lý giữ chỗ < 1.5s; Giao diện chuẩn hóa trên di động; Dữ liệu đồng bộ realtime với Dashboard Operator (SS3).</td>
     </tr>
   </tbody>
 </table>
@@ -166,7 +167,7 @@
     <tr>
       <td><strong>Alternative Flows:</strong></td>
       <td colspan="3">
-        <strong>Alternative 1 (Hủy giữ chỗ &amp; Gợi ý xe tại Hub lân cận):</strong> Khi sinh viên nhấn "Hủy giữ chỗ", hệ thống hiển thị tùy chọn "Hủy &amp; Gợi ý xe tại Hub gần nhất". Nếu sinh viên xác nhận tùy chọn này, hệ thống sẽ thực hiện hủy lệnh giữ chỗ hiện tại (chuyển trạng thái xe về <code>AVAILABLE</code>), đồng thời tự động chuyển hướng giao diện sang danh sách xe khả dụng của Hub lân cận có khoảng cách ngắn nhất.
+        <strong>Alternative 1 (Hủy giữ chỗ & Gợi ý xe tại Hub lân cận):</strong> Khi sinh viên nhấn "Hủy giữ chỗ", hệ thống hiển thị tùy chọn "Hủy & Gợi ý xe tại Hub gần nhất". Nếu sinh viên xác nhận tùy chọn này, hệ thống sẽ thực hiện hủy lệnh giữ chỗ hiện tại (chuyển trạng thái xe về <code>AVAILABLE</code>), đồng thời tự động chuyển hướng giao diện sang danh sách xe khả dụng của Hub lân cận có khoảng cách ngắn nhất.
       </td>
     </tr>
     <tr>
