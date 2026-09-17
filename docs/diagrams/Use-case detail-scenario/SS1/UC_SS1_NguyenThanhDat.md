@@ -45,7 +45,7 @@
     </tr>
     <tr>
       <td><strong>Description:</strong></td>
-      <td colspan="3">Sinh viên tra cứu vị trí Hub (KTX, Ga Metro, Trường học), lọc xe theo dung lượng pin (SoC > 20%), chọn loại xe (đạp/máy điện), xem ước tính chi phí thuê xe (dựa trên loại phương tiện và thời gian di chuyển dự kiến kèm chính sách ưu đãi cho sinh viên ĐHQG-HCM) và đặt giữ chỗ xe trong 15 phút.</td>
+      <td colspan="3">Sinh viên tra cứu vị trí Hub (KTX, Ga Metro, Trường học), lọc xe theo dung lượng pin (SoC > 20%), chọn loại xe (đạp/máy điện), xem ước tính chi phí thuê xe (dựa trên loại phương tiện và thời gian di chuyển dự kiến kèm chính sách ưu đãi cho sinh viên ĐHQG-HCM) và đặt giữ chỗ xe trong 15 phút. Khi đến Hub, sinh viên quét mã QR/PIN để nhận xe (Pick-up) chuyển sang <code>IN_USE</code>. Kết thúc hành trình, sinh viên trả xe (Return) tại Hub điểm đến để giải phóng phương tiện, cập nhật chỗ đỗ và quyết toán hóa đơn chuyến đi vào ví điện tử.</td>
     </tr>
     <tr>
       <td><strong>Trigger:</strong></td>
@@ -62,10 +62,10 @@
     <tr>
       <td><strong>Postconditions:</strong></td>
       <td colspan="3">
-        1. Trạng thái xe được chuyển từ <code>AVAILABLE</code> sang <code>RESERVED</code> trong <code>st.session_state</code>.<br/>
-        2. Sinh viên nhận được Mã QR/PIN nhận xe kèm đồng hồ đếm ngược 15 phút.<br/>
-        3. Dashboard tổng quan cập nhật giảm 01 xe khả dụng tại Hub tương ứng.<br/>
-        4. Ghi nhận giao dịch tạm tính / khấu trừ số dư ví điện tử sinh viên tương ứng với khoản cọc/phí thuê xe dự kiến.
+        1. Trạng thái xe được chuyển từ <code>AVAILABLE</code> sang <code>RESERVED</code> khi đặt giữ chỗ và chuyển sang <code>IN_USE</code> khi nhận xe.<br/>
+        2. Sinh viên nhận được Mã QR/PIN nhận xe kèm đồng hồ đếm ngược 15 phút; ghi nhận giao dịch cọc/tạm tính ví điện tử.<br/>
+        3. Khi trả xe thành công: Xe chuyển về <code>AVAILABLE</code> tại Hub đích, số slot đỗ trống tại Hub đích được cập nhật, tài khoản ví được quyết toán chi phí chuyến đi chính thức và xuất hóa đơn điện tử.<br/>
+        4. Dashboard tổng quan cập nhật chính xác số lượng xe và chỗ trống khả dụng tại cả Hub xuất phát và Hub đích.
       </td>
     </tr>
     <tr>
@@ -75,7 +75,9 @@
         2. Hệ thống truy vấn <code>st.session_state["hubs"]</code> và hiển thị danh sách xe khả dụng kèm mức pin (SoC %), loại xe và đơn giá thuê minh bạch (VNĐ/phút hoặc chính sách miễn phí 30 phút đầu cho sinh viên ĐHQG-HCM).<br/>
         3. Sinh viên chọn xe mong muốn, hệ thống hiển thị bảng ước tính chi phí tạm tính và số tiền cọc giữ chỗ.<br/>
         4. Sinh viên nhấn "Xác nhận đặt xe", hệ thống tính toán chi phí cọc/tạm tính, xác nhận thanh toán/khấu trừ ví và thực hiện khóa giữ chỗ xe trong 15 phút.<br/>
-        5. Hệ thống hiển thị thông báo đặt xe thành công kèm mã QR/PIN nhận xe, biên nhận trừ tiền cọc/tạm tính và kích hoạt đồng hồ đếm ngược 15 phút.
+        5. Hệ thống hiển thị thông báo đặt xe thành công kèm mã QR/PIN nhận xe, biên nhận trừ tiền cọc/tạm tính và kích hoạt đồng hồ đếm ngược 15 phút.<br/>
+        6. <strong>(Nhận xe):</strong> Sinh viên đến Hub, mở ứng dụng quét mã QR/PIN trên xe. Hệ thống xác thực mã trong hạn 15 phút, chuyển trạng thái xe sang <code>IN_USE</code> và bắt đầu tính thời gian di chuyển thực tế.<br/>
+        7. <strong>(Trả xe & Kết thúc):</strong> Sinh viên di chuyển đến Hub đích, cắm xe vào vị trí đỗ/trụ sạc và nhấn "Hoàn tất trả xe". Hệ thống cập nhật xe về <code>AVAILABLE</code> tại Hub đích, cập nhật số chỗ đỗ khả dụng tại Hub đích, tính tổng thời gian di chuyển, trừ phí thực tế (nếu vượt quá 30 phút miễn phí), hoàn trả phần tiền cọc còn lại vào ví điện tử và hiển thị hóa đơn điện tử (e-invoice).
       </td>
     </tr>
     <tr>
@@ -91,7 +93,8 @@
       <td colspan="3">
         <strong>Exception 1 (Xe bị người khác đặt trước):</strong> Tại bước 4, nếu xe vừa chuyển sang <code>RESERVED</code> bởi người dùng khác, hệ thống báo lỗi "Phương tiện không còn khả dụng" và tự động gợi ý xe khác cùng Hub.<br/>
         <strong>Exception 2 (Hết hạn 15 phút giữ chỗ):</strong> Quá 15 phút sinh viên không đến Hub quét mã nhận xe, hệ thống tự động hủy giữ chỗ và trả xe về trạng thái <code>AVAILABLE</code>.<br/>
-        <strong>Exception 3 (Số dư ví không đủ):</strong> Tại bước 4, nếu tài khoản/ví điện tử của sinh viên không đủ số dư tối thiểu để thanh toán khoản tiền cọc/tạm tính, hệ thống hiển thị thông báo lỗi "Số dư không đủ để thực hiện đặt xe", tạm dừng giao dịch giữ xe và yêu cầu sinh viên nạp thêm tiền vào ví.
+        <strong>Exception 3 (Số dư ví không đủ):</strong> Tại bước 4, nếu tài khoản/ví điện tử của sinh viên không đủ số dư tối thiểu để thanh toán khoản tiền cọc/tạm tính, hệ thống hiển thị thông báo lỗi "Số dư không đủ để thực hiện đặt xe", tạm dừng giao dịch giữ xe và yêu cầu sinh viên nạp thêm tiền vào ví.<br/>
+        <strong>Exception 4 (Trả xe tại Hub đã hết chỗ đỗ):</strong> Tại bước 7, nếu Hub đích đã lấp đầy 100% chỗ đỗ (<code>available_slots == 0</code>), hệ thống hiển thị cảnh báo và tự động gợi ý Hub lân cận còn chỗ trống để sinh viên gửi xe.
       </td>
     </tr>
     <tr>
