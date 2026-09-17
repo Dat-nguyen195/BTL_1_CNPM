@@ -20,3 +20,4 @@ venv.bak/
 *.swo
 .DS_Store
 Thumbs.db
+*.tex
