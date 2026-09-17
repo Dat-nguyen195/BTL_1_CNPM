@@ -1,5 +1,9 @@
-ư# Chỉ theo dõi và push file PDF trong thư mục meeting-minutes
+# Theo doi va push cac file trong thu muc meeting-minutes
 *
 !*/
 !*.pdf
+!*.md
+!*.tex
+!*.sh
+!*.png
 !.gitignore
