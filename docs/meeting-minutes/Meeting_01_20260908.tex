@@ -1,0 +1,399 @@
+% ============================================================================
+% BIÊN BẢN HỌP NHÓM SỐ 01 – DỰ ÁN SMART E-MOBILITY HUB
+% Môn: CO3001 – Công nghệ Phần mềm (HK261)
+% Trường Đại học Bách Khoa TP.HCM – Khoa KH & KT Máy tính
+% Compiled with: pdflatex (2 passes recommended)
+% ============================================================================
+
+\documentclass[11pt,a4paper]{article}
+
+% --- Ngôn ngữ & Encoding ---
+\usepackage[utf8]{vietnam}
+
+% --- Geometry ---
+\usepackage[margin=1.8cm, headheight=22pt, top=2.2cm, bottom=2.0cm]{geometry}
+
+% --- Bảng biểu & Hình ảnh ---
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{colortbl}
+
+% --- Hyperlinks ---
+\usepackage[colorlinks=true, linkcolor=hcmutblue, urlcolor=hcmutblue, citecolor=hcmutblue]{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\urlstyle{tt}
+
+% --- Màu sắc ---
+\usepackage[dvipsnames,svgnames,x11names]{xcolor}
+\definecolor{hcmutblue}{RGB}{0, 83, 159}      % HCMUT Brand Blue
+\definecolor{hcmutred}{RGB}{180, 30, 40}       % Accent Red
+\definecolor{lightgray}{RGB}{240, 240, 240}
+\definecolor{darkgray}{RGB}{80, 80, 80}
+\definecolor{sectionblue}{RGB}{20, 60, 120}
+
+% --- Danh sách ---
+\usepackage{enumitem}
+
+% --- Header / Footer ---
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize\textcolor{hcmutblue}{\textbf{HCMUT} -- Khoa Khoa học \& Kỹ thuật Máy tính}}
+\fancyhead[R]{\footnotesize\textcolor{hcmutblue}{CO3001 -- Công nghệ Phần mềm (HK261)}}
+\fancyfoot[C]{\footnotesize Trang \thepage}
+\renewcommand{\headrulewidth}{0.8pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{hcmutblue}\leaders\hrule height \headrulewidth\hfill}}
+\renewcommand{\footrule}{\hbox to\headwidth{\color{hcmutblue}\leaders\hrule height \footrulewidth\hfill}}
+
+% --- Định dạng tiêu đề section ---
+\usepackage{titlesec}
+\titleformat{\section}
+  {\Large\bfseries\color{sectionblue}}
+  {\thesection.}{0.5em}{}
+  [\vspace{-0.5em}\textcolor{hcmutblue}{\rule{\textwidth}{0.6pt}}]
+
+\titleformat{\subsection}
+  {\large\bfseries\color{darkgray}}
+  {\thesubsection.}{0.5em}{}
+
+\titlespacing*{\section}{0pt}{10pt}{6pt}
+\titlespacing*{\subsection}{0pt}{8pt}{4pt}
+
+% --- Khoảng cách dòng ---
+\usepackage{setspace}
+\setstretch{1.18}
+
+% --- Loại bỏ indent đoạn, thêm khoảng cách giữa các đoạn ---
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+
+% --- Tiện ích vẽ đường kẻ ngang ---
+\newcommand{\sectionrule}{\vspace{4pt}\noindent\textcolor{hcmutblue}{\rule{\textwidth}{0.4pt}}\vspace{4pt}}
+
+% ============================================================================
+\begin{document}
+
+% ============================================================================
+%                           KHỐI TIÊU ĐỀ (HEADER BLOCK)
+% ============================================================================
+\thispagestyle{fancy}
+
+\begin{center}
+  {\small\textcolor{darkgray}{TRƯỜNG ĐẠI HỌC BÁCH KHOA TP.HCM -- ĐẠI HỌC QUỐC GIA TP.HCM}}\\[2pt]
+  {\small\textcolor{darkgray}{KHOA KHOA HỌC \& KỸ THUẬT MÁY TÍNH}}\\[2pt]
+  \textcolor{hcmutblue}{\rule{0.6\textwidth}{1.2pt}}\\[10pt]
+  {\LARGE\bfseries\textcolor{hcmutblue}{BIÊN BẢN HỌP NHÓM SỐ 01}}\\[5pt]
+  {\Large\textcolor{sectionblue}{DỰ ÁN SMART E-MOBILITY HUB}}\\[3pt]
+  {\normalsize\textit{Hệ thống Điều phối Phương tiện Điện -- Khu Đô thị ĐHQG-HCM}}\\[3pt]
+  \textcolor{hcmutblue}{\rule{0.6\textwidth}{1.2pt}}
+\end{center}
+
+\vspace{4pt}
+
+% ============================================================================
+%                          BẢNG THÔNG TIN TỔNG QUÁT
+% ============================================================================
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|>{\bfseries\raggedright\arraybackslash}p{3.8cm}|X|}
+  \hline
+  \rowcolor{lightgray} \multicolumn{2}{|c|}{\textbf{THÔNG TIN CUỘC HỌP}} \\
+  \hline
+  Môn học        & CO3001 -- Công nghệ Phần mềm, Học kỳ 1/2026--2027 (HK261) \\
+  \hline
+  Thời gian      & 20:00 -- 20:30, Chủ Nhật ngày 13/09/2026 \\
+  \hline
+  Hình thức      & Trực tuyến qua \textbf{Google Meet} \\
+  \hline
+  Chủ trì        & Nguyễn Thành Đạt (MSSV: \textit{2410709}) \\
+  \hline
+  Thư ký         & Nguyễn Thành Đạt (MSSV: \textit{2410709}) \\
+  \hline
+  Thành phần      & Đầy đủ \textbf{7/7} thành viên (không có vắng mặt) \\
+  \hline
+\end{tabularx}
+\end{center}
+
+\vspace{6pt}
+
+% ============================================================================
+%               MỤC 1: MỤC TIÊU CUỘC HỌP
+% ============================================================================
+\section{Mục tiêu cuộc họp}
+
+\begin{enumerate}[label=\textbf{\arabic*.}, leftmargin=2em, itemsep=2pt]
+  \item \textbf{Khởi động dự án (Kickoff):} Khai mạc dự án BTL Công nghệ Phần mềm -- Hệ thống Điều phối Phương tiện Điện tại Khu đô thị ĐHQG-HCM (Smart E-Mobility Hub).
+  \item \textbf{Phân chia vai trò \& trách nhiệm:} Phân công chính cho từng thành viên trong nhóm phụ trách 7 phân hệ nghiệp vụ (Subsystems) và các Use-case cá nhân.
+  \item \textbf{Thống nhất quy chế vận hành:} Cam kết về tiến độ làm việc nhóm, kênh liên lạc, lịch họp định kỳ, deadline nội bộ và chính sách liêm chính học thuật (GenAI Policy).
+  \item \textbf{Chốt công nghệ \& công cụ:} Thống nhất Tech Stack (Git/GitHub, Python, Streamlit, Plotly, Draw.io) và kiểm tra khởi tạo repository mã nguồn.
+\end{enumerate}
+
+% ============================================================================
+%               MỤC 2: QUY CHẾ LÀM VIỆC NHÓM
+% ============================================================================
+\section{Quy chế làm việc nhóm (Team Operating Regulations)}
+
+\begin{itemize}[leftmargin=2em, itemsep=3pt]
+  \item \textbf{Kênh liên lạc chính:} Nhóm chat dự án (Zalo) và GitHub Issues / Pull Requests.
+  \item \textbf{Cam kết thời gian phản hồi:} Tất cả thành viên bắt buộc phải phản hồi thông báo/tin nhắn dự án trong vòng tối đa \textbf{04 giờ} trong giờ hành chính (08:00~--~21:00).
+  \item \textbf{Lịch họp định kỳ:} Họp tuần trực tuyến vào tối Chủ nhật hàng tuần lúc 20:00 qua Google Meet. Vắng mặt phải báo trước ít nhất 12 giờ kèm lý do chính đáng.
+  \item \textbf{Hạn nộp nội bộ (Internal Deadline):} Mọi công việc cá nhân phải hoàn thành sớm hơn hạn nộp chính thức của LMS từ \textbf{24--48 giờ} để thực hiện Peer Review và tổng hợp file.
+  \item \textbf{Tuân thủ Liêm chính Học thuật (GenAI Policy):} Minh bạch 100\% việc sử dụng công cụ AI trong file \texttt{README.md} và báo cáo. Mỗi thành viên phải hiểu sâu sắc và chịu trách nhiệm 100\% nội dung phân hệ của mình.
+\end{itemize}
+
+% ============================================================================
+%               MỤC 3: PHÂN CÔNG 7 PHÂN HỆ NGHIỆP VỤ & USE-CASE CÁ NHÂN
+% ============================================================================
+\section{Phân công 7 Phân hệ Nghiệp vụ \& Use-case cá nhân (Submission \#1)}
+
+Căn cứ theo yêu cầu bắt buộc của Submission \#1 trong đề cương BTL môn học: \textbf{``Use-case detail/scenario for use-case the student is in-charged (individual work)''}, mỗi thành viên chịu trách nhiệm độc lập hoàn toàn về việc phân tích, đặc tả chi tiết 02 Use-case cá nhân thuộc phân hệ của mình, đồng thời tham gia kiểm tra chéo (Peer Review) theo ma trận phân công.
+
+\vspace{4pt}
+
+\renewcommand{\arraystretch}{1.35}
+{\footnotesize
+\begin{tabularx}{\textwidth}{|c|>{\raggedright\arraybackslash}p{2.6cm}|>{\raggedright\arraybackslash}p{3.2cm}|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}p{2.4cm}|}
+  \hline
+  \rowcolor{lightgray} \textbf{STT} & \textbf{Thành viên \& Vai trò} & \textbf{Phân hệ Nghiệp vụ} & \textbf{Use-case cá nhân đặc tả} & \textbf{Người Review chéo} \\
+  \hline
+  \textbf{01} &
+  \textbf{Nguyễn Thành Đạt}\newline\textit{Leader / PM} &
+  \textbf{SS1:} Quản lý \& Đặt xe cho Sinh viên &
+  \texttt{UC\_SS1\_01: UC\_Dat\_Xe\_Dung\_Chung}\newline
+  \texttt{UC\_SS1\_02: UC\_Huy\_Dat\_Xe} &
+  Nguyễn Anh Tài \\
+  \hline
+  \textbf{02} &
+  \textbf{Nguyễn Anh Tài}\newline\textit{Dev / Analyst} &
+  \textbf{SS2:} Đăng ký dịch vụ \& Vòng đời xe &
+  \texttt{UC\_SS2\_01: UC\_Nhan\_Xe}\newline
+  \texttt{UC\_SS2\_02: UC\_Tra\_Xe} &
+  Nguyễn Thành Đạt \\
+  \hline
+  \textbf{03} &
+  \textbf{Phạm Tấn Đạt}\newline\textit{Dev / Analyst} &
+  \textbf{SS3:} Giám sát mạng lưới Hub &
+  \texttt{UC\_SS3\_01: UC\_Giam\_Sat\_Trang\_Thai\_Hub}\newline
+  \texttt{UC\_SS3\_02: UC\_Canh\_Bao\_Qua\_Tai} &
+  Đặng H. Quý Nhân \\
+  \hline
+  \textbf{04} &
+  \textbf{Đặng H. Quý Nhân}\newline\textit{Dev / Analyst} &
+  \textbf{SS4:} Điều phối phương tiện \& Sự cố &
+  \texttt{UC\_SS4\_01: UC\_Lap\_Lenh\_Dieu\_Chuyen\_\allowbreak Phuong\_Tien}\newline
+  \texttt{UC\_SS4\_02: UC\_Bao\_Cao\_Su\_Co\_\allowbreak Phuong\_Tien} &
+  Phạm Tấn Đạt \\
+  \hline
+  \textbf{05} &
+  \textbf{Dương Đăng Khoa}\newline\textit{Dev / Analyst} &
+  \textbf{SS5:} Lập lịch sạc thông minh &
+  \texttt{UC\_SS5\_01: UC\_Lap\_Lich\_Uu\_Tien\_\allowbreak Sac\_Tu\_Dong}\newline
+  \texttt{UC\_SS5\_02: UC\_Giam\_Sat\_Hang\_Cho\_Sac} &
+  Nguyên \\
+  \hline
+  \textbf{06} &
+  \textbf{Hoàng Văn Tấn}\newline\textit{Dev / Analyst} &
+  \textbf{SS6:} Mô phỏng What-if -- Nhu cầu SV &
+  \texttt{UC\_SS6\_01: UC\_Mo\_Phong\_Tang\_Dot\_\allowbreak Bien\_Khach\_Metro}\newline
+  \texttt{UC\_SS6\_02: UC\_Phan\_Tich\_Anh\_Huong\_\allowbreak Nhu\_Cau} &
+  Dương Đăng Khoa \\
+  \hline
+  \textbf{07} &
+  \textbf{Nguyên}\newline\textit{Dev / Analyst} &
+  \textbf{SS7:} Mô phỏng What-if -- Sự cố Hạ tầng &
+  \texttt{UC\_SS7\_01: UC\_Mo\_Phong\_Su\_Co\_Mat\_\allowbreak Dien\_Tram\_Sac}\newline
+  \texttt{UC\_SS7\_02: UC\_Goi\_Y\_Dieu\_Huong\_\allowbreak Tu\_Dong} &
+  Hoàng Văn Tấn \\
+  \hline
+\end{tabularx}
+}
+
+\vspace{4pt}
+{\small\textit{Chi tiết đầy đủ xem tại:} \texttt{docs/tasks-assignment.md}}
+
+% ============================================================================
+%               MỤC 4: MỤC TIÊU & YÊU CẦU CẦN ĐẠT SAU SPRINT 1 & 2
+% ============================================================================
+\section{Mục tiêu \& Yêu cầu cần đạt được sau Sprint 1 \& 2 (13/09 -- 20/09)}
+
+Giai đoạn đầu tập trung hoàn thành toàn bộ nền tảng phân tích yêu cầu phục vụ Submission \#1. Các kết quả bắt buộc cần đạt:
+
+\subsection{Understanding Project's Context (Hiểu rõ bối cảnh dự án)}
+
+\begin{itemize}[leftmargin=2em, itemsep=2pt]
+  \item Thấu hiểu sâu sắc bài toán điều phối phương tiện điện (Smart E-Mobility Hub) tại Khu đô thị ĐHQG-HCM.
+  \item Xác định rõ bối cảnh kết nối \textbf{Ga Metro số 1}, \textbf{KTX Khu A/B}, phạm vi quản lý trạm sạc và bãi đỗ phương tiện.
+  \item Phân tích toàn diện kỳ vọng của các bên liên quan (\textit{Stakeholders}):
+    \begin{itemize}[leftmargin=1.5em, itemsep=1pt]
+      \item \textbf{Sinh viên:} Đặt xe dùng chung, nhận/trả xe linh hoạt, gửi xe cá nhân, tra cứu lịch sạc.
+      \item \textbf{Operator:} Giám sát trạng thái hub, điều phối phương tiện cân bằng tải, ghi nhận sự cố.
+      \item \textbf{Nhà trường / Ban Quản lý:} Phân tích nhu cầu, mô phỏng kịch bản What-if, tối ưu hóa hạ tầng.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Functional \& Non-functional Requirements (Hệ thống Yêu cầu)}
+
+\textbf{Functional Requirements:}
+\begin{itemize}[leftmargin=2em, itemsep=2pt]
+  \item Xác định danh mục chức năng tổng thể và ranh giới nghiệp vụ của 7 phân hệ (SS1 đến SS7).
+  \item Mỗi thành viên đặc tả chi tiết ít nhất 02 Use-case cá nhân trong phân hệ được phân công.
+\end{itemize}
+
+\textbf{Non-functional Requirements:}
+\begin{itemize}[leftmargin=2em, itemsep=2pt]
+  \item \textbf{Performance:} Thời gian phản hồi $\leq 2.0$ giây cho các tác vụ đặt xe, điều phối và cập nhật trạng thái.
+  \item \textbf{Reliability:} Đảm bảo tính nhất quán dữ liệu in-memory (\texttt{st.session\_state}), tránh race-condition khi nhiều người cùng đặt 1 xe.
+  \item \textbf{Availability:} Prototype Streamlit hoạt động ổn định 24/7 trong môi trường dev.
+  \item \textbf{Usability:} Giao diện tối ưu hóa cho màn hình di động (Sinh viên) và màn hình Dashboard rộng (Operator).
+\end{itemize}
+
+\subsection{Use-case Diagram (Sơ đồ Use-case toàn hệ thống \& Phân hệ)}
+
+\begin{itemize}[leftmargin=2em, itemsep=2pt]
+  \item \textbf{System-wide Use-case Diagram:} Nguyễn Thành Đạt \& Phạm Tấn Đạt chủ trì xây dựng sơ đồ tổng thể bao phủ toàn bộ 7 phân hệ -- 4 Actor chính: \textit{Sinh viên, Operator, Kỹ thuật viên, Hệ thống mô phỏng IoT}; quan hệ \texttt{<<include>>}, \texttt{<<extend>>}. Lưu tại \texttt{docs/diagrams/system/}.
+  \item \textbf{Cấu trúc nộp:} File nguồn \texttt{.drawio}/\texttt{.puml} + ảnh \texttt{.png} ($\geq 300$ DPI), đặt tên theo cú pháp \texttt{<MSSV>\_<Mã\_Use\_Case>.[drawio|png]}.
+\end{itemize}
+
+\subsection{Đặc tả kịch bản Use-case chi tiết cá nhân (Use-case detail/scenario -- Individual Work)}
+
+\begin{itemize}[leftmargin=2em, itemsep=2pt]
+  \item \textbf{Tính chất bắt buộc:} Hạng mục đánh giá \textbf{đóng góp cá nhân bắt buộc (Individual Work)} theo quy định đề bài BTL. Mỗi thành viên phải tự mình phân tích và đặc tả chi tiết \textbf{02 Use-cases} thuộc phân hệ được phân công.
+  \item \textbf{Tiêu chuẩn cấu trúc bảng (Template 14 trường theo \texttt{mau.png}):}
+    \begin{enumerate}[label=\alph*., leftmargin=1.5em, itemsep=0pt, parsep=0pt]
+      \item \textit{Use Case ID \& Use Case Name} (đúng chuẩn định danh \texttt{UC\_SS<X>\_<YY>}).
+      \item \textit{Created By / Last Updated By} \& \textit{Date Created / Date Last Updated} (cột đôi hành chính).
+      \item \textit{Actors:} Phân định rõ Primary Actor và Secondary Actors (Hệ thống IoT, Session State).
+      \item \textit{Description:} Tóm tắt ngắn gọn mục tiêu nghiệp vụ trong 2--3 câu.
+      \item \textit{Trigger:} Sự kiện hoặc hành động trực tiếp kích hoạt Use-case.
+      \item \textit{Preconditions \& Postconditions:} Điều kiện tiên quyết và trạng thái sau khi hoàn tất (nêu rõ trạng thái phương tiện: \texttt{AVAILABLE}, \texttt{RESERVED}, \texttt{IN\_USE}, \texttt{CHARGING}, \texttt{dispatched}, \texttt{incident}).
+      \item \textit{Normal Flow:} Trình tự các bước thực thi thành công (5--7 bước rõ ràng giữa Người dùng $\leftrightarrow$ Hệ thống).
+      \item \textit{Alternative Flows:} Tối thiểu 1--2 luồng rẽ nhánh thực tế (lọc pin, đổi xe, đổi hub...).
+      \item \textit{Exceptions:} Tối thiểu 1--2 luồng ngoại lệ và xử lý sự cố (hết hạn giữ chỗ, hub đầy chỗ, lỗi kết nối...).
+      \item \textit{Notes and Issues:} Ràng buộc phi chức năng đặc thù, thời gian xử lý, tính nhất quán dữ liệu.
+    \end{enumerate}
+  \item \textbf{Quy chuẩn lưu trữ file:} Mỗi cá nhân lưu trữ file tại thư mục tương ứng:\newline
+  \texttt{docs/diagrams/Use-case detail-scenario/SS<X>/UC\_SS<X>\_<HoVaTen>.[md|docx]} \newline
+  \textit{(Khuyến nghị có cả bản \texttt{.md} hiển thị trực tiếp trên GitHub và bản \texttt{.docx} phục vụ ghép tài liệu nộp BKeL)}.
+\end{itemize}
+
+\subsection{Yêu cầu Nộp File Lịch sử Prompt AI (Theo quy định LMS)}
+
+Cuối Sprint 1, \textbf{100\% thành viên (7/7 người)} bắt buộc xuất toàn bộ nhật ký Prompt AI cá nhân thành file \textbf{PDF} nộp lên LMS để chứng minh tính liêm chính học thuật theo GenAI Policy.
+
+\textbf{Quy chuẩn đặt tên file:} \texttt{Prompt\_History\_Sprint1\_<MSSV>\_<HoTen>.pdf}
+
+\vspace{3pt}
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+{\small
+\begin{tabularx}{0.96\linewidth}{|c|>{\raggedright\arraybackslash}p{4.2cm}|X|}
+  \hline
+  \rowcolor{lightgray} \textbf{STT} & \textbf{Họ \& Tên} & \textbf{Tên file PDF bắt buộc nộp} \\
+  \hline
+  1 & Nguyễn Thành Đạt & \texttt{Prompt\_History\_Sprint1\_2410709\_NguyenThanhDat.pdf} \\
+  \hline
+  2 & Nguyễn Anh Tài & \texttt{Prompt\_History\_Sprint1\_<MSSV>\_NguyenAnhTai.pdf} \\
+  \hline
+  3 & Phạm Tấn Đạt & \texttt{Prompt\_History\_Sprint1\_<MSSV>\_PhamTanDat.pdf} \\
+  \hline
+  4 & Đặng Hoàng Quý Nhân & \texttt{Prompt\_History\_Sprint1\_<MSSV>\_DangHoangQuyNhan.pdf} \\
+  \hline
+  5 & Dương Đăng Khoa & \texttt{Prompt\_History\_Sprint1\_<MSSV>\_DuongDangKhoa.pdf} \\
+  \hline
+  6 & Hoàng Văn Tấn & \texttt{Prompt\_History\_Sprint1\_<MSSV>\_HoangVanTan.pdf} \\
+  \hline
+  7 & Nguyên & \texttt{Prompt\_History\_Sprint1\_<MSSV>\_Nguyen.pdf} \\
+  \hline
+\end{tabularx}}
+\end{center}
+\vspace{2pt}
+
+\textbf{Hướng dẫn xuất file:} Sao chép toàn bộ lịch sử chat AI (ChatGPT, Gemini, Copilot...) và lưu dưới dạng PDF. Nội dung phải gồm đầy đủ: timestamp, nội dung prompt, phản hồi AI và các chỉnh sửa thực tế. Mọi thành viên không nộp đúng hạn sẽ bị áp dụng chế độ hạ điểm Contribution (Peer Evaluation) theo Quy chế làm việc nhóm (Mục 2).
+
+% ============================================================================
+%               MỤC 5: BẢNG PHÂN CÔNG HÀNH ĐỘNG (ACTION ITEMS)
+% ============================================================================
+\section{Bảng Phân công Hành động (Action Items)}
+
+\renewcommand{\arraystretch}{1.3}
+{\footnotesize
+\begin{tabularx}{\textwidth}{|c|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}p{3.4cm}|c|>{\raggedright\arraybackslash}p{4.8cm}|}
+  \hline
+  \rowcolor{lightgray} \textbf{STT} & \textbf{Công việc} & \textbf{Người phụ trách} & \textbf{Hạn chót} & \textbf{Tiêu chí hoàn thành} \\
+  \hline
+  \textbf{1} &
+  Khởi tạo repo Git, commit boilerplate Streamlit và tài liệu kế hoạch &
+  Nguyễn Thành Đạt (Leader) &
+  08/09 &
+  Code chạy ổn định; có \texttt{docs/tasks-assignment.md} trên \texttt{main} \\
+  \hline
+  \textbf{2} &
+  Khảo sát bối cảnh ĐHQG-HCM, Metro số 1; xác định phạm vi dự án; soạn User Stories sơ bộ &
+  Nguyễn Thành Đạt, Dương Đăng Khoa &
+  10/09 &
+  Bản thảo Context, Stakeholders và User Stories sơ bộ \\
+  \hline
+  \textbf{3} &
+  Thiết kế Sơ đồ Use-case Toàn hệ thống (System Use-case Diagram) &
+  Dương Đăng Khoa &
+  14/09 &
+  Sơ đồ Draw.io/PNG bao phủ 7 phân hệ và 4 tác nhân chính \\
+  \hline
+  \textbf{4} &
+  Đặc tả kịch bản Use-case chi tiết cá nhân(Use-case detail/scenario for use-case the student is in-charged) &
+  Từng thành viên (7/7 cá nhân tự thực hiện) &
+  17/09 &
+  \textbf{Mỗi bạn hoàn thành 02 kịch bản use-case chi tiết theo đúng khung 14 trường (\texttt{mau.png}), khớp prototype, lưu file \texttt{.md} và \texttt{.docx} tại \texttt{docs/diagrams/Use-case\_\allowbreak detail-scenario/SS<X>/}.} \\
+  \hline
+  \textbf{5} &
+  Thực hiện rà soát chéo (Peer Review) kịch bản Use-case chi tiết cá nhân &
+  Toàn thể 7 thành viên theo ma trận Mục 3 &
+  19/09 &
+  Bảng nhận xét chéo (Peer Review Log), chỉ rõ các điểm lệch trạng thái/nghiệp vụ \\
+  \hline
+  \textbf{6} &
+  Chuẩn bị nội dung cho buổi Họp Tuần 2 (Review toàn bộ Phần 1 \& Use-cases) &
+  Toàn thể 7 thành viên &
+  20/09 &
+  Tham gia họp đầy đủ lúc 20:00 ngày 20/09/2026 \\
+  \hline
+\end{tabularx}
+}
+
+% ============================================================================
+%               KHỐI CHỮ KÝ
+% ============================================================================
+\vspace{20pt}
+\sectionrule
+
+\vspace{8pt}
+
+\begin{minipage}[t]{0.48\textwidth}
+  \centering
+  \textbf{THƯ KÝ LẬP BIÊN BẢN}\\[4pt]
+  \textit{(Ký và ghi rõ họ tên)}\\[6pt]
+  \includegraphics[height=1.6cm,keepaspectratio]{signature.png}\\[4pt]
+  \textbf{Nguyễn Thành Đạt}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.48\textwidth}
+  \centering
+  \textbf{TRƯỞNG NHÓM PHÊ DUYỆT}\\[4pt]
+  \textit{(Ký và ghi rõ họ tên)}\\[6pt]
+  \includegraphics[height=1.6cm,keepaspectratio]{signature.png}\\[4pt]
+  \textbf{Nguyễn Thành Đạt}
+\end{minipage}
+
+\vspace{16pt}
+
+\begin{center}
+  {\small\textcolor{darkgray}{\textit{Biên bản được lập ngày 13/09/2026, lưu trữ tại:}} \texttt{docs/meeting-minutes/}}\\[2pt]
+  {\small\textcolor{darkgray}{\textit{Repository:}} \href{https://github.com/Dat-nguyen195/BTL_1_CNPM}{https://github.com/Dat-nguyen195/BTL\_1\_CNPM}}
+\end{center}
+
+\end{document}
