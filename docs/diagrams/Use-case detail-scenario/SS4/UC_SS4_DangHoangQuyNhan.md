@@ -9,6 +9,13 @@
 
 ---
 
+<style>
+  table { width: 100% !important; display: table !important; }
+  th, td { width: auto !important; }
+  td:first-child { width: 22% !important; white-space: nowrap; }
+  td:last-child { width: 78% !important; }
+</style>
+
 ## 🔹 USE-CASE 1: Điều phối phương tiện giữa các Hub
 
 <table>

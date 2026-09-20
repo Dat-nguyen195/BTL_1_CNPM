@@ -1,15 +1,22 @@
-# ĐẶC TẢ USE CASE — PHÂN HỆ SS2
+# 📋 ĐẶC TẢ CHI TIẾT USE-CASE SCENARIO — PHÂN HỆ SS2
 
-## Student EV Booking & Shared Services — Quản lý & Đặt xe điện dùng chung cho Sinh viên
+## Personal EV Parking & Charging — Đăng ký dịch vụ Xe cá nhân
 
-> **Dự án:** Smart E-Mobility Hub — ĐHQG-HCM
-> **Phân hệ:** SS2 — Student EV Booking & Shared Services
-> **Tác giả:** Nguyễn Anh Tài (TV2 — Developer / Analyst)
-> **Nhóm:** Nhóm 7 Thành viên — BTL Công nghệ Phần mềm (CO3001) — HCMUT
+> **Dự án:** Smart E-Mobility Hub — ĐHQG-HCM  
+> **Phân hệ:** SS2 — Personal EV Parking & Charging (Đăng ký dịch vụ Xe cá nhân)  
+> **Tác giả:** Nguyễn Anh Tài (TV2 — Developer / Analyst)  
+> **Nhóm:** Nhóm 7 Thành viên — BTL Công nghệ Phần mềm (CO3001) — HCMUT  
 
 ---
 
-## USE CASE 01: Đăng ký xe EV cá nhân
+<style>
+  table { width: 100% !important; display: table !important; }
+  th, td { width: auto !important; }
+  td:first-child { width: 22% !important; white-space: nowrap; }
+  td:last-child { width: 78% !important; }
+</style>
+
+## 🔹 USE-CASE 1: Đăng ký xe EV cá nhân
 
 <table>
   <thead>
@@ -105,7 +112,7 @@
 
 ---
 
-## USE CASE 02: Đặt chỗ đỗ và yêu cầu sạc xe EV cá nhân
+## 🔹 USE-CASE 2: Đặt chỗ đỗ và yêu cầu sạc xe EV cá nhân
 
 <table>
   <thead>
@@ -208,7 +215,7 @@
 
 ---
 
-## USE CASE 03: Check-in xe EV cá nhân
+## 🔹 USE-CASE 3: Check-in xe EV cá nhân
 
 <table>
   <thead>
@@ -311,7 +318,7 @@
 
 ---
 
-## USE CASE 04: Check-out và thanh toán dịch vụ xe EV cá nhân
+## 🔹 USE-CASE 4: Check-out và thanh toán dịch vụ xe EV cá nhân
 
 <table>
   <thead>
@@ -346,7 +353,7 @@
     <tr>
       <td><strong>Actors:</strong></td>
       <td colspan="3">
-        <strong>Primary: </strong>Sinh viên ĐHQG-HCM (Student End-User).<br/><strong>Secondary:< /strong> Khối Vận Hành (Operators); Hệ thống IoT/Cảm biến vị trị cổng.
+        <strong>Primary:</strong> Sinh viên ĐHQG-HCM (Student End-User).<br/><strong>Secondary:</strong> Khối Vận Hành (Operators); Hệ thống IoT/Cảm biến vị trí cổng.
       </td>
     </tr>
     <tr>
@@ -414,4 +421,4 @@
 
 ---
 
-> *Tài liệu được tạo bởi Nguyễn Anh Tài (TV1 — Developer/Analyst) phục vụ BTL Công nghệ Phần mềm (CO3001) — HCMUT.*
+> *Tài liệu được tạo bởi Nguyễn Anh Tài (TV2 — Developer/Analyst) phục vụ BTL Công nghệ Phần mềm (CO3001) — HCMUT.*

@@ -3,11 +3,18 @@
 ## What-if Infrastructure Failure — Mô phỏng What-if Sự cố Hạ tầng
 
 > **Dự án:** Smart E-Mobility Hub — ĐHQG-HCM  
-> **Phân hệ:** SS7 — What-if Infrastructure Failure   
-> **Tác giả:** Nguyễn Trung Nguyên 
+> **Phân hệ:** SS7 — What-if Infrastructure Failure (Mô phỏng sự cố Hạ tầng)  
+> **Tác giả:** Nguyễn Trung Nguyên (TV7 — Developer / Analyst)  
 > **Nhóm:** Nhóm 7 Thành viên — BTL Công nghệ Phần mềm (CO3001) — HCMUT  
 
 ---
+
+<style>
+  table { width: 100% !important; display: table !important; }
+  th, td { width: auto !important; }
+  td:first-child { width: 22% !important; white-space: nowrap; }
+  td:last-child { width: 78% !important; }
+</style>
 
 ## 🔹 USE-CASE 1: Mô phỏng sự cố mất điện / lỗi cổng sạc
 
@@ -50,7 +57,7 @@
     </tr>
     <tr>
       <td><strong>Trigger:</strong></td>
-      <td colspan="3">Kỹ thuật viên gạt nút (toggle) "Mô phỏng lỗi cổng sạc" hoặc "Mất điện toàn trạm" trên giao diện điều khiển SS7.".</td>
+      <td colspan="3">Kỹ thuật viên gạt nút (toggle) "Mô phỏng lỗi cổng sạc" hoặc "Mất điện toàn trạm" trên giao diện điều khiển SS7.</td>
     </tr>
     <tr>
       <td><strong>Preconditions:</strong></td>
