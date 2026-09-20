@@ -44,7 +44,7 @@
       <td><strong>Date Created:</strong></td>
       <td>08/09/2026</td>
       <td><strong>Date Last Updated:</strong></td>
-      <td>17/09/2026</td>
+      <td>20/09/2026</td>
     </tr>
     <tr>
       <td><strong>Actors:</strong></td>
@@ -138,7 +138,7 @@
       <td><strong>Date Created:</strong></td>
       <td>08/09/2026</td>
       <td><strong>Date Last Updated:</strong></td>
-      <td>17/09/2026</td>
+      <td>20/09/2026</td>
     </tr>
     <tr>
       <td><strong>Actors:</strong></td>
@@ -193,7 +193,7 @@
     <tr>
       <td><strong>Exceptions:</strong></td>
       <td colspan="3">
-        <strong>Exception 1 (Hub điểm đến đã lấp đầy 100% chỗ đỗ — available_slots == 0):</strong> Tại bước 1 hoặc 4, nếu Hub đích có <code>available_slots == 0</code>, hệ thống hiển thị cảnh báo đỏ "Hub đã hết chỗ đỗ" và tự động quét gợi ý 02 Hub lân cận gần nhất còn chỗ trống kèm khoảng cách để sinh viên chuyển hướng gửi xe.<br/>
+        <strong>Exception 1 (Hub điểm đến đã lấp đầy 100% chỗ đỗ — available_slots == 0 — Tích hợp FR-15c / SS7):</strong> Tại bước 1 hoặc 4, nếu Hub đích có <code>available_slots == 0</code>, hệ thống tự động: (a) hiển thị banner cảnh báo đỏ "Hub đã hết chỗ đỗ"; (b) kích hoạt module <em>Auto-Rerouting</em> (FR-15c / <code>UC_SS7_02</code>) quét tìm 02 Hub lân cận gần nhất còn <code>available_slots &gt; 0</code>; (c) hiển thị thông báo gợi ý điều hướng kèm khoảng cách (km), số chỗ trống và <strong>nút "Chuyển đặt chỗ 1 chạm"</strong> (One-tap Reroute). Khi sinh viên nhấn nút 1 chạm, hệ thống tự động khởi tạo lệnh trả xe tại Hub mới được chọn mà không cần nhập lại thông tin.<br/>
         <strong>Exception 2 (Xe chưa vào đúng vị trí đỗ / Ngoài vùng Geofence):</strong> Tại bước 4, nếu cảm biến IoT và định vị GPS xác định xe chưa nằm trong phạm vi Hub, hệ thống từ chối trả xe và báo lỗi "Vui lòng đưa xe vào đúng khu vực đỗ của Hub để hoàn tất trả xe".<br/>
         <strong>Exception 3 (Lỗi khóa chốt thông minh):</strong> Tại bước 5, nếu khóa thông minh báo lỗi không đóng được chốt, hệ thống giữ xe ở trạng thái chờ kiểm tra, thông báo sinh viên kiểm tra vật cản và kích hoạt cảnh báo đến Kỹ thuật viên hiện trường (SS4).
       </td>
@@ -235,7 +235,7 @@
       <td><strong>Date Created:</strong></td>
       <td>08/09/2026</td>
       <td><strong>Date Last Updated:</strong></td>
-      <td>17/09/2026</td>
+      <td>20/09/2026</td>
     </tr>
     <tr>
       <td><strong>Actors:</strong></td>
@@ -294,6 +294,28 @@
     </tr>
   </tbody>
 </table>
+
+---
+
+## 📎 PHỤ LỤC
+
+### A. Ghi chú về US-07 (Admin/Operator xem danh sách đặt chỗ & doanh thu)
+
+US-07 yêu cầu: *"Là một quản trị viên, tôi muốn xem danh sách đặt chỗ hiện tại và doanh thu dịch vụ xe chung để quản lý khả năng phục vụ và hiệu quả vận hành."*
+
+Phân hệ SS1 tập trung hoàn toàn vào luồng tác nhân **Sinh viên** (Student End-User). Yêu cầu US-07 được phục vụ thông qua **Dashboard giám sát vận hành** tại phân hệ **SS3** — cụ thể là `UC_SS3_01` (Giám Sát Trạng Thái Hub), nơi Operator/Admin truy cập KPI tổng hợp bao gồm: tổng số xe đang hoạt động, tỷ lệ lấp đầy, và doanh thu tạm tính (VNĐ). Dữ liệu đặt chỗ từ SS1 được đồng bộ thời gian thực sang Dashboard SS3 thông qua `st.session_state["hubs"]` và `st.session_state["bookings"]`.
+
+### B. Ma trận Truy vết Yêu cầu (FR/US → UC Mapping)
+
+| FR / US | Mô tả tóm tắt | UC ánh xạ |
+| :--- | :--- | :--- |
+| **FR-01** / US-01, US-02 | Đặt chỗ đỗ & chọn xe điện dùng chung (SoC filter, bảng giá) | `UC_SS1_01` |
+| **FR-01b** / US-02, US-03, US-04 | Tính phí thuê xe (30p miễn phí, voucher SV, cọc 50,000đ) | `UC_SS1_01`, `UC_SS1_02` |
+| **FR-01c** / US-03b, US-05b | Nhận xe QR/PIN (`IN_USE`) & Trả xe One-way (`AVAILABLE`) | `UC_SS1_01`, `UC_SS1_02` |
+| **FR-02** / US-05 | Hủy đặt xe & hoàn trả 100% tiền cọc trong 15 phút | `UC_SS1_03` |
+| **FR-15b** / US-06 | Xuất hóa đơn điện tử (e-invoice) sau chuyến đi | `UC_SS1_02` |
+| **FR-15c** / US-24b | Auto-rerouting khi Hub đích hết chỗ (tích hợp SS7) | `UC_SS1_02` Exception 1 |
+| *(US-07)* | Admin xem đặt chỗ & doanh thu → Ủy quyền SS3 Dashboard | `UC_SS3_01` (xem Phụ lục A) |
 
 ---
 
