@@ -135,24 +135,24 @@
       <td><strong>Date Created:</strong></td>
       <td>17/09/2026</td>
       <td><strong>Date Last Updated:</strong></td>
-      <td>17/09/2026</td>
+      <td>20/09/2026</td>
     </tr>
     <tr>
       <td><strong>Actors:</strong></td>
-      <td colspan="3"><strong>Primary:</strong> Sinh viên ĐHQG-HCM (Đang di chuyển hoặc đang chuẩn bị đặt chỗ).<br/><strong>Secondary:</strong> Module định vị/Bản đồ, Hệ thống phân tích không gian (Spatial Routing).</td>
+      <td colspan="3"><strong>Primary:</strong> Sinh viên ĐHQG-HCM (Đang di chuyển hoặc đang chuẩn bị đặt chỗ).<br/><strong>Secondary:</strong> Module định vị/Bản đồ, Hệ thống phân tích không gian (Spatial Routing), Phân hệ Đặt xe (SS1).</td>
     </tr>
     <tr>
       <td><strong>Description:</strong></td>
-      <td colspan="3">Khi một Hub bị mất điện đột ngột hoặc hết 100% chỗ đỗ/cổng sạc, hệ thống tự động quét vị trí địa lý, tìm ra 02 Hub gần nhất còn khả năng phục vụ. Sau đó, đẩy thông báo cảnh báo cho các sinh viên đang có lộ trình hướng đến Hub sự cố, kèm theo nút gợi ý chuyển hướng 1 chạm để không làm gián đoạn hành trình.</td>
+      <td colspan="3">Khi một Hub bị mất điện đột ngột hoặc hết 100% chỗ đỗ/cổng sạc, hệ thống tự động quét vị trí địa lý, tìm ra 02 Hub gần nhất còn khả năng phục vụ. Sau đó, đẩy thông báo cảnh báo cho các sinh viên đang có lộ trình hướng đến Hub sự cố, kèm theo nút gợi ý chuyển hướng 1 chạm (One-tap Rerouting). Khi sinh viên thao tác 1 chạm, hệ thống tự động chuyển tiếp lệnh giữ chỗ hiện tại sang Hub mới mà không yêu cầu thực hiện lại quy trình đặt xe từ đầu.</td>
     </tr>
     <tr>
       <td><strong>Trigger:</strong></td>
-      <td colspan="3">Hệ thống phát hiện Hub đích của sinh viên chuyển sang trạng thái lỗi (từ UC_SS7_01) hoặc lấp đầy 100% (<code>available_slots</code> == 0).</td>
+      <td colspan="3">Hệ thống phát hiện Hub đích của sinh viên chuyển sang trạng thái lỗi (từ <code>UC_SS7_01</code>) hoặc lấp đầy 100% (<code>available_slots</code> == 0).</td>
     </tr>
     <tr>
       <td><strong>Preconditions:</strong></td>
       <td colspan="3">
-        1. Sinh viên đang có lệnh đặt chỗ hoặc đang trong trạng thái IN_USE hướng về Hub bị lỗi.<br/>
+        1. Sinh viên đang có lệnh đặt chỗ hoặc đang trong trạng thái <code>IN_USE</code> hướng về Hub bị lỗi.<br/>
         2. Hệ thống đã xác định được ít nhất 01 Hub khác trong mạng lưới 6 Hub ĐHQG-HCM còn vị trí đỗ / cổng sạc trống.
       </td>
     </tr>
@@ -161,26 +161,26 @@
       <td colspan="3">
         1. Cảnh báo lỗi Hub đích được gửi thành công đến thiết bị của sinh viên. <br/>
         2. Nếu sinh viên chấp nhận gợi ý, lệnh đặt chỗ/đích đến được cập nhật tự động sang Hub mới trên <code>st.session_state</code>. <br/>
-        3. Số lượng chỗ đỗ tại Hub mới được giữ chỗ (RESERVED) tạm thời.
+        3. Số lượng chỗ đỗ tại Hub mới được giữ chỗ (<code>RESERVED</code>) tạm thời.
       </td>
     </tr>
     <tr>
       <td><strong>Normal Flow:</strong></td>
       <td colspan="3">
-        1. Hub A (Ví dụ: Hub Nhà điều hành ĐHQG) xảy ra sự cố mất điện từ kịch bản SS7_01. <br/>
+        1. Hub A (Ví dụ: Hub Nhà điều hành ĐHQG) xảy ra sự cố mất điện từ kịch bản <code>SS7_01</code>. <br/>
         2. Hệ thống rà soát và phát hiện Sinh viên X đang trên đường đến Hub A để trả xe/sạc xe.<br/> 
         3. Hệ thống kích hoạt module điều hướng, tự động quét bán kính khu vực và trích xuất ra 02 Hub gần nhất (Ví dụ: Hub Bách Khoa và Hub Thư viện Trung tâm) đang có <code>available_slots</code> > 0.<br/> 
         4. Ứng dụng di động của Sinh viên X bật Pop-up khẩn cấp: "Cảnh báo: Hub đích hiện đang mất điện/hết chỗ. Gợi ý chuyển hướng đến [Tên Hub lân cận] cách bạn [X] mét". <br/>
-        5. Giao diện cung cấp nút hành động nhanh: "Điều hướng đến Hub Bách Khoa". <br/>
-        6. Sinh viên nhấn xác nhận 1 chạm. <br/>
-        7. Hệ thống cập nhật lộ trình đích đến mới cho sinh viên, đồng thời khóa trước 1 chỗ đỗ tại Hub mới để đảm bảo chắc chắn có chỗ khi sinh viên tới nơi.
+        5. Giao diện cung cấp nút hành động nhanh: "Điều hướng & Đặt chỗ 1 chạm đến Hub Bách Khoa". <br/>
+        6. Sinh viên nhấn xác nhận 1 chạm. (Luồng hệ thống gọi ngầm sang <code>UC_SS1_01</code> của phân hệ SS1). <br/>
+        7. Hệ thống tiến hành xác thực <code>UC_SS1_01</code> chạy nền: hủy đích đến cũ, cập nhật lộ trình đích đến mới cho sinh viên, đồng thời khóa trước 1 chỗ đỗ tại Hub mới (<code>RESERVED</code>) để đảm bảo chắc chắn có chỗ khi sinh viên tới nơi mà không phải thao tác trừ tiền cọc lại từ đầu.
       </td>
     </tr>
     <tr>
       <td><strong>Alternative Flows:</strong></td>
       <td colspan="3">
         <strong>Alternative 1 (Từ từ chối gợi ý và tự tìm Hub khác):</strong> Tại bước 5, sinh viên không thích gợi ý của hệ thống và tắt Pop-up. Sinh viên chủ động mở bản đồ toàn mạng lưới và tự chọn một Hub C bất kỳ để làm đích đến mới. <br/>
-        <strong>Alternative 2 (Áp dụng cho đặt chỗ trước):</strong> Khi sinh viên chuẩn bị thao tác "Đặt chỗ" (SS1) tại một Hub đang bị sự cố, hệ thống chặn thao tác và hiển thị ngay danh sách 2 Hub gần nhất để sinh viên chọn đặt thay thế.
+        <strong>Alternative 2 (Áp dụng cho đặt chỗ trước):</strong> Khi sinh viên chuẩn bị thao tác "Đặt chỗ" (<code>UC_SS1_01</code>) tại một Hub đang bị sự cố, hệ thống chặn thao tác và hiển thị ngay danh sách 2 Hub gần nhất để sinh viên chọn đặt thay thế.
       </td>
     </tr>
     <tr>
