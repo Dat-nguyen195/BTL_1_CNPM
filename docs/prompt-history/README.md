@@ -9,7 +9,7 @@ docs/prompt-history/
 ├── README.md                        # Hướng dẫn chung (file này)
 ├── TV1_NguyenThanhDat/              # Nguyễn Thành Đạt – SS1
 ├── TV2_NguyenAnhTai/                # Nguyễn Anh Tài – SS2
-├── TV3_PhamTanDat/                  # Phạm Tấn Đạt – SS3
+├── TV3_PhamTienDat/                  # Phạm Tiến Đạt – SS3
 ├── TV4_DangHoangQuyNhan/            # Đặng Hoàng Quý Nhân – SS4
 ├── TV5_DuongDangKhoa/               # Dương Đăng Khoa – SS5
 ├── TV6_HoangVanTan/                 # Hoàng Văn Tấn – SS6
