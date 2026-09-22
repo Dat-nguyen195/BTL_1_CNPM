@@ -1,4 +1,4 @@
-# Nhật ký Prompt AI – PhamTiennDat (TV3)
+# Nhật ký Prompt AI – PhamTienDat (TV3)
 
 Push file nhật ký Prompt AI (PDF hoặc Markdown) của bạn vào thư mục này trên nhánh `feature/<mssv>-prompt-history` trước deadline nội bộ.
 
