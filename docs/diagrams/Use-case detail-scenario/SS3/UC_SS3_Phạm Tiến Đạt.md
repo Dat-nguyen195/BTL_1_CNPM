@@ -17,9 +17,8 @@
 |-|-|
 |**Use Case ID**|UC\_SS3\_01|
 |**Use Case Name**|Giám Sát Trạng Thái Hub|
-|**Created By**|Phạm Tiến Đạt|
-|**Last Updated By**|Phạm Tiến Đạt|
-|**Date Created**|09:00 18/09/2026|
+| **Created By:** | Phạm Tiến Đạt (TV3/Developer, Analyst) | **Last Updated By:** | Phạm Tiến Đạt |
+| **Date Created:** | 09:00 18/09/2026 | **Date Last Updated:** | 19:00 22/09/2026 |
 |**Date Last Updated:**|19:00 22/09/2026|
 |**Actors**|**Primary:** Nhân viên giám sát trung tâm (Hub Operator), Quản trị viên (Admin).<br>**Secondary:** Kỹ thuật viên, Hệ thống Mạng lưới Cảm biến IoT, Bộ nhớ tạm (`st.session_state`).|
 |**Description**|1. Nhân viên giám sát truy cập dashboard tổng quan để theo dõi các chỉ số vận hành thời gian thực bao gồm số lượng xe hiện diện, mức độ lấp đầy (slot khả dụng), doanh thu tạm tính và kiểm tra tình trạng lỗi/hoạt động của các cảm biến IoT tại Hub.<br>2. Quản trị viên (Admin) có thêm quyền xem dữ liệu doanh thu tổng hợp và thực hiện cấu hình các ngưỡng cảnh báo (theo quy định tại US-07 và US-13b).|
@@ -39,10 +38,8 @@
 |-|-|
 |**Use Case ID**|UC\_SS3\_02|
 |**Use Case Name**|Cảnh Báo Quá Tải|
-|**Created By**|Phạm Tiến Đạt|
-|**Last Updated By**|Phạm Tiến Đạt|
-|**Date Created**|09:30 18/09/2026|
-|**Date Last Updated**|19:30 22/09/2026|
+| **Created By:** | Phạm Tiến Đạt (TV3/Developer, Analyst) | **Last Updated By:** | Phạm Tiến Đạt |
+| **Date Created:** | 09:30 18/09/2026 | **Date Last Updated:** | 19:30 22/09/2026 |
 |**Actors**|**Primary:** Nhân viên giám sát trung tâm (Hub Operator).<br>**Secondary:** Hệ thống xử lý Logic (Multi-level alert logic), Phân hệ đặt xe (SS1/SS2), Phân hệ SS4.|
 |**Description**|Hệ thống liên tục theo dõi ngưỡng chiếm dụng của các Hub. Khi tỷ lệ lấp đầy vượt các mốc thiết lập (≥70%, ≥85%, 100%), hệ thống tự động phân cấp cảnh báo bằng màu sắc, âm thanh và kích hoạt cơ chế khóa Hub để ngăn chặn tình trạng kẹt xe/quá tải cục bộ.|
 |**Trigger**|Hệ thống quét dữ liệu lấp đầy định kỳ (hoặc theo sự kiện cập nhật số lượng chỗ trống từ Hub) và phát hiện ngưỡng chiếm dụng thay đổi vượt các mốc quy định.|
