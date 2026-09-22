@@ -4,7 +4,7 @@
 
 > **Dự án:** Smart E-Mobility Hub — ĐHQG-HCM  
 > **Phân hệ:** SS3 — Hub Monitoring (Giám sát mạng lưới Hub)  
-> **Tác giả:** Phạm Tấn Đạt (TV3 — Developer / Analyst)  
+> **Tác giả:** Phạm Tiến Đạt (TV3 — Developer / Analyst)  
 > **MSSV:** 2410724  
 > **Gmail:** dat.phamkhmtk24@hcmut.edu.vn  
 > **Nhóm:** Nhóm 7 Thành viên — BTL Công nghệ Phần mềm (CO3001) — HCMUT  
@@ -38,9 +38,9 @@
     </tr>
     <tr>
       <td><strong>Created By:</strong></td>
-      <td>Phạm Tấn Đạt (TV3/Developer, Analyst)</td>
+      <td>Phạm Tiến Đạt (TV3/Developer, Analyst)</td>
       <td><strong>Last Updated By:</strong></td>
-      <td>Phạm Tấn Đạt</td>
+      <td>Phạm Tiến Đạt</td>
     </tr>
     <tr>
       <td><strong>Date Created:</strong></td>
@@ -127,9 +127,9 @@
     </tr>
     <tr>
       <td><strong>Created By:</strong></td>
-      <td>Phạm Tấn Đạt (TV3/Developer, Analyst)</td>
+      <td>Phạm Tiến Đạt (TV3/Developer, Analyst)</td>
       <td><strong>Last Updated By:</strong></td>
-      <td>Phạm Tấn Đạt</td>
+      <td>Phạm Tiến Đạt</td>
     </tr>
     <tr>
       <td><strong>Date Created:</strong></td>
