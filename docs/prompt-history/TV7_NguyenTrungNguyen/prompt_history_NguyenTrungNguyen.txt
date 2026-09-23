@@ -1,0 +1,65 @@
+Smart E-Mobility Hub - SS7 Use-Case & Git Support
+User: Nguyễn Đăng Duy
+Created: 9/23/2026 20:15:22
+Updated: 9/23/2026 22:37:12
+Exported: 9/23/2026 22:37:12
+Link: https://gemini.google.com/chat/
+
+## Prompt:
+9/23/2026, 8:15:22 PM
+Vai trò nào dễ nhất trong 7 vai trò theo thứ tự
+
+## Prompt:
+9/23/2026, 8:30:10 PM
+tôi gửi bạn 1 số thông tin hãy viết cho tôi use case của ss7
+
+## Prompt:
+9/23/2026, 8:55:45 PM
+bạn viết gì vậy phải viết đặc tả chi tiết cho ss7 chứ
+đây tôi gửi lại file word 1 số bài làm để bạn tham khảo
+
+## Prompt:
+9/23/2026, 9:20:05 PM
+kiểm tra lại xem usecase đã hợp lý chưa 
+đặc biệt là file requirements-analysis.md phải chính xác các yêu cầu trong file này
+
+## Prompt:
+9/23/2026, 9:35:50 PM
+mở github này trên vscode
+
+## Prompt:
+9/23/2026, 9:42:15 PM
+tải 1 file word lên visual studio như nào ví dụ như hình
+
+## Prompt:
+9/23/2026, 9:48:30 PM
+làm sao để xem file .md trước khi tôi push lên github
+
+## Prompt:
+9/23/2026, 9:55:10 PM
+tôi muốn push lên github nhưng chỉ push đúng folder ss7 thôi tránh làm hỏng dự án
+
+## Prompt:
+9/23/2026, 10:02:45 PM
+tôi vừa thay đổi file UC_SS7_NguyenTrungNguyen.md giờ muốn đẩy lên github đúng file này thôi như nào
+
+## Prompt:
+9/23/2026, 10:10:20 PM
+tui thấy file github vừa mới trưởng dự án update làm sao để tôi update trên máy tôi hay nó update tự động?
+
+## Prompt:
+9/23/2026, 10:18:55 PM
+sao tôi pull rồi mà vẫn chưa thấy thay đổi gì đặc biệt là file đầu tiên cảu graph mới được thêm vào mà tôi chưa có
+
+## Prompt:
+9/23/2026, 10:25:30 PM
+đây là file ss7.md của tôi còn kia là file sửa chung của trưởng dự án hãy sửa lại theo đúng yêu cầu
+
+## Prompt:
+9/23/2026, 10:32:15 PM
+tạo 1 file prompt-history toàn bộ hội thoại để tôi nộp minh chứng cho việc có xài AI trong công việc
+
+## Prompt:
+9/23/2026, 10:37:12 PM
+file promt bạn xuất phải thỏa yêu cầu sau
+Hướng dẫn xuất lịch sử prompt từ ChatGPT...
