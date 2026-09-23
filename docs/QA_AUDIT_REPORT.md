@@ -23,8 +23,8 @@
 
 | Chỉ số                                              | Giá trị                        |
 | :---------------------------------------------------- | :------------------------------- |
-| **Tổng Use-Cases yêu cầu (SRS)**             | 14 UCs (7 phân hệ × 2 UCs)    |
-| **UCs có đặc tả nghiệp vụ hoàn chỉnh**  | **14/14 (100%)**                 |
+| **Tổng Use-Cases yêu cầu (SRS)**             | 17 UCs    |
+| **UCs có đặc tả nghiệp vụ hoàn chỉnh**  | **17/17 (100%)**                 |
 | **UCs thiếu hoàn toàn**                      | **0** (Đã bổ sung UC_SS5_02)   |
 | **UCs chỉ có .docx, chưa có .md**           | **0** (Đã chuyển đổi UC_SS5_01)|
 | **Lỗi logic nghiệp vụ cần thảo luận**     | **0** (Đã chuẩn hoá toàn bộ)   |
