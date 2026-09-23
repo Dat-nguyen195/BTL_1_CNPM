@@ -106,6 +106,11 @@ Exported: 21/09/2026 07:33:19
 Link: https://notebook.google.com/notebook/cceb86d1-f604-43e1-9681-685665e246cd
 
 ## Prompt:
+17/09/2026, 08:04:32 AM
+
+file sau khi sưả vẫn vậy
+
+## Prompt:
 17/09/2026, 08:10:19 AM
 
 kiểm tra xem ss4 đã đáp ưnsg yêu cầu chưa
@@ -156,14 +161,44 @@ ss7 đã đáp ứng được hết các yêu cầu đặt ra từ user stories 
 kiểm tra UC_SS3_Phạm Tiến Đạt.docx đã đạt yêu cầu chưa
 
 ## Prompt:
+19/09/2026, 04:25:19 AM
+
+bạn hoặc antigravity có thể đọc được file drawio không
+
+## Prompt:
+19/09/2026, 04:28:16 AM
+
+tôi không gưỉ file .drawio cho bạn được
+
+## Prompt:
+19/09/2026, 04:30:49 AM
+
+promt để yêu cầu antigravity kiểm tra System Use-case Diagram từ file smartEhub.drawio giúp tôi
+
+## Prompt:
+20/09/2026, 05:14:01 AM
+
+viết cho tôi promt tạo file .md cho UC_SS3_Phạm Tiến Đạt.docx
+
+## Prompt:
 20/09/2026, 05:16:33 AM
 
 viết cho tôi promt yêu cầu antigravity rà soát, kiểm tra và đánh giá lại toàn bộ use case diagram và usecase scenario
 
 ## Prompt:
+20/09/2026, 05:18:30 AM
+
+bổ sung vào promt yêu cầu antigravity tônrg hợp báo cáo đó vào 1 file .md để tôi triển khai trong cuộc họp sắp tới để các thành viên có thể sưả chuã, bổ sung vào file đó deadline để sửa cho các thành viên nếu có là 20h tôí t2 22/9/2026
+
+## Prompt:
 20/09/2026, 05:41:54 AM
 
 QA_AUDIT_REPORT.md là file báo cáo antigravity vưà tạo promt yêu cầu antigravity tự sưảt các lôĩ cú pháp như tên file, code file md,... chỉ tập trung tônrg hợp các lôĩ logic chưa đáp ưnsg yêu cầu từ file đặc tả và file requirement
+
+## Prompt:
+20/09/2026, 06:24:11 AM
+
+tôi đã cập nhật file QA_AUDIT_REPORT.md sau khi chỉnh sưả, giúp tôi promt yêu cầu antigratvity hoàn thiện phần việc cuả SS1 (tức cuả tôi) để đạt yêu cầu
 
 ## Prompt:
 21/09/2026, 07:12:10 AM

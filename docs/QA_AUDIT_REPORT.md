@@ -155,8 +155,9 @@
 
 ### 👤 TV7 — Nguyễn Trung Nguyên (SS7)
 
-- [ ] **[Logic]** UC_SS7_02 — Bổ sung mô tả rõ cơ chế **"nút chuyển đặt chỗ 1 chạm"** (One-tap Rerouting) mà US-24b yêu cầu: `tự động quét tìm 02 Hub gần nhất còn chỗ khả dụng và gửi thông báo gợi ý điều hướng kèm nút chuyển đặt chỗ 1 chạm`. Hiện description chỉ ghi "hỗ trợ điều phối viên đưa ra quyết định" mà chưa đề cập đến nút 1-chạm phía sinh viên.
-- [ ] **[Logic]** Làm rõ liên kết SS7 → SS1 trong UC_SS7_02: Khi sinh viên nhấn nút điều hướng 1 chạm, luồng có chuyển sang `UC_SS1_01` (đặt xe tại Hub mới) không? Cần reference chéo.
+- [x] **[Logic]** UC_SS7_02 — Đã bổ sung mô tả chi tiết cơ chế **"nút chuyển đặt chỗ 1 chạm"** (One-tap Rerouting Modal) theo US-24b / FR-15c: quét ma trận khoảng cách không gian (Spatial Matrix) tìm 02 Hub gần nhất còn chỗ trống và đẩy banner/modal trực tiếp đến sinh viên.
+- [x] **[Logic]** Đã làm rõ liên kết SS7 → SS1 trong UC_SS7_02: Khi sinh viên nhấn nút 1 chạm, luồng hệ thống gọi ngầm sang `UC_SS1_01` / `UC_SS1_02` (`student_booking.py`), hủy điểm đến cũ, cập nhật điểm đến mới, khóa trước slot đỗ (`RESERVED`) tại Hub mới, bảo toàn 100% tiền cọc và miễn phí bổ sung 15 phút di chuyển phát sinh.
+- [x] **[Artifacts]** Đã chuẩn hóa toàn bộ trạng thái sang UPPER_CASE (`OFFLINE`, `ERROR`, `WAITING`, `CHARGING`) và đồng bộ 100% giữa file `.md` và `.docx`.
 
 ---
 
