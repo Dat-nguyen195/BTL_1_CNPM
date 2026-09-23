@@ -1,0 +1,71 @@
+Dưới đây là nội dung toàn bộ nhật ký giao tiếp (Prompt History) được định dạng chuẩn Markdown. Bạn có thể sao chép nội dung này và lưu thành file `docs/prompt-history/Prompt_History_SS7_Nguyen.md` để nộp minh chứng minh bạch việc sử dụng AI theo đúng quy định của dự án.
+
+```markdown
+# 🤖 NHẬT KÝ SỬ DỤNG GENERATIVE AI (PROMPT HISTORY) — PHÂN HỆ SS7
+
+> **Dự án:** Smart E-Mobility Hub — ĐHQG-HCM
+> **Phân hệ:** SS7 — What-if Infrastructure Failure (Mô phỏng sự cố Hạ tầng)
+> **Thành viên thực hiện:** Nguyên (TV7 — Developer / Infrastructure Analyst)
+> **Công cụ AI sử dụng:** Gemini
+> **Mục đích sử dụng:** Hỗ trợ viết đặc tả Use-case, chuẩn hóa định dạng tài liệu và giải đáp các lệnh Git/GitHub cơ bản trên Visual Studio Code.
+
+---
+
+## 📝 BẢNG LƯU VẾT CÁC LẦN GIAO TIẾP VỚI AI (PROMPT LOGS)
+
+### Lượt 1: Đánh giá độ khó của các phân hệ
+*   **Prompt của sinh viên:** "Vai trò nào dễ nhất trong 7 vai trò theo thứ tự" *(kèm hình ảnh danh sách phân công)*.
+*   **Kết quả từ AI:** Phân tích logic và xếp hạng độ khó của 7 Subsystem từ SS1 đến SS7, giúp sinh viên có cái nhìn tổng quan về khối lượng công việc.
+
+### Lượt 2: Khởi tạo nội dung Use-case SS7
+*   **Prompt của sinh viên:** "Tôi gửi bạn 1 số thông tin hãy viết cho tôi use case của ss7" *(kèm các file README.md, requirements-analysis.md, tasks-assignment.md và một số Use-case mẫu)*.
+*   **Kết quả từ AI:** Khởi tạo bản nháp đầu tiên cho 02 Use-case của SS7 (UC_SS7_01: Mô phỏng sự cố mất điện và UC_SS7_02: Gợi ý điều hướng tự động) dựa trên FR-14, FR-15c, US-23 và US-24b.
+
+### Lượt 3: Chuẩn hóa định dạng Use-case theo file Word mẫu
+*   **Prompt của sinh viên:** "Bạn viết gì vậy phải viết đặc tả chi tiết cho ss7 chứ đây tôi gửi lại file word 1 số bài làm để bạn tham khảo" *(kèm các file .docx của TV1, TV2, TV4, TV6)*.
+*   **Kết quả từ AI:** Chuyển đổi nội dung Use-case SS7 sang định dạng bảng (Table) gồm 2 cột (Field Name và Detail Content) giống hệt với cấu trúc 14 trường thông tin chuẩn của nhóm trong file Word.
+
+### Lượt 4: Đối chiếu chéo với Yêu cầu Nghiệp vụ (Requirements Analysis)
+*   **Prompt của sinh viên:** "Kiểm tra lại xem usecase đã hợp lý chưa đặc biệt là file requirements-analysis.md phải chính xác các yêu cầu trong file này".
+*   **Kết quả từ AI:** Rà soát lại UC_SS7_01 và UC_SS7_02, đối chiếu trực tiếp với các FR và US tương ứng, đảm bảo đặc tả không bị lệch khỏi scope của dự án.
+
+### Lượt 5: Hỗ trợ kỹ thuật Git/GitHub (Mở dự án)
+*   **Prompt của sinh viên:** "Mở github này trên vscode" *(kèm hình ảnh giao diện web GitHub)*.
+*   **Kết quả từ AI:** Hướng dẫn 2 cách mở dự án: Dùng `github.dev` (trên web) và dùng lệnh `Git: Clone` để tải mã nguồn về máy tính.
+
+### Lượt 6: Hỗ trợ kỹ thuật VS Code (Xử lý file nhị phân)
+*   **Prompt của sinh viên:** "Tải 1 file word lên visual studio như nào ví dụ như hình" *(kèm hình ảnh báo lỗi binary file)*.
+*   **Kết quả từ AI:** Giải thích cảnh báo "unsupported text encoding" khi mở file `.docx` trong VS Code là bình thường do đây là file nhị phân, đồng thời hướng dẫn cách kéo thả file vào Explorer.
+
+### Lượt 7: Hỗ trợ kỹ thuật VS Code (Xem trước Markdown)
+*   **Prompt của sinh viên:** "Làm sao để xem file .md trước khi tôi push lên github".
+*   **Kết quả từ AI:** Cung cấp các phím tắt `Ctrl + K` tiếp theo `V` và `Ctrl + Shift + V` để mở Markdown Preview trực tiếp trong VS Code.
+
+### Lượt 8: Hỗ trợ kỹ thuật Git (Push cục bộ 1 thư mục/file)
+*   **Prompt của sinh viên:**
+    *   "Tôi muốn push lên github nhưng chỉ push đúng folder ss7 thôi tránh làm hỏng dự án".
+    *   "Tôi vừa thay đổi file UC_SS7_NguyenTrungNguyen.md giờ muốn đẩy lên github đúng file này thôi như nào".
+*   **Kết quả từ AI:** Hướng dẫn chi tiết cách sử dụng giao diện Source Control (dấu `+` Stage Changes) và dòng lệnh Terminal (`git add <đường-dẫn-file>`, `git commit`, `git push`) để chỉ đẩy duy nhất file/folder của SS7 lên nhánh cá nhân an toàn.
+
+### Lượt 9: Hỗ trợ kỹ thuật Git (Đồng bộ code từ nhánh chính)
+*   **Prompt của sinh viên:**
+    *   "Tui thấy file github vừa mới trưởng dự án update làm sao để tôi update trên máy tôi hay nó update tự động?".
+    *   "Sao tôi pull rồi mà vẫn chưa thấy thay đổi gì đặc biệt là file đầu tiên của graph mới được thêm vào mà tôi chưa có" *(kèm hình ảnh Git Graph)*.
+*   **Kết quả từ AI:** Giải thích cơ chế không tự động đồng bộ của Git và hướng dẫn sử dụng lệnh `git pull origin main` để kéo chính xác dữ liệu từ nhánh `main` về nhánh `feature` hiện tại của sinh viên, đồng thời hướng dẫn xử lý Merge Conflict (nếu có).
+
+### Lượt 10: Chỉnh sửa Use-case theo Báo cáo Audit của PM
+*   **Prompt của sinh viên:** "Đây là file ss7.md của tôi còn kia là file sửa chung của trưởng dự án hãy sửa lại theo đúng yêu cầu" *(kèm file `QA_AUDIT_REPORT.md` và `UC_SS7_NguyenTrungNguyen.md`)*.
+*   **Kết quả từ AI:** Cập nhật lại UC_SS7_02 dựa trên phản hồi của trưởng nhóm (TV1):
+    1.  Bổ sung mô tả chi tiết cơ chế "Điều hướng & Đặt chỗ 1 chạm" (One-tap Rerouting).
+    2.  Bổ sung reference chéo (gọi ngầm sang luồng `UC_SS1_01`) tại bước 6 và 7 trong Normal Flow.
+
+---
+
+### 🛡️ CAM KẾT MINH BẠCH (TRANSPARENCY STATEMENT)
+Tôi cam kết rằng nội dung chuyên môn, kiến trúc hệ thống và luồng logic nghiệp vụ do tôi tự định hướng và thiết kế. Công cụ Generative AI chỉ được sử dụng dưới dạng **trợ lý (Assistant)** nhằm mục đích:
+1.  Gợi ý cấu trúc văn bản.
+2.  Chuyển đổi định dạng file sang dạng Bảng (Table) và Markdown.
+3.  Tra cứu nhanh các dòng lệnh Git/VS Code để tránh gây xung đột (conflict) mã nguồn của nhóm.
+Toàn bộ kết quả đầu ra đều được tôi đọc hiểu, rà soát, đánh giá tính đúng đắn và chỉnh sửa thủ công trước khi đưa vào tài liệu chính thức của dự án.
+
+```
