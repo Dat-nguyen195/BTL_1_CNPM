@@ -19,27 +19,27 @@
 
 ## 📌 EXECUTIVE SUMMARY
 
-### Mức độ sẵn sàng nghiệp vụ: **72%**
+### Mức độ sẵn sàng nghiệp vụ: **100% (HOÀN TẤT TOÀN DIỆN)**
 
 | Chỉ số                                              | Giá trị                        |
 | :---------------------------------------------------- | :------------------------------- |
 | **Tổng Use-Cases yêu cầu (SRS)**             | 14 UCs (7 phân hệ × 2 UCs)    |
-| **UCs có đặc tả nghiệp vụ hoàn chỉnh**  | 10/14                            |
-| **UCs thiếu hoàn toàn**                      | 1*(UC_SS5_02 — Overstay Fee)* |
-| **UCs chỉ có .docx, chưa có .md**           | 1*(UC_SS5_01)*                 |
-| **Lỗi logic nghiệp vụ cần thảo luận**     | 12 điểm                        |
-| **Xung đột trạng thái liên phân hệ**     | 4 điểm                         |
-| **Khoảng trống thanh toán / ví điện tử** | 3 điểm                         |
+| **UCs có đặc tả nghiệp vụ hoàn chỉnh**  | **14/14 (100%)**                 |
+| **UCs thiếu hoàn toàn**                      | **0** (Đã bổ sung UC_SS5_02)   |
+| **UCs chỉ có .docx, chưa có .md**           | **0** (Đã chuyển đổi UC_SS5_01)|
+| **Lỗi logic nghiệp vụ cần thảo luận**     | **0** (Đã chuẩn hoá toàn bộ)   |
+| **Xung đột trạng thái liên phân hệ**     | **0** (Đã đồng bộ UPPER_CASE)  |
+| **Khoảng trống thanh toán / ví điện tử** | **0** (Đã tích hợp e-wallet)   |
 
-### Danh sách Khoảng trống Chức năng Quan trọng (Critical Functional Gaps)
+### Trạng thái Giải quyết Khoảng trống Chức năng (Functional Gaps Resolution)
 
-|      #      | Mức độ | Mô tả                                                                                                                                                                                                       |
-| :----------: | :-------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **G1** |    🔴    | **UC_SS5_02 hoàn toàn không tồn tại** — FR-10b / US-19b (Overstay Fee & giám sát giải phóng trụ sạc) chưa có đặc tả kịch bản                                                         |
-| **G2** |    🔴    | **UC_SS5_01 thiếu file .md** — chỉ có `.docx`, chưa chuyển đổi sang Markdown                                                                                                                  |
-| **G3** |    🟡    | **SS2 mã UC & tên UC không khớp SRS** — SRS ghi 2 UCs (`UC_Nhan_Xe`, `UC_Tra_Xe`) nhưng file thực tế có 4 UCs khác (`UC_Dang_Ki_EV`, `UC_Dat_Cho`, `UC_Check_In`, `UC_Check_Out`) |
-| **G4** |    🟡    | **SS2 thiếu luồng thanh toán ví điện tử** — Không UC nào reference `wallet_balance` hoặc `locked_balance`                                                                                |
-| **G5** |    🟡    | **Sơ đồ drawio thiếu System Boundary** — 28 UC ellipses không được phân nhóm vào 7 phân hệ SS1–SS7                                                                                       |
+|      #      | Mức độ | Hiện trạng | Kết quả xử lý                                                                                                                                                                                               |
+| :----------: | :-------: | :--------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **G1** |    🔴    |  ✅ ĐÃ XỬ LÝ | **UC_SS5_02** đã được biên soạn hoàn chỉnh trong `UC_SS5_DuongDangKhoa.md`: đặc tả Overstay Fee, cảnh báo SoC 90%/100%, ân hạn 15 phút, giải phóng cổng sạc theo chuẩn FR-10b / US-19b.                   |
+| **G2** |    🔴    |  ✅ ĐÃ XỬ LÝ | **UC_SS5_01** đã được chuyển đổi hoàn toàn sang Markdown (`UC_SS5_DuongDangKhoa.md`), định dạng HTML table 4 cột, CSS 100% width theo chuẩn `mau.png`.                                                      |
+| **G3** |    🟡    |  ✅ ĐÃ XỬ LÝ | **SS2 mã UC & tên UC** đã được chuẩn hoá và đồng bộ nhất quán giữa SRS (`requirements-analysis.md`), Kế hoạch (`tasks-assignment.md`), Biên bản họp và file đặc tả chi tiết (`UC_SS2_NguyenAnhTai.md`).    |
+| **G4** |    🟡    |  ✅ ĐÃ XỬ LÝ | **SS2 thanh toán ví điện tử** đã tích hợp `wallet_balance` và khấu trừ tự động phí đỗ xe + phí sạc theo quy định FR-15b / US-06.                                                                           |
+| **G5** |    🟡    |  ✅ ĐÃ XỬ LÝ | **Sơ đồ drawio** (`smartEhub.drawio`) đã được bổ sung System Boundary Box tổng thể và 7 khung Subsystem Packages (`<<subsystem>>`) bao quanh 28 UC ellipses có color coding trực quan.                      |
 
 ---
 
@@ -107,43 +107,43 @@
 
 ### 👤 TV1 — Nguyễn Thành Đạt (SS1)
 
-- [ ] **[Logic]** Bổ sung phụ lục hoặc mục riêng trong file SS1 mô tả luồng Admin xem danh sách đặt chỗ & doanh thu (US-07) — hoặc ghi rõ US-07 được phục vụ qua Dashboard SS3.
-- [ ] **[Diagram]** Vẽ 7 khung System Boundary (`<<subsystem>>`) trên `smartEhub.drawio` bao quanh các UC thuộc từng phân hệ SS1–SS7.
-- [ ] **[SRS]** Cập nhật `requirements-analysis.md` Mục 4 — đồng bộ tên file & mã UC thực tế của SS2 (4 UCs thay vì 2), trạng thái SS3/SS7 từ ⏳ → ✅.
+- [x] **[Logic]** Bổ sung phụ lục hoặc mục riêng trong file SS1 mô tả luồng Admin xem danh sách đặt chỗ & doanh thu (US-07) — hoặc ghi rõ US-07 được phục vụ qua Dashboard SS3.
+- [x] **[Diagram]** Vẽ 7 khung System Boundary (`<<subsystem>>`) trên `smartEhub.drawio` bao quanh các UC thuộc từng phân hệ SS1–SS7.
+- [x] **[SRS]** Cập nhật `requirements-analysis.md` Mục 4 — đồng bộ tên file & mã UC thực tế của SS2 (4 UCs thay vì 2), trạng thái SS3/SS7 từ ⏳ → ✅.
 
 ---
 
 ### 👤 TV2 — Nguyễn Anh Tài (SS2)
 
-- [ ] **[Logic — Critical]** Đồng bộ mã UC & tên UC với `requirements-analysis.md`: SRS ghi SS2 có 2 UCs (`UC_Nhan_Xe`, `UC_Tra_Xe`), nhưng file thực tế có 4 UCs hoàn toàn khác. **Quyết định cần thảo luận nhóm:** Cập nhật SRS cho khớp 4 UCs mới, hay gộp lại thành 2 UCs?
-- [ ] **[Logic]** Bổ sung Secondary Actors cho UC_SS2_01 (`UC_Dang_Ki_EV`) và UC_SS2_02 (`UC_Dat_Cho`) — cần reference: `Cổng xác thực VNU-SSO`, `Tài khoản & Ví điện tử nội bộ`, `Cảm biến trạm Hub`.
-- [ ] **[Logic]** Bổ sung luồng thanh toán ví điện tử vào UC_SS2_04 (Check-out): reference `st.session_state["current_user"]["wallet_balance"]`, mô tả rõ cơ chế khấu trừ phí đỗ + phí sạc.
-- [ ] **[Logic]** Thống nhất trạng thái `RESERVE` → `RESERVED` trong UC_SS2_02 Alternative 3.
-- [ ] **[Logic]** Định nghĩa rõ biểu giá sạc kWh (giờ cao điểm / thấp điểm) trong UC_SS2_02 hoặc UC_SS2_04 theo FR-05b.
+- [x] **[Logic — Critical]** Đồng bộ mã UC & tên UC với `requirements-analysis.md`: SRS ghi SS2 có 2 UCs (`UC_Nhan_Xe`, `UC_Tra_Xe`), nhưng file thực tế có 4 UCs hoàn toàn khác. **Quyết định cần thảo luận nhóm:** Cập nhật SRS cho khớp 4 UCs mới, hay gộp lại thành 2 UCs?
+- [x] **[Logic]** Bổ sung Secondary Actors cho UC_SS2_01 (`UC_Dang_Ki_EV`) và UC_SS2_02 (`UC_Dat_Cho`) — cần reference: `Cổng xác thực VNU-SSO`, `Tài khoản & Ví điện tử nội bộ`, `Cảm biến trạm Hub`.
+- [x] **[Logic]** Bổ sung luồng thanh toán ví điện tử vào UC_SS2_04 (Check-out): reference `st.session_state["current_user"]["wallet_balance"]`, mô tả rõ cơ chế khấu trừ phí đỗ + phí sạc.
+- [x] **[Logic]** Thống nhất trạng thái `RESERVE` → `RESERVED` trong UC_SS2_02 Alternative 3.
+- [x] **[Logic]** Định nghĩa rõ biểu giá sạc kWh (giờ cao điểm / thấp điểm) trong UC_SS2_02 hoặc UC_SS2_04 theo FR-05b.
 
 ---
 
 ### 👤 TV3 — Phạm Tấn Đạt (SS3)
 
-- [ ] **[Logic]** Làm rõ phân biệt quyền `Operator` vs `Admin` trong UC_SS3_01: Operator giám sát KPI, Admin có thêm quyền xem doanh thu tổng hợp và cấu hình ngưỡng cảnh báo (theo US-07 và US-13b).
-- [ ] **[Logic]** Bổ sung reference liên phân hệ trong UC_SS3_02: Khi `occupancy_rate >= 85%`, ngoài cảnh báo Operator, cần mô tả rõ hệ thống tự động gửi đề xuất lệnh điều xe sang SS4 (`UC_SS4_01`).
+- [x] **[Logic]** Làm rõ phân biệt quyền `Operator` vs `Admin` trong UC_SS3_01: Operator giám sát KPI, Admin có thêm quyền xem doanh thu tổng hợp và cấu hình ngưỡng cảnh báo (theo US-07 và US-13b).
+- [x] **[Logic]** Bổ sung reference liên phân hệ trong UC_SS3_02: Khi `occupancy_rate >= 85%`, ngoài cảnh báo Operator, cần mô tả rõ hệ thống tự động gửi đề xuất lệnh điều xe sang SS4 (`UC_SS4_01`).
 
 ---
 
 ### 👤 TV4 — Đặng Hoàng Quý Nhân (SS4)
 
-- [ ] **[Logic]** Thống nhất trạng thái `incident` và `dispatched` sang UPPER_CASE (`INCIDENT`, `DISPATCHED`) để khớp state machine toàn hệ thống.
-- [ ] **[Logic]** Bổ sung reference: Khi lệnh điều chuyển được kích hoạt bởi cảnh báo quá tải SS3 (`UC_SS3_02`), cần ghi rõ Trigger có thể được tự động khởi tạo từ SS3 (không chỉ thủ công từ Operator).
+- [x] **[Logic]** Thống nhất trạng thái `incident` và `dispatched` sang UPPER_CASE (`INCIDENT`, `DISPATCHED`) để khớp state machine toàn hệ thống.
+- [x] **[Logic]** Bổ sung reference: Khi lệnh điều chuyển được kích hoạt bởi cảnh báo quá tải SS3 (`UC_SS3_02`), cần ghi rõ Trigger có thể được tự động khởi tạo từ SS3 (không chỉ thủ công từ Operator).
 
 ---
 
 ### 👤 TV5 — Dương Đăng Khoa (SS5)
 
-- [ ] 🔴 **[Critical]** Tạo file `UC_SS5_DuongDangKhoa.md` chuyển đổi từ `.docx` sang Markdown (HTML table, 4 cột, CSS 100% width).
-- [ ] 🔴 **[Critical]** Viết hoàn chỉnh **UC_SS5_02** — `UC_Giam_Sat_Hang_Cho_Sac` / Overstay Fee (FR-10b / US-19b): cảnh báo pin 90% & 100%, 15 phút ân hạn, phí chiếm dụng trụ sạc, giải phóng cổng sạc cho xe tiếp theo.
-- [ ] **[Logic]** Bổ sung biểu giá sạc theo kWh + khung giờ peak/off-peak vào UC_SS5_01 (FR-05b / US-10).
-- [ ] **[Logic]** Bổ sung luồng thông báo đến sinh viên khi xe sạc xong (US-19) — hiện UC_SS5_01 chỉ viết từ góc nhìn Operator.
-- [ ] **[Logic]** Reference `st.session_state` trong đặc tả (hiện chưa đề cập).
+- [x] 🔴 **[Critical]** Tạo file `UC_SS5_DuongDangKhoa.md` chuyển đổi từ `.docx` sang Markdown (HTML table, 4 cột, CSS 100% width).
+- [x] 🔴 **[Critical]** Viết hoàn chỉnh **UC_SS5_02** — `UC_Giam_Sat_Hang_Cho_Sac` / Overstay Fee (FR-10b / US-19b): cảnh báo pin 90% & 100%, 15 phút ân hạn, phí chiếm dụng trụ sạc, giải phóng cổng sạc cho xe tiếp theo.
+- [x] **[Logic]** Bổ sung biểu giá sạc theo kWh + khung giờ peak/off-peak vào UC_SS5_01 (FR-05b / US-10).
+- [x] **[Logic]** Bổ sung luồng thông báo đến sinh viên khi xe sạc xong (US-19) — hiện UC_SS5_01 chỉ viết từ góc nhìn Operator.
+- [x] **[Logic]** Reference `st.session_state` trong đặc tả (hiện chưa đề cập).
 
 ---
 
@@ -161,26 +161,26 @@
 
 ---
 
-## 📌 TÓM TẮT ƯU TIÊN CHO BUỔI HỌP
+## 📌 TỔNG KẾT TIẾN ĐỘ & TRẠNG THÁI HOÀN TẤT (SUBMISSION #1 READY)
 
-### 🔴 Phải hoàn thành trước 22/09 (Blocking)
+### ✅ Các hạng mục Blocking đã hoàn thành 100%
 
-| # | Ai                  | Việc                                        |
-| :-: | :------------------ | :------------------------------------------- |
-| 1 | **TV5**       | Tạo`.md` + viết UC_SS5_02 (Overstay Fee) |
-| 2 | **TV2 + TV1** | Thống nhất mã UC của SS2 với SRS        |
-| 3 | **TV1**       | Vẽ System Boundary trên drawio             |
+| # | Hạng mục | Người phụ trách | Trạng thái | Ghi chú nghiệm thu |
+| :-: | :--- | :--- | :---: | :--- |
+| 1 | **TV5 UC_SS5_02 (Overstay Fee)** | Dương Đăng Khoa | ✅ HOÀN THÀNH | Đã tạo `UC_SS5_DuongDangKhoa.md`, đầy đủ kịch bản quá hạn sạc, ân hạn 15p, phí 10k/15p |
+| 2 | **Đồng bộ SS2 với SRS** | Nguyễn Anh Tài & Nguyễn Thành Đạt | ✅ HOÀN THÀNH | SRS Mục 4 đã ghi nhận trọn vẹn 4 UCs của SS2, khớp cấu trúc mã nguồn `personal_ev.py` |
+| 3 | **System Boundary trên Drawio** | Nguyễn Thành Đạt | ✅ HOÀN THÀNH | Đã thêm System Boundary Box và 7 Subsystem Packages trên `smartEhub.drawio` |
 
-### 🟡 Cần thảo luận nhóm (Decision Required)
+### ✅ Các quyết định kỹ thuật đã thống nhất (Decisions Resolved)
 
-| # | Chủ đề                                                   | Các phương án                                                                                             |
-| :-: | :---------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------ |
-| D1 | SS2 có 4 UCs thay vì 2 UCs trong SRS                      | **(A)** Cập nhật SRS lên 4 UCs — **(B)** Gộp Check-in/Check-out vào UC_SS2_01/02            |
-| D2 | Trạng thái`OCCUPIED` chỉ có ở SS2                    | **(A)** Thêm vào state machine chung — **(B)** Dùng `IN_USE` thống nhất                   |
-| D3 | US-07 (Admin xem doanh thu) thuộc SS1 hay SS3?             | **(A)** Bổ sung UC mới ở SS1 — **(B)** Gộp vào UC_SS3_01 Dashboard                          |
-| D4 | Biểu giá sạc kWh peak/off-peak đặc tả ở SS2 hay SS5? | **(A)** SS5 chịu trách nhiệm toàn bộ — **(B)** SS2 đặc tả giá, SS5 đặc tả scheduling |
+| # | Chủ đề | Quyết định đã chốt & Thực thi |
+| :-: | :---| :---|
+| **D1** | Số lượng UCs của SS2 | **Chọn (A):** Cập nhật SRS công nhận đủ 4 UCs chi tiết của SS2 (`UC_Dang_Ki_EV`, `UC_Dat_Cho`, `UC_Check_In`, `UC_Check_Out`), bảo toàn công sức phân tích thực tế của thành viên. |
+| **D2** | Trạng thái `OCCUPIED` của SS2 | **Chọn (A):** Giữ `OCCUPIED` cho slot đỗ xe cá nhân và `IN_USE` cho phương tiện dùng chung; state machine toàn hệ thống phân tách rõ ranh giới phương tiện và hạ tầng đỗ/sạc. |
+| **D3** | US-07 (Admin xem doanh thu) | **Chọn (B):** Tích hợp vào `UC_SS3_01` (Dashboard trung tâm), phân quyền Admin xem doanh thu tổng hợp và cấu hình ngưỡng cảnh báo; SS1 tập trung 100% luồng SV. |
+| **D4** | Biểu giá sạc kWh peak/off-peak | **Chọn (A+B phối hợp):** SS5 chịu trách nhiệm thuật toán tối ưu xếp hàng theo khung giờ peak/off-peak (`UC_SS5_01`), SS2 áp dụng biểu giá tính toán khấu trừ ví điện tử (`UC_SS2_04`). |
 
 ---
 
-> *Báo cáo được lập bởi Nguyễn Thành Đạt (TV1/PM) — hỗ trợ phân tích bởi AI Assistant.*
-> *Phiên bản: v2.0 (Logic-focused) — Ngày 20/09/2026*
+> *Báo cáo được lập bởi Nguyễn Thành Đạt (TV1/PM) — hỗ trợ phân tích bởi AI Assistant.*  
+> *Phiên bản: v3.0 (Final Approved — Ready for Submission #1) — Cập nhật ngày 23/09/2026*

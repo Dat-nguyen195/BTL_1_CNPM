@@ -76,7 +76,7 @@ st.sidebar.metric("Chỗ trống", f"{total_available}/{total_slots}")
 st.sidebar.metric("Cổng sạc trống", f"{total_ports_avail}/{total_ports}")
 
 st.sidebar.divider()
-st.sidebar.caption("© 2025 – Nhóm SV HCMUT | Môn Công nghệ Phần mềm")
+st.sidebar.caption("© 2026 – Nhóm SV HCMUT | Môn Công nghệ Phần mềm")
 
 
 # ──────────────────────────────────────────────

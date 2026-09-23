@@ -5,6 +5,8 @@
 > **Dự án:** Smart E-Mobility Hub — ĐHQG-HCM  
 > **Phân hệ:** SS7 — What-if Infrastructure Failure (Mô phỏng sự cố Hạ tầng)  
 > **Tác giả:** Nguyễn Trung Nguyên (TV7 — Infrastructure & Simulation Specialist)  
+> **MSSV:** 2011710  
+> **Email:** nguyen.nguyen1111@hcmut.edu.vn  
 > **Nhóm:** Nhóm 7 Thành viên — BTL Công nghệ Phần mềm (CO3001) — HCMUT  
 
 ---

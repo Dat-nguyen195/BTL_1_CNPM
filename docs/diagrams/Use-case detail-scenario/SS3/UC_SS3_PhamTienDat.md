@@ -197,4 +197,15 @@
 
 ---
 
-> *Tài liệu được tạo bởi Phạm Tấn Đạt (TV3 — Developer/Analyst) phục vụ BTL Công nghệ Phần mềm (CO3001) — HCMUT.*
+> *Tài liệu được tạo bởi Phạm Tiến Đạt (TV3 — Developer/Analyst) phục vụ BTL Công nghệ Phần mềm (CO3001) — HCMUT.*
+
+---
+
+## 📎 PHỤ LỤC: Ma trận Truy vết Yêu cầu (FR/US → UC Mapping)
+
+| FR / US | Mô tả tóm tắt | UC ánh xạ |
+| :--- | :--- | :--- |
+| **FR-05** / US-13 | Dashboard giám sát hub & cảnh báo tải thời gian thực | `UC_SS3_01` |
+| **FR-05c** / US-13b | Cảnh báo phân cấp ngưỡng chiếm dụng Hub (Vàng ≥70%, Đỏ ≥85%, Khóa 100%) | `UC_SS3_02` |
+| **FR-06** / US-14 | Thông báo IoT khi phát hiện lỗi cảm biến / trạm sạc | `UC_SS3_01` (Alternative 1) |
+| *(Liên kết)* US-07 | Admin xem doanh thu tổng hợp & cấu hình ngưỡng → Ủy quyền từ SS1 | `UC_SS3_01` (Description mục 2) |

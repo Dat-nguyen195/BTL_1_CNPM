@@ -13,7 +13,7 @@ docs/prompt-history/
 ├── TV4_DangHoangQuyNhan/            # Đặng Hoàng Quý Nhân – SS4
 ├── TV5_DuongDangKhoa/               # Dương Đăng Khoa – SS5
 ├── TV6_HoangVanTan/                 # Hoàng Văn Tấn – SS6
-└── TV7_Nguyen/                      # Nguyên – SS7
+└── TV7_NguyenTrungNguyen/                      # Nguyễn Trung Nguyên – SS7
 ```
 
 ## Quy trình nộp bài (Git Workflow)

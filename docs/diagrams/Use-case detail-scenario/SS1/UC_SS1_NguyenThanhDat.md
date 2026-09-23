@@ -5,6 +5,8 @@
 > **Dự án:** Smart E-Mobility Hub — ĐHQG-HCM  
 > **Phân hệ:** SS1 — Student EV Booking & Shared Services  
 > **Tác giả:** Nguyễn Thành Đạt (TV1 — Leader / PM)  
+> **MSSV:** 2410709  
+> **Email:** dat.nguyen19052006@hcmut.edu.vn  
 > **Nhóm:** Nhóm 7 Thành viên — BTL Công nghệ Phần mềm (CO3001) — HCMUT  
 
 ---

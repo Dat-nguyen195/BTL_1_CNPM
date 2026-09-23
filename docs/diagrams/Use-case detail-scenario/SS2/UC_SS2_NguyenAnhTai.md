@@ -4,10 +4,19 @@
 
 > **Dự án:** Smart E-Mobility Hub — ĐHQG-HCM
 > **Phân hệ:** SS2 — Student Personal EV Parking & Charging Services
-> **Tác giả:** Nguyễn Anh Tài (TV2 — Developer / Analyst)
+> **Tác giả:** Nguyễn Anh Tài (TV2 — Developer / Analyst)  
+> **MSSV:** 2413035  
+> **Email:** tai.nguyenanh1906@hcmut.edu.vn
 > **Nhóm:** Nhóm 7 Thành viên — BTL Công nghệ Phần mềm (CO3001) — HCMUT
 
 ---
+
+<style>
+  table { width: 100% !important; display: table !important; }
+  th, td { width: auto !important; }
+  td:first-child { width: 22% !important; white-space: nowrap; }
+  td:last-child { width: 78% !important; }
+</style>
 
 ## USE CASE 01: Đăng ký xe EV cá nhân lên hệ thống
 
@@ -67,7 +76,7 @@
       <td><strong>Postconditions:</strong></td>
       <td colspan="3">
         1. Hồ sơ xe được lưu, có mã định danh và được liên kết với tài khoản sinh viên.<br/>
-        2. Xe được ghi nhận ở trạng thái <strong>Đã đăng ký</strong> và có thể được lựa chọn khi đặt dịch vụ.
+        2. Xe được ghi nhận ở trạng thái <code>REGISTERED</code> và có thể được lựa chọn khi đặt dịch vụ.
       </td>
     </tr>
     <tr>
@@ -274,7 +283,7 @@
       <td><strong>Postconditions:</strong></td>
       <td colspan="3">
         1. Thời điểm vào thực tế được ghi nhận và phiên đỗ bắt đầu.<br/>
-        2. Đơn chuyển sang <strong>Đã Check-in</strong>; vị trí đỗ chuyển từ <code>RESERVED</code> sang <code>OCCUPIED</code>. Cổng sạc giữ trạng thái được phân bổ/RESERVED cho tới khi sinh viên xác thực tại trụ và kết nối xe thành công.<br/>
+        2. Đơn chuyển sang <code>CHECKED_IN</code>; vị trí đỗ chuyển từ <code>RESERVED</code> sang <code>OCCUPIED</code>. Cổng sạc giữ trạng thái được phân bổ/RESERVED cho tới khi sinh viên xác thực tại trụ và kết nối xe thành công.<br/>
         3. Xe được ghi nhận hiện diện tại Hub và sinh viên được hướng dẫn đến vị trí đã cấp.
       </td>
     </tr>
@@ -419,3 +428,15 @@
 ---
 
 > *Tài liệu được tạo bởi Nguyễn Anh Tài (TV2 — Developer/Analyst) phục vụ BTL Công nghệ Phần mềm (CO3001) — HCMUT.*
+
+---
+
+## 📎 PHỤ LỤC: Ma trận Truy vết Yêu cầu (FR/US → UC Mapping)
+
+| FR / US | Mô tả tóm tắt | UC ánh xạ |
+| :--- | :--- | :--- |
+| **FR-03** / US-08 | Đăng ký xe EV cá nhân (biển số, loại xe, dung lượng pin) | `UC_SS2_01` |
+| **FR-04** / US-10 | Đặt lịch sạc & đặt chỗ đỗ cho xe cá nhân | `UC_SS2_02` |
+| **FR-05b** / US-09, US-10, US-11 | Tính phí đỗ xe & phí sạc kWh theo peak/off-peak | `UC_SS2_02`, `UC_SS2_04` |
+| **FR-03b** / US-11b | Xác thực Check-in / Check-out xe cá nhân tại cổng Hub | `UC_SS2_03`, `UC_SS2_04` |
+| **FR-15b** / US-06, US-11 | Xuất hóa đơn điện tử tích hợp phí đỗ + phí sạc | `UC_SS2_04` |

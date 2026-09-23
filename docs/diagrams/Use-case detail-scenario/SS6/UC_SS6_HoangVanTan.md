@@ -5,6 +5,8 @@
 > **Dự án:** Smart E-Mobility Hub — ĐHQG-HCM  
 > **Phân hệ:** SS6 — What-if Demand Simulation (Mô phỏng What-if Nhu cầu Sinh viên)  
 > **Tác giả:** Hoàng Văn Tấn (TV6 — Developer / Simulation Specialist)  
+> **MSSV:** 2213074  
+> **Email:** tan.hoang0815@hcmut.edu.vn  
 > **Nhóm:** Nhóm 7 Thành viên — BTL Công nghệ Phần mềm (CO3001) — HCMUT  
 
 ---
@@ -84,7 +86,7 @@
         4. Nhà phân tích nhập số lượng sinh viên đến đột biến từ tàu Metro (ví dụ: 20 sinh viên, cho phép từ 5 đến 100).<br/>
         5. Nhà phân tích nhấn nút "Chạy mô phỏng Metro Surge".<br/>
         6. Hệ thống khởi tạo đối tượng <code>HubEventSimulator</code> với bản sao sâu (deep copy) từ <code>st.session_state["hubs"]</code>.<br/>
-        7. Hệ thống gọi phương thức <code>simulate_metro_surge()</code>: trừ số chỗ đỗ khả dụng tương ứng số khách đến (giới hạn tối thiểu = 0), tự động sinh các xe mới (scooter/bike, mã <code>EV-SURGE-xxxx</code>, pin 10–40%, status = <code>parked</code>) và giảm số cổng sạc trống.<br/>
+        7. Hệ thống gọi phương thức <code>simulate_metro_surge()</code>: trừ số chỗ đỗ khả dụng tương ứng số khách đến (giới hạn tối thiểu = 0), tự động sinh các xe mới (scooter/bike, mã <code>EV-SURGE-xxxx</code>, pin 10–40%, status = <code>AVAILABLE</code>) và giảm số cổng sạc trống.<br/>
         8. Hệ thống tính toán tỷ lệ lấp đầy: <code>occupancy = 1 - available_slots / total_slots</code>. Nếu <code>occupancy &gt; 0.85</code>, hệ thống tự động gắn thông điệp cảnh báo quá tải vào nhật ký.<br/>
         9. Hệ thống hiển thị toàn bộ lịch trình nhật ký sự kiện với định dạng màu sắc tương ứng (Bắt đầu: Info, Cảnh báo: Error/Warning, Chi tiết: Text).<br/>
         10. Hệ thống hiển thị bảng so sánh Trước / Sau mô phỏng với 3 chỉ số chính: Chỗ trống, Cổng sạc trống, Tổng xe kèm mức biến thiên delta.<br/>
@@ -211,3 +213,12 @@
 ---
 
 > *Tài liệu được tạo bởi Hoàng Văn Tấn (TV6 — Developer/Simulation Specialist) phục vụ BTL Công nghệ Phần mềm (CO3001) — HCMUT.*
+
+---
+
+## 📎 PHỤ LỤC: Ma trận Truy vết Yêu cầu (FR/US → UC Mapping)
+
+| FR / US | Mô tả tóm tắt | UC ánh xạ |
+| :--- | :--- | :--- |
+| **FR-12** / US-21 | Mô phỏng nhu cầu sinh viên tăng đột biến từ Ga Metro (What-if Metro Surge) | `UC_SS6_01` |
+| **FR-13** / US-22 | Biểu đồ dự báo nhu cầu & phân tích phụ tải hàng đợi 24h (thời gian chờ trung bình) | `UC_SS6_02` |
