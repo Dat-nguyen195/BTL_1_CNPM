@@ -1,0 +1,18 @@
+From: https://gemini.google.com/app/ae9ed9c93ae1cdfb
+
+
+
+you asked
+
+message time: 2026-09-17 16:34:36
+
+Bạn là 1 Business Analyst chuyên nghiệp, với use-case Điều phối & Xử lý sự cố được cung cấp sẵn, hãy đề xuất giúp tôi viết Use-case detail-scenario cho  SS6 – Mô phỏng nhu cầu SV (đầu vào)  với cấu trúc như vậy.Với vai trò Tuyến Metro số 1 (Ga ĐHQG-HCM) Cung cấp dữ liệu về lưu lượng hành khách, thời gian đến
+Dựa theo user stories sau : Là một nhà phân tích tôi muốn mô phỏng tăng/giảm nhu cầu sinh viên dựa trên dữ liệu Metro để dự đoán tải.
+Là một nhà quản lý tôi muốn xem biểu đồ dự báo nhu cầu để lên kế hoạch mở rộng hub.
+Viết dưới dạng file md
+
+you asked
+
+message time: 4:38 PM, 9/17/2026
+
+Sửa lại file md SS6 cho giống cấu trúc của các file SS khác
