@@ -22,7 +22,7 @@
 **NHÓM BÁO CÁO:** NHÓM 1 (7 THÀNH VIÊN)  
 
 | STT | Họ và Tên | MSSV | Vai trò Phụ trách | Phân hệ (Subsystem) & Use-Case Scenarios |
-| :---: | :--- | :---: | :--- | :--- |
+| :---: | :--- | :---: | :---: | :--- | :--- |
 | 1 | **Nguyễn Thành Đạt** | **2410709** | **Nhóm trưởng (PM)** | **SS1:** Đặt & Quản lý Xe điện dùng chung (`UC_SS1_01`, `UC_SS1_02`, `UC_SS1_03`) |
 | 2 | **Nguyễn Anh Tài** | **2413035** | Developer / Analyst | **SS2:** Đăng ký Sạc & Đỗ xe cá nhân (`UC_SS2_01`, `UC_SS2_02`, `UC_SS2_03`, `UC_SS2_04`) |
 | 3 | **Phạm Tiến Đạt** | **2410724** | Developer / Analyst | **SS3:** Giám sát Mạng lưới Hub & Cảnh báo quá tải (`UC_SS3_01`, `UC_SS3_02`) |
@@ -34,6 +34,29 @@
 <div align="center">
 <b>Thành phố Hồ Chí Minh, Tháng 09/2026</b>
 </div>
+
+---
+
+
+## 📑 DANH MỤC HÌNH ẢNH (LIST OF FIGURES)
+| Ký hiệu | Tên Hình ảnh / Sơ đồ | Vị trí / Mục | Trang |
+| :---: | :--- | :---: | :---: |
+| **Hình 0.1** | Logo Trường Đại học Bách Khoa – ĐHQG-HCM | Trang bìa  | |
+| **Hình 1.1** | Sơ đồ Use-Case Tổng thể Hệ thống Smart E-Mobility Hub (`smartEhub.drawio`) | Mục 2.2.1  | |
+
+## 📑 DANH MỤC BẢNG BIỂU (LIST OF TABLES)
+| Ký hiệu | Tên Bảng biểu Nghiệp vụ | Vị trí / Mục | Trang |
+| :---: | :--- | :---: | :---: |
+| **Bảng 0.1** | Danh sách Thành viên Nhóm 1, MSSV và Phân hệ Phụ trách | Trang bìa  | |
+| **Bảng 0.2** | Ma trận Kỳ vọng và Quyền hạn của các Bên liên quan (Stakeholder Matrix) | Mục 0.2  | |
+| **Bảng 1.1** | Danh mục 30 User Stories Hệ thống (US-01 đến US-24b) | Mục 1.1  | |
+| **Bảng 1.2** | Ma trận 23 Yêu cầu Chức năng Hệ thống (FR-01 đến FR-15c) | Mục 1.2  | |
+| **Bảng 1.3** | Danh mục Yêu cầu Chức năng Phi tương tác (Bonus Work) | Mục 1.3  | |
+| **Bảng 2.1** | Danh mục 14 Yêu cầu Phi chức năng Tổng thể (NFR-01 đến NFR-14) | Mục 2.1  | |
+| **Bảng 2.2** | Bảng Mô tả Tổng quan 17 Use-Cases (Use-case Description) | Mục 2.2.2  | |
+| **Bảng 3.1** | Ma trận Kiểm tra chéo (Peer Review) 17 Kịch bản Use-Case Cá nhân | Mục 3.1  | |
+| **Bảng 5.1** | Nhật ký Họp nhóm Định kỳ (Meeting Minutes Summary #1, #2, #3) | Mục 5.2  | |
+| **Bảng 6.1** | Tuyên bố Minh bạch Generative AI Statement (Sử dụng AI) | Mục 6.1  | |
 
 ---
 
@@ -52,6 +75,9 @@
 | **Khối Quản lý (Strategic Analysts)** | Cấu hình ngưỡng quá tải, phân tích KPI tài chính và dự báo nhu cầu 24h. |
 | **Hệ thống Ngoại vi (External Systems)** | Tuyến Metro số 1, Mạng lưới cảm biến IoT trạm sạc/barie, Cổng VNU-SSO, Cổng Thanh toán nội bộ. |
 
+*Bảng 0.2: Ma trận Kỳ vọng và Quyền hạn của các Bên liên quan (Stakeholder Matrix)*
+
+
 ### 0.3. Scope & Boundaries (Phạm vi Dự án)
 #### ✅ Trong phạm vi (In-Scope)
 - Quản lý trạng thái phương tiện/slot đỗ/cổng sạc (AVAILABLE → IN_USE).
@@ -68,41 +94,46 @@
 
 ## 📌 CHƯƠNG 1: YÊU CẦU CHỨC NĂNG HỆ THỐNG & SƠ ĐỒ USE-CASE TỔNG THỂ
 
-### 1.1. Sơ đồ Use-Case (System Use-Case Diagram)
+#### 2.2. Sơ đồ Use-Case Tổng thể và Mô tả Hệ thống (System Use-Case Structure)
+
+##### 2.2.1. Use-case diagram
+- **System Boundary Box:** Hiển thị hình ảnh sơ đồ UML `smartEhub.drawio` được đặt trong Ranh giới Hệ thống có tên `"Smart E-Mobility Hub System"`.
 
 ![Sơ đồ Use-Case Tổng thể](./diagrams/system/smartEhub.drawio)
 *(Lưu ý: Bạn có thể cần xuất file này ra dạng PNG để nhúng trực tiếp vào các trình xem Markdown không hỗ trợ file drawio)*
 
-### 1.2. Phân tích Cấu trúc Sơ đồ
-Sơ đồ Use-Case tuân thủ nghiêm ngặt theo chuẩn UML với cấu trúc như sau:
-- **Ranh giới hệ thống (System Boundary Box):** Toàn bộ 28 Use-Case tổng quan được đặt gọn gàng trong Boundary Box mang tên `"Smart E-Mobility Hub System"`.
-- **4 Nhóm Tác nhân (Actors):** Được đặt hoàn toàn bên ngoài ranh giới hệ thống:
-  1. `Sinh viên ĐHQG-HCM`
-  2. `Nhân viên Vận hành Hub`
-  3. `Kỹ thuật viên`
-  4. `Hệ thống Ngoại vi`
-- **7 Phân hệ (Subsystems):** 28 Use-Case được nhóm trực quan vào 7 khối Phân hệ (từ SS1 đến SS7) thể hiện tính bao đóng của logic.
-- **Quan hệ chuẩn hóa:** Thể hiện đầy đủ các đường Associations từ Actors đến Use Case, và các quan hệ phụ thuộc nội bộ bằng `<<include>>` và `<<extend>>`.
+##### 2.2.2. Use-case description (Bảng Mô tả Tổng quan Hệ thống Smart E-Mobility Hub)
+
+| Name, description | **Smart E-Mobility Hub System:** Hệ thống sinh thái quản lý và chia sẻ phương tiện di chuyển thông minh tại ĐHQG-HCM, bao gồm xe đạp/xe máy điện dùng chung (Shared EVs) và quản lý xe điện cá nhân (Personal EVs). |
+| --- | --- |
+| **Actors** | Sinh viên ĐHQG-HCM, Operator / Admin, Cổng VNU-SSO, Hệ thống IoT (Cảm biến, Khóa thông minh), Strategic Analyst. |
+| **Pre-condition** | Cơ sở hạ tầng (Hubs, Trạm sạc, IoT) được triển khai tại ĐHQG-HCM; Người dùng có tài khoản VNU-SSO và số dư ví điện tử hợp lệ. |
+| **Post-condition** | Người dùng hoàn tất chuyến đi, xe cập nhật vị trí/mức pin mới; Hệ thống ghi nhận doanh thu và điều phối tự động nếu cần. |
+
+**Main Success Path (primary flow)**
+
+| Actor Actions | System Responses |
+| --- | --- |
+| 1. Sinh viên đăng nhập, tra cứu xe tại Hub và nhấn đặt xe.<br/>2. Sinh viên quét mã nhận xe (Pick-up) và bắt đầu di chuyển.<br/>3. Sinh viên trả xe tại Hub đích và thanh toán cước phí.<br/>4. Admin / Operator theo dõi bảng điều khiển. | 1.1 Hệ thống xác thực VNU-SSO, tạm khóa tiền cọc và cấp mã QR/PIN.<br/>2.1 Hệ thống mở khóa IoT, chuyển trạng thái xe sang IN_USE và tính giờ.<br/>3.1 Hệ thống chốt cước, hoàn cọc, và cập nhật trạng thái xe thành AVAILABLE.<br/>4.1 Hệ thống cung cấp KPI thời gian thực và tự động điều phối sạc. |
+
+**Alternate Path (A1: Sử dụng xe cá nhân)**
+
+| Actor Actions | System Responses |
+| --- | --- |
+| 1. Sinh viên đăng ký biển số và đặt chỗ đỗ sạc. | 1.1 Hệ thống lưu hồ sơ, mở barie IoT qua nhận diện biển số và tính phí sạc kWh. |
+
+**Exception Path (E1: Sự cố và Quá tải)**
+
+| Actor Actions | System Responses |
+| --- | --- |
+| 1. Sinh viên báo cáo xe hỏng hóc hoặc Hub hết chỗ. | 1.1 Hệ thống khóa xe (INCIDENT), tự động hoàn tiền và đề xuất 1-chạm đổi sang Hub lân cận. |
+
+*Bảng 2.2: Use Case Template Mô tả Tổng quan Hệ thống Smart E-Mobility Hub*
+
 
 ---
 
-## 📌 CHƯƠNG 2: DANH SÁCH USER STORIES & NON-FUNCTIONAL REQUIREMENTS
 
-### 2.1. Danh sách User Stories (Bao quát 7 Phân hệ)
-- **SS1:** US-01 (Đặt chỗ), US-02 (Tra cứu), US-03 (Thanh toán cọc 15p), US-04 (Voucher), US-05 (Hủy/Trả xe & E-invoice).
-- **SS2:** US-08 (Đăng ký xe cá nhân), US-09 (Đặt vị trí đỗ), US-10 (Đặt lịch sạc kWh), US-11 (Thanh toán Barie).
-- **SS3:** US-13 (Dashboard tổng quan), US-13b (Cảnh báo quá tải phân cấp 70%-85%-100%), US-14 (Cảnh báo IoT).
-- **SS4:** US-15 (Chỉ định điều phối tải), US-16 (Báo cáo sự cố), US-17 (Lịch sử sự cố).
-- **SS5:** US-18 (Xếp hàng sạc SoC), US-19b (Phạt chiếm dụng Overstay Fee), US-20 (Giới hạn công suất Peak Capping).
-- **SS6:** US-21 (Mô phỏng lưu lượng Metro Surge), US-22 (Biểu đồ phụ tải 24h).
-- **SS7:** US-23 (Mô phỏng lỗi trạm sạc), US-24b (Tự động đề xuất điều hướng 1-chạm).
-
-### 2.2. Yêu cầu Phi chức năng (Non-Functional Requirements)
-- **Hiệu năng & Khả năng mở rộng (Performance & Scalability):** Hệ thống có khả năng xử lý mượt mà mô phỏng tăng đột biến nhu cầu khách Metro mà không bị gián đoạn. Dữ liệu xử lý tức thời.
-- **Khả năng Bảo trì (Maintainability):** Kiến trúc module hóa tách biệt 7 Subsystem rõ ràng, dễ dàng bảo trì độc lập.
-- **Độ tin cậy & Chịu lỗi (Reliability):** Cơ chế What-if lỗi phần cứng cho phép hệ thống tự động fallback và gửi cảnh báo (Auto-rerouting).
-
----
 
 ## 📌 CHƯƠNG 3: MẠNG LƯỚI YÊU CẦU CHỨC NĂNG (MAPPING)
 *(Trích xuất tiêu biểu ánh xạ từ US sang Functional Requirements)*
@@ -120,6 +151,9 @@ Sơ đồ Use-Case tuân thủ nghiêm ngặt theo chuẩn UML với cấu trúc
 | **FR-12** | Mô phỏng lưu lượng Metro Surge tăng đột biến | SS6 |
 | **FR-14** | Kích hoạt kịch bản sự cố mất điện / hỏng cổng sạc | SS7 |
 | **FR-15c** | Gợi ý tự động điều hướng sang Hub lân cận (Auto-rerouting) | SS7 |
+
+*Bảng 1: 2. Ma trận 23 Yêu cầu Chức năng Hệ thống (FR-01 đến FR-15c)*
+
 
 ---
 
