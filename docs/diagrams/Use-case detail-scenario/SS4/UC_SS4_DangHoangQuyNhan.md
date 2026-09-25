@@ -5,6 +5,8 @@
 > **Dự án:** Smart E-Mobility Hub — ĐHQG-HCM  
 > **Phân hệ:** SS4 — Vehicle Dispatch & Incident Management  
 > **Tác giả:** Đặng Hoàng Quý Nhân (TV4 — Developer / Analyst)  
+> **MSSV:** 2412401  
+> **Email:** nhan.dangcs06@hcmut.edu.vn  
 > **Nhóm:** Nhóm 7 Thành viên — BTL Công nghệ Phần mềm (CO3001) — HCMUT  
 
 ---
@@ -56,20 +58,20 @@
     </tr>
     <tr>
       <td><strong>Trigger:</strong></td>
-      <td colspan="3">Operator phát hiện tình trạng mất cân đối xe giữa các Hub trên Dashboard (hoặc nhận cảnh báo quá tải từ SS3) và nhấn chọn tính năng "Điều chuyển phương tiện".</td>
+      <td colspan="3">1. <strong>Thủ công:</strong> Operator phát hiện tình trạng mất cân đối xe giữa các Hub trên Dashboard và nhấn chọn tính năng "Điều chuyển phương tiện".<br/>2. <strong>Tự động:</strong> Khi <code>UC_SS3_02</code> (Cảnh Báo Quá Tải) phát hiện Hub có tỷ lệ lấp đầy ≥ 85% và Operator xác nhận thực hiện điều phối, hệ thống chuyển sang quy trình điều phối phương tiện tại SS4.</td>
     </tr>
     <tr>
       <td><strong>Preconditions:</strong></td>
       <td colspan="3">
         1. Operator đã đăng nhập thành công vào hệ thống với quyền hạn hợp lệ.<br/>
-        2. Hub nguồn còn ít nhất 01 phương tiện ở trạng thái sẵn sàng (status = <code>parked</code>).<br/>
+        2. Hub nguồn còn ít nhất 01 phương tiện ở trạng thái sẵn sàng (status = <code>AVAILABLE</code>).<br/>
         3. Hub đích còn vị trí đỗ trống (<code>available_slots &gt; 0</code>).
       </td>
     </tr>
     <tr>
       <td><strong>Postconditions:</strong></td>
       <td colspan="3">
-        1. Các phương tiện được chọn chuyển trạng thái từ <code>parked</code> sang <code>dispatched</code> và được gán vào danh sách xe của Hub đích.<br/>
+        1. Các phương tiện được chọn chuyển trạng thái từ <code>AVAILABLE</code> sang <code>DISPATCHED</code> và được gán vào danh sách xe của Hub đích.<br/>
         2. Số chỗ đỗ trống (<code>available_slots</code>) tại Hub nguồn tăng tương ứng và tại Hub đích giảm tương ứng.<br/>
         3. Lệnh điều phối được ghi nhận chi tiết vào <code>st.session_state["dispatch_log"]</code>.<br/>
         4. Dữ liệu trên Dashboard giám sát (SS3) được cập nhật đồng bộ thời gian thực.
@@ -80,12 +82,12 @@
       <td colspan="3">
         1. Operator truy cập tab "Điều chuyển phương tiện" trên giao diện phân hệ SS4.<br/>
         2. Operator chọn Hub xuất phát (Hub nguồn) và Hub điểm đến (Hub đích) từ danh sách Hub.<br/>
-        3. Hệ thống lọc và hiển thị danh sách các xe khả dụng (status = <code>parked</code>) tại Hub nguồn kèm mức pin (SoC %) và loại xe.<br/>
+        3. Hệ thống lọc và hiển thị danh sách các xe khả dụng (status = <code>AVAILABLE</code>) tại Hub nguồn kèm mức pin (SoC %) và loại xe.<br/>
         4. Operator tích chọn một hoặc nhiều phương tiện cần điều phối.<br/>
         5. Operator nhập lý do điều phối (ví dụ: "Cân bằng tải Hub KTX Khu B, giảm tải giờ cao điểm").<br/>
         6. Operator nhấn nút "Thực hiện điều phối".<br/>
         7. Hệ thống kiểm tra tính hợp lệ của lệnh điều phối và thực hiện chuyển xe từ Hub nguồn sang Hub đích trong <code>st.session_state["hubs"]</code>.<br/>
-        8. Hệ thống cập nhật trạng thái các xe thành <code>dispatched</code>, cập nhật số chỗ trống của cả hai Hub.<br/>
+        8. Hệ thống cập nhật trạng thái các xe thành <code>DISPATCHED</code>, cập nhật số chỗ trống của cả hai Hub.<br/>
         9. Hệ thống lưu bản ghi vào nhật ký <code>dispatch_log</code> và hiển thị thông báo thành công: "Đã điều phối N xe từ Hub A → Hub B".
       </td>
     </tr>
@@ -101,7 +103,7 @@
       <td colspan="3">
         <strong>Exception 1 (Hub nguồn và đích trùng nhau):</strong> Tại bước 6, nếu Operator chọn Hub nguồn trùng với Hub đích, hệ thống báo lỗi: "Hub nguồn và Hub đích phải khác nhau!" và không thực hiện lệnh.<br/>
         <strong>Exception 2 (Chưa chọn phương tiện điều phối):</strong> Tại bước 6, nếu Operator chưa tích chọn xe nào, hệ thống báo lỗi: "Vui lòng chọn ít nhất 1 xe để điều phối."<br/>
-        <strong>Exception 3 (Hub nguồn không có xe sẵn sàng):</strong> Tại bước 3, nếu Hub nguồn không có xe nào ở trạng thái <code>parked</code>, hệ thống hiển thị thông báo: "Không có xe khả dụng tại Hub nguồn" và vô hiệu hóa nút gửi lệnh.
+        <strong>Exception 3 (Hub nguồn không có xe sẵn sàng):</strong> Tại bước 3, nếu Hub nguồn không có xe nào ở trạng thái <code>AVAILABLE</code>, hệ thống hiển thị thông báo: "Không có xe khả dụng tại Hub nguồn" và vô hiệu hóa nút gửi lệnh.
       </td>
     </tr>
     <tr>
@@ -165,7 +167,7 @@
     <tr>
       <td><strong>Postconditions:</strong></td>
       <td colspan="3">
-        1. Trạng thái phương tiện bị sự cố được cập nhật thành <code>incident</code> (khóa phương tiện, không cho sinh viên đặt).<br/>
+        1. Trạng thái phương tiện bị sự cố được cập nhật thành <code>INCIDENT</code> (khóa phương tiện, không cho sinh viên đặt).<br/>
         2. Thông tin sự cố được ghi nhận vào nhật ký <code>st.session_state["incident_log"]</code> (thời gian, Hub, ID xe, loại sự cố, mức độ nghiêm trọng, ghi chú).<br/>
         3. Hệ thống kích hoạt cảnh báo đỏ đặc biệt nếu mức độ sự cố là "Cao" hoặc "Khẩn cấp".
       </td>
@@ -180,7 +182,7 @@
         5. Operator chọn loại sự cố: "Xe hết pin", "Va chạm", "Hư hỏng kỹ thuật", "Lỗi cổng sạc", hoặc "Xe mất tích / Bị lấy trộm".<br/>
         6. Operator điều chỉnh mức độ nghiêm trọng (Thấp, Trung bình, Cao, Khẩn cấp) và nhập nội dung chi tiết vào ô ghi chú.<br/>
         7. Operator nhấn nút "Gửi báo cáo sự cố".<br/>
-        8. Hệ thống tìm xe theo ID trong <code>st.session_state["hubs"]</code>, cập nhật trạng thái xe thành <code>incident</code>.<br/>
+        8. Hệ thống tìm xe theo ID trong <code>st.session_state["hubs"]</code>, cập nhật trạng thái xe thành <code>INCIDENT</code>.<br/>
         9. Hệ thống lưu bản ghi sự cố vào <code>incident_log</code> và hiển thị thông báo thành công: "Đã ghi nhận sự cố xe [ID] tại Hub [Tên Hub]".<br/>
         10. Nếu mức độ là "Cao" hoặc "Khẩn cấp", hệ thống hiển thị cảnh báo đỏ yêu cầu đội ngũ kỹ thuật xử lý khẩn cấp.
       </td>
@@ -199,10 +201,20 @@
     </tr>
     <tr>
       <td><strong>Notes and Issues:</strong></td>
-      <td colspan="3">Phương tiện ở trạng thái <code>incident</code> phải lập tức bị ẩn/khóa khỏi danh sách phương tiện khả dụng trên phân hệ SS1 (Đặt xe cho sinh viên) để đảm bảo an toàn vận hành.</td>
+      <td colspan="3">Phương tiện ở trạng thái <code>INCIDENT</code> phải lập tức bị ẩn/khóa khỏi danh sách phương tiện khả dụng trên phân hệ SS1 (Đặt xe cho sinh viên) để đảm bảo an toàn vận hành.</td>
     </tr>
   </tbody>
 </table>
+
+---
+
+## 📎 PHỤ LỤC: Ma trận Truy vết Yêu cầu (FR/US → UC Mapping)
+
+| FR / US | Mô tả tóm tắt | UC ánh xạ |
+| :--- | :--- | :--- |
+| **FR-07** / US-15 | Điều phối xe giữa các hub để cân bằng phụ tải | `UC_SS4_01` |
+| **FR-08** / US-16, US-17 | Báo cáo, tiếp nhận xử lý và lưu lịch sử sự cố phương tiện | `UC_SS4_02` |
+| *(Liên kết)* US-13b | Cảnh báo quá tải tự động kích hoạt điều phối → SS3 `UC_SS3_02` | `UC_SS4_01` Trigger tự động |
 
 ---
 

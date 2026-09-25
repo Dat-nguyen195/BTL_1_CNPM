@@ -4,7 +4,7 @@
 
 > **Dự án:** Smart E-Mobility Hub — ĐHQG-HCM  
 > **Phân hệ:** SS3 — Hub Monitoring (Giám sát mạng lưới Hub)  
-> **Tác giả:** Phạm Tấn Đạt (TV3 — Developer / Analyst)  
+> **Tác giả:** Phạm Tiến Đạt (TV3 — Developer / Analyst)  
 > **MSSV:** 2410724  
 > **Gmail:** dat.phamkhmtk24@hcmut.edu.vn  
 > **Nhóm:** Nhóm 7 Thành viên — BTL Công nghệ Phần mềm (CO3001) — HCMUT  
@@ -38,23 +38,26 @@
     </tr>
     <tr>
       <td><strong>Created By:</strong></td>
-      <td>Phạm Tấn Đạt (TV3/Developer, Analyst)</td>
+      <td>Phạm Tiến Đạt (TV3/Developer, Analyst)</td>
       <td><strong>Last Updated By:</strong></td>
-      <td>Phạm Tấn Đạt</td>
+      <td>Phạm Tiến Đạt</td>
     </tr>
     <tr>
       <td><strong>Date Created:</strong></td>
       <td>12/09/2026</td>
       <td><strong>Date Last Updated:</strong></td>
-      <td>18/09/2026</td>
+      <td>22/09/2026</td>
     </tr>
     <tr>
       <td><strong>Actors:</strong></td>
-      <td colspan="3"><strong>Primary:</strong> Nhân viên giám sát trung tâm (Hub Operator).<br/><strong>Secondary:</strong> Kỹ thuật viên, Hệ thống Mạng lưới Cảm biến IoT, Bộ nhớ tạm (<code>st.session_state</code>).</td>
+      <td colspan="3"><strong>Primary:</strong> Nhân viên giám sát trung tâm (Hub Operator), Quản trị viên (Admin).<br/><strong>Secondary:</strong> Kỹ thuật viên, Hệ thống Mạng lưới Cảm biến IoT, Bộ nhớ tạm (<code>st.session_state</code>).</td>
     </tr>
     <tr>
       <td><strong>Description:</strong></td>
-      <td colspan="3">Nhân viên giám sát truy cập dashboard tổng quan để theo dõi các chỉ số vận hành thời gian thực bao gồm số lượng xe hiện diện, mức độ lấp đầy (slot khả dụng), doanh thu tạm tính và kiểm tra tình trạng lỗi/hoạt động của các cảm biến IoT tại Hub.</td>
+      <td colspan="3">
+        1. Nhân viên giám sát truy cập dashboard tổng quan để theo dõi các chỉ số vận hành thời gian thực bao gồm số lượng xe hiện diện, mức độ lấp đầy (slot khả dụng), doanh thu tạm tính và kiểm tra tình trạng lỗi/hoạt động của các cảm biến IoT tại Hub.<br/>
+        2. Quản trị viên (Admin) có thêm quyền xem dữ liệu doanh thu tổng hợp và thực hiện cấu hình các ngưỡng cảnh báo (theo quy định tại US-07 và US-13b).
+      </td>
     </tr>
     <tr>
       <td><strong>Trigger:</strong></td>
@@ -63,7 +66,7 @@
     <tr>
       <td><strong>Preconditions:</strong></td>
       <td colspan="3">
-        1. Operator/Kỹ thuật viên đã đăng nhập thành công vào hệ thống với quyền hạn hợp lệ.<br/>
+        1. Operator/Admin/Kỹ thuật viên đã đăng nhập thành công vào hệ thống với quyền hạn hợp lệ.<br/>
         2. Mạng lưới cảm biến IoT tại các trạm đang hoạt động và liên tục gửi dữ liệu về hệ thống trung tâm.
       </td>
     </tr>
@@ -79,8 +82,8 @@
       <td colspan="3">
         1. Operator truy cập tab "Dashboard Giám sát" trên giao diện phân hệ SS3.<br/>
         2. Hệ thống truy xuất dữ liệu từ Bộ nhớ tạm <code>st.session_state["hubs"]</code> và Mạng lưới Cảm biến IoT.<br/>
-        3. Hệ thống trả về trang tổng quan (Dashboard) hiển thị: tổng số lượng xe đang hoạt động, tỷ lệ lấp đầy tại từng Hub, và doanh thu tạm tính (theo VNĐ).<br/>
-        4. Operator quan sát các chỉ số liên tục được cập nhật theo thời gian thực.<br/>
+        3. Hệ thống trả về trang tổng quan (Dashboard) hiển thị: tổng số lượng xe đang hoạt động, tỷ lệ lấp đầy tại từng Hub, và doanh thu tạm tính (theo VNĐ). Đối với tài khoản Admin, hệ thống hiển thị bổ sung doanh thu tổng hợp và cung cấp công cụ cấu hình ngưỡng cảnh báo.<br/>
+        4. Operator/Admin quan sát các chỉ số liên tục được cập nhật theo thời gian thực.<br/>
         5. Kỹ thuật viên (nếu có) nhấp chọn mục "Log/Lỗi IoT" trên Dashboard.<br/>
         6. Hệ thống hiển thị danh sách các cảm biến đang gặp sự cố kết nối hoặc dữ liệu bất thường.<br/>
         7. Kỹ thuật viên ghi nhận thông tin (vị trí Hub, loại cảm biến) và lên phương án khắc phục bảo trì.
@@ -127,19 +130,19 @@
     </tr>
     <tr>
       <td><strong>Created By:</strong></td>
-      <td>Phạm Tấn Đạt (TV3/Developer, Analyst)</td>
+      <td>Phạm Tiến Đạt (TV3/Developer, Analyst)</td>
       <td><strong>Last Updated By:</strong></td>
-      <td>Phạm Tấn Đạt</td>
+      <td>Phạm Tiến Đạt</td>
     </tr>
     <tr>
       <td><strong>Date Created:</strong></td>
       <td>12/09/2026</td>
       <td><strong>Date Last Updated:</strong></td>
-      <td>18/09/2026</td>
+      <td>22/09/2026</td>
     </tr>
     <tr>
       <td><strong>Actors:</strong></td>
-      <td colspan="3"><strong>Primary:</strong> Nhân viên giám sát trung tâm (Hub Operator).<br/><strong>Secondary:</strong> Hệ thống xử lý Logic (Multi-level alert logic), Phân hệ đặt xe (SS1/SS2).</td>
+      <td colspan="3"><strong>Primary:</strong> Nhân viên giám sát trung tâm (Hub Operator).<br/><strong>Secondary:</strong> Hệ thống xử lý Logic (Multi-level alert logic), Phân hệ đặt xe (SS1/SS2), Phân hệ SS4.</td>
     </tr>
     <tr>
       <td><strong>Description:</strong></td>
@@ -175,7 +178,7 @@
     <tr>
       <td><strong>Alternative Flows:</strong></td>
       <td colspan="3">
-        <strong>Alternative 1 (Nguy cơ quá tải cao):</strong> Tại bước 2, hệ thống phát hiện ngưỡng chiếm dụng đạt ≥ 85% (nhưng &lt; 100%). Hệ thống chuyển màu hiển thị sang Màu đỏ nhấp nháy và đẩy pop-up/âm thanh cảnh báo khẩn cấp. Operator nhấp xác nhận cảnh báo để tiến hành quy trình Điều phối (chuyển sang SS4).<br/><br/>
+        <strong>Alternative 1 (Nguy cơ quá tải cao):</strong> Tại bước 2, hệ thống phát hiện ngưỡng chiếm dụng đạt ≥ 85% (nhưng &lt; 100%). Hệ thống chuyển màu hiển thị sang Màu đỏ nhấp nháy và đẩy pop-up/âm thanh cảnh báo khẩn cấp. Cùng lúc đó, hệ thống tự động gửi đề xuất lệnh điều xe sang phân hệ SS4 (theo uc_ss4_01). Operator sau đó nhấp xác nhận cảnh báo để tiến hành quy trình Điều phối (chuyển sang SS4).<br/>
         <strong>Alternative 2 (Quá tải toàn phần - Khóa Hub):</strong> Tại bước 2, hệ thống phát hiện Hub A đạt mức lấp đầy 100% (hoặc đã hết sạch xe). Hệ thống tự động Khóa tính năng nhận đặt chỗ/đặt xe tại Hub đó. Biểu tượng Khóa Đỏ khẩn cấp hiển thị trên Dashboard, đồng thời từ chối mọi truy vấn đặt chỗ mới từ phía Sinh viên (SS1/SS2).
       </td>
     </tr>
@@ -194,4 +197,15 @@
 
 ---
 
-> *Tài liệu được tạo bởi Phạm Tấn Đạt (TV3 — Developer/Analyst) phục vụ BTL Công nghệ Phần mềm (CO3001) — HCMUT.*
+> *Tài liệu được tạo bởi Phạm Tiến Đạt (TV3 — Developer/Analyst) phục vụ BTL Công nghệ Phần mềm (CO3001) — HCMUT.*
+
+---
+
+## 📎 PHỤ LỤC: Ma trận Truy vết Yêu cầu (FR/US → UC Mapping)
+
+| FR / US | Mô tả tóm tắt | UC ánh xạ |
+| :--- | :--- | :--- |
+| **FR-05** / US-13 | Dashboard giám sát hub & cảnh báo tải thời gian thực | `UC_SS3_01` |
+| **FR-05c** / US-13b | Cảnh báo phân cấp ngưỡng chiếm dụng Hub (Vàng ≥70%, Đỏ ≥85%, Khóa 100%) | `UC_SS3_02` |
+| **FR-06** / US-14 | Thông báo IoT khi phát hiện lỗi cảm biến / trạm sạc | `UC_SS3_01` (Alternative 1) |
+| *(Liên kết)* US-07 | Admin xem doanh thu tổng hợp & cấu hình ngưỡng → Ủy quyền từ SS1 | `UC_SS3_01` (Description mục 2) |
