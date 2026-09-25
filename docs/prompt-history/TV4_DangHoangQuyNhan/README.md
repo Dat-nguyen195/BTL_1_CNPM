@@ -1,5 +1,21 @@
-# Nhật ký Prompt AI – DangHoangQuyNhan (TV4)
+Liên hệ giữa Use Case
 
-Push file nhật ký Prompt AI (PDF hoặc Markdown) của bạn vào thư mục này trên nhánh `feature/<mssv>-prompt-history` trước deadline nội bộ.
+User: Anonymous
+Created: 9/24/2026 12:41:19
+Updated: 9/24/2026 12:44:15
+Exported: 9/24/2026 12:45:47
+Link: https://chatgpt.com/c/6ab4b7fe-84e4-83ec-8024-64ec251255da
 
-**Tên file bắt buộc:** `Prompt_History_Sprint1_<MSSV>_DangHoangQuyNhan.pdf`
+## Prompt:
+9/24/2026, 12:43:03 PM
+
+cách liên hệ sự chuyển nhượng xử lí của use case này sang use case khác
+
+## Prompt:
+9/24/2026, 12:44:12 PM
+
+tôi có use case A và use case B, tôi muốn viết trigger của B để thể hiện tình huống được truyền từ A
+
+
+
+Powered by ChatGPT Exporter (https://www.chatgptexporter.com)
