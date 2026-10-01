@@ -137,8 +137,6 @@
     \hline
     \textbf{Ký hiệu} & \textbf{Tên hình ảnh / Sơ đồ} & \textbf{Vị trí / Mục} & \textbf{Số trang} \\
     \hline
-    \textbf{Hình 0.1} & Logo Trường Đại học Bách Khoa -- ĐHQG-HCM & Trang bìa & 1 \\
-    \hline
     \textbf{Hình 1.1} & Sơ đồ Use-Case Tổng thể Hệ thống Smart E-Mobility Hub (\texttt{smartEhub.drawio}) & Mục 2.2.1 & 9 \\
     \hline
 \end{tabularx}
@@ -411,11 +409,17 @@ Xác thực VNU-SSO thực tế --- sử dụng mock authentication.
 \hline
 1. Sinh viên đăng ký biển số và đặt chỗ đỗ sạc. & 1.1 Hệ thống lưu hồ sơ, mở barie IoT qua nhận diện và tính phí sạc. \\
 \hline
-\multicolumn{2}{|l|}{\textbf{Exception Path (E1: Sự cố và Quá tải)}} \\
+\multicolumn{2}{|l|}{\textbf{Alternate Path (A2: Báo cáo hỏng hóc và Quá tải)}} \\
 \hline
 \textbf{Actor Actions} & \textbf{System Responses} \\
 \hline
 1. Sinh viên báo cáo xe hỏng hóc hoặc Hub hết chỗ. & 1.1 Hệ thống khóa xe (INCIDENT), tự động hoàn tiền và điều hướng. \\
+\hline
+\multicolumn{2}{|l|}{\textbf{Exception Path (E1: Sự cố hệ thống / Mất điện lưới)}} \\
+\hline
+\textbf{Actor Actions} & \textbf{System Responses} \\
+\hline
+1. (Không tương tác) Hệ thống sập, mất kết nối IoT hoặc mất điện. & 1.1 Hệ thống kích hoạt Local Offline Caching, tự động lưu giao dịch và hiển thị thông báo bảo trì. \\
 \hline
 \end{tabularx}
 \begin{center}\textit{Bảng 2.2: Use Case Template Mô tả Tổng quan Hệ thống Smart E-Mobility Hub}\end{center}

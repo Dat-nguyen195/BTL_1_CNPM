@@ -95,14 +95,15 @@
       <td><strong>Alternative Flows:</strong></td>
       <td colspan="3">
         <strong>Alternative 1 (Không khai báo hãng/model):</strong> Tại bước 4, sinh viên có thể bỏ qua thông tin hãng/model nếu các thông tin bắt buộc đã đầy đủ, hoặc chỉ muốn đăng kí xe để đỗ.<br/>
-        <strong>Alternative 2 (Xe đã đăng ký trong cùng tài khoản):</strong> Tại bước 5, hệ thống hiển thị hồ sơ hiện có để sinh viên tiếp tục sử dụng, không tạo hồ sơ trùng.
+        <strong>Alternative 2 (Xe đã đăng ký trong cùng tài khoản):</strong> Tại bước 5, hệ thống hiển thị hồ sơ hiện có để sinh viên tiếp tục sử dụng, không tạo hồ sơ trùng.<br/>
+        <strong>Alternative 3 (Thông tin không hợp lệ):</strong> Tại bước 5, hệ thống chỉ rõ ô thông tin thiếu hoặc sai và yêu cầu điều chỉnh.<br/>
+        <strong>Alternative 4 (Biển số thuộc tài khoản khác):</strong> Tại bước 6, hệ thống từ chối đăng ký, hiện thông báo và hướng dẫn sinh viên liên hệ bộ phận hỗ trợ.
       </td>
     </tr>
     <tr>
       <td><strong>Exceptions:</strong></td>
       <td colspan="3">
-        <strong>Exception 1 (Thông tin không hợp lệ):</strong> Tại bước 5, hệ thống chỉ rõ ô thông tin thiếu hoặc sai và yêu cầu điều chỉnh.<br/>
-        <strong>Exception 2 (Biển số thuộc tài khoản khác):</strong> Tại bước 6, hệ thống từ chối đăng ký, hiện thông báo và hướng dẫn sinh viên liên hệ bộ phận hỗ trợ.
+                <strong>Exception 1 (Sự cố hệ thống / Mất kết nối):</strong> Nếu hệ thống bị sập nguồn, mất kết nối CSDL hoặc lỗi server, hệ thống sẽ tự động đóng băng các giao dịch đang xử lý, lưu cache cục bộ và hiển thị thông báo lỗi "Hệ thống đang bảo trì hoặc gián đoạn. Vui lòng thử lại sau." để đảm bảo không mất dữ liệu của người dùng.<br/>
       </td>
     </tr>
     <tr>

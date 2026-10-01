@@ -95,15 +95,16 @@
       <td><strong>Alternative Flows:</strong></td>
       <td colspan="3">
         <strong>Alternative 1 (Ưu tiên xe có mức pin cao):</strong> Tại bước 4, Operator sử dụng thông tin SoC để ưu tiên chọn các xe có mức pin &gt; 70% nhằm điều chuyển đến các Hub có nhu cầu thuê xe cự ly xa ngay lập tức.<br/>
-        <strong>Alternative 2 (Tra cứu lịch sử điều phối):</strong> Tại bước 9, Operator chuyển sang tab "Nhật ký" để xem bảng tổng hợp toàn bộ các lệnh điều chuyển xe đã diễn ra.
+        <strong>Alternative 2 (Tra cứu lịch sử điều phối):</strong> Tại bước 9, Operator chuyển sang tab "Nhật ký" để xem bảng tổng hợp toàn bộ các lệnh điều chuyển xe đã diễn ra.<br/>
+        <strong>Alternative 3 (Hub nguồn và đích trùng nhau):</strong> Tại bước 6, nếu Operator chọn Hub nguồn trùng với Hub đích, hệ thống báo lỗi: "Hub nguồn và Hub đích phải khác nhau!" và không thực hiện lệnh.<br/>
+        <strong>Alternative 4 (Chưa chọn phương tiện điều phối):</strong> Tại bước 6, nếu Operator chưa tích chọn xe nào, hệ thống báo lỗi: "Vui lòng chọn ít nhất 1 xe để điều phối."<br/>
+        <strong>Alternative 5 (Hub nguồn không có xe sẵn sàng):</strong> Tại bước 3, nếu Hub nguồn không có xe nào ở trạng thái <code>AVAILABLE</code>, hệ thống hiển thị thông báo: "Không có xe khả dụng tại Hub nguồn" và vô hiệu hóa nút gửi lệnh.
       </td>
     </tr>
     <tr>
       <td><strong>Exceptions:</strong></td>
       <td colspan="3">
-        <strong>Exception 1 (Hub nguồn và đích trùng nhau):</strong> Tại bước 6, nếu Operator chọn Hub nguồn trùng với Hub đích, hệ thống báo lỗi: "Hub nguồn và Hub đích phải khác nhau!" và không thực hiện lệnh.<br/>
-        <strong>Exception 2 (Chưa chọn phương tiện điều phối):</strong> Tại bước 6, nếu Operator chưa tích chọn xe nào, hệ thống báo lỗi: "Vui lòng chọn ít nhất 1 xe để điều phối."<br/>
-        <strong>Exception 3 (Hub nguồn không có xe sẵn sàng):</strong> Tại bước 3, nếu Hub nguồn không có xe nào ở trạng thái <code>AVAILABLE</code>, hệ thống hiển thị thông báo: "Không có xe khả dụng tại Hub nguồn" và vô hiệu hóa nút gửi lệnh.
+                <strong>Exception 1 (Sự cố hệ thống / Mất kết nối):</strong> Nếu hệ thống bị sập nguồn, mất kết nối CSDL hoặc lỗi server, hệ thống sẽ tự động đóng băng các giao dịch đang xử lý, lưu cache cục bộ và hiển thị thông báo lỗi "Hệ thống đang bảo trì hoặc gián đoạn. Vui lòng thử lại sau." để đảm bảo không mất dữ liệu của người dùng.<br/>
       </td>
     </tr>
     <tr>

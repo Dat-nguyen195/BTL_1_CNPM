@@ -92,15 +92,16 @@
       <td><strong>Alternative Flows:</strong></td>
       <td colspan="3">
         <strong>Alternative 1 (Lọc xe theo mức pin cao):</strong> Tại bước 2, sinh viên chọn bộ lọc "Mức pin &gt; 80%" cho hành trình dài. Hệ thống cập nhật danh sách xe có SoC cao nhất.<br/>
-        <strong>Alternative 2 (Áp dụng Voucher sinh viên):</strong> Tại bước 3, sinh viên nhập mã ưu đãi hợp lệ. Hệ thống tự động tính lại chi phí tạm tính và số tiền cọc trước khi khóa cọc.
+        <strong>Alternative 2 (Áp dụng Voucher sinh viên):</strong> Tại bước 3, sinh viên nhập mã ưu đãi hợp lệ. Hệ thống tự động tính lại chi phí tạm tính và số tiền cọc trước khi khóa cọc.<br/>
+        <strong>Alternative 3 (Số dư ví không đủ &lt; 50,000 VNĐ):</strong> Tại bước 4, nếu <code>wallet_balance &lt; 50000</code>, hệ thống chặn giao dịch, thông báo lỗi "Số dư ví không đủ (tối thiểu 50,000 VNĐ) để đặt cọc giữ xe" và điều hướng sang giao diện nạp tiền ví điện tử.<br/>
+        <strong>Alternative 4 (Phương tiện vừa bị người khác đặt trước):</strong> Tại bước 4, nếu xe vừa chuyển sang <code>RESERVED</code> bởi người dùng khác, hệ thống báo lỗi "Xe không còn khả dụng" và tự động gợi ý phương tiện khác cùng Hub.<br/>
+        <strong>Alternative 5 (Hết thời hạn 15 phút giữ chỗ - No-show Penalty):</strong> Nếu quá 15 phút sinh viên không quét mã nhận xe tại Hub, hệ thống tự động hủy giữ chỗ, khấu trừ phí phạt giữ chỗ quá giờ (10,000 VNĐ), hoàn lại 40,000 VNĐ về <code>wallet_balance</code> và giải phóng xe về trạng thái <code>AVAILABLE</code>.
       </td>
     </tr>
     <tr>
       <td><strong>Exceptions:</strong></td>
       <td colspan="3">
-        <strong>Exception 1 (Số dư ví không đủ &lt; 50,000 VNĐ):</strong> Tại bước 4, nếu <code>wallet_balance &lt; 50000</code>, hệ thống chặn giao dịch, thông báo lỗi "Số dư ví không đủ (tối thiểu 50,000 VNĐ) để đặt cọc giữ xe" và điều hướng sang giao diện nạp tiền ví điện tử.<br/>
-        <strong>Exception 2 (Phương tiện vừa bị người khác đặt trước):</strong> Tại bước 4, nếu xe vừa chuyển sang <code>RESERVED</code> bởi người dùng khác, hệ thống báo lỗi "Xe không còn khả dụng" và tự động gợi ý phương tiện khác cùng Hub.<br/>
-        <strong>Exception 3 (Hết thời hạn 15 phút giữ chỗ - No-show Penalty):</strong> Nếu quá 15 phút sinh viên không quét mã nhận xe tại Hub, hệ thống tự động hủy giữ chỗ, khấu trừ phí phạt giữ chỗ quá giờ (10,000 VNĐ), hoàn lại 40,000 VNĐ về <code>wallet_balance</code> và giải phóng xe về trạng thái <code>AVAILABLE</code>.
+                <strong>Exception 1 (Sự cố hệ thống / Mất kết nối):</strong> Nếu hệ thống bị sập nguồn, mất kết nối CSDL hoặc lỗi server, hệ thống sẽ tự động đóng băng các giao dịch đang xử lý, lưu cache cục bộ và hiển thị thông báo lỗi "Hệ thống đang bảo trì hoặc gián đoạn. Vui lòng thử lại sau." để đảm bảo không mất dữ liệu của người dùng.<br/>
       </td>
     </tr>
     <tr>

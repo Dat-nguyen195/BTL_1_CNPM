@@ -101,14 +101,16 @@
       <td><strong>Alternative Flows:</strong></td>
       <td colspan="3">
         <strong>Alternative 1 (Khôi phục trạng thái hoạt động bình thường - Grid Recovery):</strong> Kỹ thuật viên gạt tắt sự cố trên Console hoặc thiết lập lại số cổng hỏng về 0. Hệ thống khôi phục <code>charging_ports["available"]</code>, chuyển trạng thái Hub về <code>AVAILABLE</code>, tự động tiếp tục chu trình sạc cho các xe đang <code>WAITING</code> sang <code>CHARGING</code>, mở khóa nhận đặt chỗ/sạc trên SS1 và SS2, và ghi nhận log "BẬT LẠI cổng sạc".<br/>
-        <strong>Alternative 2 (Mô phỏng ngắt thủ công từng cổng sạc qua Console):</strong> Tại Phần 1 ("Console quản lý cổng sạc"), kỹ thuật viên điều chỉnh trực tiếp số cổng bị tắt cho từng Hub độc lập và nhấn "Áp dụng thay đổi cổng sạc". Hệ thống cập nhật <code>st.session_state["port_overrides"]</code> và ghi nhận nhật ký chi tiết từng Hub mà không cần chạy kịch bản tự động.
+        <strong>Alternative 2 (Mô phỏng ngắt thủ công từng cổng sạc qua Console):</strong> Tại Phần 1 ("Console quản lý cổng sạc"), kỹ thuật viên điều chỉnh trực tiếp số cổng bị tắt cho từng Hub độc lập và nhấn "Áp dụng thay đổi cổng sạc". Hệ thống cập nhật <code>st.session_state["port_overrides"]</code> và ghi nhận nhật ký chi tiết từng Hub mà không cần chạy kịch bản tự động.<br/>
+        <strong>Alternative 3 (Bảo vệ pin & Miễn trừ phí chờ sạc do sự cố lưới điện):</strong> Khi phiên sạc bị ngắt đột ngột, hệ thống tự động ngắt rơ-le an toàn bảo vệ pin phương tiện, đóng chốt lượng điện kWh đã tiêu thụ thực tế đến thời điểm mất điện, và miễn phí 100% thời gian xe phải chờ đợi tại trụ sạc trong suốt thời gian xảy ra sự cố.
       </td>
     </tr>
     <tr>
       <td><strong>Exceptions:</strong></td>
       <td colspan="3">
-        <strong>Exception 1 (Hub đang xử lý giao dịch quyết toán / Check-out khi mất điện):</strong> Nếu tại thời điểm ngắt điện lưới, có sinh viên đang thực hiện lệnh trả xe hoặc thanh toán hóa đơn (SS1 <code>UC_SS1_02</code> / SS2 <code>UC_SS2_04</code>), hệ thống kích hoạt cơ chế Local Offline Caching: đóng băng chỉ số công tơ điện tử và thời gian trả xe tại client/cổng IoT; hiển thị thông báo "Giao dịch đang được lưu ngoại tuyến do sự cố hạ tầng". Khi kết nối/nguồn điện được khôi phục, hệ thống tự động quyết toán và hoàn tất trừ ví điện tử (<code>st.session_state["current_user"]["wallet_balance"]</code>), không gây treo cọc hay gián đoạn sinh viên.<br/>
-        <strong>Exception 2 (Bảo vệ pin & Miễn trừ phí chờ sạc do sự cố lưới điện):</strong> Khi phiên sạc bị ngắt đột ngột, hệ thống tự động ngắt rơ-le an toàn bảo vệ pin phương tiện, đóng chốt lượng điện kWh đã tiêu thụ thực tế đến thời điểm mất điện, và miễn phí 100% thời gian xe phải chờ đợi tại trụ sạc trong suốt thời gian xảy ra sự cố.
+        
+        <strong>Exception 1 (Hub đang xử lý giao dịch quyết toán / Check-out khi mất điện):</strong> Nếu tại thời điểm ngắt điện lưới, có sinh viên đang thực hiện lệnh trả xe hoặc thanh toán hóa đơn (SS1 <code>UC_SS1_02</code> / SS2 <code>UC_SS2_04</code>), hệ thống kích hoạt cơ chế Local Offline Caching: đóng băng chỉ số công tơ điện tử và thời gian trả xe tại client/cổng IoT; hiển thị thông báo "Giao dịch đang được lưu ngoại tuyến do sự cố hạ tầng". Khi kết nối/nguồn điện được khôi phục, hệ thống tự động quyết toán và hoàn tất trừ ví điện tử (<code>st.session_state["current_user"]["wallet_balance"]</code>), không gây treo cọc hay gián đoạn sinh viên.
+
       </td>
     </tr>
     <tr>

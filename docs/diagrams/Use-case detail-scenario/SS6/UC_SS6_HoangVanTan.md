@@ -98,14 +98,15 @@
       <td><strong>Alternative Flows:</strong></td>
       <td colspan="3">
         <strong>Alternative 1 (Chọn Hub mục tiêu khác trong mạng lưới):</strong> Tại bước 3, nhà phân tích có thể lựa chọn bất kỳ Hub nào khác trong hệ thống (Hub KTX Khu A, Hub Bách Khoa,...) để đánh giá tác động lan truyền phụ tải.<br/>
-        <strong>Alternative 2 (Chỉ chạy thử nghiệm quan sát không áp dụng vào hệ thống):</strong> Tại bước 11, nhà phân tích chỉ quan sát mức biến thiên và nhật ký cảnh báo để phục vụ nghiên cứu mà không nhấn "Áp dụng kết quả". Dữ liệu vận hành thực tế trong <code>st.session_state["hubs"]</code> được giữ nguyên không thay đổi.
+        <strong>Alternative 2 (Chỉ chạy thử nghiệm quan sát không áp dụng vào hệ thống):</strong> Tại bước 11, nhà phân tích chỉ quan sát mức biến thiên và nhật ký cảnh báo để phục vụ nghiên cứu mà không nhấn "Áp dụng kết quả". Dữ liệu vận hành thực tế trong <code>st.session_state["hubs"]</code> được giữ nguyên không thay đổi.<br/>
+        <strong>Alternative 3 (Hub mục tiêu không còn chỗ trống):</strong> Tại bước 7, nếu Hub mục tiêu đã hết sạch chỗ đỗ (<code>available_slots == 0</code>), hệ thống ghi nhận không thể tiếp nhận thêm xe mới vào bãi, phát thông báo cảnh báo nghẽn trạm và đề xuất điều phối phương tiện sang Hub lân cận.<br/>
+        <strong>Alternative 4 (Hết sạch cổng sạc khả dụng tại Hub):</strong> Tại bước 7, nếu số cổng sạc khả dụng giảm về 0, hệ thống tự động xuất cảnh báo đỏ: "Hub KHÔNG CÒN cổng sạc khả dụng!" và kích hoạt khuyến nghị phối hợp cùng phân hệ SS4/SS5 để giải phóng trụ sạc.
       </td>
     </tr>
     <tr>
       <td><strong>Exceptions:</strong></td>
       <td colspan="3">
-        <strong>Exception 1 (Hub mục tiêu không còn chỗ trống):</strong> Tại bước 7, nếu Hub mục tiêu đã hết sạch chỗ đỗ (<code>available_slots == 0</code>), hệ thống ghi nhận không thể tiếp nhận thêm xe mới vào bãi, phát thông báo cảnh báo nghẽn trạm và đề xuất điều phối phương tiện sang Hub lân cận.<br/>
-        <strong>Exception 2 (Hết sạch cổng sạc khả dụng tại Hub):</strong> Tại bước 7, nếu số cổng sạc khả dụng giảm về 0, hệ thống tự động xuất cảnh báo đỏ: "Hub KHÔNG CÒN cổng sạc khả dụng!" và kích hoạt khuyến nghị phối hợp cùng phân hệ SS4/SS5 để giải phóng trụ sạc.
+                <strong>Exception 1 (Sự cố hệ thống / Mất kết nối):</strong> Nếu hệ thống bị sập nguồn, mất kết nối CSDL hoặc lỗi server, hệ thống sẽ tự động đóng băng các giao dịch đang xử lý, lưu cache cục bộ và hiển thị thông báo lỗi "Hệ thống đang bảo trì hoặc gián đoạn. Vui lòng thử lại sau." để đảm bảo không mất dữ liệu của người dùng.<br/>
       </td>
     </tr>
     <tr>

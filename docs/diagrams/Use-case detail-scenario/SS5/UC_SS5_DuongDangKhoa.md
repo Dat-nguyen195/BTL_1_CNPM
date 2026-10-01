@@ -104,16 +104,18 @@
         <strong>Alternative 2 (Ưu tiên phương tiện sắp được sử dụng — Upcoming Booking):</strong> Tại bước 4, nếu phương tiện có lịch sử dụng (booking) trong vòng 60 phút tới, hệ thống tăng mức ưu tiên để đảm bảo phương tiện được sạc kịp thời phục vụ sinh viên.<br/>
         <strong>Alternative 3 (Điều chỉnh theo khung giờ điện — Off-Peak Optimization):</strong> Tại bước 7, nếu hệ thống phát hiện đang trong giờ cao điểm (16h–19h30 hoặc 6h–9h), hệ thống ưu tiên điều chỉnh thời gian bắt đầu sạc các phương tiện không khẩn cấp (SoC &gt; 50%) sang khung giờ thấp điểm để tiết kiệm chi phí điện.<br/>
         <strong>Alternative 4 (Nhiều phương tiện cùng mức ưu tiên — FIFO Tiebreaker):</strong> Nếu nhiều phương tiện có cùng điểm ưu tiên, hệ thống sử dụng thời gian chờ (First-In-First-Out) để xác định thứ tự phục vụ.<br/>
-        <strong>Alternative 5 (Điều chỉnh lịch theo Peak Power Capping):</strong> Nếu tổng công suất các phiên sạc dự kiến vượt mức Peak Power Capping do quản trị viên cấu hình (US-20), hệ thống điều chỉnh thứ tự hoặc dãn thời gian bắt đầu sạc để tổng công suất không vượt giới hạn lưới điện.
+        <strong>Alternative 5 (Điều chỉnh lịch theo Peak Power Capping):</strong> Nếu tổng công suất các phiên sạc dự kiến vượt mức Peak Power Capping do quản trị viên cấu hình (US-20), hệ thống điều chỉnh thứ tự hoặc dãn thời gian bắt đầu sạc để tổng công suất không vượt giới hạn lưới điện.<br/>
+        <strong>Alternative 6 (Không còn cổng sạc khả dụng):</strong> Tại bước 3, nếu tất cả cổng sạc đều đang được sử dụng (<code>CHARGING</code>) hoặc bị lỗi (<code>ERROR</code>/<code>OFFLINE</code>), hệ thống giữ phương tiện ở trạng thái <code>WAITING</code> trong hàng đợi và thông báo cho Operator: "Tất cả cổng sạc đang bận, xe sẽ được tự động phân bổ khi có cổng trống."<br/>
+        <strong>Alternative 7 (Vượt giới hạn công suất lưới):</strong> Tại bước 7, nếu tổng công suất dự kiến vượt giới hạn Peak Power Capping, hệ thống không thực hiện phân bổ đồng thời, điều chỉnh lại lịch sạc và hiển thị cảnh báo: "⚠️ Đã đạt giới hạn công suất tối đa. Phiên sạc mới sẽ được lên lịch khi công suất khả dụng."
       </td>
     </tr>
     <tr>
       <td><strong>Exceptions:</strong></td>
       <td colspan="3">
-        <strong>Exception 1 (Không còn cổng sạc khả dụng):</strong> Tại bước 3, nếu tất cả cổng sạc đều đang được sử dụng (<code>CHARGING</code>) hoặc bị lỗi (<code>ERROR</code>/<code>OFFLINE</code>), hệ thống giữ phương tiện ở trạng thái <code>WAITING</code> trong hàng đợi và thông báo cho Operator: "Tất cả cổng sạc đang bận, xe sẽ được tự động phân bổ khi có cổng trống."<br/>
-        <strong>Exception 2 (Vượt giới hạn công suất lưới):</strong> Tại bước 7, nếu tổng công suất dự kiến vượt giới hạn Peak Power Capping, hệ thống không thực hiện phân bổ đồng thời, điều chỉnh lại lịch sạc và hiển thị cảnh báo: "⚠️ Đã đạt giới hạn công suất tối đa. Phiên sạc mới sẽ được lên lịch khi công suất khả dụng."<br/>
+        
         <strong>Exception 3 (Cổng sạc bị lỗi giữa phiên sạc):</strong> Nếu cảm biến IoT phát hiện cổng sạc được phân bổ bị lỗi phần cứng (quá nhiệt, mất kết nối), hệ thống lập tức hủy phân bổ tại cổng đó, đánh dấu cổng sang trạng thái <code>ERROR</code>, chuyển phương tiện về <code>WAITING</code> trong hàng đợi để phân bổ lại cổng khác, đồng thời gửi cảnh báo kỹ thuật sang SS4 (<code>UC_SS4_02</code>).<br/>
         <strong>Exception 4 (Mất dữ liệu trạng thái từ IoT):</strong> Nếu hệ thống không nhận được dữ liệu SoC hoặc trạng thái cổng sạc từ Mạng lưới Cảm biến IoT trong &gt; 30 giây, hệ thống tạm ngưng phân bổ tự động đối với phương tiện bị thiếu dữ liệu, hiển thị cảnh báo "🔌 Mất kết nối IoT tại cổng [ID]" và thông báo cho Operator kiểm tra thủ công.
+
       </td>
     </tr>
     <tr>
