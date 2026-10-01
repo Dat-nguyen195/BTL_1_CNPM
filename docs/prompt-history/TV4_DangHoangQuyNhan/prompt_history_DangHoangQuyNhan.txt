@@ -1,12 +1,10 @@
-# Nhật ký Prompt AI – Đặng Hoàng Quý Nhân (TV4)
+Liên hệ giữa Use Case
 
-### Liên hệ giữa Use Case
-
-- **User:** Anonymous
-- **Created:** 9/24/2026 12:41:19
-- **Updated:** 9/24/2026 12:44:15
-- **Exported:** 9/24/2026 12:45:47
-- **Link:** https://chatgpt.com/c/6ab4b7fe-84e4-83ec-8024-64ec251255da
+User: Anonymous
+Created: 9/24/2026 12:41:19
+Updated: 9/24/2026 12:44:15
+Exported: 9/24/2026 12:45:47
+Link: https://chatgpt.com/c/6ab4b7fe-84e4-83ec-8024-64ec251255da
 
 ## Prompt:
 9/24/2026, 12:43:03 PM
