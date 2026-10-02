@@ -1,0 +1,42 @@
+@startuml UC_SS1_02_NguyenThanhDat_activity
+!theme plain
+skinparam activityMessageAlign center
+
+title Activity Diagram - UC_SS1_02: Trả xe 1-chiều & Quyết toán ví điện tử
+
+|Sinh viên ĐHQG-HCM|
+start
+:Di chuyển xe đến Hub đích\n& bấm "Trả xe";
+
+|UI Layer (student_booking.py)|
+:Kiểm tra trạng thái Hub đích;
+if (Trạng thái Hub đích?) then (Full 100% / OFFLINE)
+  :Kích hoạt UC_SS7_02:\nĐề xuất điều hướng 1-chạm\nsang Hub lân cận;
+  
+  |Sinh viên ĐHQG-HCM|
+  :Xác nhận 1-chạm;
+  
+  |UI Layer (student_booking.py)|
+  :Cập nhật sang Hub mới\n(Giữ 100% cọc & tặng\n15p di chuyển miễn phí);
+else (Khả dụng / Normal)
+  |UI Layer (student_booking.py)|
+  :Gửi tín hiệu khóa xe\nsang Khóa IoT;
+  
+  |Khóa thông minh IoT / Trạm Hub|
+  :Chốt an toàn &\nĐọc số liệu km/kWh tiêu thụ;
+  
+  |UI Layer (student_booking.py)|
+  :Tính cước di chuyển\n(Áp dụng chính sách miễn phí\n30p đầu cho sinh viên ĐHQG-HCM);
+  
+  |Tài khoản & Ví điện tử|
+  :Giải phóng 50,000 VNĐ từ locked_balance,\ntrừ tiền cước phát sinh (nếu có)\ntừ wallet_balance;
+  
+  |UI Layer (student_booking.py)|
+  :Xuất e-invoice;
+  
+  |Control & State (st.session_state)|
+  :Chuyển trạng thái xe về AVAILABLE\n(hoặc CHARGING nếu SoC < 20%);
+endif
+stop
+
+@enduml

@@ -1,0 +1,28 @@
+@startuml UC_SS1_03_NguyenThanhDat_activity
+!theme plain
+skinparam activityMessageAlign center
+
+title Activity Diagram - UC_SS1_03: Hủy đặt xe & Hoàn 100% tiền cọc
+
+|Sinh viên ĐHQG-HCM|
+start
+:Bấm "Hủy giữ chỗ"\ntrên ứng dụng;
+
+|UI Layer (student_booking.py)|
+:Kiểm tra thời gian đếm ngược;
+
+if (Thời gian còn trong 15 phút?) then (Quá 15p)
+  :Chuyển sang xử lý No-show\n(phạt 10k, hoàn 40k);
+else (Còn trong 15p)
+  |Tài khoản & Ví điện tử|
+  :Giải phóng 100% cọc 50,000 VNĐ\ntừ locked_balance trở về\nwallet_balance khả dụng;
+  
+  |Control & State (st.session_state)|
+  :Chuyển xe từ RESERVED\nvề AVAILABLE;
+  
+  |UI Layer (student_booking.py)|
+  :Hiển thị thông báo hủy thành công\nkèm biến động số dư;
+endif
+stop
+
+@enduml
