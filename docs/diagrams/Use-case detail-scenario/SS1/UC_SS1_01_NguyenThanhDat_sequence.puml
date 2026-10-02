@@ -1,11 +1,11 @@
-@startuml UC_SS1_NguyenThanhDat_sequence
+@startuml UC_SS1_01_NguyenThanhDat_sequence
 !theme plain
 skinparam sequenceMessageAlign center
 skinparam maxMessageSize 150
 skinparam ParticipantPadding 20
 skinparam BoxPadding 10
 
-title "Detailed UML Sequence Diagram: SS1 (Shared EVs Management)"
+title "Detailed UML Sequence Diagram: SS1 - Đặt giữ chỗ & Quét QR/PIN nhận xe"
 
 actor "Sinh viên ĐHQG-HCM" as Student
 box "Boundary / UI Layer" #LightCyan
@@ -23,8 +23,6 @@ end box
 box "Hardware / IoT" #LightGray
 participant "Khóa IoT\n(SmartLock_IoT)" as SmartLock
 end box
-
-== UC_SS1_01 - Đặt giữ chỗ & Quét QR/PIN nhận xe ==
 
 autonumber 1.1
 group 1. Xác thực & Lựa chọn
@@ -97,78 +95,6 @@ group 3. Quét QR / Nhận xe tại Hub
         
         UI --> Student: Hiển thị đang di chuyển
     end
-    deactivate UI
-end
-
-== UC_SS1_02 - Trả xe 1-chiều & Quyết toán ví điện tử ==
-
-autonumber 1.1
-group 1. Kiểm tra Hub đích & Trả xe
-    Student -> UI: Di chuyển đến Hub đích & bấm "Trả xe"
-    activate UI
-    
-    alt Hub đích lấp đầy 100% hoặc OFFLINE
-        UI -> UI: Trigger gọi ngầm UC_SS7_02:\nĐề xuất điều hướng 1-chạm\nsang Hub lân cận
-        note right of UI
-            - Bảo toàn cọc
-            - Tặng 15p di chuyển miễn phí
-        end note
-        UI --> Student: Hiển thị gợi ý Hub lân cận
-    else Hub đích khả dụng (Main Flow)
-        UI -> SmartLock: Gửi tín hiệu khóa xe
-        activate SmartLock
-        SmartLock --> UI: Xác nhận đã khóa chốt an toàn\n& Báo cáo số km / điện tiêu thụ
-        deactivate SmartLock
-    end
-end
-
-autonumber 2.1
-group 2. Tính cước & Bồi hoàn cọc
-    UI -> UI: Tính toán thời gian di chuyển\n(Miễn phí 30p đầu theo chính sách SV)
-    
-    UI -> EWallet: Gửi yêu cầu quyết toán chuyến đi
-    activate EWallet
-    EWallet --> UI: Giải phóng 50,000 VNĐ từ locked_balance,\ntrừ cước phát sinh từ wallet_balance
-    deactivate EWallet
-    
-    UI --> Student: Xuất hóa đơn điện tử (e-invoice)
-end
-
-autonumber 3.1
-group 3. Cập nhật Trạng thái
-    UI -> AppState: Cập nhật xe = AVAILABLE\n(Hoặc CHARGING nếu SoC < 20%)
-    activate AppState
-    AppState --> UI: Cập nhật hoàn tất
-    deactivate AppState
-    deactivate UI
-end
-
-== UC_SS1_03 - Hủy đặt xe & Hoàn 100% cọc ==
-
-autonumber 1.1
-group 1. Yêu cầu Hủy
-    Student -> UI: Chọn "Hủy đặt xe"\n(Trong hạn 15p giữ chỗ)
-    activate UI
-    
-    UI -> AppState: Kiểm tra Timer đếm ngược
-    activate AppState
-    AppState --> UI: Hợp lệ (còn hạn)
-    deactivate AppState
-end
-
-autonumber 2.1
-group 2. Xử lý Hoàn cọc 100%
-    UI -> EWallet: Hoàn trả 100% cọc (50,000 VNĐ)\ntừ locked_balance về wallet_balance
-    activate EWallet
-    EWallet --> UI: Xác nhận hoàn tiền thành công
-    deactivate EWallet
-    
-    UI -> AppState: Chuyển trạng thái xe:\nRESERVED -> AVAILABLE
-    activate AppState
-    AppState --> UI: Cập nhật hoàn tất
-    deactivate AppState
-    
-    UI --> Student: Thông báo hủy thành công &\nBiến động số dư ví
     deactivate UI
 end
 

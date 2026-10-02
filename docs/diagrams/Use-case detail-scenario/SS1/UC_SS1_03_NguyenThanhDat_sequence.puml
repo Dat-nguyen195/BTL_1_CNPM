@@ -1,0 +1,54 @@
+@startuml UC_SS1_03_NguyenThanhDat_sequence
+!theme plain
+skinparam sequenceMessageAlign center
+skinparam maxMessageSize 150
+skinparam ParticipantPadding 20
+skinparam BoxPadding 10
+
+title "Detailed UML Sequence Diagram: SS1 - Hủy đặt xe & Hoàn 100% cọc"
+
+actor "Sinh viên ĐHQG-HCM" as Student
+box "Boundary / UI Layer" #LightCyan
+participant "student_booking.py\n(UI)" as UI
+end box
+box "External Authentication" #White
+participant "Cổng VNU-SSO\n(SSO)" as SSO
+end box
+box "Control & State" #LightYellow
+participant "st.session_state\n(AppState)" as AppState
+end box
+box "External Payment" #White
+participant "Ví điện tử\n(E-Wallet)" as EWallet
+end box
+box "Hardware / IoT" #LightGray
+participant "Khóa IoT\n(SmartLock_IoT)" as SmartLock
+end box
+
+autonumber 1.1
+group 1. Yêu cầu Hủy
+    Student -> UI: Chọn "Hủy đặt xe"\n(Trong hạn 15p giữ chỗ)
+    activate UI
+    
+    UI -> AppState: Kiểm tra Timer đếm ngược
+    activate AppState
+    AppState --> UI: Hợp lệ (còn hạn)
+    deactivate AppState
+end
+
+autonumber 2.1
+group 2. Xử lý Hoàn cọc 100%
+    UI -> EWallet: Hoàn trả 100% cọc (50,000 VNĐ)\ntừ locked_balance về wallet_balance
+    activate EWallet
+    EWallet --> UI: Xác nhận hoàn tiền thành công
+    deactivate EWallet
+    
+    UI -> AppState: Chuyển trạng thái xe:\nRESERVED -> AVAILABLE
+    activate AppState
+    AppState --> UI: Cập nhật hoàn tất
+    deactivate AppState
+    
+    UI --> Student: Thông báo hủy thành công &\nBiến động số dư ví
+    deactivate UI
+end
+
+@enduml
