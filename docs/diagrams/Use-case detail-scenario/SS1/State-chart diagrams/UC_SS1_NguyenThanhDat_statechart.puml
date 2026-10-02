@@ -10,7 +10,7 @@ state AVAILABLE
 state RESERVED
 state IN_USE
 state CHARGING
-state MAINTENANCE_OFFLINE : MAINTENANCE / OFFLINE
+state MAINTENANCE_OFFLINE
 
 AVAILABLE --> RESERVED : Sinh viên đặt giữ chỗ (Cọc 50k)
 RESERVED --> AVAILABLE : Sinh viên hủy đặt xe\n[Hoàn 100% cọc]
