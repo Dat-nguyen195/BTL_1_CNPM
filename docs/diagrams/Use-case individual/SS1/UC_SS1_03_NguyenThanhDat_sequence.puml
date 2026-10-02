@@ -2,7 +2,6 @@
 !theme plain
 skinparam sequenceMessageAlign center
 skinparam maxMessageSize 150
-skinparam ParticipantPadding 20
 skinparam BoxPadding 10
 
 title "Detailed UML Sequence Diagram: SS1 - Hủy đặt xe & Hoàn 100% cọc"
