@@ -1,0 +1,212 @@
+@startuml UC_SS2_02_NguyenAnhTai_sequence
+!theme plain
+skinparam sequenceMessageAlign center
+skinparam maxMessageSize 150
+skinparam BoxPadding 10
+
+title "Detailed UML Sequence Diagram: SS2 - Đặt chỗ đỗ và nhu cầu sạc xe EV cá nhân"
+
+' Nguồn: UC_SS2_NguyenAnhTai (2).md, cập nhật 21/09/2026.
+' Thiết kế theo đặc tả; không khẳng định toàn bộ chức năng đã có trong mã nguồn.
+
+actor "Sinh viên ĐHQG-HCM" as Student
+box "Boundary / UI Layer" #LightCyan
+participant "personal_ev.py\n(UI)" as UI
+end box
+box "External Authentication" #White
+participant "Cổng VNU-SSO\n(SSO)" as SSO
+end box
+box "Control & State" #LightYellow
+participant "st.session_state\n(AppState)" as AppState
+end box
+box "External Payment" #White
+participant "Tài khoản & Ví điện tử\n(E-Wallet)" as EWallet
+end box
+box "Charging Scheduling" #White
+participant "Phân hệ lập lịch sạc SS5\n(ChargingScheduler)" as Scheduler
+end box
+
+autonumber 1.1
+group 1. Xác thực và lựa chọn xe
+    Student -> UI: Chọn Đặt chỗ đỗ và sạc
+    activate UI
+    UI -> SSO: Xác thực phiên sinh viên
+    activate SSO
+    SSO --> UI: Kết quả xác thực
+    deactivate SSO
+    UI -> AppState: Kiểm tra tài khoản;\nđọc danh sách xe cá nhân đã đăng ký
+    activate AppState
+    AppState --> UI: Tài khoản và danh sách xe được phép sử dụng
+    deactivate AppState
+    UI --> Student: Kết quả kiểm tra
+    deactivate UI
+
+    break Phiên không hợp lệ hoặc chưa có xe đã đăng ký
+        UI --> Student: Yêu cầu đăng nhập hoặc đăng ký xe qua UC_SS2_01
+    end
+
+    Student -> UI: Chọn xe đã đăng ký
+    activate UI
+    UI -> AppState: Tra cứu Hub, khả năng phục vụ và biểu phí
+    activate AppState
+    AppState --> UI: Danh sách Hub và biểu phí
+    deactivate AppState
+    UI --> Student: Hiển thị lựa chọn đặt dịch vụ
+    deactivate UI
+end
+
+autonumber 2.1
+group 2. Chọn lịch và tra cứu chi phí
+    loop Nhập lần đầu hoặc thay đổi lựa chọn trước khi xác nhận
+        Student -> UI: Chọn Hub, thời gian sử dụng,\nvị trí đỗ và tùy chọn sạc
+        activate UI
+        UI -> AppState: Kiểm tra thời gian, lịch trùng và\nvị trí AVAILABLE trong khung giờ yêu cầu
+        activate AppState
+        AppState --> UI: Kết quả kiểm tra vị trí và lịch đặt
+        deactivate AppState
+
+        opt Có yêu cầu sạc và lịch đỗ hợp lệ
+            UI -> Scheduler: Kiểm tra cổng tương thích và khả dụng\ntrong khoảng thời gian đỗ
+            activate Scheduler
+            Scheduler --> UI: Kết quả kiểm tra khả năng đáp ứng sạc
+            deactivate Scheduler
+        end
+
+        alt Thông tin hoặc lịch đặt không hợp lệ
+            UI --> Student: Yêu cầu điều chỉnh thông tin hoặc lịch trùng
+        else Không còn vị trí đỗ
+            UI --> Student: Đề nghị chọn Hub hoặc thời gian khác
+        else Có yêu cầu sạc nhưng không có cổng phù hợp
+            UI --> Student: Đề nghị đổi lịch hoặc chọn chỉ đỗ xe
+        else Đủ điều kiện đặt dịch vụ
+            UI --> Student: Phí đỗ 5.000 VNĐ/lượt;\ncọc giữ chỗ 50.000 VNĐ;\nphí sạc dự kiến nếu có
+        end
+        deactivate UI
+    end
+
+    note over UI, Scheduler
+        Phí sạc cao điểm: 7.000 VNĐ/kWh
+        (06:00–09:00 và 16:00–19:30).
+        Phí thấp điểm: 3.000 VNĐ/kWh.
+        Chỉ đỗ xe: không phân bổ cổng sạc.
+    end note
+
+    Student -> UI: Kiểm tra thông tin, áp voucher nếu có;\nxác nhận lịch hợp lệ
+end
+
+autonumber 3.1
+group 3. Đặt cọc và xác nhận giữ chỗ
+    UI -> EWallet: Kiểm tra số dư khả dụng >= 50.000 VNĐ
+    activate EWallet
+    EWallet --> UI: Kết quả kiểm tra số dư
+    deactivate EWallet
+
+    break Không đủ số dư cọc
+        UI --> Student: Thông báo không đủ tiền cọc;\nchưa xác nhận đơn
+    end
+
+    UI -> AppState: Kiểm tra lại lịch và khả dụng tại thời điểm xác nhận
+    activate AppState
+    AppState --> UI: Kết quả kiểm tra lại
+    deactivate AppState
+
+    break Lịch không hợp lệ hoặc vị trí không còn khả dụng
+        UI --> Student: Yêu cầu chọn lại lịch hoặc vị trí;\nkhông tạo đơn
+    end
+
+    UI -> EWallet: Tạm giữ 50.000 VNĐ tiền cọc
+    activate EWallet
+    EWallet --> UI: Kết quả tạm giữ tiền cọc
+    deactivate EWallet
+
+    break Không tạm giữ được tiền cọc
+        UI --> Student: Không thể xác nhận đơn;\nyêu cầu thử lại
+    end
+
+    UI -> AppState: Tạo đơn liên kết sinh viên, xe, Hub và lịch;\ngiữ vị trí AVAILABLE -> RESERVED
+    activate AppState
+    AppState -> AppState: Đặt hạn Check-in = booking_start_time + 15 phút
+    AppState --> UI: Kết quả tạo đơn và giữ chỗ
+    deactivate AppState
+
+    break Không ghi nhận được đơn sau khi tạm giữ cọc
+        UI -> EWallet: Hoàn tác khoản cọc của yêu cầu chưa thành công
+        activate EWallet
+        EWallet --> UI: Kết quả hoàn tác / chờ đối soát
+        deactivate EWallet
+        UI --> Student: Chưa xác nhận đặt chỗ;\nhiển thị trạng thái tiền cọc để đối soát
+    end
+
+    opt Đơn có yêu cầu sạc
+        UI -> Scheduler: Gửi yêu cầu sạc gắn với đơn đã xác nhận
+        activate Scheduler
+        Scheduler -> Scheduler: Xử lý lịch và phân bổ cổng phù hợp
+        Scheduler --> UI: Thông tin yêu cầu sạc và kết quả phân bổ
+        deactivate Scheduler
+        UI -> AppState: Ghi nhận lịch/cổng sạc được phân bổ
+        activate AppState
+        AppState --> UI: Đã cập nhật thông tin dịch vụ sạc
+        deactivate AppState
+    end
+
+    UI --> Student: Đặt thành công;\nmã đặt chỗ, QR Check-in và QR mở trụ nếu có
+end
+
+autonumber 4.1
+group 4. Hủy đơn hoặc hết hạn trước Check-in
+    note over UI, AppState
+        Các nhánh dưới đây xảy ra sau khi đặt thành công.
+        Hạn 15 phút được tính từ booking_start_time,
+        không tính từ thời điểm tạo đơn.
+    end note
+
+    alt Sinh viên yêu cầu hủy trước Check-in
+        Student -> UI: Yêu cầu hủy đơn
+        UI -> AppState: Kiểm tra điều kiện hủy và trạng thái chưa Check-in
+        activate AppState
+        AppState --> UI: Kết quả kiểm tra
+        deactivate AppState
+
+        alt Được phép hủy
+            UI -> AppState: Ghi nhận đơn đã hủy;\ngiải phóng lịch RESERVED -> AVAILABLE
+            activate AppState
+            AppState --> UI: Xác nhận hủy phần giữ chỗ
+            deactivate AppState
+            opt Đơn có yêu cầu sạc
+                UI -> Scheduler: Hủy yêu cầu sạc;\ngiải phóng phần phân bổ của đơn
+                activate Scheduler
+                Scheduler --> UI: Xác nhận đã xử lý
+                deactivate Scheduler
+            end
+            UI --> Student: Thông báo hủy thành công
+        else Không đáp ứng điều kiện hủy
+            UI --> Student: Từ chối hủy;\ngiữ nguyên trạng thái hiện tại
+        end
+
+    else Quá booking_start_time + 15 phút và chưa Check-in
+        AppState -> AppState: Kiểm tra hạn nhận chỗ;\nđổi đơn = EXPIRED
+        activate AppState
+        AppState -> AppState: Giải phóng lịch đặt và vị trí RESERVED -> AVAILABLE
+        opt Đã gửi yêu cầu sạc
+            AppState -> Scheduler: Hủy yêu cầu sạc và phần cổng đã giữ
+            activate Scheduler
+            Scheduler --> AppState: Xác nhận giải phóng
+            deactivate Scheduler
+        end
+        AppState --> UI: Đơn đã hết hiệu lực
+        deactivate AppState
+        UI --> Student: Thông báo hết hạn nhận chỗ
+
+    else Có yêu cầu Check-in trong thời hạn
+        Student -> UI: Quét mã nhận chỗ tại Hub
+        ref over Student, UI, AppState
+            UC_SS2_03 — Check-in xe EV cá nhân
+        end ref
+    end
+
+    note over AppState, EWallet
+        Đặc tả chưa quy định mức hoàn/phạt tiền cọc khi hủy hoặc hết hạn.
+        Không áp dụng mức phạt No-show của ví dụ SS1.
+    end note
+end
+@enduml

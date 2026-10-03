@@ -1,0 +1,174 @@
+@startuml UC_SS2_03_NguyenAnhTai_sequence
+!theme plain
+skinparam sequenceMessageAlign center
+skinparam maxMessageSize 150
+skinparam BoxPadding 10
+
+title "Detailed UML Sequence Diagram: SS2 - Check-in xe EV cá nhân"
+
+' Nguồn: UC_SS2_NguyenAnhTai (2).md, cập nhật 21/09/2026.
+' Thiết kế theo đặc tả; không khẳng định toàn bộ chức năng đã có trong mã nguồn.
+
+actor "Sinh viên ĐHQG-HCM" as Student
+box "Boundary / UI Layer" #LightCyan
+participant "personal_ev.py\n(UI)" as UI
+end box
+box "Control & State" #LightYellow
+participant "st.session_state\n(AppState)" as AppState
+end box
+box "Hardware / IoT" #LightGray
+participant "Barie & Cảm biến cổng\n(Gate_IoT)" as Gate
+participant "Trụ sạc\n(Charger_IoT)" as Charger
+end box
+box "Operations" #White
+actor "Nhân viên vận hành\n(Operators)" as Operators
+end box
+
+autonumber 1.1
+group 1. Xác thực tại cổng vào
+    alt Sử dụng mã QR (Main Flow)
+        Student -> UI: Quét QR của đơn tại cổng Hub
+    else Sử dụng mã PIN
+        Student -> UI: Chọn xác thực bằng PIN và nhập mã
+    end
+
+    activate UI
+    UI -> AppState: Đối chiếu QR/PIN, xe, quyền sử dụng,\nđơn đặt chỗ, Hub và khung giờ
+    activate AppState
+    AppState --> UI: Kết quả xác thực và thông tin vị trí đã giữ
+    deactivate AppState
+    UI --> Student: Kết quả kiểm tra yêu cầu Check-in
+    deactivate UI
+
+    break QR/PIN không hợp lệ
+        UI --> Student: Từ chối mở cổng;\nyêu cầu kiểm tra lại mã
+    end
+
+    break Đơn không hợp lệ, sai Hub hoặc ngoài khung giờ
+        UI --> Student: Từ chối Check-in;\nthông báo lý do
+    end
+
+    UI -> AppState: Kiểm tra vị trí RESERVED của chính đơn này
+    activate AppState
+    AppState --> UI: Vị trí sử dụng được / gặp sự cố hoặc bị chiếm dụng
+    deactivate AppState
+
+    break Vị trí đã giữ không thể sử dụng
+        UI -> Operators: Chuyển thông tin sự cố vị trí
+        activate Operators
+        Operators --> UI: Tiếp nhận và xử lý
+        deactivate Operators
+        UI --> Student: Chờ hướng dẫn của nhân viên vận hành
+    end
+
+    note over UI, AppState
+        Sử dụng đúng chỗ đã giữ.
+        Không yêu cầu Hub còn chỗ trống khác
+        và không giữ thêm chỗ lần thứ hai.
+    end note
+end
+
+autonumber 2.1
+group 2. Mở cổng và ghi nhận Check-in
+    UI -> Gate: Gửi lệnh mở barie cổng vào
+    activate Gate
+    Gate --> UI: Kết quả mở cổng
+    deactivate Gate
+
+    break Không mở được barie
+        UI -> Operators: Yêu cầu xử lý cổng vào
+        Operators --> Student: Hướng dẫn chờ xác minh
+    end
+
+    Student -> Gate: Đưa xe qua cổng vào
+    activate Gate
+    Gate --> UI: Kết quả xác nhận xe đã qua cổng
+    deactivate Gate
+
+    break Chưa xác nhận được xe vào
+        UI -> Operators: Xác minh hiện diện của xe
+        UI --> Student: Chưa hoàn tất ghi nhận Check-in
+    end
+
+    UI -> AppState: Ghi thời điểm Check-in;\nđơn = CHECKED_IN;\nvị trí RESERVED -> OCCUPIED
+    activate AppState
+    AppState -> AppState: Kích hoạt phiên đỗ;\nghi nhận xe hiện diện tại Hub
+    AppState --> UI: Phiên đỗ, vị trí và lịch sạc nếu có
+    deactivate AppState
+    UI --> Student: Check-in thành công;\nhướng dẫn vị trí đỗ và lịch sạc
+end
+
+autonumber 3.1
+group 3. Xác thực trụ và bắt đầu sạc nếu đã đăng ký
+    opt Đơn có dịch vụ sạc
+        Student -> UI: Quét QR tại vị trí sạc để mở trụ
+        activate UI
+        UI -> AppState: Đối chiếu QR, đơn, lịch sạc\nvà cổng đã được phân bổ
+        activate AppState
+        AppState --> UI: Kết quả xác thực trụ sạc
+        deactivate AppState
+        UI --> Student: Kết quả kiểm tra
+        deactivate UI
+
+        break QR không hợp lệ hoặc chưa đến lịch được cấp
+            UI --> Student: Từ chối mở trụ;\nphiên đỗ vẫn đang hoạt động
+        end
+
+        UI -> Charger: Gửi lệnh mở khóa trụ được cấp
+        activate Charger
+        Charger --> UI: Kết quả mở khóa trụ
+        deactivate Charger
+
+        break Trụ không mở được
+            UI -> Operators: Yêu cầu kiểm tra trụ
+            UI --> Student: Chưa thể bắt đầu sạc;\nphiên đỗ vẫn đang hoạt động
+        end
+
+        Student -> Charger: Cắm sạc cho xe
+        activate Charger
+        Charger -> Charger: Kiểm tra kết nối và điều kiện vận hành
+        Charger --> UI: Đủ / chưa đủ điều kiện sạc
+        deactivate Charger
+
+        break Kết nối hoặc điều kiện vận hành chưa hợp lệ
+            UI --> Student: Yêu cầu kiểm tra kết nối
+            UI -> Operators: Hỗ trợ xử lý nếu cần
+        end
+
+        UI -> Charger: Cho phép bắt đầu sạc theo lịch
+        activate Charger
+        Charger --> UI: Kết quả kích hoạt sạc
+        deactivate Charger
+
+        break Không kích hoạt được sạc
+            UI -> Operators: Kiểm tra trụ và phiên sạc
+            UI --> Student: Chưa xác nhận sạc hoạt động
+        end
+
+        UI -> AppState: Kích hoạt phiên sạc;\ncổng đã phân bổ/RESERVED -> IN_USE
+        activate AppState
+        AppState --> UI: Đã ghi nhận phiên sạc hoạt động
+        deactivate AppState
+        UI --> Student: Hiển thị trạng thái đang sạc
+    end
+end
+
+autonumber 4.1
+group 4. Tự ngắt khi pin đầy
+    opt Có phiên sạc và pin đầy trước khi sinh viên yêu cầu Check-out
+        Charger -> Charger: Tự ngắt cấp điện
+        Charger -> AppState: Gửi kết quả kết thúc sạc và kWh theo khung giờ
+        activate AppState
+        AppState -> AppState: Lưu số liệu phục vụ hóa đơn
+        AppState --> UI: Cập nhật trạng thái đã sạc xong
+        deactivate AppState
+        UI --> Student: Thông báo sạc hoàn tất
+    end
+
+    note over AppState, Charger
+        Nếu lấy xe sớm, UC_SS2_04 yêu cầu dừng và chốt sạc.
+        Chỉ giải phóng cổng khi hết kết nối/chiếm dụng thực tế.
+        Kết thúc sạc không tự kết thúc phiên đỗ.
+    end note
+end
+@enduml
