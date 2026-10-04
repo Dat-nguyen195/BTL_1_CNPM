@@ -1,0 +1,187 @@
+<mxfile host="Electron" agent="Codex">
+  <diagram id="SS2-Use-Case" name="SS2 - Use Case Diagram">
+    <mxGraphModel dx="2416" dy="1333" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1660" pageHeight="1430" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="boundary" parent="1" style="html=0;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontFamily=Arial;fontSize=20;strokeWidth=1.5;rounded=0;" value="" vertex="1">
+          <mxGeometry height="1320" width="1060" x="290" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="title" parent="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontColor=#000000;fontFamily=Arial;fontSize=24;fontStyle=1;spacingLeft=15;" value="Phân hệ SS2: Dịch vụ đỗ và sạc xe điện cá nhân (Personal EVs)" vertex="1">
+          <mxGeometry height="65" width="1060" x="290" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="header_line" edge="1" parent="1" style="endArrow=none;startArrow=none;strokeColor=#000000;strokeWidth=1.5;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="290" y="95" as="sourcePoint" />
+            <mxPoint x="1350" y="95" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="uc01" parent="1" style="html=0;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontFamily=Arial;fontSize=20;strokeWidth=1.5;ellipse;perimeter=ellipsePerimeter;align=center;verticalAlign=middle;" value="UC_SS2_01&#xa;Đăng ký xe EV cá nhân" vertex="1">
+          <mxGeometry height="115" width="320" x="370" y="137.5" as="geometry" />
+        </mxCell>
+        <mxCell id="uc02" parent="1" style="html=0;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontFamily=Arial;fontSize=20;strokeWidth=1.5;ellipse;perimeter=ellipsePerimeter;align=center;verticalAlign=middle;" value="UC_SS2_02&#xa;Đặt chỗ đỗ và nhu cầu sạc&#xa;xe EV cá nhân" vertex="1">
+          <mxGeometry height="115" width="320" x="370" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="uc03" parent="1" style="html=0;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontFamily=Arial;fontSize=20;strokeWidth=1.5;ellipse;perimeter=ellipsePerimeter;align=center;verticalAlign=middle;" value="UC_SS2_03&#xa;Check-in xe EV cá nhân" vertex="1">
+          <mxGeometry height="115" width="320" x="390" y="857.5" as="geometry" />
+        </mxCell>
+        <mxCell id="uc04" parent="1" style="html=0;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontFamily=Arial;fontSize=20;strokeWidth=1.5;ellipse;perimeter=ellipsePerimeter;align=center;verticalAlign=middle;" value="UC_SS2_04&#xa;Check-out và thanh toán&#xa;dịch vụ xe EV cá nhân" vertex="1">
+          <mxGeometry height="115" width="320" x="380" y="1142.5" as="geometry" />
+        </mxCell>
+        <mxCell id="auth" parent="1" style="html=0;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontFamily=Arial;fontSize=20;strokeWidth=1.5;ellipse;perimeter=ellipsePerimeter;align=center;verticalAlign=middle;" value="Xác thực VNU-SSO" vertex="1">
+          <mxGeometry height="100" width="300" x="950" y="152.5" as="geometry" />
+        </mxCell>
+        <mxCell id="deposit" parent="1" style="html=0;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontFamily=Arial;fontSize=20;strokeWidth=1.5;ellipse;perimeter=ellipsePerimeter;align=center;verticalAlign=middle;" value="Tạm giữ tiền cọc&#xa;qua ví nội bộ" vertex="1">
+          <mxGeometry height="100" width="300" x="960" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="charge" parent="1" style="html=0;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontFamily=Arial;fontSize=20;strokeWidth=1.5;ellipse;perimeter=ellipsePerimeter;align=center;verticalAlign=middle;" value="Ghi nhận yêu cầu sạc" vertex="1">
+          <mxGeometry height="100" width="300" x="950" y="490" as="geometry" />
+        </mxCell>
+        <mxCell id="voucher" parent="1" style="html=0;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontFamily=Arial;fontSize=20;strokeWidth=1.5;ellipse;perimeter=ellipsePerimeter;align=center;verticalAlign=middle;" value="Áp dụng voucher" vertex="1">
+          <mxGeometry height="100" width="300" x="950" y="680" as="geometry" />
+        </mxCell>
+        <mxCell id="pay" parent="1" style="html=0;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontFamily=Arial;fontSize=20;strokeWidth=1.5;ellipse;perimeter=ellipsePerimeter;align=center;verticalAlign=middle;" value="Quyết toán phí đỗ / sạc&#xa;và giải phóng tiền cọc" vertex="1">
+          <mxGeometry height="110" width="300" x="950" y="1145" as="geometry" />
+        </mxCell>
+        <mxCell id="student" parent="1" style="html=0;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontFamily=Arial;fontSize=20;strokeWidth=1.5;shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;align=center;outlineConnect=0;" value="Sinh viên&#xa;ĐHQG-HCM" vertex="1">
+          <mxGeometry height="90" width="50" x="95" y="630" as="geometry" />
+        </mxCell>
+        <mxCell id="operator" parent="1" style="html=0;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontFamily=Arial;fontSize=20;strokeWidth=1.5;shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;align=center;outlineConnect=0;" value="Nhân viên&#xa;vận hành" vertex="1">
+          <mxGeometry height="90" width="50" x="95" y="1155" as="geometry" />
+        </mxCell>
+        <mxCell id="sso" parent="1" style="html=0;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontFamily=Arial;fontSize=20;strokeWidth=1.5;shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;align=center;outlineConnect=0;" value="Cổng xác thực&#xa;VNU-SSO" vertex="1">
+          <mxGeometry height="90" width="50" x="1430" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="wallet" parent="1" style="html=0;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontFamily=Arial;fontSize=20;strokeWidth=1.5;shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;align=center;outlineConnect=0;" value="Cổng thanh toán&#xa;&amp; Ví điện tử nội bộ" vertex="1">
+          <mxGeometry height="90" width="50" x="1560" y="335" as="geometry" />
+        </mxCell>
+        <mxCell id="ss5" parent="1" style="html=0;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontFamily=Arial;fontSize=20;strokeWidth=1.5;shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;align=center;outlineConnect=0;" value="Phân hệ lập lịch sạc&#xa;(SS5)" vertex="1">
+          <mxGeometry height="90" width="50" x="1570" y="645" as="geometry" />
+        </mxCell>
+        <mxCell id="iot" parent="1" style="html=0;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontFamily=Arial;fontSize=20;strokeWidth=1.5;shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;align=center;outlineConnect=0;" value="Hệ thống IoT&#xa;Barie / Cảm biến / Trụ sạc" vertex="1">
+          <mxGeometry height="90" width="50" x="1430" y="870" as="geometry" />
+        </mxCell>
+        <mxCell id="student_1" edge="1" parent="1" source="student" style="html=0;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontFamily=Arial;fontSize=18;fontColor=#000000;endArrow=none;" target="uc01">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="student_2" edge="1" parent="1" source="student" style="html=0;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontFamily=Arial;fontSize=18;fontColor=#000000;endArrow=none;" target="uc02">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="student_3" edge="1" parent="1" source="student" style="html=0;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontFamily=Arial;fontSize=18;fontColor=#000000;endArrow=none;" target="uc03">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="student_4" edge="1" parent="1" source="student" style="html=0;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontFamily=Arial;fontSize=18;fontColor=#000000;endArrow=none;" target="uc04">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="operator_in" edge="1" parent="1" source="operator" style="html=0;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontFamily=Arial;fontSize=18;fontColor=#000000;endArrow=none;" target="uc03">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="operator_out" edge="1" parent="1" source="operator" style="html=0;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontFamily=Arial;fontSize=18;fontColor=#000000;endArrow=none;" target="uc04">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="auth_1" edge="1" parent="1" source="uc01" style="html=0;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontFamily=Arial;fontSize=18;fontColor=#000000;endArrow=open;endFill=0;dashed=1;dashPattern=6 4;" target="auth">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="auth_1_label" parent="1" style="text;html=0;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=18;fontColor=#000000;fillColor=#FFFFFF;strokeColor=none;" value="&lt;&lt;include&gt;&gt;" vertex="1">
+          <mxGeometry height="28" width="116" x="767" y="195" as="geometry" />
+        </mxCell>
+        <mxCell id="auth_2" edge="1" parent="1" source="auth_2_label" style="html=0;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontFamily=Arial;fontSize=18;fontColor=#000000;endArrow=open;endFill=0;dashed=1;dashPattern=6 4;" target="auth">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hold" edge="1" parent="1" source="hold_label" style="html=0;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontFamily=Arial;fontSize=18;fontColor=#000000;endArrow=open;endFill=0;dashed=1;dashPattern=6 4;" target="deposit">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="optional_charge" edge="1" parent="1" source="optional_charge_label" style="html=0;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontFamily=Arial;fontSize=18;fontColor=#000000;endArrow=open;endFill=0;dashed=1;dashPattern=6 4;" target="uc02">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="optional_voucher" edge="1" parent="1" source="optional_voucher_label" style="html=0;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontFamily=Arial;fontSize=18;fontColor=#000000;endArrow=open;endFill=0;dashed=1;dashPattern=6 4;" target="uc02">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="checkout_pay" edge="1" parent="1" source="checkout_pay_label" style="html=0;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontFamily=Arial;fontSize=18;fontColor=#000000;endArrow=open;endFill=0;dashed=1;dashPattern=6 4;" target="pay">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sso_auth" edge="1" parent="1" source="auth" style="html=0;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontFamily=Arial;fontSize=18;fontColor=#000000;endArrow=none;" target="sso">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wallet_hold" edge="1" parent="1" source="deposit" style="html=0;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontFamily=Arial;fontSize=18;fontColor=#000000;endArrow=none;" target="wallet">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ss5_charge" edge="1" parent="1" source="charge" style="html=0;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontFamily=Arial;fontSize=18;fontColor=#000000;endArrow=none;" target="ss5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wallet_pay" edge="1" parent="1" source="pay" style="html=0;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontFamily=Arial;fontSize=18;fontColor=#000000;endArrow=none;" target="wallet">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1390" y="1200" />
+              <mxPoint x="1390" y="380" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iot_in" edge="1" parent="1" source="uc03" style="html=0;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontFamily=Arial;fontSize=18;fontColor=#000000;endArrow=none;" target="iot">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iot_out" edge="1" parent="1" source="uc04" style="html=0;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontFamily=Arial;fontSize=18;fontColor=#000000;endArrow=none;" target="iot">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="780" y="1040" />
+              <mxPoint x="1280" y="1040" />
+              <mxPoint x="1280" y="920" />
+              <mxPoint x="1450" y="920" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZbDZjwQo5iv3dmZCR9C9-2" edge="1" parent="1" source="uc04" style="html=0;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontFamily=Arial;fontSize=18;fontColor=#000000;endArrow=open;endFill=0;dashed=1;dashPattern=6 4;" target="checkout_pay_label" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="700" y="1198" as="sourcePoint" />
+            <mxPoint x="950" y="1199" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="checkout_pay_label" parent="1" style="text;html=0;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=18;fontColor=#000000;fillColor=#FFFFFF;strokeColor=none;" value="&lt;&lt;include&gt;&gt;" vertex="1">
+          <mxGeometry height="28" width="116" x="762" y="1186" as="geometry" />
+        </mxCell>
+        <mxCell id="ZbDZjwQo5iv3dmZCR9C9-3" edge="1" parent="1" source="optional_voucher_label" style="edgeStyle=orthogonalEdgeStyle;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;innerLoopWaypoints=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;endArrow=none;endFill=0;" target="optional_voucher_label">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZbDZjwQo5iv3dmZCR9C9-4" edge="1" parent="1" source="voucher" style="html=0;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontFamily=Arial;fontSize=18;fontColor=#000000;endArrow=open;endFill=0;dashed=1;dashPattern=6 4;" target="optional_voucher_label" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="981" y="676" as="sourcePoint" />
+            <mxPoint x="661" y="575" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="optional_voucher_label" parent="1" style="text;html=0;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=18;fontColor=#000000;fillColor=#FFFFFF;strokeColor=none;" value="&lt;&lt;extend&gt;&gt;" vertex="1">
+          <mxGeometry height="28" width="116" x="780" y="617" as="geometry" />
+        </mxCell>
+        <mxCell id="ZbDZjwQo5iv3dmZCR9C9-5" edge="1" parent="1" source="charge" style="html=0;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontFamily=Arial;fontSize=18;fontColor=#000000;endArrow=open;endFill=0;dashed=1;dashPattern=6 4;" target="optional_charge_label" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="940" y="540" as="sourcePoint" />
+            <mxPoint x="700" y="538" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="optional_charge_label" parent="1" style="text;html=0;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=18;fontColor=#000000;fillColor=#FFFFFF;strokeColor=none;" value="&lt;&lt;extend&gt;&gt;" vertex="1">
+          <mxGeometry height="28" width="116" x="772" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="ZbDZjwQo5iv3dmZCR9C9-6" edge="1" parent="1" source="uc02" style="html=0;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontFamily=Arial;fontSize=18;fontColor=#000000;endArrow=open;endFill=0;dashed=1;dashPattern=6 4;" target="hold_label" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="665" y="502" as="sourcePoint" />
+            <mxPoint x="976" y="412" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hold_label" parent="1" style="text;html=0;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=18;fontColor=#000000;fillColor=#FFFFFF;strokeColor=none;" value="&lt;&lt;include&gt;&gt;" vertex="1">
+          <mxGeometry height="28" width="116" x="767" y="412" as="geometry" />
+        </mxCell>
+        <mxCell id="ZbDZjwQo5iv3dmZCR9C9-7" edge="1" parent="1" source="uc02" style="html=0;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontFamily=Arial;fontSize=18;fontColor=#000000;endArrow=open;endFill=0;dashed=1;dashPattern=6 4;" target="auth_2_label" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+            <mxPoint x="601" y="484" as="sourcePoint" />
+            <mxPoint x="996" y="234" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="auth_2_label" parent="1" style="text;html=0;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=18;fontColor=#000000;fillColor=#FFFFFF;strokeColor=none;" value="&lt;&lt;include&gt;&gt;" vertex="1">
+          <mxGeometry height="28" width="116" x="780" y="320" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
