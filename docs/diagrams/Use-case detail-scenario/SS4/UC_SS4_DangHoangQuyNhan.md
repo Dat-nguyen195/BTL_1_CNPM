@@ -48,7 +48,7 @@
     </tr>
     <tr>
       <td><strong>Actors:</strong></td>
-      <td colspan="3"><strong>Primary:</strong> Nhân viên Vận hành mạng lưới (Hub Operator).<br/><strong>Secondary:</strong> Hệ thống Quản lý Hub, Đội vận chuyển/Kỹ thuật viên, Bộ nhớ tạm in-memory (<code>st.session_state</code>).</td>
+      <td colspan="3"><strong>Primary:</strong> Nhân viên Vận hành mạng lưới (Hub Operator).<br/><strong>Secondary:</strong> Hệ thống Quản lý Hub.</td>
     </tr>
     <tr>
       <td><strong>Description:</strong></td>
@@ -146,7 +146,7 @@
     </tr>
     <tr>
       <td><strong>Actors:</strong></td>
-      <td colspan="3"><strong>Primary:</strong> Nhân viên Vận hành / Kỹ thuật viên (Hub Operator / Technician).<br/><strong>Secondary:</strong> Cảm biến IoT trên xe, Hệ thống ghi nhật ký sự cố (<code>st.session_state["incident_log"]</code>).</td>
+      <td colspan="3"><strong>Primary:</strong> Nhân viên Vận hành / Kỹ thuật viên (Hub Operator / Technician).<br/><strong>Secondary:</strong> Cảm biến IoT trên xe</td>
     </tr>
     <tr>
       <td><strong>Description:</strong></td>
