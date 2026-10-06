@@ -1,0 +1,133 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Page-1" id="3_3bclH87aQCC5Sf3Hxu">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="boundary_ss6" parent="1" style="shape=umlFrame;whiteSpace=wrap;html=1;width=450;height=30;boundedLbl=1;verticalAlign=middle;align=left;spacingLeft=5;fontSize=15;fontStyle=1" value="Phân hệ SS6: Mô phỏng nhu cầu What-if (Demand Simulation)" vertex="1">
+          <mxGeometry height="1010" width="1040" x="280" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="act_analyst" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=15;" value="Nhà phân tích&lt;br&gt;(Data Analyst)" vertex="1">
+          <mxGeometry height="120" width="60" x="60" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="act_operator" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=15;" value="Nhà vận hành Hub&lt;br&gt;(Hub Operator)" vertex="1">
+          <mxGeometry height="120" width="60" x="60" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="act_planner" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=15;" value="Nhà hoạch định&lt;br&gt;(Strategic Planner)" vertex="1">
+          <mxGeometry height="120" width="60" x="60" y="810" as="geometry" />
+        </mxCell>
+        <mxCell id="act_metro" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=15;" value="«Secondary Actor»&lt;br&gt;Tuyến Metro số 1&lt;br&gt;(Ga ĐHQG-HCM)" vertex="1">
+          <mxGeometry height="120" width="60" x="1490" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="act_extsys" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=15;" value="«Secondary System»&lt;br&gt;Phân hệ Giám sát SS3&lt;br&gt;&amp;amp; Điều phối SS4" vertex="1">
+          <mxGeometry height="120" width="60" x="1470" y="710" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_ss6_01" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=15;fontStyle=1" value="UC_SS6_01: Mô phỏng tăng&lt;br&gt;đột biến khách Metro" vertex="1">
+          <mxGeometry height="120" width="230" x="380" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_ss6_02" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=15;fontStyle=1" value="UC_SS6_02: Dự báo nhu cầu&lt;br&gt;theo giờ &amp;amp; Phân tích hàng đợi" vertex="1">
+          <mxGeometry height="140" width="280" x="380" y="680" as="geometry" />
+        </mxCell>
+        <mxCell id="sub_deepcopy" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=15;" value="Khởi tạo Deep Copy&lt;br&gt;từ st.session_state" vertex="1">
+          <mxGeometry height="80" width="250" x="660" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="sub_calcsurge" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=15;" value="Tính sụt giảm chỗ &amp;amp;&lt;br&gt;Tự động sinh xe mới" vertex="1">
+          <mxGeometry height="80" width="200" x="910" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="sub_apply" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=15;" value="Áp dụng kết quả&lt;br&gt;mô phỏng vào hệ thống" vertex="1">
+          <mxGeometry height="110" width="230" x="940" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="sub_alert_overload" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=15;" value="Cảnh báo quá tải&lt;br&gt;(Occupancy &amp;gt; 85%)" vertex="1">
+          <mxGeometry height="90" width="200" x="727" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="sub_alert_depleted" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=15;" value="Cảnh báo hết chỗ/cổng sạc&lt;br&gt;&amp;amp; Gợi ý điều chuyển" vertex="1">
+          <mxGeometry height="90" width="240" x="560" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="sub_calcqueue" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=15;" value="Tính toán hàng đợi &amp;amp;&lt;br&gt;Thời gian chờ theo giờ" vertex="1">
+          <mxGeometry height="90" width="220" x="880" y="510" as="geometry" />
+        </mxCell>
+        <mxCell id="sub_renderplotly" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=15;" value="Trực quan hóa biểu đồ&lt;br&gt;Plotly &amp;amp; Thẻ KPI" vertex="1">
+          <mxGeometry height="90" width="220" x="880" y="650" as="geometry" />
+        </mxCell>
+        <mxCell id="sub_highsurge" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=15;" value="Mô phỏng sự kiện&lt;br&gt;đặc biệt (Surge = 5.0)" vertex="1">
+          <mxGeometry height="90" width="230" x="712" y="900" as="geometry" />
+        </mxCell>
+        <mxCell id="sub_24hours" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=15;" value="Mô phỏng chu kỳ&lt;br&gt;toàn diện 24 giờ" vertex="1">
+          <mxGeometry height="90" width="230" x="870" y="800" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_an_01" edge="1" parent="1" source="act_analyst" style="endArrow=none;html=1;rounded=0;fontSize=15;" target="uc_ss6_01">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_op_01" edge="1" parent="1" source="act_operator" style="endArrow=none;html=1;rounded=0;fontSize=15;" target="uc_ss6_01">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_an_02" edge="1" parent="1" source="act_analyst" style="endArrow=none;html=1;rounded=0;fontSize=15;" target="uc_ss6_02">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_pl_02" edge="1" parent="1" source="act_planner" style="endArrow=none;html=1;rounded=0;fontSize=15;" target="uc_ss6_02">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_metro_01" edge="1" parent="1" source="uc_ss6_01" style="endArrow=none;html=1;rounded=0;fontSize=15;" target="act_metro">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_apply_extsys" edge="1" parent="1" source="sub_apply" style="endArrow=none;html=1;rounded=0;fontSize=15;" target="act_extsys">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_inc_deepcopy" edge="1" parent="1" source="uc_ss6_01" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;fontSize=15;" target="sub_deepcopy">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl_inc_deepcopy" connectable="0" parent="edge_inc_deepcopy" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=15;" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" vertex="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_inc_calcsurge" edge="1" parent="1" source="uc_ss6_01" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;fontSize=15;" target="sub_calcsurge">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl_inc_calcsurge" connectable="0" parent="edge_inc_calcsurge" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=15;" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" vertex="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_ext_apply" edge="1" parent="1" source="sub_apply" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;fontSize=15;" target="uc_ss6_01">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl_ext_apply" connectable="0" parent="edge_ext_apply" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=15;" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;&lt;br&gt;(Áp dụng kết quả)" vertex="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_ext_overload" edge="1" parent="1" source="sub_alert_overload" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;fontSize=15;" target="uc_ss6_01">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl_ext_overload" connectable="0" parent="edge_ext_overload" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=15;" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;&lt;br&gt;(Occupancy &amp;gt; 85%)" vertex="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_ext_depleted" edge="1" parent="1" source="sub_alert_depleted" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;fontSize=15;" target="uc_ss6_01">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl_ext_depleted" connectable="0" parent="edge_ext_depleted" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=15;" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;&lt;br&gt;(Hết chỗ/cổng sạc)" vertex="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_inc_queue" edge="1" parent="1" source="uc_ss6_02" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;fontSize=15;" target="sub_calcqueue">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl_inc_queue" connectable="0" parent="edge_inc_queue" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=15;" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" vertex="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_inc_plotly" edge="1" parent="1" source="uc_ss6_02" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;fontSize=15;" target="sub_renderplotly">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl_inc_plotly" connectable="0" parent="edge_inc_plotly" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=15;" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" vertex="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_ext_highsurge" edge="1" parent="1" source="sub_highsurge" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;fontSize=15;" target="uc_ss6_02">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl_ext_highsurge" connectable="0" parent="edge_ext_highsurge" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=15;" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;&lt;br&gt;(Surge = 5.0)" vertex="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_ext_24hours" edge="1" parent="1" source="sub_24hours" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;fontSize=15;" target="uc_ss6_02">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl_ext_24hours" connectable="0" parent="edge_ext_24hours" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=15;" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;&lt;br&gt;(Chu kỳ 24h)" vertex="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
