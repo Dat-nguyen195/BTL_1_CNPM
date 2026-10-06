@@ -1,0 +1,104 @@
+@startuml UC_SS2_01_NguyenAnhTai_sequence
+!theme plain
+skinparam sequenceMessageAlign center
+skinparam maxMessageSize 150
+skinparam BoxPadding 10
+
+title "Detailed UML Sequence Diagram: SS2 - Đăng ký xe EV cá nhân"
+
+' Nguồn: UC_SS2_NguyenAnhTai (2).md, cập nhật 21/09/2026.
+' Thiết kế theo đặc tả; không khẳng định toàn bộ chức năng đã có trong mã nguồn.
+
+actor "Sinh viên ĐHQG-HCM" as Student
+box "Boundary / UI Layer" #LightCyan
+participant "personal_ev.py\n(UI)" as UI
+end box
+box "External Authentication" #White
+participant "Cổng VNU-SSO\n(SSO)" as SSO
+end box
+box "Control & State" #LightYellow
+participant "st.session_state\n(AppState)" as AppState
+end box
+
+autonumber 1.1
+group 1. Xác thực phiên và quyền sinh viên
+    Student -> UI: Mở ứng dụng
+    activate UI
+    UI -> SSO: Xác thực phiên người dùng
+    activate SSO
+    SSO --> UI: Kết quả xác thực
+    deactivate SSO
+    UI -> AppState: Kiểm tra current_user\nvà role == 'student'
+    activate AppState
+    AppState --> UI: Kết quả kiểm tra tài khoản
+    deactivate AppState
+    UI --> Student: Kết quả xác thực và phân quyền
+    deactivate UI
+
+    break Phiên không hợp lệ hoặc không có quyền student
+        UI --> Student: Yêu cầu đăng nhập bằng tài khoản sinh viên hợp lệ
+    end
+end
+
+autonumber 2.1
+group 2. Nhập và kiểm tra thông tin đăng ký
+    Student -> UI: Chọn Đăng ký xe cá nhân
+    activate UI
+    UI --> Student: Hiển thị biểu mẫu đăng ký
+    deactivate UI
+
+    loop Nhập lần đầu hoặc điều chỉnh đến khi thông tin hợp lệ
+        Student -> UI: Nhập họ tên, MSSV, biển số, loại xe,\ndung lượng pin và hãng/model nếu có
+        activate UI
+        Student -> UI: Xác nhận đăng ký
+        UI -> UI: Kiểm tra các thông tin bắt buộc
+        alt Thông tin thiếu hoặc sai
+            UI --> Student: Chỉ rõ thông tin cần điều chỉnh
+        else Thông tin hợp lệ
+            UI --> Student: Chấp nhận thông tin để kiểm tra hồ sơ
+        end
+        deactivate UI
+    end
+
+    note over Student, UI
+        Hãng/model là thông tin tùy chọn.
+        Đăng ký xe không phụ thuộc số chỗ trống tại Hub.
+    end note
+end
+
+autonumber 3.1
+group 3. Kiểm tra trùng và lưu hồ sơ
+    UI -> AppState: Tra cứu biển số và tài khoản sở hữu
+    activate AppState
+    AppState --> UI: Kết quả tra cứu / lỗi truy xuất
+    deactivate AppState
+
+    alt Có sự cố hệ thống hoặc mất kết nối
+        UI -> AppState: Tạm dừng giao dịch đang xử lý
+        activate AppState
+        AppState -> AppState: Bảo lưu dữ liệu đệm cục bộ\nkhi còn khả năng ghi
+        AppState --> UI: Trạng thái xử lý gián đoạn
+        deactivate AppState
+        UI --> Student: Hệ thống đang bảo trì hoặc gián đoạn.\nVui lòng thử lại sau.
+    else Xe đã đăng ký trong cùng tài khoản
+        UI --> Student: Hiển thị hồ sơ hiện có;\nkhông tạo hồ sơ trùng
+    else Biển số thuộc tài khoản khác
+        UI --> Student: Từ chối đăng ký;\nhướng dẫn liên hệ bộ phận hỗ trợ
+    else Biển số chưa được đăng ký (Main Flow)
+        UI -> AppState: Cấp mã xe, liên kết tài khoản;\nghi thời điểm đăng ký và trạng thái REGISTERED
+        activate AppState
+        AppState --> UI: Kết quả lưu hồ sơ
+        deactivate AppState
+
+        alt Lưu thành công
+            UI --> Student: Thông báo đăng ký thành công;\nhiển thị mã xe và thông tin hồ sơ
+        else Sự cố hệ thống trong khi lưu
+            UI -> AppState: Tạm dừng giao dịch lỗi;\nbảo lưu dữ liệu đệm còn khả dụng
+            activate AppState
+            AppState --> UI: Trạng thái chờ phục hồi
+            deactivate AppState
+            UI --> Student: Hệ thống đang bảo trì hoặc gián đoạn.\nVui lòng thử lại sau.
+        end
+    end
+end
+@enduml

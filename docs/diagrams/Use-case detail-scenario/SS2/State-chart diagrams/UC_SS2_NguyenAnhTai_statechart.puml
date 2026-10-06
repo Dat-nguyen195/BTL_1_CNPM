@@ -1,0 +1,34 @@
+@startuml UC_SS2_NguyenAnhTai_statechart
+!theme plain
+hide empty description
+
+title State-chart Diagram for SS2 - Personal EV Parking & Charging
+
+[*] --> AVAILABLE : Chỗ đỗ sẵn sàng sử dụng
+
+state AVAILABLE
+state RESERVED
+state OCCUPIED {
+    state PARKED
+    state CHARGING
+    state CHECK_OUT_PENDING
+
+    [*] --> PARKED
+    PARKED --> CHARGING : Quét QR tại trụ và cắm sạc\n[Có lịch sạc hợp lệ, kích hoạt thành công]
+    CHARGING --> PARKED : Pin đầy hoặc yêu cầu dừng sạc\n[Đã ngắt sạc, chốt điện năng tiêu thụ]
+    PARKED --> CHECK_OUT_PENDING : Yêu cầu Check-out\n/ Lập hóa đơn phí đỗ và phí sạc (nếu có)
+    CHECK_OUT_PENDING --> CHECK_OUT_PENDING : Chưa thanh toán đủ hoặc chưa xác nhận xe ra\n/ Chưa giải phóng chỗ đỗ
+}
+
+AVAILABLE --> RESERVED : Xác nhận đặt chỗ (Cọc 50.000 VNĐ)\n[Xe đã đăng ký, chỗ khả dụng trong lịch đặt]
+RESERVED --> AVAILABLE : Hủy trước Check-in\n[Chính sách cho phép]
+RESERVED --> AVAILABLE : Chưa Check-in sau 15 phút\nkể từ giờ bắt đầu đặt / Đơn EXPIRED
+RESERVED --> OCCUPIED : Xác thực QR/PIN tại Hub\n[Đơn hợp lệ, đã xác nhận xe vào]
+CHECK_OUT_PENDING --> AVAILABLE : Hoàn tất Check-out\n[Đã thanh toán đủ và xác nhận xe rời Hub]\n/ Đơn COMPLETED, giải phóng tài nguyên còn giữ
+
+note right of OCCUPIED
+    Chỗ đỗ vẫn OCCUPIED khi đang sạc,
+    đã sạc xong hoặc đang chờ Check-out.
+end note
+
+@enduml

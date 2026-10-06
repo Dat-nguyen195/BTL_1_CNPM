@@ -1,0 +1,104 @@
+@startuml UC_SS2_04_NguyenAnhTai_activity
+!theme plain
+skinparam activityMessageAlign center
+
+title Activity Diagram - UC_SS2_04: Check-out và thanh toán dịch vụ xe EV cá nhân
+
+|Sinh viên ĐHQG-HCM|
+start
+:Yêu cầu Check-out;
+
+|UI Layer (personal_ev.py)|
+:Xác thực sinh viên và yêu cầu Check-out;
+
+|Control & State (st.session_state)|
+:Xác định xe, quyền sử dụng\nvà phiên đỗ đã CHECKED_IN;
+
+if (Có phiên sử dụng hợp lệ?) then (Không)
+  |UI Layer (personal_ev.py)|
+ :Thông báo không tìm được phiên hợp lệ;
+  stop
+endif
+
+|Control & State (st.session_state)|
+if (Có sử dụng sạc?) then (Có)
+  |IoT / Barie & Trụ sạc tại Hub|
+ :Kết thúc sạc nếu còn hoạt động;\nchốt kWh theo từng khung giá;
+  |Control & State (st.session_state)|
+ :Tính phí sạc thực tế\ncao điểm / thấp điểm;
+else (Không)
+  :Không phát sinh phí sạc;
+endif
+
+:Tính phí đỗ và tổng tiền thực tế;\náp dụng voucher hợp lệ nếu có;
+
+|UI Layer (personal_ev.py)|
+:Hiển thị hóa đơn tổng hợp\nphí đỗ + phí sạc;
+
+|Sinh viên ĐHQG-HCM|
+:Kiểm tra hóa đơn;\nxác nhận thanh toán qua ví nội bộ;
+
+|Tài khoản & Cổng thanh toán|
+:Đối soát tiền cọc tạm giữ;\nkiểm tra khả năng thanh toán\nsố tiền hóa đơn thực tế;
+
+if (Ví đáp ứng số tiền cần thanh toán?) then (Có)
+  :Thu đúng số tiền hóa đơn;\ngiải phóng tiền cọc tạm giữ\ntrong cùng giao dịch quyết toán;
+else (Không đủ số dư)
+  |UI Layer (personal_ev.py)|
+ :Thông báo ví không đủ số dư;\nđề nghị hình thức thanh toán khác;
+  |Sinh viên ĐHQG-HCM|
+ :Chọn hình thức thanh toán khác;
+  |Tài khoản & Cổng thanh toán|
+ :Thực hiện thanh toán thay thế;\nđối soát khoản cọc để tránh thu trùng;
+endif
+
+if (Thanh toán đủ và thành công?) then (Không)
+  |UI Layer (personal_ev.py)|
+ :Thông báo chưa hoàn tất thanh toán;\nyêu cầu thanh toán khoản còn thiếu;\nkhông mở cổng ra;
+  stop
+else (Có)
+  |Control & State (st.session_state)|
+ :Ghi nhận hóa đơn đã thanh toán;\nlưu giao dịch và hóa đơn điện tử;
+endif
+
+|Sinh viên ĐHQG-HCM|
+:Đưa xe tới cổng ra;
+
+|UI Layer (personal_ev.py)|
+:Đối chiếu xe tại cổng ra;
+
+|Control & State (st.session_state)|
+:Kiểm tra phiên và trạng thái quyết toán;
+
+if (Đúng xe và đã quyết toán đầy đủ?) then (Không)
+  |UI Layer (personal_ev.py)|
+ :Từ chối mở cổng;\nyêu cầu xác thực hoặc thanh toán bổ sung;
+  stop
+endif
+
+|UI Layer (personal_ev.py)|
+:Gửi lệnh mở barie cổng ra;
+
+|IoT / Barie & Trụ sạc tại Hub|
+:Mở barie;\nxác nhận xe đã rời Hub;
+
+if (Cổng hoạt động và xe đã ra?) then (Không)
+  |Khối Vận hành (Operators)|
+ :Xử lý sự cố cổng;\nxác minh hiện diện của xe;
+  |Control & State (st.session_state)|
+ :Chưa ghi COMPLETED;\nchưa giải phóng vị trí;
+  stop
+else (Có)
+  :Ghi nhận tín hiệu xe đã ra;
+endif
+
+|Control & State (st.session_state)|
+:Ghi thời điểm Check-out;\nkết thúc phiên, đơn = COMPLETED;
+:Giải phóng vị trí OCCUPIED -> AVAILABLE;\ngiải phóng cổng sạc còn giữ/chiếm dụng\nkhi đủ điều kiện thực tế;
+:Giữ nguyên hồ sơ đăng ký xe;
+
+|UI Layer (personal_ev.py)|
+:Cung cấp hóa đơn điện tử;\nthông báo Check-out thành công;
+
+stop
+@enduml

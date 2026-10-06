@@ -1,0 +1,135 @@
+@startuml UC_SS2_02_NguyenAnhTai_activity
+!theme plain
+skinparam activityMessageAlign center
+
+title Activity Diagram - UC_SS2_02: Đặt chỗ đỗ và nhu cầu sạc xe EV cá nhân
+
+|Sinh viên ĐHQG-HCM|
+start
+:Chọn Đặt chỗ đỗ và sạc;
+
+|UI Layer (personal_ev.py)|
+:Xác thực phiên qua VNU-SSO;
+
+|Control & State (st.session_state)|
+:Kiểm tra tài khoản và danh sách\nxe cá nhân đã đăng ký;
+
+if (Tài khoản và xe hợp lệ?) then (Không)
+  |UI Layer (personal_ev.py)|
+ :Yêu cầu đăng nhập hoặc đăng ký xe;
+  stop
+endif
+
+|Sinh viên ĐHQG-HCM|
+:Chọn xe đã đăng ký;
+
+|UI Layer (personal_ev.py)|
+:Hiển thị các Hub, khả năng phục vụ\nvà biểu phí;
+
+repeat
+  |Sinh viên ĐHQG-HCM|
+ :Chọn Hub, thời gian sử dụng,\nvị trí đỗ và tùy chọn sạc;
+
+  |Control & State (st.session_state)|
+ :Kiểm tra lịch đặt, lịch trùng,\nvị trí AVAILABLE trong khung giờ;\nnếu có sạc, kiểm tra cổng tương thích;
+
+  |UI Layer (personal_ev.py)|
+  if (Lịch đặt và khả năng phục vụ hợp lệ?) then (Không)
+    :Thông báo dữ liệu không hợp lệ,\nhết chỗ hoặc không có cổng phù hợp;\nyêu cầu chọn lại;
+  else (Có)
+    :Hiển thị phí đỗ 5.000 VNĐ/lượt,\ncọc giữ chỗ 50.000 VNĐ;\nphí sạc dự kiến nếu có;
+    note right
+      Cao điểm: 7.000 VNĐ/kWh
+      06:00–09:00 và 16:00–19:30.
+      Thấp điểm: 3.000 VNĐ/kWh.
+    end note
+    |Sinh viên ĐHQG-HCM|
+   :Kiểm tra thông tin;\nchọn giữ nguyên hoặc thay đổi;
+  endif
+repeat while (Cần sửa hoặc muốn thay đổi lựa chọn?) is (Có) not (Không)
+
+|Sinh viên ĐHQG-HCM|
+:Áp dụng voucher nếu có;\nxác nhận đặt dịch vụ;
+
+|Tài khoản & Ví điện tử|
+:Kiểm tra số dư khả dụng;
+
+if (Số dư khả dụng >= 50.000 VNĐ?) then (Không)
+  |UI Layer (personal_ev.py)|
+ :Thông báo không đủ tiền cọc;\nchưa xác nhận đơn;
+  stop
+else (Có)
+  |Control & State (st.session_state)|
+ :Kiểm tra lại lịch và khả dụng\ntại thời điểm xác nhận;
+endif
+
+if (Vị trí và nhu cầu dịch vụ vẫn đáp ứng?) then (Không)
+  |UI Layer (personal_ev.py)|
+ :Thông báo tài nguyên đã thay đổi;\nyêu cầu chọn lại Hub hoặc lịch;
+  stop
+else (Có)
+  |Tài khoản & Ví điện tử|
+ :Tạm giữ 50.000 VNĐ tiền cọc;
+endif
+
+if (Tạm giữ cọc thành công?) then (Không)
+  |UI Layer (personal_ev.py)|
+ :Thông báo chưa thể xác nhận đơn;
+  stop
+endif
+
+|Control & State (st.session_state)|
+:Xác nhận đơn, liên kết xe và vị trí;\ngiữ chỗ AVAILABLE -> RESERVED\ntheo lịch đặt;
+:Đặt hạn nhận chỗ =\nbooking_start_time + 15 phút;
+
+if (Có yêu cầu sạc?) then (Có)
+  |Phân hệ lập lịch sạc (SS5)|
+ :Tiếp nhận yêu cầu sạc;\nxử lý lịch và phân bổ cổng phù hợp;
+  |Control & State (st.session_state)|
+ :Ghi nhận lịch/cổng được phân bổ;\nchưa bắt đầu phiên sạc;
+else (Không)
+  |Control & State (st.session_state)|
+ :Đơn chỉ đỗ xe;\nkhông giữ cổng sạc;
+endif
+
+|UI Layer (personal_ev.py)|
+:Thông báo đặt thành công;\nxuất mã đặt chỗ, QR Check-in\nvà QR mở trụ nếu có sạc;
+
+|Control & State (st.session_state)|
+:Chờ sự kiện:\nyêu cầu hủy, yêu cầu Check-in\nhoặc hết hạn nhận chỗ;
+
+if (Sinh viên yêu cầu hủy?) then (Có)
+  :Kiểm tra đơn chưa Check-in\nvà điều kiện hủy;
+  if (Được phép hủy?) then (Có)
+    :Ghi nhận đơn đã hủy;\ngiải phóng lịch giữ chỗ\nRESERVED -> AVAILABLE;
+    |Phân hệ lập lịch sạc (SS5)|
+   :Hủy yêu cầu sạc nếu có;\ngiải phóng phần phân bổ của đơn;
+    |Tài khoản & Ví điện tử|
+   :Xử lý tiền cọc theo chính sách hủy;
+    |UI Layer (personal_ev.py)|
+   :Thông báo hủy thành công;
+    stop
+  else (Không)
+    |UI Layer (personal_ev.py)|
+   :Từ chối hủy;\ngiữ đơn theo trạng thái hiện tại;
+    stop
+  endif
+else (Không)
+  |Control & State (st.session_state)|
+  if (Đã quá hạn và chưa Check-in?) then (Có)
+    :Đổi đơn = EXPIRED;\ngiải phóng lịch giữ chỗ\nRESERVED -> AVAILABLE;
+    |Phân hệ lập lịch sạc (SS5)|
+   :Hủy yêu cầu sạc nếu có;\ngiải phóng cổng đã giữ;
+    |Tài khoản & Ví điện tử|
+   :Xử lý tiền cọc theo chính sách hết hạn;
+    |UI Layer (personal_ev.py)|
+   :Thông báo đơn hết hiệu lực;
+    stop
+  else (Không)
+    |UI Layer (personal_ev.py)|
+   :Chuyển yêu cầu Check-in sang UC_SS2_03;\nchưa thay đổi trạng thái hiện diện;
+    stop
+  endif
+endif
+
+@enduml

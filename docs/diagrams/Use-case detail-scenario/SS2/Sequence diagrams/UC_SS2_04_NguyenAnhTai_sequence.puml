@@ -1,0 +1,219 @@
+@startuml UC_SS2_04_NguyenAnhTai_sequence
+!theme plain
+skinparam sequenceMessageAlign center
+skinparam maxMessageSize 150
+skinparam BoxPadding 10
+
+title "Detailed UML Sequence Diagram: SS2 - Check-out và thanh toán dịch vụ xe EV cá nhân"
+
+' Nguồn: UC_SS2_NguyenAnhTai (2).md, cập nhật 21/09/2026.
+' Thiết kế theo đặc tả; không khẳng định toàn bộ chức năng đã có trong mã nguồn.
+
+actor "Sinh viên ĐHQG-HCM" as Student
+box "Boundary / UI Layer" #LightCyan
+participant "personal_ev.py\n(UI)" as UI
+end box
+box "External Authentication" #White
+participant "Cổng VNU-SSO\n(SSO)" as SSO
+end box
+box "Control & State" #LightYellow
+participant "st.session_state\n(AppState)" as AppState
+end box
+box "External Payment" #White
+participant "Cổng thanh toán & Ví nội bộ\n(Payment / E-Wallet)" as EWallet
+end box
+box "Hardware / IoT" #LightGray
+participant "Barie & Cảm biến cổng\n(Gate_IoT)" as Gate
+participant "Trụ sạc\n(Charger_IoT)" as Charger
+end box
+box "Operations" #White
+actor "Nhân viên vận hành\n(Operators)" as Operators
+end box
+
+autonumber 1.1
+group 1. Xác thực và xác định phiên sử dụng
+    Student -> UI: Yêu cầu Check-out / Thanh toán
+    activate UI
+    UI -> SSO: Xác thực phiên sinh viên
+    activate SSO
+    SSO --> UI: Kết quả xác thực
+    deactivate SSO
+    UI --> Student: Kết quả xác thực phiên
+    deactivate UI
+
+    break Phiên đăng nhập không hợp lệ
+        UI --> Student: Yêu cầu xác thực lại
+    end
+
+    UI -> AppState: Tra cứu xe, quyền sử dụng\nvà phiên đỗ đã CHECKED_IN
+    activate AppState
+    AppState --> UI: Phiên sử dụng / lý do không hợp lệ
+    deactivate AppState
+
+    break Không có phiên hợp lệ hoặc không có quyền sử dụng
+        UI --> Student: Từ chối xử lý;\nyêu cầu kiểm tra thông tin
+    end
+end
+
+autonumber 2.1
+group 2. Kết thúc sạc và lập hóa đơn tổng hợp
+    alt Có sử dụng dịch vụ sạc
+        UI -> Charger: Kết thúc sạc nếu còn hoạt động;\nchốt dữ liệu tiêu thụ theo khung giá
+        activate Charger
+        Charger -> Charger: Dừng sạc hoặc sử dụng số liệu đã chốt
+        Charger --> UI: Kết quả dừng sạc và kWh theo khung giờ
+        deactivate Charger
+
+        break Chưa dừng được sạc hoặc thiếu dữ liệu chốt
+            UI -> Operators: Yêu cầu xử lý / đối soát số đo
+            UI --> Student: Chưa thể hoàn tất hóa đơn
+        end
+
+        UI -> AppState: Ghi nhận lượng điện và phí sạc thực tế\n7.000 VNĐ/kWh cao điểm; 3.000 VNĐ/kWh thấp điểm
+        activate AppState
+        AppState --> UI: Chi tiết phí sạc theo từng khung giờ
+        deactivate AppState
+
+    else Không sử dụng dịch vụ sạc
+        UI -> AppState: Xác định hóa đơn chỉ gồm phí đỗ
+        activate AppState
+        AppState --> UI: Không phát sinh phí sạc
+        deactivate AppState
+    end
+
+    UI -> AppState: Tính phí đỗ 5.000 VNĐ/lượt,\nphí sạc thực tế và voucher đã áp dụng nếu có
+    activate AppState
+    AppState -> AppState: Lập một hóa đơn tổng hợp
+    AppState --> UI: Chi tiết hóa đơn và tổng số tiền phải trả
+    deactivate AppState
+    UI --> Student: Hiển thị hóa đơn phí đỗ + phí sạc
+
+    note over UI, AppState
+        Cao điểm: 06:00–09:00 và 16:00–19:30.
+        Thời điểm chốt phí và thời hạn rời bãi sau thanh toán
+        thực hiện theo chính sách dịch vụ.
+    end note
+end
+
+autonumber 3.1
+group 3. Thanh toán và quyết toán tiền cọc
+    Student -> UI: Kiểm tra hóa đơn;\nxác nhận thanh toán qua ví nội bộ
+    activate UI
+    UI -> EWallet: Quyết toán hóa đơn thực tế;\nđối soát khoản cọc tạm giữ 50.000 VNĐ
+    activate EWallet
+    EWallet --> UI: Kết quả giao dịch ví
+    deactivate EWallet
+    deactivate UI
+
+    alt Ví thanh toán thành công
+        note over UI, EWallet
+            Thu đúng tổng tiền thực tế và giải phóng khoản cọc
+            trong cùng nghiệp vụ quyết toán.
+            Tiền cọc không phải khoản phí cộng thêm vào hóa đơn.
+        end note
+
+    else Ví từ chối do thiếu số dư
+        UI --> Student: Thông báo không đủ số dư;\ncho phép chọn phương thức khác
+        Student -> UI: Chọn hình thức thanh toán thay thế
+        activate UI
+        UI -> EWallet: Xử lý thanh toán theo phương thức được chọn
+        activate EWallet
+        EWallet --> UI: Kết quả thanh toán thay thế
+        deactivate EWallet
+        deactivate UI
+
+        opt Thanh toán thay thế thành công
+            UI -> EWallet: Đối soát và giải phóng khoản cọc;\nkhông thu lại khoản đã thanh toán
+            activate EWallet
+            EWallet --> UI: Kết quả quyết toán khoản cọc
+            deactivate EWallet
+        end
+
+    else Giao dịch lỗi hoặc chưa xác định kết quả
+        UI -> EWallet: Tra soát giao dịch trước khi cho phép thử lại
+        activate EWallet
+        EWallet --> UI: Kết quả tra soát / còn chờ xử lý
+        deactivate EWallet
+    end
+
+    break Chưa xác nhận thanh toán đủ và quyết toán thành công
+        UI --> Student: Yêu cầu thanh toán khoản còn thiếu\nhoặc chờ đối soát; chưa cho phép ra Hub
+    end
+
+    UI -> AppState: Ghi nhận hóa đơn đã thanh toán;\nlưu giao dịch và hóa đơn điện tử
+    activate AppState
+    AppState --> UI: Xác nhận đã quyết toán
+    deactivate AppState
+    UI --> Student: Thanh toán thành công
+end
+
+autonumber 4.1
+group 4. Đối chiếu tại cổng ra và mở barie
+    Student -> UI: Xác thực xe tại cổng ra
+    activate UI
+    UI -> AppState: Đối chiếu xe và phiên sử dụng;\nkiểm tra đã hoàn tất quyết toán
+    activate AppState
+    AppState --> UI: Kết quả đối chiếu và nghĩa vụ thanh toán
+    deactivate AppState
+    UI --> Student: Kết quả kiểm tra tại cổng
+    deactivate UI
+
+    break Xe không khớp hoặc chưa thanh toán đầy đủ
+        UI --> Student: Không mở cổng;\nyêu cầu xác thực đúng xe hoặc thanh toán bổ sung
+    end
+
+    UI -> Gate: Gửi lệnh mở barie cổng ra
+    activate Gate
+    Gate --> UI: Kết quả mở cổng
+    deactivate Gate
+
+    break Cổng gặp sự cố
+        UI -> Operators: Chuyển yêu cầu xử lý cổng ra
+        activate Operators
+        Operators --> UI: Tiếp nhận và xác minh
+        deactivate Operators
+        UI --> Student: Chờ nhân viên hướng dẫn;\nchưa hoàn tất phiên hoặc giải phóng vị trí
+    end
+
+    Student -> Gate: Đưa xe qua cổng ra
+    activate Gate
+    Gate --> UI: Kết quả xác nhận xe rời Hub
+    deactivate Gate
+
+    break Chưa xác nhận xe đã ra
+        UI -> Operators: Xác minh hiện diện của xe
+        UI --> Student: Chưa hoàn tất Check-out
+    end
+end
+
+autonumber 5.1
+group 5. Hoàn tất phiên và giải phóng tài nguyên
+    UI -> AppState: Ghi thời điểm Check-out;\nkết thúc phiên; đơn = COMPLETED
+    activate AppState
+    AppState -> AppState: Kết thúc phần chiếm dụng vị trí của phiên;\nOCCUPIED -> AVAILABLE khi đủ điều kiện
+    AppState --> UI: Đã cập nhật phiên và vị trí đỗ
+    deactivate AppState
+
+    opt Còn cổng sạc được giữ hoặc sử dụng bởi phiên
+        UI -> Charger: Xác nhận cổng hết kết nối/chiếm dụng thực tế
+        activate Charger
+        Charger --> UI: Trạng thái thực tế của cổng
+        deactivate Charger
+        UI -> AppState: Giải phóng phần giữ/sử dụng của phiên;\nchỉ trả AVAILABLE khi cổng đủ điều kiện
+        activate AppState
+        AppState --> UI: Kết quả cập nhật cổng sạc
+        deactivate AppState
+    end
+
+    UI -> AppState: Hoàn tất cập nhật số chỗ/cổng khả dụng;\ngiữ nguyên hồ sơ đăng ký xe
+    activate AppState
+    AppState --> UI: Hóa đơn và kết quả Check-out
+    deactivate AppState
+    UI --> Student: Check-out thành công;\ncung cấp hóa đơn điện tử
+
+    note over UI, AppState
+        Mỗi tài nguyên chỉ được giải phóng một lần.
+        Cổng đã giải phóng trước đó không được cộng lại.
+    end note
+end
+@enduml
