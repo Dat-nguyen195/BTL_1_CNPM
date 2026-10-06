@@ -1,0 +1,6 @@
+23:03/04/10/2026
+Quý Nhân đây, tui vừa mới thêm vào usecase diagram cho cái scenario, 
+với lại tui mới sửa lại phần liệt kê actors,
+vì tui thấy có vài cái trong đó không phải actor, 
+còn cái "Cảm biến IOT trên xe" tui không chắc nên chưa xóa nhưng tui cũng không nghĩ nó là actor, 
+cũng vì thế mà trên diagram tui chỉ vẽ có 2 actor thôi.
