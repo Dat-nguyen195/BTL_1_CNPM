@@ -1,0 +1,75 @@
+
+@startuml UC_SS5_01_DuongDangKhoa_activity
+!theme plain
+skinparam activityMessageAlign center
+
+title Activity Diagram - UC_SS5_01: Lập lịch ưu tiên sạc tự động
+
+|Chuyên viên sạc|
+start
+:Mở chức năng Lập lịch sạc;
+
+|UI Layer (smart_charging.py)|
+:Kiểm tra xác thực và quyền truy cập;
+
+|Control & State (st.session_state)|
+:Lấy danh sách phương tiện WAITING;
+:Lấy trạng thái các cổng sạc và cấu hình công suất;
+
+|Mạng lưới Cảm biến IoT|
+:Thu thập SoC, nhiệt độ pin,\nthời gian chờ và trạng thái cổng sạc;
+
+|Bộ lập lịch sạc (scheduler.py)|
+if (Dữ liệu đầu vào hợp lệ?) then (Không)
+  |UI Layer (smart_charging.py)|
+  :Thông báo dữ liệu không hợp lệ;
+  stop
+else (Có)
+  :Xác định các cổng sạc AVAILABLE;
+endif
+
+|Bộ lập lịch sạc (scheduler.py)|
+if (Có cổng sạc khả dụng?) then (Không)
+  |Control & State (st.session_state)|
+  :Giữ phương tiện ở trạng thái WAITING;
+  |UI Layer (smart_charging.py)|
+  :Thông báo tất cả cổng sạc đang bận;
+  stop
+else (Có)
+  |Bộ lập lịch sạc (scheduler.py)|
+  :Tính Priority Score cho từng phương tiện;
+  :Sắp xếp hàng chờ theo điểm ưu tiên giảm dần;
+  :Chọn phương tiện có mức ưu tiên cao nhất;
+endif
+
+:Kiểm tra tổng công suất sạc dự kiến;
+
+if (Vượt Peak Power Capping?) then (Có)
+  :Điều chỉnh thời điểm bắt đầu sạc\nhoặc công suất phân bổ;
+  if (Công suất vẫn vượt giới hạn?) then (Có)
+    |Control & State (st.session_state)|
+    :Giữ phương tiện ở trạng thái WAITING;
+    |UI Layer (smart_charging.py)|
+    :Thông báo giới hạn công suất;
+    stop
+  else (Không)
+    |Bộ lập lịch sạc (scheduler.py)|
+    :Xác nhận lịch sạc;
+  endif
+else (Không)
+  :Xác nhận lịch sạc;
+endif
+
+|Control & State (st.session_state)|
+:Cập nhật xe sang CHARGING;
+:Cập nhật trạng thái cổng sạc;
+:Lưu lịch và thời gian sạc dự kiến;
+
+|UI Layer (smart_charging.py)|
+:Hiển thị hàng chờ và lịch sạc;
+
+|Chuyên viên sạc|
+:Kiểm tra kết quả lập lịch;
+stop
+
+@enduml

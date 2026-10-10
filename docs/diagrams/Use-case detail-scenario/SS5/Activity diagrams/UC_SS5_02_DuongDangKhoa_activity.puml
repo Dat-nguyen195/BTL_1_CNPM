@@ -1,0 +1,81 @@
+
+@startuml UC_SS5_02_DuongDangKhoa_activity
+!theme plain
+skinparam activityMessageAlign center
+skinparam activity {
+  MaximumWidth 220
+}
+skinparam nodesep 20
+skinparam ranksep 25
+
+title Activity Diagram - UC_SS5_02: Giam sat hang cho sac
+
+|Chuyen vien sac|
+start
+:Mo chuc nang giam sat;
+
+|UI Layer|
+:Hien thi Dashboard;
+
+|Control & State|
+:Lay danh sach xe va cong sac;
+
+|IoT|
+:Cap nhat SoC va trang thai cong sac;
+
+|Control & State|
+if (Du lieu hop le?) then (Co)
+  :Cap nhat trang thai;
+else (Khong)
+  |UI Layer|
+  :Thong bao loi ket noi IoT;
+  stop
+endif
+
+|Control & State|
+if (SoC >= 90%?) then (Co)
+  |He thong thong bao|
+  :Gui canh bao sac gan day;
+endif
+
+|Control & State|
+if (SoC = 100%?) then (Co)
+  |He thong thong bao|
+  :Gui thong bao sac hoan tat;
+  :Gui bien nhan nang luong;
+
+  |Control & State|
+  :Bat dau thoi gian an han 15 phut;
+
+  if (Xe roi cong trong 15 phut?) then (Co)
+    :Giai phong cong sac;
+    :Cap nhat trang thai AVAILABLE;
+  else (Khong)
+    :Kiem tra thoi gian chiem cong;
+
+    if (Het thoi gian an han?) then (Co)
+      |Tai khoan & Vi dien tu|
+      if (Vi du so du?) then (Co)
+        :Khau tru Overstay Fee;
+      else (Khong)
+        :Ghi nhan khoan no;
+      endif
+
+      |He thong thong bao|
+      :Gui canh bao Overstay;
+
+      |Control & State|
+      :Danh dau xe Overstay;
+    else (Khong)
+      :Tiep tuc theo doi thoi gian;
+    endif
+  endif
+else (Khong)
+  :Tiep tuc giam sat sac;
+endif
+
+|UI Layer|
+:Cap nhat Dashboard;
+stop
+
+@enduml
