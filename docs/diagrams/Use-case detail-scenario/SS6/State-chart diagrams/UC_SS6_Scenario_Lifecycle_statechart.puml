@@ -1,0 +1,49 @@
+@startuml UC_SS6_Scenario_Lifecycle_statechart
+!theme plain
+hide empty description
+
+title State-chart Diagram: Vòng đời Kịch bản Mô phỏng What-if (SS6)
+
+[*] --> CONFIGURING : Truy cập màn hình SS6
+
+state CONFIGURING {
+    [*] --> DEFAULT_PARAMS
+    DEFAULT_PARAMS --> ADJUSTING_PARAMS : Di chuyển thanh slider /\nNhập số lượng SV Metro
+    ADJUSTING_PARAMS --> INVALID_PARAMS : Tham số ngoài khoảng / Lỗi bộ nhớ
+    INVALID_PARAMS --> DEFAULT_PARAMS : Fallback về giá trị mặc định
+}
+
+CONFIGURING --> SIMULATING : Nhấn "Chạy mô phỏng" /\nHoặc kéo thả Slider hoàn tất\n[Deep copy bộ nhớ tạm]
+
+state SIMULATING {
+    state "Tính toán phụ tải & Mô hình hàng đợi" as CALC
+    state "Trừ chỗ trống & Tự sinh xe ảo" as SPAWN_EV
+    [*] --> CALC
+    CALC --> SPAWN_EV
+}
+
+SIMULATING --> RESULT_DISPLAYED : Hoàn tất tính toán & Kết xuất dữ liệu
+
+state RESULT_DISPLAYED {
+    state NORMAL_LOAD : occupancy <= 85%
+    state CRITICAL_OVERLOAD : occupancy > 85%
+    state DEPLETED_RESOURCE : available_slots == 0\nhoặc cổng sạc == 0
+    
+    [*] --> NORMAL_LOAD
+    NORMAL_LOAD --> CRITICAL_OVERLOAD : Quá tải hành khách Metro
+    NORMAL_LOAD --> DEPLETED_RESOURCE : Cạn kiệt chỗ đỗ / cổng sạc
+}
+
+RESULT_DISPLAYED --> CONFIGURING : Tác nhân chỉnh sửa tham số mới
+RESULT_DISPLAYED --> DISCARDED : Thoát trang / Không áp dụng (Alternative 2)
+RESULT_DISPLAYED --> APPLIED_TO_SYSTEM : Nhấn "Áp dụng kết quả mô phỏng vào hệ thống"
+
+state APPLIED_TO_SYSTEM {
+    [*] --> SYNCING
+    SYNCING --> SYNCED : Ghi đè st.session_state["hubs"] &\nĐồng bộ sang SS3 / SS4
+}
+
+DISCARDED --> [*] : Giữ nguyên dữ liệu vận hành gốc
+APPLIED_TO_SYSTEM --> [*] : Kích hoạt rerun & Lan tỏa toàn hệ thống
+
+@enduml

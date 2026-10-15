@@ -1,0 +1,68 @@
+@startuml UC_SS6_02_HoangVanTan_sequence
+!theme plain
+skinparam sequenceMessageAlign center
+skinparam maxMessageSize 160
+skinparam BoxPadding 10
+
+title "Sequence Diagram: UC_SS6_02 - Dự báo nhu cầu theo giờ & Phân tích hàng đợi, thời gian chờ"
+
+actor "Nhà phân tích /\nNhà hoạch định mạng lưới" as Analyst
+box "UI Layer (Streamlit)" #LightCyan
+participant "demand_forecast.py\n(SS6_UI)" as UI
+end box
+box "Simulation Engine" #LightGreen
+participant "HubEventSimulator\n(Engine)" as Engine
+end box
+box "Visualization Layer" #LightYellow
+participant "Thư viện Plotly\n(PlotlyLib)" as Plotly
+end box
+
+autonumber 1.1
+group 1. Truy cập & Thay đổi tham số What-if
+    Analyst -> UI: Truy cập mục "Dự đoán nhu cầu theo giờ"
+    activate UI
+    UI --> Analyst: Hiển thị 3 thanh Slider (Tỉ lệ đến [5-50], Hệ số Surge [1.0-5.0], Số giờ [6-24])
+    
+    Analyst -> UI: Thay đổi giá trị trên Slider (base_rate, surge_mult, sim_hours)
+    note right of UI: Streamlit tự động bắt sự kiện tương tác của người dùng
+end
+
+autonumber 2.1
+group 2. Tính toán mô hình chuỗi thời gian & Hàng đợi
+    alt Tham số ngoài khoảng quy định / Lỗi bộ nhớ [Exception 1]
+        UI -> UI: Tự động fallback về mặc định (base_rate=15, surge_mult=1.0, sim_hours=12)
+    end
+    
+    UI -> Engine: generate_demand_forecast(base_rate, surge_mult, sim_hours)
+    activate Engine
+    
+    loop Duyệt qua từng khung giờ t = 0..sim_hours
+        Engine -> Engine: Xác định peak factor (2.5 cho khung 7-9h, 17-18h; 1.5 cho khung 9h, 16h, 19h; 1.0 giờ thường)
+        Engine -> Engine: Tính arrivals = round(base_rate * peak * surge_mult + gaussian_noise)
+        Engine -> Engine: Tính hàng đợi tích luỹ queue_length (dựa trên tốc độ phục vụ 8 SV/h)
+        Engine -> Engine: Tính thời gian chờ wait_time_min = (queue_length / 8.0) * 60
+    end
+    
+    Engine -> Engine: Đóng gói dữ liệu thành DataFrame [hour, arrivals, queue_length, wait_time_min]
+    Engine --> UI: Trả về DataFrame kết quả
+    deactivate Engine
+end
+
+autonumber 3.1
+group 3. Trực quan hóa tương tác & Xuất thẻ KPI
+    UI -> Plotly: Khởi tạo Biểu đồ 1 (Bar: Lượng SV đến + Line: Hàng đợi tích luỹ trên trục Y2)
+    activate Plotly
+    Plotly --> UI: Đối tượng Figure 1
+    deactivate Plotly
+    
+    UI -> Plotly: Khởi tạo Biểu đồ 2 (Area Chart: Thời gian chờ ước tính theo phút)
+    activate Plotly
+    Plotly --> UI: Đối tượng Figure 2
+    deactivate Plotly
+    
+    UI -> UI: Trích xuất chỉ số cực trị: Giờ cao điểm, Hàng đợi max, Thời gian chờ max
+    UI --> Analyst: Hiển thị Biểu đồ kép Plotly, Biểu đồ vùng & 3 Thẻ KPI tổng hợp
+    deactivate UI
+end
+
+@enduml
