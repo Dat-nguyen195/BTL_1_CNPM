@@ -1,0 +1,47 @@
+@startuml UC_SS4_01_statechart
+title UC_SS4_01 - Vòng đời lệnh điều phối (Sơ đồ trạng thái)
+skinparam shadowing false
+skinparam state {
+  BackgroundColor #E8F1FB
+  BorderColor #2B6CB0
+}
+
+[*] --> Nhap : Nhân viên mở tab điều phối
+
+state "Nháp" as Nhap {
+  [*] --> ChonHub
+  state "Đang chọn Hub" as ChonHub
+  state "Đang chọn xe" as ChonXe
+  state "Đang nhập lý do" as NhapLyDo
+  ChonHub --> ChonXe : đã chọn Hub nguồn và Hub đích
+  ChonXe --> NhapLyDo : đã tích chọn xe
+  ChonXe : Luồng thay thế 1: ưu tiên SoC trên 70%
+}
+
+state "Đã hủy" as DaHuy
+state "Đang kiểm tra" as KiemTra
+state "Đang thực hiện" as ThucHien {
+  [*] --> ChuyenXe
+  state "Chuyển xe giữa các Hub" as ChuyenXe
+  state "Cập nhật trạng thái xe" as CapNhatXe
+  state "Cập nhật số chỗ trống" as CapNhatCho
+  state "Ghi nhật ký" as GhiLog
+  ChuyenXe --> CapNhatXe : đã chuyển xe
+  CapNhatXe --> CapNhatCho : PARKED → DISPATCHED
+  CapNhatCho --> GhiLog : đã cập nhật chỗ trống
+  GhiLog --> [*] : đã ghi dispatch_log
+}
+state "Hoàn tất" as HoanTat
+
+Nhap --> DaHuy : Hub nguồn không có xe PARKED /\nvô hiệu hóa nút gửi lệnh
+Nhap --> KiemTra : nhấn "Thực hiện điều phối"
+
+KiemTra --> Nhap : Hub nguồn trùng Hub đích /\nbáo lỗi
+KiemTra --> Nhap : chưa chọn xe /\nbáo lỗi
+KiemTra --> ThucHien : lệnh hợp lệ
+
+ThucHien --> HoanTat : hiển thị thông báo thành công
+HoanTat : Dashboard SS3 đã được đồng bộ
+HoanTat --> [*]
+DaHuy --> [*]
+@enduml
