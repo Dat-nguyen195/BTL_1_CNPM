@@ -1,0 +1,39 @@
+@startuml UC_SS7_02_NguyenTrungNguyen_statechart
+!theme plain
+hide empty description
+
+title State-chart Diagram for SS7_02 Hub Rerouting Lifecycle
+
+[*] --> ROUTE_ACTIVE : Sinh viên có chuyến đi / điểm đến
+
+state ROUTE_ACTIVE
+state DESTINATION_UNAVAILABLE
+state SEARCHING_ALTERNATIVES
+state ALTERNATIVES_PRESENTED
+state VALIDATING_HUB
+state REROUTED
+state NETWORK_UNAVAILABLE
+
+ROUTE_ACTIVE --> DESTINATION_UNAVAILABLE : Hub đích OFFLINE / ERROR
+ROUTE_ACTIVE --> DESTINATION_UNAVAILABLE : Hub đích hết chỗ
+
+DESTINATION_UNAVAILABLE --> SEARCHING_ALTERNATIVES : Kích hoạt Auto-Rerouting\n/ Đọc tọa độ, trạng thái và số slot các Hub
+SEARCHING_ALTERNATIVES --> ALTERNATIVES_PRESENTED : Tìm thấy Hub còn slot\n/ Sắp xếp theo khoảng cách, lấy tối đa 2 Hub
+SEARCHING_ALTERNATIVES --> NETWORK_UNAVAILABLE : Không có Hub còn slot\n/ Đóng băng cước phí chờ, cảnh báo khẩn cấp
+
+ALTERNATIVES_PRESENTED --> VALIDATING_HUB : Sinh viên chọn Hub gợi ý
+ALTERNATIVES_PRESENTED --> VALIDATING_HUB : Sinh viên tự chọn Hub khác
+
+VALIDATING_HUB --> REROUTED : Hub được chọn còn slot\n/ Giữ 1 slot RESERVED, bảo toàn tiền cọc, cộng 15 phút miễn phí (tổng 45 phút)
+VALIDATING_HUB --> VALIDATING_HUB : Hub gợi ý 1 vừa hết slot [Còn Hub gợi ý 2]\n/ Thử giữ slot tại Hub gợi ý 2
+VALIDATING_HUB --> SEARCHING_ALTERNATIVES : Hub đã chọn vừa hết slot [Không còn phương án khả dụng]\n/ Tìm phương án thay thế khác
+
+REROUTED --> ROUTE_ACTIVE : Cập nhật điểm đến và lộ trình
+NETWORK_UNAVAILABLE --> SEARCHING_ALTERNATIVES : Có Hub khả dụng trở lại
+
+note right of REROUTED
+  Booking được cập nhật sang Hub mới.
+  Tiền cọc không bị thu lại.
+end note
+
+@enduml
