@@ -2,7 +2,7 @@
 
 ## Hệ thống Điều phối Phương tiện Điện trong Khu đô thị ĐHQG-HCM
 
-> **Môn học:** Công nghệ Phần mềm (Software Engineering) – HK1/2025-2026  
+> **Môn học:** Công nghệ Phần mềm (Software Engineering) – HK1/2026-2027  
 > **Trường:** Đại học Bách Khoa – ĐHQG TP.HCM (HCMUT – VNU-HCM)  
 > **Loại dự án:** Evolutionary Prototype (Agile/Scrum)
 
@@ -22,15 +22,15 @@
 
 ## 👥 Thành viên Nhóm & Phân công
 
-| STT | Họ và Tên | MSSV | Vai trò | Subsystem |
-|-----|-----------|------|---------|-----------|
-| 1 | [Tên thành viên 1] | [MSSV] | **Project Manager** | SS1: Quản lý & Đặt xe cho SV |
-| 2 | [Tên thành viên 2] | [MSSV] | Developer | SS2: Đăng ký dịch vụ Xe cá nhân |
-| 3 | [Tên thành viên 3] | [MSSV] | Developer | SS3: Giám sát mạng lưới Hub |
-| 4 | [Tên thành viên 4] | [MSSV] | Developer | SS4: Điều phối & Xử lý sự cố |
-| 5 | [Tên thành viên 5] | [MSSV] | Developer | SS5: Lập lịch sạc thông minh |
-| 6 | [Tên thành viên 6] | [MSSV] | Developer | SS6: Mô phỏng nhu cầu SV |
-| 7 | [Tên thành viên 7] | [MSSV] | Developer | SS7: Mô phỏng sự cố hạ tầng |
+| STT | Họ và Tên | MSSV | Email | Vai trò | Subsystem |
+|:---:|-----------|:----:|-------|---------|-----------|
+| 1 | Nguyễn Thành Đạt | 2410709 | dat.nguyen19052006@hcmut.edu.vn | **Project Manager** | SS1: Quản lý & Đặt xe cho SV |
+| 2 | Nguyễn Anh Tài | 2413035 | tai.nguyenanh1906@hcmut.edu.vn | Developer | SS2: Đăng ký dịch vụ Xe cá nhân |
+| 3 | Phạm Tiến Đạt | 2410724 | dat.phamkhmtk24@hcmut.edu.vn | Developer | SS3: Giám sát mạng lưới Hub |
+| 4 | Đặng Hoàng Quý Nhân | 2412401 | nhan.dangcs06@hcmut.edu.vn | Developer | SS4: Điều phối & Xử lý sự cố |
+| 5 | Dương Đăng Khoa | 2411589 | khoa.duong272dk@hcmut.edu.vn | Developer | SS5: Lập lịch sạc thông minh |
+| 6 | Hoàng Văn Tấn | 2213074 | tan.hoang0815@hcmut.edu.vn | Developer | SS6: Mô phỏng nhu cầu SV |
+| 7 | Nguyễn Trung Nguyên | 2011710 | nguyen.nguyen1111@hcmut.edu.vn | Developer | SS7: Mô phỏng sự cố hạ tầng |
 
 ---
 
@@ -151,4 +151,4 @@ Nhóm phát triển đã sử dụng công cụ AI tạo sinh (Generative AI –
 ## 📝 Giấy phép
 
 Dự án phục vụ mục đích học tập tại HCMUT – ĐHQG-HCM.  
-© 2025 – Nhóm Sinh viên Công nghệ Phần mềm, Trường Đại học Bách Khoa TP.HCM.
+© 2026 – Nhóm Sinh viên Công nghệ Phần mềm, Trường Đại học Bách Khoa TP.HCM.
