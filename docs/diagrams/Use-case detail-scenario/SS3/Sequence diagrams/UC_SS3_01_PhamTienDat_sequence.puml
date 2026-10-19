@@ -1,0 +1,40 @@
+@startuml
+!theme aws-orange
+actor "Operator / Admin" as Op
+participant "Dashboard SS3" as UI
+participant "st.session_state" as SS
+participant "Mạng cảm biến IoT" as IoT
+actor "Kỹ thuật viên" as Tech
+
+Op -> UI: Truy cập tab «Dashboard Giám sát»
+UI -> SS: Truy xuất st.session_state["hubs"]
+SS --> UI: Dữ liệu các Hub
+UI -> IoT: Yêu cầu dữ liệu cảm biến
+
+alt IoT phản hồi đúng hạn
+    IoT --> UI: Dữ liệu cảm biến
+    UI --> Op: Trả về Dashboard: số xe, tỷ lệ lấp đầy từng Hub, doanh thu tạm tính (VNĐ)
+else Timeout / mất kết nối (Exception 1)
+    UI -> UI: Đọc cache gần nhất
+    UI --> Op: Hiển thị cache + "Cảnh báo: Dữ liệu thời gian thực đang bị gián đoạn"
+end
+
+opt Tài khoản Admin
+    UI --> Op: Hiển thị thêm doanh thu tổng hợp và công cụ cấu hình ngưỡng cảnh báo
+end
+
+loop Cập nhật thời gian thực
+    IoT -> UI: Đẩy chỉ số cập nhật liên tục
+    UI --> Op: Làm mới các chỉ số
+end
+
+alt Lỗi nghiêm trọng từ cảm biến (Alt 1)
+    IoT -> UI: Lỗi nghiêm trọng (mất tín hiệu hoàn toàn)
+    UI -> Tech: Push notification / pop-up
+    Tech -> UI: Nhấp vào thông báo để xem chi tiết
+else Kỹ thuật viên chủ động kiểm tra
+    Tech -> UI: Nhấp mục «Log/Lỗi IoT»
+    UI --> Tech: Danh sách cảm biến sự cố / dữ liệu bất thường
+    Tech -> Tech: Ghi nhận vị trí Hub, loại cảm biến;\nlên phương án bảo trì
+end
+@enduml

@@ -1,0 +1,25 @@
+@startuml
+!theme aws-orange
+[*] --> ChoTruyCap
+
+state "Chờ truy cập" as ChoTruyCap : Operator/Admin đã đăng nhập
+state "Đang tải dữ liệu" as DangTaiDuLieu : Truy xuất st.session_state["hubs"] và Mạng lưới Cảm biến IoT (< 1s)
+state "Cache (Exception 1)" as Cache : Hiển thị dữ liệu cache gần nhất\n«Dữ liệu thời gian thực đang bị gián đoạn»
+state "Giám sát thời gian thực" as GiamSat : Hiển thị số xe, tỷ lệ lấp đầy, doanh thu (VNĐ)\nAdmin: + doanh thu tổng hợp, cấu hình ngưỡng\ndo / cập nhật chỉ số liên tục
+state "Cảnh báo lỗi IoT" as CanhBao : entry / push notification tới Kỹ thuật viên online
+state "Xem Log/Lỗi IoT" as XemLog : Danh sách cảm biến sự cố hoặc dữ liệu bất thường
+state "Đã ghi nhận lỗi" as GhiNhan : Ghi nhận vị trí Hub, loại cảm biến; lên phương án bảo trì
+
+ChoTruyCap --> DangTaiDuLieu : Mở tab Dashboard
+DangTaiDuLieu --> GiamSat : Dữ liệu đầy đủ
+DangTaiDuLieu --> Cache : Timeout IoT
+Cache --> GiamSat : IoT kết nối lại
+
+GiamSat --> CanhBao : Lỗi nghiêm trọng (Alt 1)
+GiamSat --> XemLog : KTV chọn Log/Lỗi IoT
+CanhBao --> XemLog : Nhấp thông báo
+
+XemLog --> GhiNhan : Ghi nhận lỗi
+XemLog --> GiamSat : Quay lại Dashboard
+GhiNhan --> [*] : Chuyển xử lý
+@enduml

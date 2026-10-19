@@ -1,0 +1,53 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+' --- ĐỊNH NGHĨA ACTORS ---
+actor "Nhân viên giám sát\n(Hub Operator)" as Operator
+actor "Quản trị viên\n(Admin)" as Admin
+actor "Kỹ thuật viên" as Technician
+
+' Tác nhân hệ thống ngoại vi (External Systems)
+actor "Mạng lưới\nCảm biến IoT" as IoT <<External>>
+actor "Phân hệ SS1/SS2\n(Đặt xe)" as SS12 <<External System>>
+actor "Phân hệ SS4\n(Điều phối xe)" as SS4 <<External System>>
+
+' Quan hệ kế thừa: Admin kế thừa quyền của Operator
+Admin -up-|> Operator
+
+' --- HỆ THỐNG SS3 HUB MONITORING ---
+rectangle "Phân hệ SS3: Hub Monitoring" {
+    ' Nhóm UC_SS3_01
+    usecase "Giám sát trạng thái Hub" as UC_01_1
+    usecase "Cấu hình ngưỡng cảnh báo" as UC_01_2
+    usecase "Xem Log/Lỗi IoT" as UC_01_3
+    
+    ' Nhóm UC_SS3_02
+    usecase "Cảnh báo quá tải" as UC_02_1
+    usecase "Đề xuất lệnh điều xe" as UC_02_2
+    usecase "Khóa Hub tự động" as UC_02_3
+    usecase "Khóa Hub thủ công" as UC_02_4
+}
+
+' --- MỐI QUAN HỆ (RELATIONSHIPS) ---
+' Tương tác của Operator & Admin
+Operator --> UC_01_1
+Operator --> UC_02_1
+Admin --> UC_01_2
+
+' Tương tác của Kỹ thuật viên
+Technician --> UC_01_3
+
+' Tương tác của Cảm biến IoT
+IoT --> UC_01_1 : Truyền dữ liệu
+IoT --> UC_01_3 : Báo lỗi/Sự cố
+
+' Các luồng Extend cho Cảnh báo quá tải
+UC_02_2 .> UC_02_1 : <<extend>>\n(Ngưỡng >= 85%)
+UC_02_3 .> UC_02_1 : <<extend>>\n(Ngưỡng 100%)
+UC_02_4 .> UC_02_3 : <<extend>>\n(Lỗi đồng bộ)
+
+' Tương tác với Hệ thống ngoại vi (từ các Use case mở rộng)
+UC_02_2 --> SS4 : Gửi yêu cầu
+UC_02_3 --> SS12 : Đồng bộ trạng thái khóa
+@enduml

@@ -1,0 +1,20 @@
+@startuml
+!theme aws-orange
+[*] --> BinhThuong
+
+state "Bình thường" as BinhThuong : Tỷ lệ lấp đầy < 70%
+state "Cảnh báo sớm – Màu vàng" as CanhBaoSom : 70% ≤ lấp đầy < 85%\nentry / chuyển Hub sang màu vàng\nOperator theo dõi, chuẩn bị nguồn lực
+state "Nguy cơ quá tải – Đỏ nhấp nháy" as NguyCoQuaTai : 85% ≤ lấp đầy < 100%\nentry / pop-up + âm thanh khẩn cấp\nentry / gửi đề xuất điều xe sang SS4\nOperator xác nhận → Điều phối (SS4)
+state "Quá tải – Khóa Hub" as KhoaHub : Lấp đầy 100% (hoặc hết sạch xe)\nentry / khóa đặt chỗ, đặt xe (SS1/SS2)\nhiển thị Khóa Đỏ, từ chối truy vấn mới
+state "Chờ khóa thủ công" as ChoKhoaThuCong : Lỗi đồng bộ khóa với SS1/SS2\nentry / cảnh báo kỹ thuật khẩn cấp\nOperator Khóa Hub thủ công
+
+BinhThuong --> CanhBaoSom : ≥ 70%
+CanhBaoSom --> NguyCoQuaTai : ≥ 85%
+NguyCoQuaTai --> KhoaHub : = 100% / hết xe; khóa đồng bộ thành công
+NguyCoQuaTai --> ChoKhoaThuCong : = 100% nhưng lỗi đồng bộ khóa (Exception 1)
+ChoKhoaThuCong --> KhoaHub : Khóa thủ công
+
+CanhBaoSom --> BinhThuong : < 70%
+NguyCoQuaTai --> CanhBaoSom : < 85%
+KhoaHub --> NguyCoQuaTai : < 100% / mở khóa
+@enduml

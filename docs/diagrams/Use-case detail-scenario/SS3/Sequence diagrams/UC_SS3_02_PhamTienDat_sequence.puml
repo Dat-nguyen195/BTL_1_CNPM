@@ -1,0 +1,37 @@
+@startuml
+!theme aws-orange
+participant "Logic cảnh báo (Multi-level)" as Sys
+participant "st.session_state" as SS
+participant "Dashboard cảnh báo" as UI
+actor "Operator" as Op
+participant "Phân hệ SS4" as SS4
+participant "Phân hệ SS1/SS2" as SS12
+
+loop Quét định kỳ / khi cập nhật số chỗ trống
+    Sys -> SS: Đọc st.session_state["hubs"]
+    SS --> Sys: Số xe, sức chứa tối đa
+    Sys -> Sys: Tính tỷ lệ lấp đầy
+    
+    alt ≥ 70% và < 85%
+        Sys -> UI: Chuyển Hub A sang MÀU VÀNG
+        UI --> Op: Cảnh báo sớm: theo dõi, chuẩn bị nguồn lực điều phối
+    else ≥ 85% và < 100% (Alt 1)
+        Sys -> UI: Màu Đỏ nhấp nháy + pop-up / âm thanh khẩn cấp
+        Sys -> SS4: Gửi đề xuất lệnh điều xe (uc_ss4_01)
+        Op -> UI: Nhấp xác nhận cảnh báo
+        UI -> SS4: Chuyển sang quy trình Điều phối
+    else 100% hoặc hết sạch xe (Alt 2)
+        Sys -> SS12: Khóa nhận đặt chỗ / đặt xe tại Hub A
+        
+        alt Khóa thành công
+            SS12 --> Sys: Xác nhận đã khóa
+            Sys -> UI: Hiển thị Khóa Đỏ khẩn cấp
+            SS12 -> SS12: Từ chối mọi truy vấn đặt chỗ mới
+        else Lỗi đồng bộ / xung đột session (Exception 1)
+            SS12 --> Sys: Lỗi khóa
+            Sys -> UI: Cảnh báo kỹ thuật khẩn cấp
+            Op -> UI: Khóa Hub thủ công
+        end
+    end
+end
+@enduml
