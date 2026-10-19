@@ -1,0 +1,35 @@
+@startuml UC_SS7_01_NguyenTrungNguyen_statechart
+!theme plain
+hide empty description
+
+title State-chart Diagram for SS7_01 Infrastructure Failure Lifecycle
+
+[*] --> AVAILABLE : Hub hoạt động bình thường
+
+state AVAILABLE
+state SIMULATION_PREVIEW
+state PARTIAL_FAILURE
+state OFFLINE
+state RECOVERING
+
+AVAILABLE --> SIMULATION_PREVIEW : Chạy mô phỏng sự cố\n/ deepcopy dữ liệu Hub, tạo Event Log
+SIMULATION_PREVIEW --> AVAILABLE : Không áp dụng kết quả\n/ Giữ nguyên dữ liệu vận hành gốc
+
+SIMULATION_PREVIEW --> PARTIAL_FAILURE : Áp dụng kết quả [Còn cổng sạc khả dụng]\n/ Cổng lỗi = ERROR, xe CHARGING = WAITING, ghi infra_log, cảnh báo SS3/SS4
+SIMULATION_PREVIEW --> OFFLINE : Áp dụng kết quả [Không còn cổng sạc khả dụng]\n/ Hub = OFFLINE, xe CHARGING = WAITING, ghi infra_log, cảnh báo SS3/SS4
+
+PARTIAL_FAILURE --> RECOVERING : Khôi phục lưới điện\n/ Bật lại cổng sạc bị tắt
+OFFLINE --> RECOVERING : Nguồn điện được phục hồi\n/ Khôi phục cổng sạc và trạng thái Hub
+RECOVERING --> AVAILABLE : Hoàn tất khôi phục\n/ Xe WAITING tiếp tục CHARGING, mở lại đặt chỗ/sạc mới
+
+note right of SIMULATION_PREVIEW
+  Kết quả mô phỏng dùng bản sao deepcopy.
+  Dữ liệu vận hành chỉ đổi khi được áp dụng.
+end note
+
+note right of PARTIAL_FAILURE
+  Các cổng bị lỗi chuyển sang ERROR.
+  Xe đang sạc bị ngắt chuyển sang WAITING.
+end note
+
+@enduml

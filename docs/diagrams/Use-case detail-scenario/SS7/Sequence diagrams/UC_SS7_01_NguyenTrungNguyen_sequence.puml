@@ -1,0 +1,113 @@
+@startuml UC_SS7_01_NguyenTrungNguyen_sequence
+!theme plain
+skinparam sequenceMessageAlign center
+skinparam maxMessageSize 150
+skinparam BoxPadding 10
+
+title "Detailed UML Sequence Diagram: SS7 - Mô phỏng sự cố mất điện / lỗi cổng sạc"
+
+actor "Kỹ thuật viên /\nĐiều phối viên" as Technician
+box "Boundary / UI Layer" #LightCyan
+participant "sim_infrastructure.py\n(UI)" as UI
+end box
+box "Control & Simulation" #LightYellow
+participant "HubEventSimulator\n(simulator.py)" as Simulator
+end box
+box "Control & State" #LightYellow
+participant "st.session_state\n(AppState)" as AppState
+end box
+box "Infrastructure / IoT" #LightGray
+participant "Cảm biến & cổng sạc\n(Hub IoT)" as IoT
+end box
+box "Related Subsystems" #White
+participant "Đặt xe & Sạc\n(SS1 / SS2)" as BookingCharging
+participant "Giám sát & Sự cố\n(SS3 / SS4)" as MonitoringIncident
+end box
+
+autonumber 1.1
+group 1. Cấu hình và chạy mô phỏng
+    Technician -> UI: Chọn Hub mục tiêu, số cổng lỗi
+    activate UI
+    Technician -> UI: Nhấn "Chạy mô phỏng Port Failure"
+
+    UI -> AppState: Đọc danh sách Hub hiện tại
+    activate AppState
+    AppState --> UI: Trả về hubs
+    deactivate AppState
+
+    UI -> Simulator: Khởi tạo với hubs
+    activate Simulator
+    UI -> Simulator: simulate_port_failure(hub_id, num_ports_down)
+    Simulator -> Simulator: deepcopy(hubs)
+    Simulator -> IoT: Mô phỏng số cổng sạc bị lỗi
+    activate IoT
+    IoT --> Simulator: Số cổng lỗi thực tế
+    deactivate IoT
+    Simulator -> Simulator: Chuyển xe đang CHARGING\nsang WAITING, ghi nhận SoC
+
+    alt Không còn cổng sạc khả dụng
+        Simulator -> Simulator: Chuyển Hub sang OFFLINE\n& ghi cảnh báo nguy cấp
+    else Vẫn còn cổng sạc khả dụng
+        Simulator -> Simulator: Đánh dấu cổng lỗi ERROR
+    end
+
+    Simulator --> UI: Trả về hubs mô phỏng và event_log
+    deactivate Simulator
+    UI -> UI: Lập đề xuất điều phối xe WAITING\nsang Hub còn cổng trống
+    UI --> Technician: Hiển thị Event Log và đề xuất điều phối
+end
+
+autonumber 2.1
+group 2. Xem thử hoặc áp dụng kết quả
+    alt Chỉ xem thử nghiệm
+        Technician -> UI: Không áp dụng kết quả
+        UI --> Technician: Giữ nguyên dữ liệu vận hành gốc
+    else Áp dụng kết quả mô phỏng
+        Technician -> UI: Nhấn "Áp dụng kết quả mô phỏng"
+        UI -> AppState: Cập nhật hubs bằng bản mô phỏng
+        activate AppState
+        AppState -> AppState: Ghi infra_log
+        AppState --> UI: Xác nhận cập nhật
+        deactivate AppState
+
+        UI -> BookingCharging: Thông báo Hub/cổng sạc gặp sự cố
+        activate BookingCharging
+        BookingCharging --> UI: Khóa tiếp nhận đặt chỗ/sạc mới tại Hub lỗi
+        deactivate BookingCharging
+
+        UI -> MonitoringIncident: Gửi cảnh báo SS3 và bản ghi sự cố SS4
+        activate MonitoringIncident
+        MonitoringIncident --> UI: Xác nhận đã ghi nhận sự cố
+        deactivate MonitoringIncident
+
+        opt Có giao dịch trả xe hoặc thanh toán đang diễn ra
+            UI -> AppState: Lưu giao dịch ngoại tuyến, đóng băng công tơ
+            activate AppState
+            AppState --> UI: Giao dịch chờ phục hồi kết nối/nguồn điện
+            deactivate AppState
+        end
+
+        UI --> Technician: Thông báo đã đồng bộ kết quả mô phỏng
+    end
+    deactivate UI
+end
+
+autonumber 3.1
+group 3. Khôi phục lưới điện
+    Technician -> UI: Tắt mô phỏng sự cố / đặt số cổng lỗi về 0
+    activate UI
+    UI -> AppState: Khôi phục số cổng và trạng thái Hub
+    activate AppState
+    AppState -> AppState: Chuyển xe WAITING sang CHARGING\n(nếu có thể tiếp tục sạc)
+    AppState -> AppState: Ghi log "BẬT LẠI cổng sạc"
+    AppState --> UI: Xác nhận khôi phục
+    deactivate AppState
+    UI -> BookingCharging: Mở lại tiếp nhận đặt chỗ/sạc
+    activate BookingCharging
+    BookingCharging --> UI: Hub hoạt động trở lại
+    deactivate BookingCharging
+    UI --> Technician: Thông báo đã khôi phục hạ tầng
+    deactivate UI
+end
+
+@enduml
