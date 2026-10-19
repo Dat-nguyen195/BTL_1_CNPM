@@ -195,13 +195,14 @@
       <td><strong>Alternative Flows:</strong></td>
       <td colspan="3">
         <strong>Alternative 1 (Mô phỏng sự kiện đặc biệt quy mô lớn - High Surge):</strong> Tại bước 3, tác nhân kéo Hệ số tăng đột biến lên mức tối đa 5.0 (tương ứng với ngày khai giảng hoặc sự kiện lớn tại ĐHQG-HCM). Hệ thống tính toán và trực quan hóa kịch bản tắc nghẽn nghiêm trọng khi hàng đợi và thời gian chờ tăng vọt.<br/>
-        <strong>Alternative 2 (Mô phỏng chu kỳ đầy đủ 24 giờ):</strong> Tại bước 3, tác nhân kéo thanh trượt Số giờ mô phỏng lên 24 giờ để phân tích chu kỳ nhu cầu toàn diện từ sáng sớm đến đêm muộn.
+        <strong>Alternative 2 (Mô phỏng chu kỳ đầy đủ 24 giờ):</strong> Tại bước 3, tác nhân kéo thanh trượt Số giờ mô phỏng lên 24 giờ để phân tích chu kỳ nhu cầu toàn diện từ sáng sớm đến đêm muộn.<br/>
+        <strong>Alternative 3 (Tham số đầu vào ngoài khoảng quy định):</strong> Nếu phát hiện tham số không hợp lệ, hệ thống tự động fallback về giá trị an toàn mặc định (Tỉ lệ cơ bản = 15, Hệ số = 1.0, Số giờ = 12), hiển thị cảnh báo validation và kết xuất lại biểu đồ an toàn.
       </td>
     </tr>
     <tr>
       <td><strong>Exceptions:</strong></td>
       <td colspan="3">
-        <strong>Exception 1 (Tham số đầu vào ngoài khoảng quy định):</strong> Nếu phát hiện tham số không hợp lệ do lỗi bộ nhớ tạm, hệ thống tự động fallback về giá trị an toàn mặc định (Tỉ lệ cơ bản = 15, Hệ số = 1.0, Số giờ = 12) và kết xuất lại biểu đồ bình thường.
+        <strong>Exception 1 (Quá tải bộ nhớ / Timeout thuật toán mô phỏng):</strong> Nếu tập dữ liệu mô phỏng quá lớn dẫn đến thời gian xử lý vượt ngưỡng an toàn (&gt; 10 giây), hệ thống tự động ngắt phiên tính toán, giải phóng bộ nhớ RAM và thông báo: "Không thể hoàn tất mô phỏng do vượt quá giới hạn tài nguyên tính toán. Vui lòng giảm số giờ mô phỏng."
       </td>
     </tr>
     <tr>

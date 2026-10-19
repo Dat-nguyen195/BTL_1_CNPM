@@ -1,0 +1,263 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1220" width="1920" height="1220">
+  <defs>
+    <style>
+      .title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 24px; font-weight: bold; fill: #0F172A; }
+      .subtitle { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; fill: #475569; }
+      .pkg-title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; font-weight: bold; }
+      .uc-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11.5px; font-weight: 500; fill: #0F172A; text-anchor: middle; }
+      .actor-name { font-family: 'Segoe UI', Arial, sans-serif; font-size: 12px; font-weight: bold; fill: #0F172A; text-anchor: middle; }
+      .actor-role { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11px; fill: #64748B; text-anchor: middle; }
+      .note-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10.5px; fill: #92400E; }
+      .include-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10.5px; font-weight: bold; fill: #0284C7; text-anchor: middle; }
+    </style>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.08"/>
+    </filter>
+    <filter id="card-shadow" x="-3%" y="-3%" width="106%" height="106%">
+      <feDropShadow dx="0" dy="1" stdDeviation="2" flood-opacity="0.06"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#0284C7"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" fill="#FFFFFF"/>
+  <rect x="250" y="20" width="1240" height="40" rx="8" fill="#F1F5F9" />
+  <text x="870" y="47" class="title" text-anchor="middle">SƠ ĐỒ USE-CASE TỔNG THỂ HỆ THỐNG SMART E-MOBILITY HUB (ĐHQG-HCM)</text>
+
+  <!-- SYSTEM BOUNDARY -->
+  <rect x="250" y="75" width="1240" height="1035" rx="14" fill="#F8FAFC" stroke="#334155" stroke-width="2.5" filter="url(#shadow)"/>
+  <rect x="250" y="75" width="380" height="32" rx="10" fill="#334155"/>
+  <text x="270" y="97" font-family="'Segoe UI', Arial" font-size="13" font-weight="bold" fill="#FFFFFF">SYSTEM BOUNDARY: Smart E-Mobility Hub</text>
+
+  <!-- SS1: Shared EV Booking -->
+  <g transform="translate(280, 120)">
+    <rect width="360" height="280" rx="10" fill="#ECFDF5" stroke="#059669" stroke-width="1.8" filter="url(#card-shadow)"/>
+    <path d="M 0 0 L 260 0 L 275 24 L 0 24 Z" fill="#059669"/>
+    <text x="14" y="17" class="pkg-title" fill="#FFFFFF">SS1: Quản lý &amp; Đặt xe điện dùng chung</text>
+    <ellipse cx="90" cy="70" rx="75" ry="24" fill="#FFFFFF" stroke="#059669" stroke-width="1.5"/>
+    <text x="90" y="74" class="uc-text">Tra cứu &amp; Đặt xe điện</text>
+    <ellipse cx="265" cy="70" rx="78" ry="24" fill="#FFFFFF" stroke="#059669" stroke-width="1.5"/>
+    <text x="265" y="74" class="uc-text">Nhận xe (QR/PIN)</text>
+    <ellipse cx="90" cy="140" rx="75" ry="24" fill="#FFFFFF" stroke="#059669" stroke-width="1.5"/>
+    <text x="90" y="144" class="uc-text">Trả xe &amp; Quyết toán</text>
+    <ellipse cx="265" cy="140" rx="78" ry="24" fill="#FFFFFF" stroke="#059669" stroke-width="1.5"/>
+    <text x="265" y="144" class="uc-text">Hủy đặt xe &amp; Hoàn cọc</text>
+    <rect x="25" y="200" width="310" height="58" rx="6" fill="#FEF3C7" stroke="#D97706" stroke-dasharray="4 3"/>
+    <text x="35" y="222" class="note-text" font-weight="bold">⚙ Background Service (Non-interactive):</text>
+    <text x="35" y="242" class="note-text">• Tự động hủy cọc &amp; phạt nếu không nhận xe sau 15p</text>
+  </g>
+
+  <!-- SS2: Personal EV & Parking -->
+  <g transform="translate(665, 120)">
+    <rect width="365" height="280" rx="10" fill="#FFFBEB" stroke="#D97706" stroke-width="1.8" filter="url(#card-shadow)"/>
+    <path d="M 0 0 L 260 0 L 275 24 L 0 24 Z" fill="#D97706"/>
+    <text x="14" y="17" class="pkg-title" fill="#FFFFFF">SS2: Dịch vụ Xe cá nhân &amp; Bãi đỗ</text>
+    <ellipse cx="95" cy="70" rx="80" ry="24" fill="#FFFFFF" stroke="#D97706" stroke-width="1.5"/>
+    <text x="95" y="74" class="uc-text">Đăng ký xe EV cá nhân</text>
+    <ellipse cx="270" cy="70" rx="80" ry="24" fill="#FFFFFF" stroke="#D97706" stroke-width="1.5"/>
+    <text x="270" y="74" class="uc-text">Đặt trước chỗ đỗ &amp; sạc</text>
+    <ellipse cx="95" cy="140" rx="80" ry="24" fill="#FFFFFF" stroke="#D97706" stroke-width="1.5"/>
+    <text x="95" y="144" class="uc-text">Check-in bãi đỗ (QR)</text>
+    <ellipse cx="270" cy="140" rx="80" ry="24" fill="#FFFFFF" stroke="#D97706" stroke-width="1.5"/>
+    <text x="270" y="144" class="uc-text">Check-out &amp; Quyết toán</text>
+    <rect x="25" y="200" width="315" height="58" rx="6" fill="#FEF3C7" stroke="#D97706" stroke-dasharray="4 3"/>
+    <text x="35" y="222" class="note-text" font-weight="bold">⚙ Barrier Control (IoT Non-interactive):</text>
+    <text x="35" y="242" class="note-text">• Tự động nâng/hạ barie theo tín hiệu quét hợp lệ</text>
+  </g>
+
+  <!-- SHARED SERVICES -->
+  <g transform="translate(1055, 120)">
+    <rect width="410" height="280" rx="10" fill="#F1F5F9" stroke="#475569" stroke-width="1.8" filter="url(#card-shadow)"/>
+    <path d="M 0 0 L 250 0 L 265 24 L 0 24 Z" fill="#475569"/>
+    <text x="14" y="17" class="pkg-title" fill="#FFFFFF">Dịch vụ Dùng chung Toàn hệ thống</text>
+    <ellipse cx="110" cy="90" rx="95" ry="30" fill="#E2E8F0" stroke="#0284C7" stroke-width="2.2"/>
+    <text x="110" y="87" class="uc-text" font-weight="bold" fill="#0369A1">Xác thực định danh</text>
+    <text x="110" y="103" class="uc-text" font-weight="bold" fill="#0369A1">VNU-SSO</text>
+    <ellipse cx="300" cy="90" rx="95" ry="30" fill="#E2E8F0" stroke="#059669" stroke-width="2.2"/>
+    <text x="300" y="87" class="uc-text" font-weight="bold" fill="#065F46">Quyết toán qua</text>
+    <text x="300" y="103" class="uc-text" font-weight="bold" fill="#065F46">Ví điện tử nội bộ</text>
+    <rect x="20" y="160" width="370" height="98" rx="6" fill="#FFFFFF" stroke="#94A3B8"/>
+    <text x="30" y="182" class="subtitle" font-weight="bold">Ghi chú quan hệ «include» chuẩn:</text>
+    <text x="30" y="202" class="subtitle">• Đặt xe &amp; Đăng ký cá nhân «include» Xác thực SSO</text>
+    <text x="30" y="222" class="subtitle">• Trả xe &amp; Check-out «include» Quyết toán Ví</text>
+    <text x="30" y="242" class="subtitle">• Không lạm dụng include cho luồng tuần tự</text>
+  </g>
+
+  <!-- SS3: Monitoring & Real-time Operations -->
+  <g transform="translate(280, 425)">
+    <rect width="360" height="295" rx="10" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.8" filter="url(#card-shadow)"/>
+    <path d="M 0 0 L 270 0 L 285 24 L 0 24 Z" fill="#2563EB"/>
+    <text x="14" y="17" class="pkg-title" fill="#FFFFFF">SS3: Giám sát Mạng lưới &amp; Vận hành</text>
+    <ellipse cx="180" cy="70" rx="140" ry="25" fill="#FFFFFF" stroke="#2563EB" stroke-width="1.5"/>
+    <text x="180" y="74" class="uc-text">Giám sát bản đồ &amp; Trạng thái Hub</text>
+    <ellipse cx="180" cy="140" rx="150" ry="26" fill="#FEF2F2" stroke="#DC2626" stroke-width="2"/>
+    <text x="180" y="137" class="uc-text" font-weight="bold" fill="#991B1B">Bật / Tắt &amp; Quản lý thiết bị</text>
+    <text x="180" y="152" class="uc-text" fill="#991B1B">(Activate / Deactivate Trụ &amp; Xe)</text>
+    <ellipse cx="180" cy="210" rx="140" ry="24" fill="#FFFFFF" stroke="#2563EB" stroke-width="1.5"/>
+    <text x="180" y="214" class="uc-text">Tiếp nhận cảnh báo phân cấp quá tải</text>
+    <text x="180" y="265" font-family="'Segoe UI', Arial" font-size="11" fill="#1E40AF" text-anchor="middle" font-style="italic">Thao tác trực tiếp trên danh sách thời gian thực</text>
+  </g>
+
+  <!-- SS4: Dispatch & Incident -->
+  <g transform="translate(665, 425)">
+    <rect width="365" height="295" rx="10" fill="#FDF2F8" stroke="#DB2777" stroke-width="1.8" filter="url(#card-shadow)"/>
+    <path d="M 0 0 L 260 0 L 275 24 L 0 24 Z" fill="#DB2777"/>
+    <text x="14" y="17" class="pkg-title" fill="#FFFFFF">SS4: Điều phối &amp; Quản lý Sự cố</text>
+    <ellipse cx="182" cy="80" rx="145" ry="26" fill="#FFFFFF" stroke="#DB2777" stroke-width="1.5"/>
+    <text x="182" y="84" class="uc-text">Lập lệnh điều chuyển xe cân bằng tải</text>
+    <ellipse cx="182" cy="165" rx="145" ry="26" fill="#FFFFFF" stroke="#DB2777" stroke-width="1.5"/>
+    <text x="182" y="169" class="uc-text">Báo cáo &amp; Tiếp nhận xử lý sự cố</text>
+    <rect x="25" y="220" width="315" height="55" rx="6" fill="#FEF3C7" stroke="#D97706" stroke-dasharray="4 3"/>
+    <text x="35" y="242" class="note-text" font-weight="bold">⚙ Khóa phương tiện tự động (INCIDENT):</text>
+    <text x="35" y="258" class="note-text">• Ẩn lập tức khỏi SS1 khi tiếp nhận sự cố</text>
+  </g>
+
+  <!-- SS5: Smart Charging -->
+  <g transform="translate(1055, 425)">
+    <rect width="410" height="295" rx="10" fill="#FAF5FF" stroke="#7C3AED" stroke-width="1.8" filter="url(#card-shadow)"/>
+    <path d="M 0 0 L 260 0 L 275 24 L 0 24 Z" fill="#7C3AED"/>
+    <text x="14" y="17" class="pkg-title" fill="#FFFFFF">SS5: Lập lịch Sạc Thông minh</text>
+    <ellipse cx="205" cy="70" rx="160" ry="26" fill="#FFFFFF" stroke="#7C3AED" stroke-width="1.5"/>
+    <text x="205" y="74" class="uc-text">Giám sát hàng đợi &amp; Tiến độ sạc xe</text>
+    <ellipse cx="205" cy="135" rx="160" ry="26" fill="#FFFFFF" stroke="#7C3AED" stroke-width="1.5"/>
+    <text x="205" y="139" class="uc-text">Cấu hình giới hạn công suất lưới (Peak Capping)</text>
+    <rect x="20" y="185" width="370" height="90" rx="6" fill="#FEF3C7" stroke="#D97706" stroke-dasharray="4 3"/>
+    <text x="30" y="206" class="note-text" font-weight="bold">⚙ Core Optimization Engine (Non-interactive FR):</text>
+    <text x="30" y="225" class="note-text">• Tự động xếp lịch tối ưu dựa trên SoC &amp; Biểu giá điện</text>
+    <text x="30" y="244" class="note-text">• Tự động phạt Overstay Fee sau 15 phút ân hạn</text>
+    <text x="30" y="263" class="note-text">• Tự động đẩy thông báo khi có cổng sạc trống</text>
+  </g>
+
+  <!-- SS6 & SS7: What-if Simulation -->
+  <g transform="translate(280, 745)">
+    <rect width="560" height="340" rx="10" fill="#F0FDFA" stroke="#0D9488" stroke-width="1.8" filter="url(#card-shadow)"/>
+    <path d="M 0 0 L 320 0 L 335 24 L 0 24 Z" fill="#0D9488"/>
+    <text x="14" y="17" class="pkg-title" fill="#FFFFFF">SS6 &amp; SS7: Mô phỏng Kịch bản What-if</text>
+    <ellipse cx="280" cy="80" rx="180" ry="28" fill="#FFFFFF" stroke="#0D9488" stroke-width="1.5"/>
+    <text x="280" y="77" class="uc-text" font-weight="bold">Thiết lập &amp; Khởi chạy mô phỏng What-if</text>
+    <text x="280" y="93" class="uc-text" fill="#0F766E">(Metro Demand Surge &amp; Lỗi mất điện trạm)</text>
+    <ellipse cx="280" cy="165" rx="180" ry="28" fill="#FFFFFF" stroke="#0D9488" stroke-width="1.5"/>
+    <text x="280" y="162" class="uc-text" font-weight="bold">Phân tích tác động phụ tải &amp;</text>
+    <text x="280" y="178" class="uc-text" fill="#0F766E">Đề xuất phương án điều phối mạng lưới</text>
+    <rect x="30" y="225" width="500" height="95" rx="6" fill="#FEF3C7" stroke="#D97706" stroke-dasharray="4 3"/>
+    <text x="45" y="248" class="note-text" font-weight="bold">⚙ Non-interactive Simulation Subcomponents (Point 3):</text>
+    <text x="45" y="268" class="note-text">• Hệ thống tự động snapshot dữ liệu lưới điện &amp; vị trí xe hiện tại</text>
+    <text x="45" y="288" class="note-text">• Thuật toán Monte Carlo tự động tính toán ma trận phân bổ phụ tải 24h</text>
+    <text x="45" y="308" class="note-text">• Tự động sinh lộ trình gợi ý điều hướng thông minh (Auto-rerouting)</text>
+  </g>
+
+  <!-- ADMIN & GOVERNANCE -->
+  <g transform="translate(865, 745)">
+    <rect width="600" height="340" rx="10" fill="#F5F3FF" stroke="#6D28D9" stroke-width="1.8" filter="url(#card-shadow)"/>
+    <path d="M 0 0 L 300 0 L 315 24 L 0 24 Z" fill="#6D28D9"/>
+    <text x="14" y="17" class="pkg-title" fill="#FFFFFF">Quản trị Hệ thống &amp; Phân quyền (Admin Scope)</text>
+    <ellipse cx="300" cy="75" rx="200" ry="28" fill="#EDE9FE" stroke="#6D28D9" stroke-width="2"/>
+    <text x="300" y="72" class="uc-text" font-weight="bold" fill="#5B21B6">Quản lý Tài khoản &amp; Phân quyền RBAC</text>
+    <text x="300" y="88" class="uc-text" fill="#5B21B6">(Student, Operator, Technician, Analyst, Admin)</text>
+    <ellipse cx="300" cy="155" rx="200" ry="28" fill="#EDE9FE" stroke="#6D28D9" stroke-width="2"/>
+    <text x="300" y="152" class="uc-text" font-weight="bold" fill="#5B21B6">Quản lý Danh mục Tài nguyên ban đầu</text>
+    <text x="300" y="168" class="uc-text" fill="#5B21B6">(Cấu hình Hub mới, Đăng ký trụ sạc &amp; Đội xe)</text>
+    <ellipse cx="300" cy="235" rx="200" ry="28" fill="#EDE9FE" stroke="#6D28D9" stroke-width="2"/>
+    <text x="300" y="232" class="uc-text" font-weight="bold" fill="#5B21B6">Cấu hình Biểu phí &amp; Ngưỡng vận hành</text>
+    <text x="300" y="248" class="uc-text" fill="#5B21B6">(Biểu giá điện, Cước quá giờ, Ngưỡng cảnh báo tải)</text>
+    <text x="300" y="305" font-family="'Segoe UI', Arial" font-size="11.5" fill="#6D28D9" text-anchor="middle" font-weight="bold">Phân định rõ: Admin cấu hình mức hệ thống, Operator vận hành thời gian thực</text>
+  </g>
+
+  <!-- ACTORS -->
+  <g transform="translate(100, 220)">
+    <circle cx="45" cy="25" r="16" fill="#0284C7"/>
+    <path d="M 45 41 L 45 75 M 25 52 L 65 52 M 45 75 L 25 105 M 45 75 L 65 105" stroke="#0284C7" stroke-width="3" stroke-linecap="round"/>
+    <text x="45" y="125" class="actor-name">Sinh viên ĐHQG-HCM</text>
+    <text x="45" y="142" class="actor-role">End-User (Mobile App)</text>
+  </g>
+
+  <g transform="translate(100, 560)">
+    <circle cx="45" cy="25" r="16" fill="#D97706"/>
+    <path d="M 45 41 L 45 75 M 25 52 L 65 52 M 45 75 L 25 105 M 45 75 L 65 105" stroke="#D97706" stroke-width="3" stroke-linecap="round"/>
+    <text x="45" y="125" class="actor-name">Kỹ thuật viên</text>
+    <text x="45" y="142" class="actor-role">Field Staff (Mobile/Web)</text>
+  </g>
+
+  <g transform="translate(1620, 320)">
+    <circle cx="50" cy="25" r="16" fill="#2563EB"/>
+    <path d="M 50 41 L 50 75 M 30 52 L 70 52 M 50 75 L 30 105 M 50 75 L 70 105" stroke="#2563EB" stroke-width="3" stroke-linecap="round"/>
+    <text x="50" y="125" class="actor-name">Nhân viên Vận hành Hub</text>
+    <text x="50" y="142" class="actor-role">Hub Operator (Real-time Console)</text>
+  </g>
+
+  <g transform="translate(1620, 580)">
+    <circle cx="50" cy="25" r="16" fill="#0D9488"/>
+    <path d="M 50 41 L 50 75 M 30 52 L 70 52 M 50 75 L 30 105 M 50 75 L 70 105" stroke="#0D9488" stroke-width="3" stroke-linecap="round"/>
+    <text x="50" y="125" class="actor-name">Chuyên viên Phân tích</text>
+    <text x="50" y="142" class="actor-role">Data / Strategic Analyst</text>
+  </g>
+
+  <g transform="translate(1620, 830)">
+    <circle cx="50" cy="25" r="16" fill="#7C3AED"/>
+    <path d="M 50 41 L 50 75 M 30 52 L 70 52 M 50 75 L 30 105 M 50 75 L 70 105" stroke="#7C3AED" stroke-width="3" stroke-linecap="round"/>
+    <text x="50" y="125" class="actor-name">Quản trị viên Hệ thống</text>
+    <text x="50" y="142" class="actor-role">System Admin (RBAC &amp; Config)</text>
+  </g>
+
+  <!-- SUPPORTING SYSTEMS -->
+  <g transform="translate(560, 1130)">
+    <rect width="260" height="50" rx="8" fill="#1E293B" stroke="#0F172A" stroke-width="2"/>
+    <text x="130" y="24" font-family="'Segoe UI', Arial" font-size="11" fill="#94A3B8" text-anchor="middle">«External System»</text>
+    <text x="130" y="41" font-family="'Segoe UI', Arial" font-size="13" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Cổng Xác thực VNU-SSO</text>
+  </g>
+
+  <g transform="translate(940, 1130)">
+    <rect width="280" height="50" rx="8" fill="#1E293B" stroke="#0F172A" stroke-width="2"/>
+    <text x="140" y="24" font-family="'Segoe UI', Arial" font-size="11" fill="#94A3B8" text-anchor="middle">«External Telemetry System»</text>
+    <text x="140" y="41" font-family="'Segoe UI', Arial" font-size="13" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Hệ thống Trạm sạc &amp; Cảm biến IoT</text>
+  </g>
+
+  <!-- SOLID LINES (ASSOCIATIONS) -->
+  <path d="M 180 270 C 230 240, 280 210, 370 190" fill="none" stroke="#64748B" stroke-width="1.3"/>
+  <path d="M 180 280 C 230 270, 280 260, 370 260" fill="none" stroke="#64748B" stroke-width="1.3"/>
+  <path d="M 180 290 C 350 290, 500 240, 760 190" fill="none" stroke="#64748B" stroke-width="1.3"/>
+  <path d="M 180 300 C 350 320, 500 280, 760 260" fill="none" stroke="#64748B" stroke-width="1.3"/>
+
+  <path d="M 180 610 C 220 580, 240 540, 460 565" fill="none" stroke="#64748B" stroke-width="1.3"/>
+  <path d="M 180 630 C 350 630, 500 600, 847 590" fill="none" stroke="#64748B" stroke-width="1.3"/>
+
+  <path d="M 1620 370 C 1450 420, 950 460, 460 495" fill="none" stroke="#64748B" stroke-width="1.3"/>
+  <path d="M 1620 380 C 1450 480, 950 540, 460 565" fill="none" stroke="#64748B" stroke-width="1.3"/>
+  <path d="M 1620 390 C 1400 480, 1100 500, 847 505" fill="none" stroke="#64748B" stroke-width="1.3"/>
+  <path d="M 1620 400 C 1500 450, 1400 480, 1260 495" fill="none" stroke="#64748B" stroke-width="1.3"/>
+  <path d="M 1620 410 C 1400 650, 900 800, 560 825" fill="none" stroke="#64748B" stroke-width="1.3"/>
+
+  <path d="M 1620 640 C 1300 700, 950 780, 560 825" fill="none" stroke="#64748B" stroke-width="1.3"/>
+  <path d="M 1620 650 C 1300 750, 950 850, 560 910" fill="none" stroke="#64748B" stroke-width="1.3"/>
+
+  <path d="M 1620 880 C 1500 850, 1400 830, 1165 820" fill="none" stroke="#64748B" stroke-width="1.3"/>
+  <path d="M 1620 890 C 1500 880, 1400 880, 1165 900" fill="none" stroke="#64748B" stroke-width="1.3"/>
+  <path d="M 1620 900 C 1500 930, 1400 950, 1165 980" fill="none" stroke="#64748B" stroke-width="1.3"/>
+  <path d="M 1620 870 C 1520 650, 1420 590, 1260 560" fill="none" stroke="#64748B" stroke-width="1.3"/>
+
+  <path d="M 690 1130 L 1165 240" fill="none" stroke="#475569" stroke-width="1.4" stroke-dasharray="3 3"/>
+  <path d="M 1080 1130 C 1080 850, 950 560, 460 495" fill="none" stroke="#475569" stroke-width="1.4" stroke-dasharray="3 3"/>
+  <path d="M 1080 1130 C 1150 900, 1220 650, 1260 495" fill="none" stroke="#475569" stroke-width="1.4" stroke-dasharray="3 3"/>
+
+  <!-- DASHED INCLUDES -->
+  <path d="M 445 190 C 650 160, 900 180, 1070 210" fill="none" stroke="#0284C7" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+  <rect x="710" y="165" width="70" height="18" rx="4" fill="#FFFFFF" stroke="#0284C7" stroke-width="1"/>
+  <text x="745" y="178" class="include-text">«include»</text>
+
+  <path d="M 840 190 C 920 180, 1000 190, 1070 210" fill="none" stroke="#0284C7" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+  <rect x="930" y="175" width="70" height="18" rx="4" fill="#FFFFFF" stroke="#0284C7" stroke-width="1"/>
+  <text x="965" y="188" class="include-text">«include»</text>
+
+  <path d="M 445 260 C 700 290, 1050 270, 1260 210" fill="none" stroke="#059669" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+  <rect x="830" y="270" width="70" height="18" rx="4" fill="#FFFFFF" stroke="#059669" stroke-width="1"/>
+  <text x="865" y="283" class="include-text" fill="#059669">«include»</text>
+
+  <path d="M 1015 260 C 1100 260, 1180 240, 1260 210" fill="none" stroke="#059669" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+  <rect x="1115" y="240" width="70" height="18" rx="4" fill="#FFFFFF" stroke="#059669" stroke-width="1"/>
+  <text x="1150" y="253" class="include-text" fill="#059669">«include»</text>
+
+  <path d="M 1165 820 C 1165 600, 1165 400, 1165 240" fill="none" stroke="#0284C7" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+  <rect x="1130" y="520" width="70" height="18" rx="4" fill="#FFFFFF" stroke="#0284C7" stroke-width="1"/>
+  <text x="1165" y="533" class="include-text">«include»</text>
+</svg>

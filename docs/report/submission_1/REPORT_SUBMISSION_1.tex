@@ -381,11 +381,11 @@ Xác thực VNU-SSO thực tế --- sử dụng mock authentication.
 \hline
 \textbf{Name, description} & \textbf{Smart E-Mobility Hub System:} Hệ thống sinh thái quản lý và chia sẻ phương tiện di chuyển thông minh tại ĐHQG-HCM, bao gồm xe đạp/máy điện dùng chung (Shared EVs) và xe cá nhân. \\
 \hline
-\textbf{Actors} & Sinh viên ĐHQG-HCM, Operator / Admin, Cổng VNU-SSO, Hệ thống IoT, Strategic Analyst. \\
+\textbf{Actors} & \textbf{Tác nhân người dùng:} Sinh viên ĐHQG-HCM, Nhân viên Vận hành Hub (Operator), Quản trị viên (Admin), Kỹ thuật viên (Technician), Chuyên viên Phân tích (Analyst). \newline \textbf{Hệ thống ngoại vi:} Cổng VNU-SSO, Hệ thống Thiết bị \& Cảm biến IoT. \\
 \hline
-\textbf{Pre-condition} & Cơ sở hạ tầng (Hubs, Trạm sạc, IoT) được triển khai; Người dùng có tài khoản hợp lệ. \\
+\textbf{Pre-condition} & Cơ sở hạ tầng (Hubs, Trạm sạc, Thiết bị IoT) đã kết nối; Người dùng có tài khoản VNU-SSO hợp lệ. \\
 \hline
-\textbf{Post-condition} & Người dùng hoàn tất chuyến đi; Hệ thống ghi nhận dữ liệu vận hành, doanh thu, trạng thái xe và trạm sạc. \\
+\textbf{Post-condition} & Người dùng hoàn tất chuyến đi an toàn; Hệ thống ghi nhận dữ liệu vận hành, doanh thu, cập nhật trạng thái xe và trạm sạc thời gian thực. \\
 \hline
 \end{tabularx}
 \vspace{-1pt}
@@ -397,12 +397,14 @@ Xác thực VNU-SSO thực tế --- sử dụng mock authentication.
 \hline
 1. Sinh viên đăng nhập, tra cứu xe tại Hub và nhấn đặt xe. \newline
 2. Sinh viên quét mã nhận xe (Pick-up) và bắt đầu di chuyển. \newline
-3. Sinh viên trả xe tại Hub đích và thanh toán cước phí. \newline
-4. Admin / Operator theo dõi bảng điều khiển. & 
+3. Sinh viên trả xe tại Hub đích và quyết toán cước phí qua ví. \newline
+4. Operator giám sát bản đồ thời gian thực, bật/tắt thiết bị hoặc phát lệnh điều chuyển xe. \newline
+5. Admin quản lý phân quyền RBAC và cấu hình biểu phí hệ thống. & 
 1.1 Hệ thống xác thực VNU-SSO, tạm khóa tiền cọc và cấp mã QR. \newline
 2.1 Hệ thống mở khóa IoT, chuyển trạng thái xe sang IN\_USE và tính giờ. \newline
-3.1 Hệ thống chốt cước, hoàn cọc, và cập nhật trạng thái xe. \newline
-4.1 Hệ thống cung cấp KPI thời gian thực và tự động điều phối sạc. \\
+3.1 Hệ thống chốt cước, hoàn cọc, và giải phóng slot về AVAILABLE. \newline
+4.1 Hệ thống cung cấp KPI thời gian thực; Background Engine tự động chạy thuật toán lập lịch sạc tối ưu và phạt quá giờ 15p. \newline
+5.1 Hệ thống lưu vết audit log và đồng bộ chính sách toàn mạng lưới. \\
 \hline
 \multicolumn{2}{|l|}{\textbf{Alternate Path (A1: Sử dụng xe cá nhân)}} \\
 \hline
@@ -510,11 +512,11 @@ Tổng cộng \textbf{17/17 Use-cases} đã được mỗi thành viên đặc t
     \textbf{Mã NFR} & \textbf{Yêu cầu} & \textbf{Chỉ tiêu đo lường} \\
     \hline
     \endhead
-    \textbf{NFR-01} & Thời gian phản hồi giao diện & Mọi thao tác UI (đặt xe, trả xe, lập lịch sạc) phải hoàn tất trong $\le 2.0$ giây \\
+    \textbf{NFR-01} & Thời gian phản hồi giao diện & Tra cứu trạng thái rảnh/bận toàn bộ trạm sạc $\le 1.0$ giây (truy vấn Redis Cache); mọi thao tác UI (đặt xe, trả xe) hoàn tất trong $\le 2.0$ giây \\
     \hline
-    \textbf{NFR-02} & Xử lý yêu cầu đồng thời & Hệ thống phải đáp ứng tối thiểu 500 yêu cầu đặt xe / đặt sạc đồng thời trong giờ cao điểm \\
+    \textbf{NFR-02} & Khả năng chịu tải cao điểm & Đáp ứng tối thiểu 500 yêu cầu đồng thời (Throughput $\ge 500$ req/s) vào giờ cao điểm (7h30--8h30, 16h30--18h00) với tỷ lệ lỗi $< 0.1\%$ \\
     \hline
-    \textbf{NFR-03} & Cập nhật trạng thái thời gian thực & Dashboard giám sát Hub (SS3) phải refresh dữ liệu trạng thái xe, cổng sạc trong $\le 5$ giây \\
+    \textbf{NFR-03} & Cập nhật trạng thái thời gian thực & Dashboard giám sát Hub (SS3) refresh dữ liệu trạng thái xe, cổng sạc từ IoT trong $\le 5$ giây \\
     \hline
 \end{longtable}
 
@@ -524,11 +526,11 @@ Tổng cộng \textbf{17/17 Use-cases} đã được mỗi thành viên đặc t
     \hline
     \textbf{Mã NFR} & \textbf{Yêu cầu} & \textbf{Chỉ tiêu đo lường} \\
     \hline
-    \textbf{NFR-04} & Uptime hệ thống & Đạt $\ge 99.5\%$ uptime trong khung giờ hoạt động cao điểm \\
+    \textbf{NFR-04} & Uptime hệ thống & Đạt $\ge 99.5\%$ uptime trong khung giờ hoạt động cao điểm (6h00--22h00) \\
     \hline
-    \textbf{NFR-05} & Khôi phục sau sự cố & Hệ thống phải tự động kích hoạt quy trình điều hướng trong $\le 30$ giây khi lỗi hạ tầng \\
+    \textbf{NFR-05} & Chống chịu lỗi hạ tầng (Fault tolerance) & Khi 1 trạm gặp sự cố mất điện/quá tải, các trạm khác duy trì hoạt động bình thường 100\%; tự động điều hướng (Auto-rerouting) sang trạm lân cận trong $\le 30$ giây \\
     \hline
-    \textbf{NFR-06} & Tính nhất quán dữ liệu & Trạng thái xe, slot đỗ phải nhất quán tuyệt đối giữa các phân hệ (SS1--SS7) \\
+    \textbf{NFR-06} & Tính nhất quán dữ liệu & Trạng thái xe, slot đỗ nhất quán tuyệt đối giữa các phân hệ (SS1--SS7) theo chuẩn ACID \\
     \hline
 \end{longtable}
 
@@ -538,11 +540,11 @@ Tổng cộng \textbf{17/17 Use-cases} đã được mỗi thành viên đặc t
     \hline
     \textbf{Mã NFR} & \textbf{Yêu cầu} & \textbf{Chỉ tiêu đo lường} \\
     \hline
-    \textbf{NFR-07} & Giao diện responsive & Hiển thị chính xác trên màn hình desktop ($\ge 1024$px) và di động ($\ge 375$px) \\
+    \textbf{NFR-07} & Giao diện responsive & Hiển thị chuẩn xác trên màn hình desktop ($\ge 1024$px) và di động ($\ge 375$px) \\
     \hline
-    \textbf{NFR-08} & Thao tác trực quan & Hoàn thành quy trình đặt xe trong $\le 3$ bước \\
+    \textbf{NFR-08} & Tính dễ sử dụng (Usability) & Đạt chỉ số System Usability Scale (SUS) $\ge 80/100$; tỷ lệ hoàn thành tác vụ đặt xe lần đầu $\ge 90\%$; tối đa $\le 3$ bước chạm \\
     \hline
-    \textbf{NFR-09} & Ngôn ngữ giao diện & Toàn bộ giao diện người dùng hiển thị bằng Tiếng Việt \\
+    \textbf{NFR-09} & Bản địa hóa giao diện & 100\% giao diện người dùng hiển thị chuẩn tiếng Việt (hỗ trợ thuật ngữ song ngữ) \\
     \hline
 \end{longtable}
 
@@ -552,11 +554,11 @@ Tổng cộng \textbf{17/17 Use-cases} đã được mỗi thành viên đặc t
     \hline
     \textbf{Mã NFR} & \textbf{Yêu cầu} & \textbf{Chỉ tiêu đo lường} \\
     \hline
-    \textbf{NFR-10} & Xác thực người dùng & Chỉ sinh viên / nhân viên có tài khoản VNU-SSO hợp lệ mới được truy cập \\
+    \textbf{NFR-10} & Xác thực người dùng & Xác thực 100\% người dùng qua Cổng VNU-SSO (JWT token mã hóa RS256) \\
     \hline
-    \textbf{NFR-11} & Bảo vệ số dư ví điện tử & Số dư ví và tiền cọc phải được bảo vệ khỏi thao tác trái phép; có log audit trail \\
+    \textbf{NFR-11} & Bảo vệ số dư ví điện tử & Số dư ví và tiền cọc phải được bảo vệ khỏi thao tác trái phép; ghi vết audit trail 100\% giao dịch \\
     \hline
-    \textbf{NFR-12} & Phân quyền truy cập & Phân biệt rõ quyền truy cập 3 vai trò: Student, Operator, Admin \\
+    \textbf{NFR-12} & Phân quyền truy cập (RBAC) & Phân định độc lập 5 vai trò theo nguyên tắc đặc quyền tối thiểu (Least Privilege): Student, Operator, Technician, Analyst, Admin \\
     \hline
 \end{longtable}
 

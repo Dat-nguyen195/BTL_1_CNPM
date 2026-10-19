@@ -216,14 +216,15 @@
       <td><strong>Alternative Flows:</strong></td>
       <td colspan="3">
         <strong>Alternative 1 (Sinh viên từ chối gợi ý và tự chọn Hub khác):</strong> Tại bước 6, sinh viên không chọn 2 Hub gợi ý gần nhất mà mở bản đồ tổng thể để chọn một Hub thứ 3 bất kỳ còn chỗ khả dụng. Hệ thống tôn trọng lựa chọn của sinh viên, cập nhật điểm đến mới và áp dụng chính sách bảo toàn cọc tương tự.<br/>
-        <strong>Alternative 2 (Chặn và điều hướng ngay khi Đặt giữ chỗ - Pre-booking Intercept):</strong> Khi sinh viên vừa vào chức năng "Đặt giữ chỗ xe" (<code>UC_SS1_01</code>) và chọn điểm đến là Hub đang bị sự cố mất điện / hết chỗ, hệ thống lập tức chặn nút Đặt, hiển thị thông báo lỗi kèm danh sách 2 Hub lân cận để sinh viên chọn ngay từ đầu hành trình.
+        <strong>Alternative 2 (Chặn và điều hướng ngay khi Đặt giữ chỗ - Pre-booking Intercept):</strong> Khi sinh viên vừa vào chức năng "Đặt giữ chỗ xe" (<code>UC_SS1_01</code>) và chọn điểm đến là Hub đang bị sự cố mất điện / hết chỗ, hệ thống lập tức chặn nút Đặt, hiển thị thông báo lỗi kèm danh sách 2 Hub lân cận để sinh viên chọn ngay từ đầu hành trình.<br/>
+        <strong>Alternative 3 (Toàn bộ mạng lưới ĐHQG-HCM đều hết chỗ):</strong> Tại bước 3, nếu thuật toán quét không tìm thấy Hub nào còn chỗ khả dụng, hệ thống kích hoạt kịch bản bảo vệ người dùng, cho phép gửi tạm xe tại vị trí quy định và đóng băng cước tính giờ.<br/>
+        <strong>Alternative 4 (Slot cuối cùng tại Hub gợi ý vừa bị người khác đặt trước):</strong> Tại bước 6, nếu slot tại Hub gợi ý 1 vừa bị chiếm dụng đồng thời, hệ thống tự động làm mới danh sách và chuyển quyền giữ chỗ sang Hub gợi ý số 2 mà không làm gián đoạn luồng thao tác.
       </td>
     </tr>
     <tr>
       <td><strong>Exceptions:</strong></td>
       <td colspan="3">
-        <strong>Exception 1 (Toàn bộ mạng lưới ĐHQG-HCM đều hết chỗ hoặc mất điện):</strong> Tại bước 3, nếu thuật toán quét không tìm thấy bất kỳ Hub nào còn chỗ (<code>available_slots == 0</code> trên cả 6 Hub), hệ thống đẩy cảnh báo khẩn cấp: <em>"Toàn bộ mạng lưới Hub ĐHQG-HCM hiện đang quá tải hoặc gặp sự cố nguồn điện. Vui lòng tạm giữ xe tại vị trí an toàn. Toàn bộ cước tính giờ phát sinh được tạm đóng băng miễn phí cho đến khi có thông báo khắc phục."</em><br/>
-        <strong>Exception 2 (Slot cuối cùng tại Hub gợi ý vừa bị người khác đặt trước):</strong> Tại bước 6, khi sinh viên nhấn 1 chạm, nếu slot cuối cùng tại Hub gợi ý 1 vừa bị đặt bởi người khác, hệ thống tự động thông báo và chuyển hướng giữ chỗ sang phương án Hub gợi ý số 2 mà không làm gián đoạn luồng thao tác.
+        <strong>Exception 1 (Mất kết nối GPS / Lỗi dịch vụ bản đồ điều hướng):</strong> Nếu thiết bị di động của sinh viên mất kết nối GPS hoặc dịch vụ bản đồ không phản hồi, hệ thống chuyển sang chế độ hiển thị danh sách văn bản tĩnh địa chỉ và số điện thoại hotline hỗ trợ khẩn cấp của Hub gần nhất.
       </td>
     </tr>
     <tr>

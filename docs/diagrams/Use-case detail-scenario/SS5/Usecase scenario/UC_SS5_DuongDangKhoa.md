@@ -18,7 +18,7 @@ Nhóm: Nhóm 7 Thành viên — BTL Công nghệ Phần mềm (CO3001) — HCMUT
 | **Use Case Name:** | UC\_Lap\_Lich\_Sac\_Thong\_Minh |
 | **Created By:** | Dương Đăng Khoa (TV5/Developer, Analyst) | **Last Updated By:** | Dương Đăng Khoa |
 | **Date Created:** | 19/09/2026 | **Date Last Updated:** | 22/09/2026 |
-| **Actors:** | Primary: Chuyên viên sạc / Nhân viên vận hành (Charging Operator). Secondary: Hệ thống quản lý Hub. |
+| **Actors:** | Primary: Chuyên viên sạc / Nhân viên vận hành (Charging Operator). Secondary: Trạm sạc & Cảm biến IoT (IoT Charging Gateway). |
 | **Description:** | Hệ thống tự động lập lịch và sắp xếp hàng chờ sạc cho các phương tiện tại Hub dựa trên mức độ ưu tiên, bao gồm mức pin (SoC), thời gian chờ, thời gian dự kiến sử dụng xe và mức độ khẩn cấp. Hệ thống đồng thời xem xét cổng sạc khả dụng, công suất sạc và biểu giá điện theo khung giờ peak/off-peak để lựa chọn thời điểm và phân bổ tài nguyên sạc phù hợp, đồng thời hạn chế vượt giới hạn công suất. |
 | **Trigger:** | Chuyên viên sạc yêu cầu hệ thống lập lịch sạc hoặc hệ thống phát hiện có phương tiện cần sạc và tự động kích hoạt quá trình lập lịch. |
 | **Preconditions:** | 1. Hệ thống đang hoạt động và có dữ liệu trạng thái các phương tiện/trạm sạc. 2. Có ít nhất một phương tiện đang ở trạng thái CHARGING, WAITING\_FOR\_CHARGING hoặc cần được đưa vào hàng đợi sạc. 3. Hệ thống đã có thông tin về mức pin (SoC), trạng thái phương tiện và trạng thái các cổng sạc. 4. Công suất sạc khả dụng của Hub/trạm sạc đã được xác định. |
@@ -38,7 +38,7 @@ Nhóm: Nhóm 7 Thành viên — BTL Công nghệ Phần mềm (CO3001) — HCMUT
 | **Use Case Name:** | UC\_Giam\_Sat\_Hang\_Cho\_Sac |
 | **Created By:** | Dương Đăng Khoa (TV5/Developer, Analyst) | **Last Updated By:** | Dương Đăng Khoa |
 | **Date Created:** | 19/09/2026 | **Date Last Updated:** | 22/09/2026 |
-| **Actors:** | Primary: Chuyên viên sạc / Nhân viên vận hành (Charging Operator). Secondary: Secondary: Hệ thống quản lý Hub, Trạm sạc, Cảm biến IoT. |
+| **Actors:** | Primary: Chuyên viên sạc / Nhân viên vận hành (Charging Operator). Secondary: Trạm sạc & Cảm biến IoT (IoT Charging Gateway). |
 | **Description:** | Hệ thống cho phép chuyên viên sạc theo dõi trạng thái các phương tiện trong hàng chờ, trạng thái các cổng sạc và quá trình sạc. Hệ thống tự động cập nhật thứ tự hàng chờ khi có phương tiện hoàn tất sạc, đồng thời phát hiện phương tiện đã sạc đầy nhưng vẫn chiếm dụng cổng sạc để gửi cảnh báo và xử lý Overstay Fee. |
 | **Trigger:** | Chuyên viên sạc mở chức năng **Giám sát hàng chờ sạc**. Hoặc hệ thống tự động cập nhật khi trạng thái phương tiện/cổng sạc thay đổi. |
 | **Preconditions:** | Hệ thống đang hoạt động. Có dữ liệu về phương tiện và trạng thái các cổng sạc. Hàng chờ sạc đã được tạo hoặc có phương tiện đang sạc. Hệ thống có thể nhận dữ liệu trạng thái từ trạm sạc/cảm biến IoT. |
@@ -274,7 +274,8 @@ Nhóm: Nhóm 7 Thành viên — BTL Công nghệ Phần mềm (CO3001) — HCMUT
       <td colspan="3">
         <strong>Alternative 1 (Thứ tự hàng đợi được cập nhật bởi UC_SS5_01):</strong> Nếu hệ thống lập lịch tự động (<code>UC_SS5_01</code>) cập nhật thứ tự ưu tiên do có phương tiện mới khẩn cấp hơn, hệ thống giám sát phản ánh thứ tự mới trên Dashboard ngay lập tức.<br/>
         <strong>Alternative 2 (Phương tiện rút sạc sớm — Early Unplug):</strong> Nếu sinh viên rút sạc trước khi SoC đạt 100%, hệ thống cập nhật trạng thái phương tiện, giải phóng cổng sạc về <code>AVAILABLE</code>, tính phí sạc thực tế dựa trên kWh đã nạp và thông báo xe tiếp theo trong hàng đợi.<br/>
-        <strong>Alternative 3 (Phương tiện đã sạc đầy và di dời đúng hạn):</strong> Hệ thống phát hiện phương tiện đã rời cổng hoặc rút sạc trong vòng 15 phút ân hạn, giải phóng cổng về <code>AVAILABLE</code> và xóa countdown timer. Không phát sinh Overstay Fee.
+        <strong>Alternative 3 (Phương tiện đã sạc đầy và di dời đúng hạn):</strong> Hệ thống phát hiện phương tiện đã rời cổng hoặc rút sạc trong vòng 15 phút ân hạn, giải phóng cổng về <code>AVAILABLE</code> và xóa countdown timer. Không phát sinh Overstay Fee.<br/>
+        <strong>Alternative 4 (Ví điện tử không đủ số dư trừ Overstay Fee):</strong> Tại bước 9b, nếu <code>wallet_balance &lt; overstay_fee</code>, hệ thống vẫn xử lý giải phóng cổng sạc an toàn, ghi nhận khoản nợ vào <code>st.session_state["current_user"]["debt_balance"]</code>, tạm khóa quyền đặt xe mới cho đến khi hoàn tất thanh toán khoản nợ, và gửi thông báo nhắc nhở sinh viên.
       </td>
     </tr>
     <tr>
@@ -282,8 +283,7 @@ Nhóm: Nhóm 7 Thành viên — BTL Công nghệ Phần mềm (CO3001) — HCMUT
       <td colspan="3">
         <strong>Exception 1 (Mất dữ liệu trạng thái IoT):</strong> Nếu hệ thống không nhận được dữ liệu SoC hoặc trạng thái cổng sạc từ trạm sạc / IoT trong &gt; 30 giây, hệ thống đánh dấu cổng là <code>UNKNOWN</code>, hiển thị cảnh báo "⚠️ Mất kết nối IoT tại cổng [ID]", tạm ngưng tự động phân bổ xe vào cổng bị mất kết nối và thông báo cho Operator kiểm tra thủ công.<br/>
         <strong>Exception 2 (Cổng sạc bị lỗi phần cứng):</strong> Nếu cảm biến IoT phát hiện lỗi quá nhiệt hoặc hỏng mạch, hệ thống chuyển trạng thái cổng sang <code>ERROR</code>, ngắt an toàn phiên sạc đang hoạt động, chuyển xe về <code>WAITING</code> để phân bổ lại, đồng thời gửi cảnh báo kỹ thuật sang SS4 (<code>UC_SS4_02</code>).<br/>
-        <strong>Exception 3 (Ví điện tử không đủ số dư trừ Overstay Fee):</strong> Tại bước 9b, nếu <code>wallet_balance &lt; overstay_fee</code>, hệ thống vẫn ghi nhận khoản nợ vào <code>st.session_state["current_user"]["debt_balance"]</code>, khóa tính năng đặt xe/sạc mới cho đến khi sinh viên nạp đủ tiền hoàn trả khoản nợ, và gửi thông báo: "💰 Số dư ví không đủ trừ phí chiếm dụng. Vui lòng nạp tiền để tiếp tục sử dụng dịch vụ."<br/>
-        <strong>Exception 4 (Mất điện lưới đột ngột — Power Outage):</strong> Nếu Hub xảy ra sự cố mất điện (<code>UC_SS7_01</code>), hệ thống tạm ngưng toàn bộ bộ đếm Overstay, đóng băng SoC hiện tại, miễn 100% phí chiếm dụng trong thời gian sự cố, chuyển toàn bộ xe <code>CHARGING</code> sang <code>WAITING</code> và áp dụng cơ chế Local Offline Caching cho đến khi nguồn điện được khôi phục.
+        <strong>Exception 3 (Mất điện lưới đột ngột — Power Outage):</strong> Nếu Hub xảy ra sự cố mất điện (<code>UC_SS7_01</code>), hệ thống tạm ngưng toàn bộ bộ đếm Overstay, đóng băng SoC hiện tại, miễn 100% phí chiếm dụng trong thời gian sự cố, chuyển toàn bộ xe <code>CHARGING</code> sang <code>WAITING</code> và kích hoạt nguồn dự phòng UPS cho bộ điều khiển cục bộ.
       </td>
     </tr>
     <tr>

@@ -200,15 +200,16 @@
       <td colspan="3">
         <strong>Alternative 1 (Chỉ sử dụng dịch vụ đỗ xe):</strong> Tại bước 3, sinh viên chọn chỉ đỗ xe; hệ thống bỏ qua bước 4 và không giữ cổng sạc.<br/>
         <strong>Alternative 2 (Thay đổi lựa chọn):</strong> Tại bước 5, sinh viên có thể đổi Hub, thời gian hoặc dịch vụ; hệ thống kiểm tra và tính lại phí dự kiến.<br/>
-        <strong>Alternative 3 (Hủy đơn trước Check-in):</strong> Sau bước 8, sinh viên được hủy theo chính sách áp dụng; hệ thống cập nhật đơn đã hủy và giải phóng từ <code>RESERVED</code> thành <code>AVAILABLE</code>.
+        <strong>Alternative 3 (Hủy đơn trước Check-in):</strong> Sau bước 8, sinh viên được hủy theo chính sách áp dụng; hệ thống cập nhật đơn đã hủy và giải phóng từ <code>RESERVED</code> thành <code>AVAILABLE</code>.<br/>
+        <strong>Alternative 4 (Thông tin hoặc lịch đặt không hợp lệ):</strong> Tại bước 5 hoặc 7, thời gian không hợp lệ, lịch sạc ngoài thời gian đỗ hoặc xe có lịch sử dụng trùng nhau; hệ thống yêu cầu điều chỉnh form nhập.<br/>
+        <strong>Alternative 5 (Không còn vị trí đỗ khả dụng):</strong> Tại bước 5 hoặc 7, hệ thống thông báo hết chỗ và gợi ý sinh viên chọn Hub lân cận hoặc khung giờ khác.<br/>
+        <strong>Alternative 6 (Quá thời hạn giữ chỗ 15 phút - No-show Timeout):</strong> Nếu sinh viên không Check-in trong vòng 15 phút kể từ <code>booking_start_time</code>, hệ thống tự động cập nhật trạng thái đơn sang <code>EXPIRED</code>, giải phóng vị trí về <code>AVAILABLE</code> và khấu trừ phí giữ chỗ theo quy định.
       </td>
     </tr>
     <tr>
       <td><strong>Exceptions:</strong></td>
       <td colspan="3">
-        <strong>Exception 1 (Thông tin hoặc lịch đặt không hợp lệ):</strong> Tại bước 5 hoặc 7, thời gian không hợp lệ, lịch sạc ngoài thời gian đỗ hoặc xe có lịch sử dụng trùng nhau; hệ thống yêu cầu điều chỉnh.<br/>
-        <strong>Exception 2 (Không còn vị trí đỗ):</strong> Tại bước 5 hoặc 7, hệ thống thông báo hết chỗ và đề nghị chọn Hub hoặc thời gian khác.<br/>
-        <strong>Exception 3 (Quá thời gian cọc):</strong> Nếu sinh viên không Check-in trong vòng 15 phút kể từ <code>booking_start_time</code>, đơn hết hiệu lực và vị trí được giải phóng, hệ thống hủy trạng thái giữ chỗ cho sinh viên cập nhật trạng thái đơn là <code>EXPIRED</code>, giải phóng lịch đặt hiện tại và đưa trạng thái đỗ hoặc sạc (nếu có) về <code>AVAILABLE</code>.
+        <strong>Exception 1 (Sự cố hệ thống / Mất kết nối CSDL):</strong> Nếu máy chủ gặp sự cố hoặc gián đoạn mạng, giao dịch được hoàn nguyên (rollback) an toàn, hiển thị thông báo lỗi và yêu cầu người dùng thử lại sau.
       </td>
     </tr>
     <tr>
@@ -304,14 +305,15 @@
       <td><strong>Alternative Flows:</strong></td>
       <td colspan="3">
         <strong>Alternative 1 (Xác thực bằng PIN):</strong> Tại bước 1, nếu sinh viên không sử dụng mã QR của đơn thì có thể tiếp tục xác thực bằng cách chọn xác thực bằng mã PIN.<br/>
+        <strong>Alternative 2 (Thông tin xác thực không hợp lệ):</strong> Tại bước 2 hoặc bước 7, nếu mã QR hoặc PIN không khớp, hệ thống từ chối mở cổng/trụ và cho phép nhập lại tối đa 3 lần.<br/>
+        <strong>Alternative 3 (Đơn hoặc khung giờ không hợp lệ):</strong> Tại bước 2, nếu đơn đặt sai Hub hoặc ngoài khung giờ cho phép, hệ thống từ chối Check-in và hiển thị thông tin vi phạm quy định.<br/>
+        <strong>Alternative 4 (Vị trí đã bị chiếm dụng trái phép):</strong> Tại bước 2, nếu vị trí đỗ bị chiếm dụng ngoài dự kiến, hệ thống tự động đổi sang slot trống khác tương đương và gửi cảnh báo cho Operator.
       </td>
     </tr>
     <tr>
       <td><strong>Exceptions:</strong></td>
       <td colspan="3">
-        <strong>Exception 1 (Thông tin xác thực không hợp lệ):</strong> Tại bước 2 hoặc bước 7, QR, mã PIN không phù hợp; hệ thống từ chối mở cổng hoặc mở trụ sạc.<br/>
-        <strong>Exception 2 (Đơn hoặc khung giờ không hợp lệ):</strong> Tại bước 2, đơn sai Hub hoặc ngoài khung giờ được phép; hệ thống từ chối Check-in.<br/>
-        <strong>Exception 3 (Vị trí không thể sử dụng):</strong> Tại bước 2, vị trí gặp sự cố hoặc bị chiếm dụng ngoài dự kiến; hệ thống chuyển cho tổ vận hành xử lý.
+        <strong>Exception 1 (Sự cố phần cứng barie / Mất kết nối cổng IoT):</strong> Nếu cổng barie bị kẹt cơ học hoặc cảm biến trạm mất tín hiệu IoT, hệ thống chuyển sang chế độ mở cổng thủ công và thông báo cho Kỹ thuật viên hiện trường.
       </td>
     </tr>
     <tr>
@@ -407,14 +409,14 @@
       <td><strong>Alternative Flows:</strong></td>
       <td colspan="3">
         <strong>Alternative 1 (Không sử dụng dịch vụ sạc):</strong> Tại bước 2–3, hệ thống bỏ qua xử lý sạc và chỉ tính phí đỗ.<br/>
-        <strong>Alternative 2 (Không thanh toán bằng ví nội bộ được):</strong> Tại bước 4–5, nếu giao dịch bị từ chối do thiếu số dư, sinh viên có thể chuyển sang hình thức thanh toán khác.
+        <strong>Alternative 2 (Không thanh toán bằng ví nội bộ được do thiếu số dư):</strong> Tại bước 4–5, nếu giao dịch bị từ chối do thiếu số dư, sinh viên được chuyển hướng nạp tiền nhanh hoặc đổi hình thức thanh toán.<br/>
+        <strong>Alternative 3 (Thanh toán chưa đủ hạn mức):</strong> Tại bước 6, hệ thống từ chối mở barie, yêu cầu thanh toán dứt điểm khoản còn thiếu trước khi mở cổng.
       </td>
     </tr>
     <tr>
       <td><strong>Exceptions:</strong></td>
       <td colspan="3">
-        <strong>Exception 1 (Thanh toán chưa đủ):</strong> Tại bước 6, hệ thống yêu cầu thanh toán khoản còn thiếu trước khi mở cổng.<br/>
-        <strong>Exception 2 (Lỗi cổng hoặc chưa xác nhận xe ra):</strong> Tại bước 7, hệ thống chuyển cho tổ vận hành xử lí; chưa hoàn tất phiên hoặc giải phóng vị trí khi chưa xác nhận xe rời Hub.
+        <strong>Exception 1 (Sự cố cảm biến cổng / Barie không nhận diện xe ra):</strong> Tại bước 7, nếu cảm biến quang điện không phát hiện xe đi qua sau khi mở cổng, hệ thống giữ phiên ở trạng thái kiểm tra và cảnh báo Operator can thiệp.
       </td>
     </tr>
     <tr>

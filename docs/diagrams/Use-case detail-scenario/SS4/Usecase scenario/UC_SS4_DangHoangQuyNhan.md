@@ -191,13 +191,14 @@
     <tr>
       <td><strong>Alternative Flows:</strong></td>
       <td colspan="3">
-        <strong>Alternative 1 (Tra cứu nhật ký sự cố):</strong> Tại bước 9, Operator chuyển sang tab "Nhật ký" để theo dõi danh sách toàn bộ các sự cố phương tiện đang diễn ra trên mạng lưới.
+        <strong>Alternative 1 (Tra cứu nhật ký sự cố):</strong> Tại bước 9, Operator chuyển sang tab "Nhật ký" để theo dõi danh sách toàn bộ các sự cố phương tiện đang diễn ra trên mạng lưới.<br/>
+        <strong>Alternative 2 (Hub không có phương tiện khả dụng để báo cáo):</strong> Tại bước 3, nếu Hub được chọn không có phương tiện nào, hệ thống hiển thị thông báo: "Không có xe tại Hub này" và vô hiệu hóa form nhập để tránh gửi dữ liệu rác.
       </td>
     </tr>
     <tr>
       <td><strong>Exceptions:</strong></td>
       <td colspan="3">
-        <strong>Exception 1 (Hub không có phương tiện):</strong> Tại bước 3, nếu Hub được chọn không có phương tiện nào, hệ thống hiển thị thông báo: "Không có xe tại Hub này" và vô hiệu hóa nút gửi báo cáo sự cố.
+        <strong>Exception 1 (Sự cố kết nối máy chủ / Lỗi ghi nhận nhật ký):</strong> Nếu kết nối CSDL bị gián đoạn khi gửi báo cáo, hệ thống lưu tạm bản ghi vào Local Storage và tự động gửi lại khi có mạng, đồng thời hiển thị cảnh báo offline cho Operator.
       </td>
     </tr>
     <tr>
