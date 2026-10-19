@@ -370,5 +370,5 @@ Giả lập sự cố mất điện trạm sạc hoặc hư hỏng thiết bị 
         f.write(content)
     print(f"Successfully updated {filepath}")
 
-process_file("docs/report/submission_2/main.tex")
+process_file("docs/report/submission_2/REPORT_SUBMISSION_2.tex")
 process_file("docs/report/submission_2/REPORT_SUBMISSION_2.tex")

@@ -1,4 +1,4 @@
-with open("docs/report/submission_2/main.tex", "r", encoding="utf-8") as f:
+with open("docs/report/submission_2/REPORT_SUBMISSION_2.tex", "r", encoding="utf-8") as f:
     text = f.read()
 
 figures_and_tables_section = r"""% ============================================================
@@ -158,7 +158,7 @@ end_idx = text.find(r"% ========================================================
 
 if start_idx != -1 and end_idx != -1:
     new_text = text[:start_idx] + figures_and_tables_section + text[end_idx:]
-    with open("docs/report/submission_2/main.tex", "w", encoding="utf-8") as f:
+    with open("docs/report/submission_2/REPORT_SUBMISSION_2.tex", "w", encoding="utf-8") as f:
         f.write(new_text)
     with open("docs/report/submission_2/REPORT_SUBMISSION_2.tex", "w", encoding="utf-8") as f:
         f.write(new_text)
