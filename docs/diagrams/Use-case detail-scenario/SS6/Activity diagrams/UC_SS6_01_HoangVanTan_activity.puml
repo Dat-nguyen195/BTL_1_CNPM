@@ -1,0 +1,67 @@
+@startuml UC_SS6_01_HoangVanTan_activity
+!theme plain
+skinparam activityMessageAlign center
+
+title Activity Diagram - UC_SS6_01: Mô phỏng đợt tăng đột biến hành khách Metro (Metro Surge)
+
+|Nhà phân tích / Hub Operator|
+start
+:Truy cập phân hệ SS6 trên ứng dụng;
+:Chọn Hub mục tiêu (mặc định HUB-002 KTX Khu B);
+:Nhập số lượng sinh viên đến đột biến (5 - 100);
+:Nhấn nút "Chạy mô phỏng Metro Surge";
+
+|UI Layer (demand_simulation.py)|
+:Tiếp nhận sự kiện & lấy bản sao dữ liệu;
+
+|Control & Memory State|
+:Thực hiện deepcopy từ st.session_state["hubs"];
+
+|Simulation Engine (HubEventSimulator)|
+:Giảm số chỗ đỗ khả dụng theo lượng khách;
+:Tự động sinh phương tiện mới (EV-SURGE-xxxx, SoC 10-40%);
+:Giảm số lượng cổng sạc khả dụng;
+
+if (Số chỗ đỗ khả dụng == 0?) then (Hết chỗ)
+  :Ghi cảnh báo "Hết chỗ đỗ, đề xuất điều phối sang Hub lân cận";
+else (Còn chỗ)
+endif
+
+if (Cổng sạc khả dụng == 0?) then (Hết cổng)
+  :Ghi cảnh báo đỏ "KHÔNG CÒN cổng sạc khả dụng!";
+else (Còn cổng)
+endif
+
+:Tính tỷ lệ lấp đầy: occupancy = 1 - (available_slots / total_slots);
+if (occupancy > 0.85?) then (Quá tải)
+  :Gắn cảnh báo nguy cấp (Critical Overload) vào nhật ký;
+else (Bình thường)
+endif
+
+:Tổng hợp bảng so sánh Trước/Sau & Nhật ký sự kiện;
+
+|UI Layer (demand_simulation.py)|
+:Hiển thị bảng so sánh delta, nhật ký sự kiện và cảnh báo;
+
+|Nhà phân tích / Hub Operator|
+if (Xác nhận áp dụng dữ liệu mô phỏng?) then (Chỉ chạy thử nghiệm / Alt 2)
+  :Quan sát dữ liệu nghiên cứu;
+  stop
+else (Nhấn nút "Áp dụng kết quả vào hệ thống")
+  |Control & Memory State|
+  :Ghi đè danh sách Hub mới vào st.session_state["hubs"];
+  
+  fork
+    |Phân hệ liên kết (SS3/SS4)|
+    :Đồng bộ trạng thái sang Dashboard Giám sát (SS3) &\nPhân hệ Điều phối (SS4);
+  fork again
+    |UI Layer (demand_simulation.py)|
+    :Gọi st.rerun() làm mới toàn bộ giao diện;
+  end fork
+  
+  |Nhà phân tích / Hub Operator|
+  :Nhận thông báo cập nhật thành công;
+  stop
+endif
+
+@enduml

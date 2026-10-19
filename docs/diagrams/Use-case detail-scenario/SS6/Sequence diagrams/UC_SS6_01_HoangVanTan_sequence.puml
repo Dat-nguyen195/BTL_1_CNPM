@@ -1,0 +1,91 @@
+@startuml
+!theme plain
+skinparam sequenceMessageAlign center
+skinparam maxMessageSize 160
+skinparam BoxPadding 10
+
+title "Sequence Diagram: UC_SS6_01 - Mô phỏng đợt tăng đột biến hành khách Metro (Metro Surge)"
+
+actor "Nhà phân tích /\nNgười vận hành Hub" as Analyst
+box "UI Layer (Streamlit)" #LightCyan
+participant "demand_simulation.py\n(SS6_UI)" as UI
+end box
+box "Control & Memory State" #LightYellow
+participant "st.session_state['hubs']\n(HubState)" as AppState
+end box
+box "Simulation Engine" #LightGreen
+participant "HubEventSimulator\n(Engine)" as Engine
+end box
+box "External Subsystems" #LightGray
+participant "Dashboard Giám sát (SS3) &\nĐiều chuyển Hub (SS4)" as ExternalSS
+end box
+
+autonumber 1.1
+group 1. Cấu hình tham số Metro Surge
+    Analyst -> UI: Truy cập phân hệ SS6 & chọn mục "Mô phỏng Metro Surge"
+    activate UI
+    UI -> AppState: Đọc danh sách Hub khả dụng
+    activate AppState
+    AppState --> UI: Trả về danh sách Hubs
+    deactivate AppState
+    UI --> Analyst: Hiển thị form cấu hình (Chọn Hub, số lượng SV đến [5-100])
+    
+    Analyst -> UI: Chọn Hub mục tiêu & Nhập số lượng SV đến đột biến
+    Analyst -> UI: Nhấn nút "Chạy mô phỏng Metro Surge"
+end
+
+autonumber 2.1
+group 2. Khởi tạo & Thực thi thuật toán mô phỏng (Deep Copy)
+    UI -> AppState: Lấy bản sao sâu dữ liệu Hubs (copy.deepcopy)
+    activate AppState
+    AppState --> UI: Trả về bản sao Hubs
+    deactivate AppState
+    
+    UI -> Engine: Khởi tạo HubEventSimulator(hubs_copy)
+    activate Engine
+    UI -> Engine: simulate_metro_surge(target_hub_id, surge_count)
+    
+    Engine -> Engine: Trừ số chỗ đỗ khả dụng (min = 0)
+    Engine -> Engine: Tự động sinh xe mới (EV-SURGE-xxxx, pin 10-40%, AVAILABLE)
+    Engine -> Engine: Giảm số cổng sạc khả dụng
+    
+    alt Hub mục tiêu hết sạch chỗ đỗ (available_slots == 0) [Alternative 3]
+        Engine -> Engine: Ghi nhận cảnh báo "Nghẽn trạm & Đề xuất điều phối sang Hub lân cận"
+    else Hết cổng sạc khả dụng [Alternative 4]
+        Engine -> Engine: Ghi nhận cảnh báo đỏ "KHÔNG CÒN cổng sạc khả dụng!"
+    end
+    
+    Engine -> Engine: Tính tỷ lệ lấp đầy: occupancy = 1 - (available_slots / total_slots)
+    opt Tỷ lệ lấp đầy occupancy > 0.85
+        Engine -> Engine: Kích hoạt cảnh báo quá tải nghiêm trọng (Critical Overload)
+    end
+    
+    Engine --> UI: Trả về event_log & delta_metrics (Chỗ trống, Trụ sạc, Tổng xe)
+    deactivate Engine
+    
+    UI --> Analyst: Hiển thị bảng so sánh Trước/Sau & Nhật ký sự kiện có màu cảnh báo
+end
+
+autonumber 3.1
+group 3. Đánh giá & Áp dụng kết quả vào toàn hệ thống
+    alt Chỉ quan sát thử nghiệm (Không áp dụng) [Alternative 2]
+        Analyst -> UI: Rời màn hình hoặc chạy lại tham số mới
+        note right of UI: Dữ liệu st.session_state['hubs'] gốc được giữ nguyên
+    else Xác nhận áp dụng kết quả [Normal Flow]
+        Analyst -> UI: Nhấn nút "Áp dụng kết quả mô phỏng vào hệ thống"
+        UI -> AppState: Ghi đè danh sách Hub mới vào st.session_state['hubs']
+        activate AppState
+        AppState --> UI: Cập nhật thành công
+        deactivate AppState
+        
+        UI -> ExternalSS: Đồng bộ trạng thái mới sang Dashboard (SS3) & Điều phối (SS4)
+        activate ExternalSS
+        ExternalSS --> UI: Xác nhận đã nhận tín hiệu đồng bộ
+        deactivate ExternalSS
+        
+        UI -> UI: Kích hoạt st.rerun() làm mới ứng dụng
+        UI --> Analyst: Thông báo áp dụng thành công & giao diện cập nhật mới
+    end
+    deactivate UI
+end
+@enduml

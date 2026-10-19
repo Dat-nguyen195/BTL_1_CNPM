@@ -1,0 +1,42 @@
+@startuml UC_SS6_Hub_Operational_statechart
+!theme plain
+hide empty description
+
+title State-chart Diagram: Trạng thái Vận hành Hub dưới tác động Mô phỏng Metro Surge
+
+[*] --> NORMAL_OPERATION : Hub hoạt động bình thường trong mạng lưới 6 Hub
+
+state NORMAL_OPERATION {
+    state "Sức chứa ổn định" as STABLE
+    STABLE : occupancy < 70%
+    STABLE : Chỗ đỗ và cổng sạc dồi dào
+}
+
+NORMAL_OPERATION --> HIGH_DEMAND : Tàu Metro đến, khách đổ dồn về Hub\n[occupancy tăng từ 70% đến 85%]
+
+state HIGH_DEMAND {
+    state "Cảnh báo tải cao" as ELEVATED_LOAD
+    ELEVATED_LOAD : Hàng đợi tích luỹ tăng dần
+    ELEVATED_LOAD : Thời gian chờ tăng
+}
+
+HIGH_DEMAND --> CRITICAL_OVERLOAD : Khách tăng đột biến vượt ngưỡng\n[occupancy > 85%]
+state CRITICAL_OVERLOAD {
+    state "Cảnh báo quá tải nghiêm trọng" as OVERLOADED
+    OVERLOADED : Kích hoạt thông báo đỏ trên giao diện
+    OVERLOADED : Tự sinh xe ảo EV-SURGE-xxxx
+}
+
+HIGH_DEMAND --> NORMAL_OPERATION : Giảm lưu lượng khách / Kết thúc đợt tăng
+CRITICAL_OVERLOAD --> GRIDLOCK_DEPLETED : Số chỗ trống == 0 HOẶC Cổng sạc == 0
+
+state GRIDLOCK_DEPLETED {
+    state "Nghẽn trạm hoàn toàn" as BLOCKED
+    BLOCKED : Không thể tiếp nhận thêm xe
+    BLOCKED : Đề xuất điều phối xe sang Hub lân cận (SS4)
+}
+
+GRIDLOCK_DEPLETED --> NORMAL_OPERATION : Điều phối giải tỏa tải thành công
+CRITICAL_OVERLOAD --> NORMAL_OPERATION : Reset mô phỏng / Khôi phục trạng thái ban đầu
+
+@enduml

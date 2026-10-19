@@ -1,0 +1,46 @@
+@startuml UC_SS6_02_HoangVanTan_activity
+!theme plain
+skinparam activityMessageAlign center
+
+title Activity Diagram - UC_SS6_02: Dự báo nhu cầu theo giờ & Phân tích hàng đợi, thời gian chờ
+
+|Nhà phân tích / Hoạch định|
+start
+:Mở tab "Dự đoán nhu cầu theo giờ" trên SS6;
+:Điều chỉnh thanh trượt tham số What-if\n(Tỉ lệ đến, Hệ số Surge, Số giờ mô phỏng);
+
+|UI Layer (demand_forecast.py)|
+:Bắt sự kiện tương tác thanh trượt;
+
+if (Tham số đầu vào hợp lệ?) then (Lỗi bộ nhớ / Ngoài khoảng)
+  :Tự động fallback về giá trị mặc định\n(base=15, surge=1.0, hours=12);
+else (Hợp lệ)
+endif
+
+|Simulation Engine (HubEventSimulator)|
+:Khởi tạo vòng lặp tính toán chuỗi thời gian theo giờ;
+repeat
+  :Xác định hệ số cao điểm (Peak factor theo khung giờ Metro);
+  :Tính lượng khách đến (áp dụng nhiễu ngẫu nhiên phân phối chuẩn);
+  :Cộng dồn và tính toán độ dài hàng đợi tích luỹ;
+  :Ước tính thời gian chờ trung bình (phút) dựa trên tốc độ phục vụ;
+repeat while (Chưa hết số giờ mô phỏng?)
+
+:Đóng gói kết quả tính toán vào DataFrame;
+
+|UI Layer (demand_forecast.py)|
+fork
+  :Gọi thư viện Plotly vẽ Biểu đồ kết hợp\n(Bar lượng khách đến & Line hàng đợi tích luỹ);
+fork again
+  :Gọi thư viện Plotly vẽ Biểu đồ vùng\n(Area chart thể hiện thời gian chờ ước tính);
+fork again
+  :Trích xuất các chỉ số cực đại:\nGiờ cao điểm, Hàng đợi max, Thời gian chờ max;
+end fork
+
+:Kết xuất toàn bộ biểu đồ tương tác & các khối thẻ KPI lên màn hình;
+
+|Nhà phân tích / Hoạch định|
+:Phân tích dữ liệu trực quan để lập kế hoạch mở rộng Hub hoặc điều phối xe;
+stop
+
+@enduml
