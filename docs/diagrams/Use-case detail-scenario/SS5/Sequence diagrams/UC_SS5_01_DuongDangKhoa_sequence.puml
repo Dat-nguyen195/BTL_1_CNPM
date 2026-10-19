@@ -1,0 +1,94 @@
+
+@startuml UC_SS5_01_DuongDangKhoa_sequence
+!theme plain
+skinparam sequenceMessageAlign center
+skinparam maxMessageSize 150
+skinparam BoxPadding 10
+
+title "Detailed UML Sequence Diagram: SS5 - Lap lich uu tien sac tu dong"
+
+actor "Chuyen vien sac" as Operator
+
+box "Boundary / UI Layer" #LightCyan
+participant "smart_charging.py\n(UI)" as UI
+end box
+
+box "Control & State" #LightYellow
+participant "st.session_state\n(AppState)" as AppState
+end box
+
+box "Hardware / IoT" #LightGray
+participant "Cam bien IoT\n(ChargingIoT)" as IoT
+end box
+
+box "Charging Scheduler" #LightYellow
+participant "Bo lap lich sac\n(Scheduler)" as Scheduler
+end box
+
+autonumber 1.1
+group 1. Lay du lieu va trang thai sac
+    Operator -> UI: Mo chuc nang lap lich sac
+    activate UI
+
+    UI -> AppState: Lay danh sach xe WAITING
+    activate AppState
+    AppState --> UI: Tra ve danh sach xe cho sac
+    deactivate AppState
+
+    UI -> IoT: Lay SoC va trang thai cong sac
+    activate IoT
+    IoT --> UI: Tra ve du lieu IoT
+    deactivate IoT
+
+    UI -> AppState: Lay cau hinh gio dien\nva gioi han cong suat
+    activate AppState
+    AppState --> UI: Tra ve cau hinh
+    deactivate AppState
+end
+
+autonumber 2.1
+group 2. Tinh do uu tien va sap xep
+    UI -> Scheduler: Gui danh sach xe va du lieu sac
+    activate Scheduler
+
+    alt Du lieu khong hop le
+        Scheduler --> UI: Bao loi du lieu dau vao
+        UI --> Operator: Hien thi thong bao loi
+    else Du lieu hop le
+        Scheduler -> Scheduler: Tinh Priority Score\n(SoC, thoi gian cho, do khan cap, gio dien)
+        Scheduler -> Scheduler: Sap xep hang cho giam dan\ntheo Priority Score
+        Scheduler --> UI: Tra ve thu tu uu tien
+    end
+    deactivate Scheduler
+end
+
+autonumber 3.1
+group 3. Phan bo cong suat va lap lich
+    UI -> Scheduler: Yeu cau lap lich sac
+    activate Scheduler
+
+    Scheduler -> Scheduler: Kiem tra Peak Power Capping
+
+    alt Vuot gioi han cong suat
+        Scheduler -> Scheduler: Dieu chinh cong suat\nhoac thoi diem sac
+        alt Van vuot gioi han
+            Scheduler --> UI: Chua the phan bo cong sac
+            UI --> Operator: Thong bao gioi han cong suat
+        else Cong suat hop le
+            Scheduler --> UI: Tra ve lich sac da dieu chinh
+        end
+    else Khong vuot gioi han
+        Scheduler --> UI: Tra ve lich sac hop le
+    end
+    deactivate Scheduler
+
+    UI -> AppState: Cap nhat xe va cong sac\ntheo lich da lap
+    activate AppState
+    AppState --> UI: Xac nhan cap nhat
+    deactivate AppState
+
+    UI --> Operator: Hien thi thu tu uu tien\nva lich sac
+    deactivate UI
+end
+
+@enduml

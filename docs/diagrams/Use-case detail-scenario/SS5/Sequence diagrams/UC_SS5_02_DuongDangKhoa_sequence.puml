@@ -1,0 +1,142 @@
+
+@startuml UC_SS5_02_DuongDangKhoa_sequence
+!theme plain
+skinparam sequenceMessageAlign center
+skinparam maxMessageSize 150
+skinparam BoxPadding 10
+
+title "Detailed UML Sequence Diagram: SS5 - Giam sat hang cho sac"
+
+actor "Chuyen vien sac" as Operator
+
+box "Boundary / UI Layer" #LightCyan
+participant "smart_charging.py\n(UI)" as UI
+end box
+
+box "Control & State" #LightYellow
+participant "st.session_state\n(AppState)" as AppState
+end box
+
+box "Hardware / IoT" #LightGray
+participant "Cam bien IoT\n(ChargingIoT)" as IoT
+end box
+
+box "Notification System" #White
+participant "He thong thong bao\n(Notification)" as Notification
+end box
+
+box "External Payment" #White
+participant "Vi dien tu\n(E-Wallet)" as EWallet
+end box
+
+autonumber 1.1
+group 1. Giam sat trang thai sac
+    Operator -> UI: Mo chuc nang giam sat hang cho sac
+    activate UI
+
+    UI -> AppState: Lay danh sach xe, hang cho\nva trang thai cong sac
+    activate AppState
+    AppState --> UI: Tra ve danh sach va trang thai
+    deactivate AppState
+
+    UI -> IoT: Lay SoC va trang thai cong sac
+    activate IoT
+    IoT --> UI: Tra ve du lieu cam bien
+    deactivate IoT
+
+    alt Mat ket noi IoT / Du lieu khong hop le
+        UI -> AppState: Ghi nhan trang thai UNKNOWN
+        activate AppState
+        AppState --> UI: Xac nhan cap nhat
+        deactivate AppState
+
+        UI --> Operator: Thong bao loi ket noi IoT
+    else Du lieu hop le
+        UI -> AppState: Cap nhat SoC va trang thai cong sac
+        activate AppState
+        AppState --> UI: Xac nhan cap nhat
+        deactivate AppState
+
+        opt SoC >= 90%
+            UI -> Notification: Gui canh bao sac gan day
+            activate Notification
+            Notification --> UI: Xac nhan gui thong bao
+            deactivate Notification
+        end
+    end
+    deactivate UI
+end
+
+autonumber 2.1
+group 2. Xu ly khi xe sac day
+    Operator -> UI: Kiem tra trang thai xe sac
+    activate UI
+
+    UI -> AppState: Lay SoC xe dang sac
+    activate AppState
+    AppState --> UI: Tra ve SoC hien tai
+    deactivate AppState
+
+    alt SoC = 100%
+        UI -> Notification: Gui thong bao sac hoan tat
+        activate Notification
+        Notification --> UI: Xac nhan gui thong bao
+        deactivate Notification
+
+        UI -> Notification: Gui bien nhan nang luong va chi phi
+        activate Notification
+        Notification --> UI: Xac nhan gui bien nhan
+        deactivate Notification
+
+        UI -> AppState: Bat dau thoi gian an han 15 phut
+        activate AppState
+        AppState --> UI: Xac nhan bat dau bo dem
+        deactivate AppState
+
+        alt Xe roi cong trong 15 phut
+            UI -> AppState: Cap nhat phien sac hoan tat\nva cong = AVAILABLE
+            activate AppState
+            AppState --> UI: Xac nhan giai phong cong
+            deactivate AppState
+
+            UI --> Operator: Cap nhat trang thai cong sac
+        else Xe van chiem cong sau 15 phut
+            UI -> AppState: Ghi nhan trang thai Overstay
+            activate AppState
+            AppState --> UI: Xac nhan Overstay
+            deactivate AppState
+
+            UI -> EWallet: Kiem tra so du va thu Overstay Fee
+            activate EWallet
+
+            alt Vi du so du
+                EWallet --> UI: Khau tru phi thanh cong
+            else Vi khong du so du
+                EWallet --> UI: Khong du so du
+                UI -> AppState: Ghi nhan khoan no
+                activate AppState
+                AppState --> UI: Xac nhan ghi nhan no
+                deactivate AppState
+            end
+            deactivate EWallet
+
+            UI -> Notification: Gui canh bao Overstay
+            activate Notification
+            Notification --> UI: Xac nhan gui canh bao
+            deactivate Notification
+
+            UI --> Operator: Hien thi xe Overstay
+        end
+    else SoC < 100%
+        UI -> AppState: Tiep tuc theo doi phien sac
+        activate AppState
+        AppState --> UI: Tra ve trang thai hien tai
+        deactivate AppState
+
+        UI --> Operator: Cap nhat Dashboard
+    end
+
+    deactivate UI
+end
+
+@enduml
