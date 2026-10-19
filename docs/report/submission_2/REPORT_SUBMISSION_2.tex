@@ -1,0 +1,802 @@
+\documentclass[12pt,a4paper]{article}
+
+% ============================================================
+%                   CẤU HÌNH GÓI LỆNH (PREAMBLE)
+% ============================================================
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[vietnamese]{babel}
+\usepackage{amsmath}
+\usepackage{geometry}
+\geometry{a4paper, left=3cm, right=2cm, top=2.5cm, bottom=2.5cm, headheight=15pt}
+
+% Đồ họa & Đường dẫn hình ảnh dùng chung
+\usepackage{graphicx}
+\graphicspath{{../assets/}{../../diagrams/}{./}}
+
+% Bảng biểu nâng cao & Đinh dạng
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{indentfirst}
+
+% Khung viền trang bìa & Đồ họa TikZ
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+% Định dạng tiêu đề các mục (Mục 1, Mục 2, ...)
+\usepackage{titlesec}
+\titleformat{\section}[hang]{\normalfont\LARGE\bfseries}{\textbf{Mục \thesection:}}{0.5em}{}
+\titlespacing*{\section}{0pt}{24pt}{12pt}
+\titleformat{\subsection}[hang]{\normalfont\Large\bfseries}{\thesubsection}{0.6em}{}
+\titlespacing*{\subsection}{0pt}{16pt}{8pt}
+\titleformat{\subsubsection}[hang]{\normalfont\large\bfseries}{\thesubsubsection}{0.6em}{}
+\titlespacing*{\subsubsection}{0pt}{12pt}{6pt}
+
+% Header & Footer chuẩn trường ĐH Bách Khoa
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small CO3001 -- Công nghệ Phần mềm HK261}
+\fancyhead[R]{\small Nhóm BEE BRAVE}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\fancypagestyle{plain}{
+  \fancyhf{}
+  \fancyhead[L]{\small CO3001 -- Công nghệ Phần mềm HK261}
+  \fancyhead[R]{\small Nhóm BEE BRAVE}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+}
+
+% Hyperlink & Metadata
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=blue,
+    pdftitle={Smart E-Mobility Hub -- Báo cáo Thiết kế Hệ thống (Submission 2)},
+    pdfauthor={Nhóm BEE BRAVE -- L02},
+}
+
+% Khung giữ chỗ hình ảnh (Placeholder)
+\newcommand{\imageplaceholder}[2]{
+    \begin{center}
+        \setlength{\fboxsep}{10pt}
+        \setlength{\fboxrule}{1pt}
+        \fcolorbox{blue!60!black}{gray!5}{
+            \begin{minipage}{0.92\textwidth}
+                \centering
+                \vspace{1cm}
+                \textbf{\color{blue!80!black}[ KHUNG GIỮ CHỖ HÌNH ẢNH / SƠ ĐỒ MOCKUP ]}\\[0.3cm]
+                \textit{\color{black!80}\detokenize{#1}}\\[0.25cm]
+                \texttt{\small Gợi ý file: \detokenize{#2}}
+                \vspace{1cm}
+            \end{minipage}
+        }
+    \end{center}
+}
+
+\begin{document}
+
+% ============================================================
+%                       TRANG BÌA (COVER PAGE)
+% ============================================================
+\begin{titlepage}
+    \noindent
+    \begin{tikzpicture}[remember picture, overlay]
+        \draw[line width = 3pt, color=blue!80!black] ($(current page.north west) + (1.5cm,-1.0cm)$) rectangle ($(current page.south east) + (-0.5cm,1.0cm)$);
+        \draw[line width = 1pt, color=black] ($(current page.north west) + (1.65cm,-1.15cm)$) rectangle ($(current page.south east) + (-0.65cm,1.15cm)$);
+    \end{tikzpicture}%
+    \centering
+    \textbf{\large ĐẠI HỌC QUỐC GIA THÀNH PHỐ HỒ CHÍ MINH}\\[0.3cm]
+    \textbf{\Large TRƯỜNG ĐẠI HỌC BÁCH KHOA}\\[0.2cm]
+    \textbf{\large KHOA KHOA HỌC VÀ KỸ THUẬT MÁY TÍNH}\\[0.5cm]
+    
+    % Logo Trường ĐH Bách Khoa (mau.png)
+    \includegraphics[width=0.28\textwidth]{mau.png}\\[0.6cm]
+
+    \rule{\textwidth}{0.5pt}\\[0.8cm]
+
+    {\fontsize{21}{25}\selectfont\textbf{BÁO CÁO THIẾT KẾ KIẾN TRÚC\\VÀ CHI TIẾT HỆ THỐNG PHẦN MỀM}}\\[0.4cm]
+    {\Large\textbf{SUBMISSION \#2: UI MOCKUPS \& DETAILED UML DIAGRAMS}}\\[0.8cm]
+
+    {\large MÔN HỌC: \textbf{CÔNG NGHỆ PHẦN MỀM (CO3001)} --- HK261}\\[0.4cm]
+    {\large ĐỀ TÀI:}\\[0.2cm]
+    {\Large\textbf{SMART E-MOBILITY HUB}}\\[0.2cm]
+    {\large Hệ thống Điều phối Phương tiện Điện trong Khu đô thị ĐHQG-HCM}\\[0.8cm]
+
+    \rule{\textwidth}{0.5pt}\\[0.8cm]
+
+    \begin{flushleft}
+        \hspace{1cm}\textbf{Giảng viên hướng dẫn:} TS. Trần Thị Ngọc Trâm\\[0.3cm]
+        \hspace{1cm}\textbf{Lớp học phần:} L02\\[0.3cm]
+        \hspace{1cm}\textbf{Nhóm báo cáo:} BEE BRAVE (7 thành viên)\\[0.2cm]
+    \end{flushleft}
+    \vfill
+    {\large\textbf{Thành phố Hồ Chí Minh, Tháng 10/2026}}\\[0.15cm]
+    {\small\textbf{Học kỳ HK261}}
+\end{titlepage}
+
+\setcounter{page}{1}
+\newpage
+
+% ============================================================
+%                       DANH SÁCH NHÓM
+% ============================================================
+\vspace*{\fill}
+\begin{center}
+    \renewcommand{\arraystretch}{1.45}
+    \begin{tabularx}{\textwidth}{|c|X|c|X|c|c|}
+        \hline
+        \textbf{STT} & \textbf{Họ và Tên} & \textbf{MSSV} & \textbf{Phân hệ phụ trách} & \textbf{Vai trò} & \textbf{Đóng góp} \\
+        \hline
+        1 & Nguyễn Thành Đạt & 2410709 & SS1: Đặt \& Quản lý Xe dùng chung & Leader/PM & 100\% \\
+        \hline
+        2 & Nguyễn Anh Tài & 2413035 & SS2: Đăng ký Sạc \& Đỗ xe cá nhân & Dev/Analyst & 100\% \\
+        \hline
+        3 & Phạm Tiến Đạt & 2410724 & SS3: Giám sát Mạng lưới Hub & Dev/Analyst & 100\% \\
+        \hline
+        4 & Đặng Hoàng Quý Nhân & 2412401 & SS4: Điều phối \& Xử lý Sự cố & Dev/Analyst & 100\% \\
+        \hline
+        5 & Dương Đăng Khoa & 2411589 & SS5: Lập lịch Sạc Thông minh & Dev/Analyst & 100\% \\
+        \hline
+        6 & Hoàng Văn Tấn & 2213074 & SS6: Mô phỏng What-if Nhu cầu & Dev/Analyst & 100\% \\
+        \hline
+        7 & Nguyễn Trung Nguyên & 2011710 & SS7: Mô phỏng What-if Hạ tầng & Dev/Analyst & 100\% \\
+        \hline
+    \end{tabularx}
+    \vspace{0.3cm}
+    
+    \textit{Bảng 0.1: Danh sách Thành viên Nhóm 1, MSSV và Phân hệ Phụ trách}
+\end{center}
+\vspace*{\fill}
+\newpage
+
+% ============================================================
+%                       MỤC LỤC
+% ============================================================
+\tableofcontents
+\newpage
+
+% ============================================================
+%               DANH MỤC HÌNH ẢNH & BẢNG BIỂU
+% ============================================================
+\section*{Danh mục hình ảnh và bảng biểu}
+\addcontentsline{toc}{section}{Danh mục hình ảnh và bảng biểu}
+
+\subsection*{Danh mục hình ảnh (List of Figures)}
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|c|X|c|c|}
+    \hline
+    \textbf{Ký hiệu} & \textbf{Tên hình ảnh / Sơ đồ} & \textbf{Vị trí / Mục} & \textbf{Số trang} \\
+    \hline
+    \textbf{Hình 1.1} & Sơ đồ Luồng Màn hình Tổng thể (Overall Screen Navigation Flow) & Mục 1.1 & \pageref{fig:screen-flow} \\
+    \hline
+    \textbf{Hình 1.2} & Thiết kế Giao diện Phân hệ Sinh viên (SS1 \& SS2) & Mục 1.2 & \pageref{fig:ui-student} \\
+    \hline
+    \textbf{Hình 1.3} & Thiết kế Giao diện Phân hệ Vận hành \& Kỹ thuật (SS3, SS4, SS5) & Mục 1.3 & \pageref{fig:ui-operator} \\
+    \hline
+    \textbf{Hình 1.4} & Thiết kế Giao diện Phân hệ Mô phỏng What-if (SS6 \& SS7) & Mục 1.4 & \pageref{fig:ui-whatif} \\
+    \hline
+    \textbf{Hình 2.1} & Sơ đồ Tuần tự Chi tiết -- UC\_SS1\_01 (Đặt xe \& Quét nhận xe) & Mục 2.1 & \pageref{fig:seq-ss1-01} \\
+    \hline
+    \textbf{Hình 3.1} & Sơ đồ Hoạt động Phân làn (Swimlane) -- UC\_SS1\_01 & Mục 3.1 & \pageref{fig:act-ss1-01} \\
+    \hline
+    \textbf{Hình 4.1} & Sơ đồ Trạng thái Vòng đời Phương tiện \& Đặt chỗ (EV Lifecycle) & Mục 4.1 & \pageref{fig:state-ev} \\
+    \hline
+    \textbf{Hình 4.2} & Sơ đồ Trạng thái Trụ sạc \& Tính phí Chiếm dụng (Overstay Fee) & Mục 4.2 & \pageref{fig:state-charging} \\
+    \hline
+    \textbf{Hình 4.3} & Sơ đồ Trạng thái Vận hành Mạng lưới Hub (Hub Operational Status) & Mục 4.3 & \pageref{fig:state-hub} \\
+    \hline
+\end{tabularx}
+\end{center}
+
+\vspace{0.4cm}
+
+\subsection*{Danh mục bảng biểu (List of Tables)}
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|c|X|c|c|}
+    \hline
+    \textbf{Ký hiệu} & \textbf{Tên bảng biểu nghiệp vụ} & \textbf{Vị trí / Mục} & \textbf{Số trang} \\
+    \hline
+    \textbf{Bảng 0.1} & Danh sách Thành viên Nhóm 1, MSSV và Phân hệ Phụ trách & Trang bìa & 1 \\
+    \hline
+    \textbf{Bảng 1.1} & Ma trận Thành phần Giao diện \& Yêu cầu Phi chức năng (UI vs NFR) & Mục 1.1 & \pageref{tab:ui-nfr-matrix} \\
+    \hline
+    \textbf{Bảng 2.1} & Ma trận Phân công Thực hiện 17 Sequence Diagrams (Submission \#2) & Mục 2 & \pageref{tab:seq-assignment} \\
+    \hline
+    \textbf{Bảng 2.2} & Bảng Đặc tả Luồng Thông điệp (Message Exchanges) -- UC\_SS1\_01 & Mục 2.1 & \pageref{tab:msg-ss1-01} \\
+    \hline
+    \textbf{Bảng 3.1} & Ma trận Phân loại Rẽ nhánh và Ngoại lệ trong Activity Diagrams & Mục 3 & \pageref{tab:act-matrix} \\
+    \hline
+    \textbf{Bảng 4.1} & Bảng Đặc tả Chuyển Trạng thái Vòng đời Xe Điện & Mục 4.1 & \pageref{tab:state-ev-spec} \\
+    \hline
+    \textbf{Bảng 4.2} & Bảng Đặc tả Chuyển Trạng thái Cổng Sạc & Mục 4.2 & \pageref{tab:state-charger-spec} \\
+    \hline
+    \textbf{Bảng 4.3} & Bảng Đặc tả Chuyển Trạng thái Vận hành Mobility Hub & Mục 4.3 & \pageref{tab:state-hub-spec} \\
+    \hline
+\end{tabularx}
+\end{center}
+\newpage
+
+% ============================================================
+%                       LỜI NÓI ĐẦU
+% ============================================================
+\section*{Lời nói đầu}
+\addcontentsline{toc}{section}{Lời nói đầu}
+
+Trong bối cảnh đô thị hóa nhanh và xu hướng chuyển đổi số mạnh mẽ tại Đại học Quốc gia Thành phố Hồ Chí Minh (ĐHQG-HCM), việc xây dựng một hệ thống giao thông xanh, bền vững và thông minh kết nối các trường thành viên là một bài toán cấp thiết. Đề tài \textbf{"Smart E-Mobility Hub -- Hệ thống Điều phối Phương tiện Điện trong Khu đô thị ĐHQG-HCM"} được nhóm thực hiện nhằm giải quyết trọn vẹn bài toán tích hợp giữa mạng lưới xe điện dùng chung, hạ tầng trạm sạc thông minh và năng lực điều phối tự động dựa trên phân tích dữ liệu What-if.
+
+Nối tiếp thành công của giai đoạn \textbf{Submission \#1} (Xác định bối cảnh, 14 yêu cầu phi chức năng và 17 Use-cases nghiệp vụ chi tiết), báo cáo \textbf{Submission \#2} đánh dấu bước chuyển hóa mang tính then chốt từ \textit{mô hình hóa yêu cầu nghiệp vụ (Business Requirements)} sang \textit{mô hình hóa thiết kế kiến trúc và chi tiết kỹ thuật (Architectural \& Detailed Design)}. Cụ thể, báo cáo tập trung hiện thực hóa bốn trụ cột cốt lõi:
+\begin{enumerate}[nosep]
+    \item \textbf{Thiết kế Giao diện Người dùng (UI/UX Mockups):} Xây dựng khung điều hướng (Screen Flow) trực quan, chuẩn hóa trải nghiệm cho Sinh viên, Cán bộ Vận hành và Chuyên viên Phân tích, tuân thủ nghiêm ngặt các yêu cầu NFR-07 (Responsive), NFR-08 (Tối đa 3 bước đặt xe) và NFR-09 (Bản địa hóa tiếng Việt).
+    \item \textbf{Mô hình hóa Tương tác (Sequence Diagrams):} Chi tiết hóa toàn bộ 17 kịch bản Use-Case sang sơ đồ tuần tự UML, thể hiện chính xác các thông điệp bất đồng bộ, đồng bộ và các khối xử lý ngoại lệ giữa các thành phần giao diện, controller và tầng lưu trữ dữ liệu.
+    \item \textbf{Mô hình hóa Luồng Nghiệp vụ (Activity Diagrams):} Xây dựng sơ đồ hoạt động phân làn (Swimlane) rõ ràng, phân định minh bạch trách nhiệm xử lý giữa Tác nhân người dùng và Hệ thống tự động.
+    \item \textbf{Mô hình hóa Hành vi Trạng thái (State-chart Diagrams):} Đặc tả máy trạng thái hữu hạn cho các thực thể then chốt (Phương tiện, Trụ sạc và Toàn bộ Mobility Hub), thiết lập nền tảng vững chắc cho việc cài đặt mã nguồn backend.
+\end{enumerate}
+
+Nhóm \textbf{BEE BRAVE} xin bày tỏ lòng biết ơn chân thành và sâu sắc nhất đến \textbf{TS. Trần Thị Ngọc Trâm} -- Giảng viên hướng dẫn học phần Công nghệ Phần mềm (CO3001). Sự định hướng học thuật tận tâm, những nhận xét sắc bén và các yêu cầu chuẩn mực công nghiệp từ cô là kim chỉ nam giúp nhóm hoàn thiện đồ án với chất lượng kỹ thuật cao nhất.
+
+\begin{flushright}
+    \textit{Thành phố Hồ Chí Minh, ngày 19 tháng 10 năm 2026}\\[0.1cm]
+    \textbf{Tập thể Nhóm BEE BRAVE}
+\end{flushright}
+\newpage
+
+% ============================================================
+%       MỤC 1: THIẾT KẾ GIAO DIỆN NGƯỜI DÙNG - UI DESIGN & MOCKUPS
+% ============================================================
+\section{Thiết kế Giao diện Người dùng -- UI Design \& Mockups (Group Work)}
+
+\subsection{Tổng quan nguyên tắc thiết kế UI/UX \& Điều hướng chung}
+Hệ thống Smart E-Mobility Hub được thiết kế dựa trên ngôn ngữ thiết kế giao diện hiện đại (Material Design kết hợp Fluent UI), tối ưu hóa trải nghiệm người dùng với các tiêu chuẩn công nghiệp sau:
+\begin{itemize}[nosep]
+    \item \textbf{Đáp ứng đa nền tảng (NFR-07 Responsive):} Giao diện thích ứng linh hoạt từ màn hình điện thoại di động ($375\text{px}$), máy tính bảng đến màn hình Dashboard điều hành lớn ($1920\text{px}$).
+    \item \textbf{Thao tác tối giản (NFR-08 User Journey):} Đảm bảo quy trình đặt xe hoặc đăng ký trụ sạc hoàn tất trong \textbf{không quá 03 bước tương tác chính}.
+    \item \textbf{Bản địa hóa \& Trực quan (NFR-09 Usability):} Ngôn ngữ tiếng Việt chuẩn mực, thuật ngữ rõ ràng, hỗ trợ mã màu phân định trạng thái pin, trụ sạc và mức độ lấp đầy Hub.
+\end{itemize}
+
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.3}
+    \caption{Ma trận Đáp ứng Yêu cầu Phi chức năng trên Giao diện Người dùng}
+    \label{tab:ui-nfr-matrix}
+    \begin{tabularx}{\textwidth}{|l|l|X|}
+        \hline
+        \textbf{Mã NFR} & \textbf{Tiêu chí Phi chức năng} & \textbf{Giải pháp Hiện thực trên Giao diện UI/UX} \\
+        \hline
+        NFR-07 & Responsive đa kích thước & Tự động co giãn bố cục qua CSS Grid/Flexbox và Streamlit Layout columns. \\
+        \hline
+        NFR-08 & Đặt xe $\le 3$ bước & Bước 1: Chọn Hub \& Xe $\rightarrow$ Bước 2: Xác nhận cọc ví $\rightarrow$ Bước 3: Nhận mã QR/PIN. \\
+        \hline
+        NFR-09 & Ngôn ngữ \& Bản địa hóa & 100\% giao diện Tiếng Việt chuẩn, định dạng tiền tệ VNĐ và thời gian 24h. \\
+        \hline
+    \end{tabularx}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \imageplaceholder{Sơ đồ Luồng Điều hướng Màn hình Tổng thể (Overall Screen Navigation Flow)}{docs/ui-mockups/screen_flow_diagram.png}
+    \caption{Sơ đồ Luồng Màn hình và Điều hướng Trạng thái Hệ thống}
+    \label{fig:screen-flow}
+\end{figure}
+
+\subsection{Giao diện Phân hệ Sinh viên (SS1 \& SS2)}
+Phân hệ Sinh viên tập trung vào tính tiện lợi, trực quan và tốc độ xử lý nhanh:
+\begin{itemize}[nosep]
+    \item \textbf{Đăng nhập VNU-SSO:} Xác thực tài khoản sinh viên ĐHQG-HCM bảo mật 1 chạm.
+    \item \textbf{Bản đồ tương tác \& Đặt giữ chỗ xe (SS1):} Hiển thị danh sách 05 Hub trung tâm, số lượng xe sẵn sàng, mức pin hiện tại.
+    \item \textbf{Đăng ký \& Đặt lịch sạc/đỗ xe EV cá nhân (SS2):} Đăng ký thông tin biển số, dung lượng pin và chọn khung giờ sạc tối ưu.
+    \item \textbf{Ví điện tử sinh viên \& Hóa đơn e-Invoice:} Hiển thị biến động số dư ví, tiền cọc hoàn trả và xuất biên lai điện tử.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \imageplaceholder{Mockup Giao diện Sinh viên: Đặt xe dùng chung (SS1) và Đặt lịch sạc xe cá nhân (SS2)}{docs/ui-mockups/student_portal_mockup.png}
+    \caption{Thiết kế Giao diện Phân hệ Sinh viên (SS1 \& SS2)}
+    \label{fig:ui-student}
+\end{figure}
+
+\subsection{Giao diện Phân hệ Nhân viên Vận hành \& Kỹ thuật viên (SS3, SS4, SS5)}
+Phân hệ Điều hành trung tâm cung cấp bức tranh toàn cảnh về hiệu suất vận hành:
+\begin{itemize}[nosep]
+    \item \textbf{Dashboard Giám sát Mạng lưới Hub (SS3):} Cập nhật KPIs thời gian thực (tỷ lệ lấp đầy, số xe hoạt động, doanh thu), hệ thống cảnh báo quá tải 3 cấp độ (Vàng $\ge 70\%$, Cam $\ge 85\%$, Đỏ $100\%$).
+    \item \textbf{Trung tâm Điều phối \& Xử lý Sự cố (SS4):} Bảng quản lý lệnh điều xe giữa các Hub dư thừa sang Hub thiếu hụt, tiếp nhận và điều phối Kỹ thuật viên xử lý xe hỏng.
+    \item \textbf{Hệ thống Lập lịch Sạc Thông minh (SS5):} Hiển thị hàng đợi sạc, ưu tiên xe pin dưới 20\%, tự động kích hoạt tính phí chiếm dụng (Overstay Fee) sau 15 phút ân hạn.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \imageplaceholder{Mockup Dashboard Giám sát Hub, Điều phối Sự cố và Hàng đợi Lập lịch Sạc}{docs/ui-mockups/operator_dashboard_mockup.png}
+    \caption{Thiết kế Giao diện Phân hệ Vận hành \& Kỹ thuật (SS3, SS4, SS5)}
+    \label{fig:ui-operator}
+\end{figure}
+
+\subsection{Giao diện Phân hệ Mô phỏng What-if (SS6 \& SS7)}
+Hỗ trợ Ban Quản lý đưa ra các quyết định quy hoạch và phản ứng trước rủi ro bất ngờ:
+\begin{itemize}[nosep]
+    \item \textbf{Mô phỏng Đột biến Nhu cầu Metro Surge (SS6):} Thanh trượt cấu hình số lượng khách đổ về Hub Suối Tiên (100 -- 500 khách/giờ), đồ thị dự báo thời gian chờ và tỷ lệ đáp ứng xe.
+    \item \textbf{Mô phỏng Sự cố Hạ tầng \& Điều hướng 1-chạm (SS7):} Bảng điều khiển ngắt điện giả lập tại từng Hub, kích hoạt Modal đề xuất đổi điểm trả xe/sạc xe sang Hub lân cận, miễn phí 15 phút di chuyển phát sinh.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \imageplaceholder{Mockup Màn hình Mô phỏng What-if Metro Surge và Tái định tuyến xe 1-chạm}{docs/ui-mockups/whatif_simulation_mockup.png}
+    \caption{Thiết kế Giao diện Phân hệ Mô phỏng What-if (SS6 \& SS7)}
+    \label{fig:ui-whatif}
+\end{figure}
+\newpage
+
+% ============================================================
+%       MỤC 2: SƠ ĐỒ TUẦN TỰ - SEQUENCE DIAGRAMS (INDIVIDUAL WORK)
+% ============================================================
+\section{Sơ đồ Tuần tự -- Sequence Diagrams (Individual Work)}
+
+Mục này trình bày chi tiết \textbf{17 Sơ đồ Tuần tự (Sequence Diagrams)} tương ứng với 17 kịch bản Use-Case của hệ thống Smart E-Mobility Hub, được phân công độc lập cho từng thành viên. Mỗi sơ đồ làm rõ các luồng trao đổi thông điệp, kiểm tra điều kiện rẽ nhánh (\texttt{alt}), vòng lặp (\texttt{loop}) và các ngoại lệ kỹ thuật (\texttt{break}/\texttt{critical}).
+
+\begin{table}[H]
+    \centering
+    \small
+    \renewcommand{\arraystretch}{1.25}
+    \caption{Ma trận Phân công Thực hiện 17 Sequence Diagrams}
+    \label{tab:seq-assignment}
+    \begin{tabularx}{\textwidth}{|c|c|X|l|c|}
+        \hline
+        \textbf{STT} & \textbf{Mã UC} & \textbf{Tên Use-Case} & \textbf{Thành viên phụ trách} & \textbf{Trạng thái} \\
+        \hline
+        1 & UC\_SS1\_01 & Đặt giữ chỗ \& Quét QR/PIN nhận xe & Nguyễn Thành Đạt & Hoàn thành \\
+        2 & UC\_SS1\_02 & Trả xe 1-chiều \& Quyết toán ví điện tử & Nguyễn Thành Đạt & Hoàn thành \\
+        3 & UC\_SS1\_03 & Hủy đặt xe \& Hoàn 100\% cọc & Nguyễn Thành Đạt & Hoàn thành \\
+        \hline
+        4 & UC\_SS2\_01 & Đăng ký xe EV cá nhân & Nguyễn Anh Tài & Hoàn thành \\
+        5 & UC\_SS2\_02 & Đặt chỗ đỗ và nhu cầu sạc xe EV cá nhân & Nguyễn Anh Tài & Hoàn thành \\
+        6 & UC\_SS2\_03 & Check-in xe EV cá nhân tại Hub & Nguyễn Anh Tài & Hoàn thành \\
+        7 & UC\_SS2\_04 & Check-out và thanh toán dịch vụ xe cá nhân & Nguyễn Anh Tài & Hoàn thành \\
+        \hline
+        8 & UC\_SS3\_01 & Giám sát trạng thái Hub theo thời gian thực & Phạm Tiến Đạt & Hoàn thành \\
+        9 & UC\_SS3\_02 & Cảnh báo quá tải \& Đề xuất điều phối & Phạm Tiến Đạt & Hoàn thành \\
+        \hline
+        10 & UC\_SS4\_01 & Lập lệnh điều phối phương tiện giữa các Hub & Đặng Hoàng Quý Nhân & Hoàn thành \\
+        11 & UC\_SS4\_02 & Báo cáo \& Xử lý sự cố kỹ thuật phương tiện & Đặng Hoàng Quý Nhân & Hoàn thành \\
+        \hline
+        12 & UC\_SS5\_01 & Lập lịch ưu tiên sạc tự động & Dương Đăng Khoa & Hoàn thành \\
+        13 & UC\_SS5\_02 & Giám sát hàng đợi sạc \& Phí chiếm dụng & Dương Đăng Khoa & Hoàn thành \\
+        \hline
+        14 & UC\_SS6\_01 & Mô phỏng đợt tăng đột biến hành khách Metro & Hoàng Văn Tấn & Hoàn thành \\
+        15 & UC\_SS6\_02 & Dự báo nhu cầu theo giờ \& Phân tích hàng đợi & Hoàng Văn Tấn & Hoàn thành \\
+        \hline
+        16 & UC\_SS7\_01 & Mô phỏng sự cố mất điện / lỗi cổng sạc & Nguyễn Trung Nguyên & Hoàn thành \\
+        17 & UC\_SS7\_02 & Tự động phát cảnh báo \& Gợi ý điều hướng 1-chạm & Nguyễn Trung Nguyên & Hoàn thành \\
+        \hline
+    \end{tabularx}
+\end{table}
+
+% ------------------------------------------------------------
+% 2.1 SS1 - Nguyễn Thành Đạt
+% ------------------------------------------------------------
+\subsection{Phân hệ SS1: Đặt \& Quản lý Xe dùng chung (Nguyễn Thành Đạt)}
+
+\subsubsection{UC\_SS1\_01: Đặt giữ chỗ \& Quét QR/PIN nhận xe (Mẫu Chuẩn Chi Tiết)}
+\paragraph{Mô tả nghiệp vụ:} Sinh viên chọn Hub, chọn loại xe điện, thực hiện khóa cọc 50.000 VNĐ trong ví. Hệ thống sinh mã OTP/QR có hiệu lực 15 phút. Tại trạm Hub, sinh viên quét QR mở khóa xe, chuyển trạng thái xe sang \texttt{IN\_USE}.
+
+\begin{figure}[H]
+    \centering
+    % Đường dẫn ảnh thật sẵn có trong dự án:
+    % \includegraphics[width=\textwidth]{Use-case detail-scenario/SS1/Sequence diagrams/UC_SS1_01_NguyenThanhDat_sequence.png}
+    \imageplaceholder{Sơ đồ Tuần tự: UC_SS1_01 - Đặt giữ chỗ & Quét QR/PIN nhận xe}{docs/diagrams/Use-case detail-scenario/SS1/Sequence diagrams/UC_SS1_01_NguyenThanhDat_sequence.png}
+    \caption{Sơ đồ Tuần tự Chi tiết -- UC\_SS1\_01 (Đặt xe \& Quét nhận xe)}
+    \label{fig:seq-ss1-01}
+\end{figure}
+
+\begin{table}[H]
+    \centering
+    \small
+    \renewcommand{\arraystretch}{1.3}
+    \caption{Đặc tả Các Thông điệp Tương tác (Message Exchange Table) -- UC\_SS1\_01}
+    \label{tab:msg-ss1-01}
+    \begin{tabularx}{\textwidth}{|c|l|l|X|}
+        \hline
+        \textbf{Bước} & \textbf{Đối tượng Gửi} & \textbf{Đối tượng Nhận} & \textbf{Tên thông điệp / Dữ liệu trao đổi} \\
+        \hline
+        1 & Sinh viên (Actor) & Giao diện Đặt xe & Chọn Hub đi, loại xe và nhấn [Xác nhận Đặt xe] \\
+        2 & Giao diện Đặt xe & BookingController & \texttt{createReservation(studentId, hubId, vehicleType)} \\
+        3 & BookingController & WalletService & \texttt{checkBalanceAndLockDeposit(studentId, 50000)} \\
+        4 & WalletService & Database / Session & Cập nhật số dư ví, trừ tiền cọc tạm giữ \\
+        5 & BookingController & VehicleService & \texttt{lockVehicle(vehicleId, status="RESERVED", expire=15m)} \\
+        6 & BookingController & Giao diện Đặt xe & Trả về mã đặt chỗ + QR code nhận xe (hiệu lực 15 phút) \\
+        7 & Sinh viên & SmartHub Gate / IoT & Quét mã QR code hoặc nhập mã PIN tại trụ xe \\
+        8 & SmartHub IoT & BookingController & \texttt{verifyUnlockRequest(pinCode, hubId)} \\
+        9 & BookingController & SmartLock IoT & Lệnh mở khóa chốt cơ điện (\texttt{unlock()}), bật còi xác nhận \\
+        10 & BookingController & Database / Session & Chuyển trạng thái xe sang \texttt{IN\_USE}, bắt đầu tính giờ thuê \\
+        \hline
+    \end{tabularx}
+\end{table}
+
+\subsubsection{UC\_SS1\_02: Trả xe 1-chiều \& Quyết toán ví điện tử}
+\paragraph{Mô tả nghiệp vụ:} Sinh viên cắm xe vào chốt Hub bất kỳ, hệ thống kiểm tra pin, tính cước thuê và hoàn trả tiền cọc thừa vào ví.
+\begin{figure}[H]
+    \centering
+    \imageplaceholder{Sơ đồ Tuần tự: UC_SS1_02 - Trả xe 1-chiều & Quyết toán ví điện tử}{docs/diagrams/Use-case detail-scenario/SS1/Sequence diagrams/UC_SS1_02_NguyenThanhDat_sequence.png}
+    \caption{Sơ đồ Tuần tự Chi tiết -- UC\_SS1\_02}
+\end{figure}
+
+\subsubsection{UC\_SS1\_03: Hủy đặt xe \& Hoàn 100\% cọc}
+\paragraph{Mô tả nghiệp vụ:} Sinh viên chủ động hủy đặt chỗ trong thời hạn 15 phút hoặc quá hạn hệ thống tự động giải phóng xe, hoàn 100\% cọc.
+\begin{figure}[H]
+    \centering
+    \imageplaceholder{Sơ đồ Tuần tự: UC_SS1_03 - Hủy đặt xe & Hoàn 100\% cọc}{docs/diagrams/Use-case detail-scenario/SS1/Sequence diagrams/UC_SS1_03_NguyenThanhDat_sequence.png}
+    \caption{Sơ đồ Tuần tự Chi tiết -- UC\_SS1\_03}
+\end{figure}
+
+% ------------------------------------------------------------
+% 2.2 SS2 - Nguyễn Anh Tài
+% ------------------------------------------------------------
+\subsection{Phân hệ SS2: Đăng ký Sạc \& Đỗ xe cá nhân (Nguyễn Anh Tài)}
+\subsubsection{UC\_SS2\_01: Đăng ký xe EV cá nhân}
+\imageplaceholder{Sơ đồ Tuần tự: UC_SS2_01 - Đăng ký xe EV cá nhân}{docs/diagrams/Use-case detail-scenario/SS2/Sequence diagrams/UC_SS2_01_NguyenAnhTai_sequence.png}
+
+\subsubsection{UC\_SS2\_02: Đặt chỗ đỗ và nhu cầu sạc xe EV cá nhân}
+\imageplaceholder{Sơ đồ Tuần tự: UC_SS2_02 - Đặt chỗ đỗ và nhu cầu sạc}{docs/diagrams/Use-case detail-scenario/SS2/Sequence diagrams/UC_SS2_02_NguyenAnhTai_sequence.png}
+
+\subsubsection{UC\_SS2\_03: Check-in xe EV cá nhân tại Hub}
+\imageplaceholder{Sơ đồ Tuần tự: UC_SS2_03 - Check-in xe EV cá nhân}{docs/diagrams/Use-case detail-scenario/SS2/Sequence diagrams/UC_SS2_03_NguyenAnhTai_sequence.png}
+
+\subsubsection{UC\_SS2\_04: Check-out và thanh toán dịch vụ xe cá nhân}
+\imageplaceholder{Sơ đồ Tuần tự: UC_SS2_04 - Check-out và thanh toán}{docs/diagrams/Use-case detail-scenario/SS2/Sequence diagrams/UC_SS2_04_NguyenAnhTai_sequence.png}
+
+% ------------------------------------------------------------
+% 2.3 SS3 - Phạm Tiến Đạt
+% ------------------------------------------------------------
+\subsection{Phân hệ SS3: Giám sát Mạng lưới Hub (Phạm Tiến Đạt)}
+\subsubsection{UC\_SS3\_01: Giám sát trạng thái Hub theo thời gian thực}
+\imageplaceholder{Sơ đồ Tuần tự: UC_SS3_01 - Giám sát trạng thái Hub}{docs/diagrams/Use-case detail-scenario/SS3/Sequence diagrams/UC_SS3_01_PhamTienDat_sequence.png}
+
+\subsubsection{UC\_SS3\_02: Cảnh báo quá tải \& Đề xuất điều phối}
+\imageplaceholder{Sơ đồ Tuần tự: UC_SS3_02 - Cảnh báo quá tải}{docs/diagrams/Use-case detail-scenario/SS3/Sequence diagrams/UC_SS3_02_PhamTienDat_sequence.png}
+
+% ------------------------------------------------------------
+% 2.4 SS4 - Đặng Hoàng Quý Nhân
+% ------------------------------------------------------------
+\subsection{Phân hệ SS4: Điều phối \& Xử lý Sự cố (Đặng Hoàng Quý Nhân)}
+\subsubsection{UC\_SS4\_01: Lập lệnh điều phối phương tiện giữa các Hub}
+\imageplaceholder{Sơ đồ Tuần tự: UC_SS4_01 - Lập lệnh điều phối phương tiện}{docs/diagrams/Use-case detail-scenario/SS4/Sequence diagrams/UC_SS4_01_sequence.png}
+
+\subsubsection{UC\_SS4\_02: Báo cáo \& Xử lý sự cố kỹ thuật phương tiện}
+\imageplaceholder{Sơ đồ Tuần tự: UC_SS4_02 - Báo cáo sự cố phương tiện}{docs/diagrams/Use-case detail-scenario/SS4/Sequence diagrams/UC_SS4_02_sequence.png}
+
+% ------------------------------------------------------------
+% 2.5 SS5 - Dương Đăng Khoa
+% ------------------------------------------------------------
+\subsection{Phân hệ SS5: Lập lịch Sạc Thông minh (Dương Đăng Khoa)}
+\subsubsection{UC\_SS5\_01: Lập lịch ưu tiên sạc tự động}
+\imageplaceholder{Sơ đồ Tuần tự: UC_SS5_01 - Lập lịch ưu tiên sạc tự động}{docs/diagrams/Use-case detail-scenario/SS5/Sequence diagrams/UC_SS5_01_DuongDangKhoa_sequence.png}
+
+\subsubsection{UC\_SS5\_02: Giám sát hàng đợi sạc \& Phí chiếm dụng}
+\imageplaceholder{Sơ đồ Tuần tự: UC_SS5_02 - Giám sát hàng đợi sạc & Phí chiếm dụng}{docs/diagrams/Use-case detail-scenario/SS5/Sequence diagrams/UC_SS5_02_DuongDangKhoa_sequence.png}
+
+% ------------------------------------------------------------
+% 2.6 SS6 - Hoàng Văn Tấn
+% ------------------------------------------------------------
+\subsection{Phân hệ SS6: Mô phỏng What-if Nhu cầu (Hoàng Văn Tấn)}
+\subsubsection{UC\_SS6\_01: Mô phỏng đợt tăng đột biến hành khách Metro (Metro Surge)}
+\imageplaceholder{Sơ đồ Tuần tự: UC_SS6_01 - Mô phỏng đợt tăng đột biến Metro Surge}{docs/diagrams/Use-case detail-scenario/SS6/Sequence diagrams/UC_SS6_01_HoangVanTan_sequence.png}
+
+\subsubsection{UC\_SS6\_02: Dự báo nhu cầu theo giờ \& Phân tích hàng đợi}
+\imageplaceholder{Sơ đồ Tuần tự: UC_SS6_02 - Dự báo nhu cầu theo giờ}{docs/diagrams/Use-case detail-scenario/SS6/Sequence diagrams/UC_SS6_02_HoangVanTan_sequence.png}
+
+% ------------------------------------------------------------
+% 2.7 SS7 - Nguyễn Trung Nguyên
+% ------------------------------------------------------------
+\subsection{Phân hệ SS7: Mô phỏng What-if Hạ tầng (Nguyễn Trung Nguyên)}
+\subsubsection{UC\_SS7\_01: Mô phỏng sự cố mất điện / lỗi cổng sạc}
+\imageplaceholder{Sơ đồ Tuần tự: UC_SS7_01 - Mô phỏng sự cố mất điện}{docs/diagrams/Use-case detail-scenario/SS7/Sequence diagrams/UC_SS7_01_NguyenTrungNguyen_sequence.png}
+
+\subsubsection{UC\_SS7\_02: Tự động phát cảnh báo \& Gợi ý điều hướng 1-chạm}
+\imageplaceholder{Sơ đồ Tuần tự: UC_SS7_02 - Gợi ý điều hướng 1-chạm}{docs/diagrams/Use-case detail-scenario/SS7/Sequence diagrams/UC_SS7_02_NguyenTrungNguyen_sequence.png}
+\newpage
+
+% ============================================================
+%       MỤC 3: SƠ ĐỒ HOẠT ĐỘNG - ACTIVITY DIAGRAMS (INDIVIDUAL WORK)
+% ============================================================
+\section{Sơ đồ Hoạt động -- Activity Diagrams (Individual Work)}
+
+Sơ đồ hoạt động (Activity Diagram) thể hiện luồng điều khiển của quy trình nghiệp vụ với các làn bơi (\textbf{Swimlanes}) phân chia rõ ràng giữa \textbf{Người dùng (User / Actor)} và \textbf{Hệ thống (System / IoT / Backend)}.
+
+\begin{table}[H]
+    \centering
+    \small
+    \renewcommand{\arraystretch}{1.25}
+    \caption{Ma trận Phân loại Luồng Nghiệp vụ trong Activity Diagrams}
+    \label{tab:act-matrix}
+    \begin{tabularx}{\textwidth}{|c|c|X|X|}
+        \hline
+        \textbf{Phân hệ} & \textbf{Mã UC} & \textbf{Luồng Rẽ Nhánh (Alternate Flow)} & \textbf{Luồng Ngoại Lệ (Exception Flow)} \\
+        \hline
+        SS1 & UC\_SS1\_01 & Nhập mã PIN thủ công thay vì quét QR & Số dư ví không đủ 50.000 VNĐ; quá 15p tự hủy \\
+        SS1 & UC\_SS1\_02 & Trả xe khác Hub mượn (1-chiều) & Pin dưới 20\% phạt sạc; chốt khóa Hub báo đầy \\
+        SS1 & UC\_SS1\_03 & Sinh viên chủ động hủy qua ứng dụng & Lỗi timeout kết nối ví điện tử VNU \\
+        \hline
+        SS2 & UC\_SS2\_01 & Bổ sung giấy tờ xe qua xác minh thủ công & Biển số xe đã tồn tại trên hệ thống \\
+        SS2 & UC\_SS2\_02 & Chỉ đỗ xe không sạc điện & Hết chỗ đỗ hoặc không có cổng sạc phù hợp \\
+        SS2 & UC\_SS2\_03 & Nhận diện tự động qua camera ANPR & Thẻ RFID lỗi, nhập mã đặt chỗ dự phòng \\
+        SS2 & UC\_SS2\_04 & Thanh toán qua ví điện tử nội bộ & Số dư ví không đủ, chuyển cổng VNPay \\
+        \hline
+        SS3 & UC\_SS3\_01 & Lọc hiển thị theo từng khu vực Hub & Mất tín hiệu cảm biến IoT quá 60 giây \\
+        SS3 & UC\_SS3\_02 & Hệ thống tự động đẩy đề xuất lệnh sang SS4 & Người điều hành từ chối lệnh đề xuất \\
+        \hline
+        SS4 & UC\_SS4\_01 & Điều phối xe tải lớn vận chuyển hàng loạt & Lái xe điều phối báo tắc đường trễ giờ \\
+        SS4 & UC\_SS4\_02 & Kỹ thuật viên sửa chữa tại chỗ thành công & Xe hư nặng kéo về xưởng bảo trì trung tâm \\
+        \hline
+        SS5 & UC\_SS5\_01 & Ưu tiên xe pin thấp dưới 20\% sạc trước & Quá tải công suất trạm, giảm dòng sạc an toàn \\
+        SS5 & UC\_SS5\_02 & Sinh viên di chuyển xe trong 15p ân hạn & Quá 15p tính phí chiếm dụng 10.000đ/15p \\
+        \hline
+        SS6 & UC\_SS6\_01 & Điều chỉnh tham số Metro tăng 200\% & Dữ liệu lịch sử tuyến Metro không khả dụng \\
+        SS6 & UC\_SS6\_02 & Xuất báo cáo phân tích định dạng PDF & Thời gian chờ tính toán vượt ngưỡng an toàn \\
+        \hline
+        SS7 & UC\_SS7\_01 & Chuyển tải sang máy phát điện phụ trợ & Trạm sạc chập điện ngắt toàn bộ trạm \\
+        SS7 & UC\_SS7\_02 & Sinh viên chấp nhận gợi ý Hub lân cận & Sinh viên từ chối, hủy phiên và hoàn cọc \\
+        \hline
+    \end{tabularx}
+\end{table}
+
+\subsection{Phân hệ SS1: Đặt \& Quản lý Xe dùng chung (Nguyễn Thành Đạt)}
+\subsubsection{UC\_SS1\_01: Đặt giữ chỗ \& Quét QR/PIN nhận xe (Mẫu Chuẩn Chi Tiết)}
+\paragraph{Mô tả luồng hoạt động (Swimlane Analysis):}
+\begin{itemize}[nosep]
+    \item \textbf{Làn bơi Sinh viên (Actor):} Mở ứng dụng $\rightarrow$ Chọn Hub \& Loại xe $\rightarrow$ Nhấn đặt chỗ $\rightarrow$ Quét mã QR/PIN tại trụ xe.
+    \item \textbf{Làn bơi Hệ thống (System/IoT):} Kiểm tra số dư ví $\rightarrow$ Khóa 50.000đ $\rightarrow$ Khóa xe 15p $\rightarrow$ Xác thực mã quét $\rightarrow$ Mở khóa xe vật lý $\rightarrow$ Chuyển trạng thái \texttt{IN\_USE}.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \imageplaceholder{Sơ đồ Hoạt động: UC_SS1_01 - Đặt giữ chỗ & Quét QR/PIN nhận xe (Swimlane)}{docs/diagrams/Use-case detail-scenario/SS1/Activity diagrams/UC_SS1_01_NguyenThanhDat_activity.png}
+    \caption{Sơ đồ Hoạt động Phân làn (Swimlane) -- UC\_SS1\_01}
+    \label{fig:act-ss1-01}
+\end{figure}
+
+\subsubsection{UC\_SS1\_02: Trả xe 1-chiều \& Quyết toán ví điện tử}
+\imageplaceholder{Sơ đồ Hoạt động: UC_SS1_02 - Trả xe 1-chiều & Quyết toán}{docs/diagrams/Use-case detail-scenario/SS1/Activity diagrams/UC_SS1_02_NguyenThanhDat_activity.png}
+
+\subsubsection{UC\_SS1\_03: Hủy đặt xe \& Hoàn 100\% cọc}
+\imageplaceholder{Sơ đồ Hoạt động: UC_SS1_03 - Hủy đặt xe & Hoàn 100\% cọc}{docs/diagrams/Use-case detail-scenario/SS1/Activity diagrams/UC_SS1_03_NguyenThanhDat_activity.png}
+
+\subsection{Phân hệ SS2: Đăng ký Sạc \& Đỗ xe cá nhân (Nguyễn Anh Tài)}
+\subsubsection{UC\_SS2\_01: Đăng ký xe EV cá nhân}
+\imageplaceholder{Sơ đồ Hoạt động: UC_SS2_01 - Đăng ký xe EV cá nhân}{docs/diagrams/Use-case detail-scenario/SS2/Activity diagrams/UC_SS2_01_NguyenAnhTai_activity.png}
+
+\subsubsection{UC\_SS2\_02: Đặt chỗ đỗ và nhu cầu sạc xe EV cá nhân}
+\imageplaceholder{Sơ đồ Hoạt động: UC_SS2_02 - Đặt chỗ đỗ và nhu cầu sạc}{docs/diagrams/Use-case detail-scenario/SS2/Activity diagrams/UC_SS2_02_NguyenAnhTai_activity.png}
+
+\subsubsection{UC\_SS2\_03: Check-in xe EV cá nhân tại Hub}
+\imageplaceholder{Sơ đồ Hoạt động: UC_SS2_03 - Check-in xe EV cá nhân}{docs/diagrams/Use-case detail-scenario/SS2/Activity diagrams/UC_SS2_03_NguyenAnhTai_activity.png}
+
+\subsubsection{UC\_SS2\_04: Check-out và thanh toán dịch vụ xe cá nhân}
+\imageplaceholder{Sơ đồ Hoạt động: UC_SS2_04 - Check-out và thanh toán}{docs/diagrams/Use-case detail-scenario/SS2/Activity diagrams/UC_SS2_04_NguyenAnhTai_activity.png}
+
+\subsection{Phân hệ SS3: Giám sát Mạng lưới Hub (Phạm Tiến Đạt)}
+\subsubsection{UC\_SS3\_01: Giám sát trạng thái Hub theo thời gian thực}
+\imageplaceholder{Sơ đồ Hoạt động: UC_SS3_01 - Giám sát trạng thái Hub}{docs/diagrams/Use-case detail-scenario/SS3/Activity diagrams/UC_SS3_01_PhamTienDat_activity.png}
+
+\subsubsection{UC\_SS3\_02: Cảnh báo quá tải \& Đề xuất điều phối}
+\imageplaceholder{Sơ đồ Hoạt động: UC_SS3_02 - Cảnh báo quá tải}{docs/diagrams/Use-case detail-scenario/SS3/Activity diagrams/UC_SS3_02_PhamTienDat_activity.png}
+
+\subsection{Phân hệ SS4: Điều phối \& Xử lý Sự cố (Đặng Hoàng Quý Nhân)}
+\subsubsection{UC\_SS4\_01: Lập lệnh điều phối phương tiện giữa các Hub}
+\imageplaceholder{Sơ đồ Hoạt động: UC_SS4_01 - Lập lệnh điều phối phương tiện}{docs/diagrams/Use-case detail-scenario/SS4/Activity diagrams/UC_SS4_01_activity.png}
+
+\subsubsection{UC\_SS4\_02: Báo cáo \& Xử lý sự cố kỹ thuật phương tiện}
+\imageplaceholder{Sơ đồ Hoạt động: UC_SS4_02 - Báo cáo sự cố phương tiện}{docs/diagrams/Use-case detail-scenario/SS4/Activity diagrams/UC_SS4_02_activity.png}
+
+\subsection{Phân hệ SS5: Lập lịch Sạc Thông minh (Dương Đăng Khoa)}
+\subsubsection{UC\_SS5\_01: Lập lịch ưu tiên sạc tự động}
+\imageplaceholder{Sơ đồ Hoạt động: UC_SS5_01 - Lập lịch ưu tiên sạc tự động}{docs/diagrams/Use-case detail-scenario/SS5/Activity diagrams/UC_SS5_01_DuongDangKhoa_activity.png}
+
+\subsubsection{UC\_SS5\_02: Giám sát hàng đợi sạc \& Phí chiếm dụng}
+\imageplaceholder{Sơ đồ Hoạt động: UC_SS5_02 - Giám sát hàng đợi sạc & Phí chiếm dụng}{docs/diagrams/Use-case detail-scenario/SS5/Activity diagrams/UC_SS5_02_DuongDangKhoa_activity.png}
+
+\subsection{Phân hệ SS6: Mô phỏng What-if Nhu cầu (Hoàng Văn Tấn)}
+\subsubsection{UC\_SS6\_01: Mô phỏng đợt tăng đột biến hành khách Metro (Metro Surge)}
+\imageplaceholder{Sơ đồ Hoạt động: UC_SS6_01 - Mô phỏng Metro Surge}{docs/diagrams/Use-case detail-scenario/SS6/Activity diagrams/UC_SS6_01_HoangVanTan_activity.png}
+
+\subsubsection{UC\_SS6\_02: Dự báo nhu cầu theo giờ \& Phân tích hàng đợi}
+\imageplaceholder{Sơ đồ Hoạt động: UC_SS6_02 - Dự báo nhu cầu theo giờ}{docs/diagrams/Use-case detail-scenario/SS6/Activity diagrams/UC_SS6_02_HoangVanTan_activity.png}
+
+\subsection{Phân hệ SS7: Mô phỏng What-if Hạ tầng (Nguyễn Trung Nguyên)}
+\subsubsection{UC\_SS7\_01: Mô phỏng sự cố mất điện / lỗi cổng sạc}
+\imageplaceholder{Sơ đồ Hoạt động: UC_SS7_01 - Mô phỏng sự cố mất điện}{docs/diagrams/Use-case detail-scenario/SS7/Activity diagrams/UC_SS7_01_NguyenTrungNguyen_activity.png}
+
+\subsubsection{UC\_SS7\_02: Tự động phát cảnh báo \& Gợi ý điều hướng 1-chạm}
+\imageplaceholder{Sơ đồ Hoạt động: UC_SS7_02 - Gợi ý điều hướng 1-chạm}{docs/diagrams/Use-case detail-scenario/SS7/Activity diagrams/UC_SS7_02_NguyenTrungNguyen_activity.png}
+\newpage
+
+% ============================================================
+%       MỤC 4: SƠ ĐỒ TRẠNG THÁI - STATE-CHART DIAGRAMS (BONUS)
+% ============================================================
+\section{Sơ đồ Trạng thái -- State-chart Diagrams (Bonus Work)}
+
+\subsection{Vòng đời trạng thái Phương tiện \& Đặt chỗ}
+Đặc tả vòng đời chuyển đổi trạng thái của phương tiện dùng chung từ khi sẵn sàng, được đặt chỗ, đang lưu thông, cho đến khi trả xe hoặc gặp sự cố:
+\[
+\text{AVAILABLE} \xrightarrow{\text{Đặt xe}} \text{RESERVED} \xrightarrow{\text{Mở khóa}} \text{IN\_USE} \xrightarrow{\text{Trả xe}} \text{AVAILABLE / CHARGING / INCIDENT}
+\]
+
+\begin{figure}[H]
+    \centering
+    \imageplaceholder{Sơ đồ Trạng thái: Vòng đời Phương tiện và Đặt chỗ (EV Lifecycle)}{docs/diagrams/Use-case detail-scenario/SS1/State-chart diagrams/UC_SS1_NguyenThanhDat_statechart.png}
+    \caption{Sơ đồ Trạng thái Vòng đời Phương tiện Điện (EV Lifecycle)}
+    \label{fig:state-ev}
+\end{figure}
+
+\begin{table}[H]
+    \centering
+    \small
+    \renewcommand{\arraystretch}{1.3}
+    \caption{Bảng Đặc tả Chuyển Trạng thái Vòng đời Xe Điện}
+    \label{tab:state-ev-spec}
+    \begin{tabularx}{\textwidth}{|l|l|l|X|l|}
+        \hline
+        \textbf{Trạng thái gốc} & \textbf{Sự kiện (Event)} & \textbf{Điều kiện (Guard)} & \textbf{Hành động (Action)} & \textbf{Trạng thái đích} \\
+        \hline
+        AVAILABLE & Sinh viên đặt chỗ & Số dư ví $\ge 50.000$đ & Khóa cọc, sinh mã QR/PIN & RESERVED \\
+        RESERVED & Quét mã QR/PIN & Mã hợp lệ, $< 15$ phút & Mở chốt điện, tính giờ & IN\_USE \\
+        RESERVED & Timeout hủy & Quá 15 phút chưa nhận & Hủy đặt, hoàn 100\% cọc & AVAILABLE \\
+        IN\_USE & Cắm trả tại Hub & Cổng khóa nhận diện thành công & Tính cước, hoàn cọc thừa & AVAILABLE \\
+        IN\_USE & Pin $< 20\%$ & Cắm vào cổng có sạc & Chuyển sang hàng đợi sạc & CHARGING \\
+        Bất kỳ & Báo cáo sự cố & KTV / SV gửi cảnh báo lỗi & Khóa xe trên hệ thống & INCIDENT \\
+        \hline
+    \end{tabularx}
+\end{table}
+
+\subsection{Vòng đời trạng thái Cổng sạc \& Phiên sạc (Phí chiếm dụng Overstay)}
+Trụ sạc thông minh quản lý chuyển đổi giữa các trạng thái cắm sạc, đang sạc, sạc hoàn tất và trạng thái chiếm dụng trụ sạc (Overstay Fee):
+\[
+\text{IDLE} \rightarrow \text{PLUGGED\_IN} \rightarrow \text{CHARGING} \rightarrow \text{FULLY\_CHARGED} \xrightarrow{> 15\text{p}} \text{OVERSTAY}
+\]
+
+\begin{figure}[H]
+    \centering
+    \imageplaceholder{Sơ đồ Trạng thái: Vòng đời Trụ sạc và Tính phí Chiếm dụng}{docs/diagrams/Use-case detail-scenario/SS5/State-chart diagrams/UC_SS5_DuongDangKhoa_statechart.png}
+    \caption{Sơ đồ Trạng thái Trụ sạc \& Phiên sạc Thông minh}
+    \label{fig:state-charging}
+\end{figure}
+
+\begin{table}[H]
+    \centering
+    \small
+    \renewcommand{\arraystretch}{1.3}
+    \caption{Bảng Đặc tả Chuyển Trạng thái Cổng Sạc}
+    \label{tab:state-charger-spec}
+    \begin{tabularx}{\textwidth}{|l|l|l|X|l|}
+        \hline
+        \textbf{Trạng thái gốc} & \textbf{Sự kiện (Event)} & \textbf{Điều kiện (Guard)} & \textbf{Hành động (Action)} & \textbf{Trạng thái đích} \\
+        \hline
+        IDLE & Cắm súng sạc & Xe kết nối hợp lệ & Kiểm tra thông tin xe & PLUGGED\_IN \\
+        PLUGGED\_IN & Bắt đầu cấp điện & Đến lượt trong hàng đợi sạc & Đóng rơ-le, cấp điện áp & CHARGING \\
+        CHARGING & Pin đạt 100\% & Dòng sạc $< 0.1\text{A}$ & Ngắt điện, push thông báo SV & FULLY\_CHARGED \\
+        FULLY\_CHARGED & Thời gian $> 15$p & Xe chưa rút chốt sạc & Kích hoạt tính phí 10k/15p & OVERSTAY \\
+        OVERSTAY / FULL & Rút súng sạc & Cảm biến ngắt kết nối & Quyết toán phí sạc + phí phạt & IDLE \\
+        \hline
+    \end{tabularx}
+\end{table}
+
+\subsection{Vòng đời trạng thái Vận hành của Mobility Hub}
+Hệ thống giám sát Hub liên tục đánh giá tỷ lệ lấp đầy xe và trạng thái hạ tầng điện:
+
+\begin{figure}[H]
+    \centering
+    \imageplaceholder{Sơ đồ Trạng thái: Vận hành Mobility Hub dưới tác động Nhu cầu và Sự cố}{docs/diagrams/Use-case detail-scenario/SS6/State-chart diagrams/UC_SS6_Hub_Operational_statechart.png}
+    \caption{Sơ đồ Trạng thái Vận hành Mạng lưới Mobility Hub}
+    \label{fig:state-hub}
+\end{figure}
+
+\begin{table}[H]
+    \centering
+    \small
+    \renewcommand{\arraystretch}{1.3}
+    \caption{Bảng Đặc tả Chuyển Trạng thái Vận hành Mobility Hub}
+    \label{tab:state-hub-spec}
+    \begin{tabularx}{\textwidth}{|l|l|l|X|l|}
+        \hline
+        \textbf{Trạng thái gốc} & \textbf{Sự kiện (Event)} & \textbf{Điều kiện (Guard)} & \textbf{Hành động (Action)} & \textbf{Trạng thái đích} \\
+        \hline
+        NORMAL & Số xe tăng & $70\% \le \text{Lấp đầy} < 85\%$ & Hiển thị cảnh báo Vàng trên map & ELEVATED (Vàng) \\
+        ELEVATED & Số xe tiếp tục tăng & $\ge 85\%$ tải & Cảnh báo Đỏ, đề xuất điều xe SS4 & CRITICAL (Cam/Đỏ) \\
+        CRITICAL & Hết sạch chỗ đỗ & Đạt $100\%$ dung lượng & Khóa nhận xe tại Hub, đổi Hub khác & EXHAUSTED \\
+        Bất kỳ & Mất điện lưới & Cảm biến điện áp $= 0$ & Kích hoạt UPS, gợi ý điều hướng SS7 & GRID\_OFFLINE \\
+        GRID\_OFFLINE & Điện lưới phục hồi & Điện áp ổn định $\ge 1$ phút & Đồng bộ dữ liệu IoT, mở lại trạm & NORMAL \\
+        \hline
+    \end{tabularx}
+\end{table}
+\newpage
+
+% ============================================================
+%                       PHỤ LỤC (APPENDIX)
+% ============================================================
+\appendix
+\section{Cấu trúc Thư mục và Mã nguồn Dự án}
+
+\subsection{Mã nguồn Dự án (GitHub Repository)}
+Mã nguồn toàn bộ hệ thống Smart E-Mobility Hub được quản lý tập trung và kiểm soát phiên bản theo chuẩn GitHub Flow tại địa chỉ chính thức:
+\begin{center}
+    \url{https://github.com/Dat-nguyen195/BTL_1_CNPM}
+\end{center}
+
+\subsection{Cấu trúc Thư mục Dự án (Project Directory Structure)}
+Dưới đây là cây thư mục hoàn chỉnh của dự án tại mốc bàn giao \textbf{Submission \#2}, phản ánh đầy đủ việc tổ chức các sơ đồ tuần tự, hoạt động, trạng thái và giao diện người dùng:
+
+\begin{verbatim}
+smart-emobility-hub/
+|-- .gitignore                     # Cấu hình bỏ qua file biên dịch, IDE và AI metadata
+|-- README.md                      # Tài liệu tổng quan kiến trúc và hướng dẫn cài đặt
+|-- requirements.txt               # Danh mục thư viện Python (Streamlit, Plotly, ...)
+|-- docs/                          # Toàn bộ tài liệu kỹ thuật của dự án
+|   |-- ai-statement.md            # Cam kết liêm chính học thuật và minh bạch AI
+|   |-- tasks-assignment.md        # Ma trận phân công nhiệm vụ và tiến độ 7 thành viên
+|   |-- meeting-minutes/           # Biên bản họp nhóm định kỳ (LaTeX, Markdown, PDF)
+|   |-- prompt-history/            # Lịch sử câu lệnh Prompt AI của 7 thành viên
+|   |-- diagrams/                  # Toàn bộ sơ đồ thiết kế hệ thống
+|   |   |-- system/                # Sơ đồ Use-Case tổng thể hệ thống (smartEhub.drawio)
+|   |   +-- Use-case detail-scenario/
+|   |       |-- SS1/               # Phân hệ SS1 (Nguyễn Thành Đạt)
+|   |       |   |-- Activity diagrams/     # UC_SS1_01..03 (.puml + .png)
+|   |       |   |-- Sequence diagrams/     # UC_SS1_01..03 (.puml + .png)
+|   |       |   |-- State-chart diagrams/  # EV Lifecycle (.puml + .png)
+|   |       |   +-- Usecase scenario/      # Kịch bản chi tiết (.md + .docx)
+|   |       |-- SS2/               # Phân hệ SS2 (Nguyễn Anh Tài)
+|   |       |   |-- Activity diagrams/     # UC_SS2_01..04 (.puml + .png)
+|   |       |   |-- Sequence diagrams/     # UC_SS2_01..04 (.puml + .png)
+|   |       |   |-- State-chart diagrams/  # Personal EV (.puml + .png)
+|   |       |   +-- Usecase scenario/      # Kịch bản chi tiết (.md + .docx)
+|   |       |-- SS3/               # Phân hệ SS3 (Phạm Tiến Đạt)
+|   |       |   |-- Activity diagrams/     # UC_SS3_01..02 (.puml + .png)
+|   |       |   |-- Sequence diagrams/     # UC_SS3_01..02 (.puml + .png)
+|   |       |   |-- State-chart diagrams/  # Hub Monitoring (.puml + .png)
+|   |       |   +-- Usecase scenario/      # Kịch bản chi tiết (.md + .docx)
+|   |       |-- SS4/               # Phân hệ SS4 (Đặng Hoàng Quý Nhân)
+|   |       |   |-- Activity diagrams/     # UC_SS4_01..02 (.puml + .png)
+|   |       |   |-- Sequence diagrams/     # UC_SS4_01..02 (.puml + .png)
+|   |       |   |-- State-chart diagrams/  # Dispatch & Incident (.puml + .png)
+|   |       |   +-- Usecase scenario/      # Kịch bản chi tiết (.md + .docx)
+|   |       |-- SS5/               # Phân hệ SS5 (Dương Đăng Khoa)
+|   |       |   |-- Activity diagrams/     # UC_SS5_01..02 (.puml + .png)
+|   |       |   |-- Sequence diagrams/     # UC_SS5_01..02 (.puml + .png)
+|   |       |   |-- State-chart diagrams/  # Charging Lifecycle (.puml + .png)
+|   |       |   +-- Usecase scenario/      # Kịch bản chi tiết (.md + .docx)
+|   |       |-- SS6/               # Phân hệ SS6 (Hoàng Văn Tấn)
+|   |       |   |-- Activity diagrams/     # UC_SS6_01..02 (.puml + .png)
+|   |       |   |-- Sequence diagrams/     # UC_SS6_01..02 (.puml + .png)
+|   |       |   |-- State-chart diagrams/  # Metro Surge (.puml + .png)
+|   |       |   +-- Usecase scenario/      # Kịch bản chi tiết (.md + .docx)
+|   |       +-- SS7/               # Phân hệ SS7 (Nguyễn Trung Nguyên)
+|   |           |-- Activity diagrams/     # UC_SS7_01..02 (.puml + .png)
+|   |           |-- Sequence diagrams/     # UC_SS7_01..02 (.puml + .png)
+|   |           |-- State-chart diagrams/  # Infrastructure (.puml + .png)
+|   |           +-- Usecase scenario/      # Kịch bản chi tiết (.md + .docx)
+|   +-- report/                    # Báo cáo các đợt nộp học phần CO3001
+|       |-- assets/                # Logo ĐHBK và hình ảnh bìa mẫu dùng chung
+|       |   +-- mau.png
+|       |-- scripts/               # Scripts tự động sinh báo cáo
+|       |-- submission_1/          # Báo cáo Submission #1 (Đặc tả Yêu cầu)
+|       |   |-- REPORT_SUBMISSION_1.tex
+|       |   +-- REPORT_SUBMISSION_1.pdf
+|       +-- submission_2/          # Báo cáo Submission #2 (Thiết kế Kiến trúc & UML)
+|           |-- main.tex           # File mã nguồn LaTeX chính
+|           +-- REPORT_SUBMISSION_2.pdf
++-- src/                           # Mã nguồn Prototype hệ thống (Streamlit)
+    |-- app.py                     # Entry point khởi chạy ứng dụng
+    |-- components/                # UI components tương ứng 7 phân hệ
+    |-- core/                      # Thuật toán điều phối, lập lịch và mô phỏng
+    +-- data/                      # Dữ liệu mô phỏng mạng lưới Hub
+\end{verbatim}
+
+\end{document}
