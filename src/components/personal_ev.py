@@ -40,13 +40,13 @@ def render():
         with st.form("register_ev_form", clear_on_submit=True):
             col1, col2 = st.columns(2)
             with col1:
-                owner_name = st.text_input("Họ tên chủ xe", placeholder="Trần Thị B")
-                owner_mssv = st.text_input("MSSV", placeholder="2212345")
+                owner_name = st.text_input("Họ tên chủ xe", value="Nguyễn Anh Tài", placeholder="Trần Thị B")
+                owner_mssv = st.text_input("MSSV", value="2213001", placeholder="2212345")
             with col2:
-                plate_number = st.text_input("Biển số xe", placeholder="59-X1 12345")
+                plate_number = st.text_input("Biển số xe", value="59-X1 12345", placeholder="59-X1 12345")
                 ev_type = st.selectbox("Loại xe", ["scooter", "bike", "car"], key="pev_type")
 
-            ev_brand = st.text_input("Hãng / Model", placeholder="VinFast Klara S")
+            ev_brand = st.text_input("Hãng / Model", value="VinFast Klara S 2026", placeholder="VinFast Klara S")
             battery_capacity = st.number_input(
                 "Dung lượng pin (kWh)", min_value=0.5, max_value=100.0, value=2.0, step=0.5
             )

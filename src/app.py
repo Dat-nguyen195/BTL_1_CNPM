@@ -30,14 +30,64 @@ if "hubs" not in st.session_state:
     with open(data_path, "r", encoding="utf-8") as f:
         st.session_state["hubs"] = json.load(f)
 
+if "personal_evs" not in st.session_state:
+    st.session_state["personal_evs"] = [
+        {
+            "ev_id": "PEV-2026",
+            "owner": "Nguyễn Anh Tài",
+            "mssv": "2213001",
+            "plate": "59-X1 12345",
+            "type": "scooter",
+            "brand": "VinFast Klara S",
+            "battery_kwh": 2.0,
+            "registered_at": "2026-10-18 08:30",
+            "status": "registered",
+        },
+        {
+            "ev_id": "PEV-2027",
+            "owner": "Trần Thị B",
+            "mssv": "2212345",
+            "plate": "59-V2 67890",
+            "type": "scooter",
+            "brand": "VinFast Feliz",
+            "battery_kwh": 2.2,
+            "registered_at": "2026-10-18 09:15",
+            "status": "charging",
+        },
+    ]
+
+if "dispatch_log" not in st.session_state or not st.session_state.get("dispatch_log"):
+    st.session_state["dispatch_log"] = [
+        {
+            "time": "2026-10-19 07:45:00",
+            "from": "Hub KTX Khu B",
+            "to": "Hub KTX Khu A",
+            "vehicles": 5,
+            "reason": "Cân bằng tải giờ cao điểm sáng Metro",
+        }
+    ]
+
+if "incident_log" not in st.session_state or not st.session_state.get("incident_log"):
+    st.session_state["incident_log"] = [
+        {
+            "time": "2026-10-19 08:10:00",
+            "hub": "Hub Trường ĐH Bách Khoa",
+            "vehicle": "EV-B005",
+            "type": "Lỗi cổng sạc / cáp",
+            "severity": "Cao",
+            "note": "Cổng #3 không nhận tiếp xúc điện",
+        }
+    ]
+
 
 # ──────────────────────────────────────────────
 # SIDEBAR – NAVIGATION
 # ──────────────────────────────────────────────
-st.sidebar.image(
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Logo_VNU-HCM.svg/200px-Logo_VNU-HCM.svg.png",
-    width=80,
-)
+logo_path = os.path.join(os.path.dirname(__file__), "assets", "vnu_logo.png")
+if os.path.exists(logo_path):
+    st.sidebar.image(logo_path, width=80)
+else:
+    st.sidebar.markdown("## 🚲")
 st.sidebar.title("🚲 Smart E-Mobility Hub")
 st.sidebar.caption("Khu đô thị ĐHQG-HCM")
 st.sidebar.divider()

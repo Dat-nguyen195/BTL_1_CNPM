@@ -143,7 +143,7 @@ def _tab_book():
                     for v in available]
     chosen_str = st.selectbox("Chọn xe:", vehicle_opts, key="bk_vehicle")
 
-    voucher = st.text_input("🎟️ Mã giảm giá / Voucher SV (tùy chọn):", key="bk_voucher")
+    voucher = st.text_input("🎟️ Mã giảm giá / Voucher SV (tùy chọn):", value="SVBK50", key="bk_voucher")
     discount = 0
     if voucher:
         if voucher.upper() in ("VNU2026", "SVBK50"):

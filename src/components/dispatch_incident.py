@@ -60,13 +60,13 @@ def render():
             with col1:
                 st.markdown("**Từ Hub (nguồn):**")
                 source_hub_name = st.selectbox(
-                    "Hub nguồn", [h["name"] for h in hubs], key="dispatch_source"
+                    "Hub nguồn", [h["name"] for h in hubs], index=1, key="dispatch_source"
                 )
 
             with col2:
                 st.markdown("**Đến Hub (đích):**")
                 dest_hub_name = st.selectbox(
-                    "Hub đích", [h["name"] for h in hubs], key="dispatch_dest"
+                    "Hub đích", [h["name"] for h in hubs], index=3, key="dispatch_dest"
                 )
 
             # Chọn xe để điều phối
@@ -81,15 +81,16 @@ def render():
                     f"{v['vehicle_id']} – {v['type']} (SoC: {v['battery_soc']}%)"
                     for v in movable_vehicles
                 ]
+                default_sel = vehicle_options[:2] if len(vehicle_options) >= 2 else vehicle_options
                 selected_vehicles = st.multiselect(
-                    "Chọn xe cần điều phối:", vehicle_options, key="dispatch_vehicles"
+                    "Chọn xe cần điều phối:", vehicle_options, default=default_sel, key="dispatch_vehicles"
                 )
             else:
                 selected_vehicles = []
                 st.info("Không có xe khả dụng (parked) tại Hub nguồn.")
 
             dispatch_reason = st.text_area(
-                "Lý do điều phối", placeholder="Hub KTX Khu B quá tải, cần chuyển xe sang Hub lân cận."
+            dispatch_reason = st.text_area("Lý do điều phối", value="Hub KTX Khu B quá tải (86.7%), cần chuyển xe sang Hub Trường ĐH Bách Khoa để cân bằng tải.")
             )
 
             dispatch_btn = st.form_submit_button("🔄 Thực hiện điều phối", type="primary")
