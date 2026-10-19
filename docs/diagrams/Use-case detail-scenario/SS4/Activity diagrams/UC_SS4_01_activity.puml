@@ -1,0 +1,65 @@
+@startuml UC_SS4_01_activity
+title UC_SS4_01 - Điều phối phương tiện giữa các Hub (Sơ đồ hoạt động)
+skinparam shadowing false
+skinparam ActivityBackgroundColor #E8F1FB
+skinparam ActivityBorderColor #2B6CB0
+
+|Nhân viên vận hành|
+start
+:Mở tab "Điều chuyển phương tiện" (SS4);
+
+repeat
+  :Chọn Hub nguồn và Hub đích;
+
+  |Hệ thống|
+  :Lọc các xe có trạng thái PARKED tại Hub nguồn;
+  :Hiển thị danh sách xe (mã xe, loại xe, mức pin SoC %);
+
+  if (Hub nguồn có xe PARKED?) then (không)
+    :Hiển thị "Không có xe khả dụng tại Hub nguồn";
+    :Vô hiệu hóa nút gửi lệnh;
+    |Nhân viên vận hành|
+    stop
+  else (có)
+  endif
+
+  |Nhân viên vận hành|
+  :Tích chọn một hoặc nhiều xe;
+  note right
+    Luồng thay thế 1: ưu tiên xe có
+    mức pin trên 70% cho nhu cầu thuê xe đường dài
+  end note
+  :Nhập lý do điều phối;
+  :Nhấn nút "Thực hiện điều phối";
+
+  |Hệ thống|
+  if (Hub nguồn trùng Hub đích?) then (có)
+    :Báo lỗi "Hub nguồn và Hub đích phải khác nhau!";
+    #FADBD8:Lệnh không hợp lệ;
+  elseif (Chưa chọn xe nào?) then (có)
+    :Báo lỗi "Vui lòng chọn ít nhất 1 xe để điều phối.";
+    #FADBD8:Lệnh không hợp lệ;
+  else (hợp lệ)
+    :Lệnh hợp lệ;
+  endif
+repeat while (Lệnh không hợp lệ?) is (có)
+->không;
+
+:Chuyển xe từ Hub nguồn sang Hub đích\ntrong st.session_state["hubs"];
+:Cập nhật trạng thái xe từ PARKED sang DISPATCHED;
+:Cập nhật số chỗ trống\n(Hub nguồn tăng N, Hub đích giảm N);
+:Ghi bản ghi vào st.session_state["dispatch_log"];
+:Hiển thị "Đã điều phối N xe từ Hub A → Hub B";
+:Đồng bộ Dashboard SS3 (và mô phỏng SS6/SS7);
+
+|Nhân viên vận hành|
+if (Xem lịch sử điều phối?) then (có)
+  :Mở tab "Nhật ký";
+  |Hệ thống|
+  :Hiển thị bảng nhật ký điều phối;
+else (không)
+endif
+
+|Nhân viên vận hành|
+stop
+@enduml

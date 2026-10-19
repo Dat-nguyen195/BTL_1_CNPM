@@ -1,0 +1,52 @@
+@startuml UC_SS4_02_sequence
+title UC_SS4_02 - Báo cáo sự cố phương tiện (Sơ đồ tuần tự)
+skinparam shadowing false
+autonumber
+
+actor "Nhân viên vận hành / Kỹ thuật viên" as OP
+participant "Giao diện báo cáo sự cố SS4" as UI
+participant "Bộ điều khiển sự cố" as CTRL
+database "session_state[hubs]" as HUBS
+database "session_state[incident_log]" as LOG
+participant "SS1 Đặt xe cho sinh viên" as SS1
+actor "Cảm biến IoT" as IOT
+
+IOT -[#grey]-> OP : tín hiệu bất thường (nếu có)
+OP -> UI : mở tab "Báo cáo sự cố"
+OP -> UI : chọn Hub
+UI -> CTRL : lấy danh sách xe (mã Hub)
+CTRL -> HUBS : đọc danh sách xe của Hub
+HUBS --> CTRL : danh sách xe
+CTRL --> UI : danh sách xe
+
+alt Hub không có phương tiện
+  UI --> OP : "Không có xe tại Hub này"
+  UI -> UI : vô hiệu hóa nút gửi báo cáo
+else Hub có phương tiện
+  UI --> OP : hiển thị danh sách xe (mã xe, loại xe)
+  OP -> UI : chọn xe gặp sự cố
+  OP -> UI : chọn loại sự cố
+  OP -> UI : chọn mức độ, nhập ghi chú
+  OP -> UI : nhấn "Gửi báo cáo sự cố"
+  UI -> CTRL : báo cáo sự cố (mã Hub, mã xe, loại, mức độ, ghi chú)
+  CTRL -> HUBS : tìm xe theo mã
+  HUBS --> CTRL : thông tin xe
+  CTRL -> HUBS : đặt trạng thái = INCIDENT
+  CTRL -> LOG : ghi bản ghi (thời gian, Hub, mã xe, loại, mức độ, ghi chú)
+  LOG --> CTRL : đã lưu
+  CTRL --> UI : thành công
+  UI --> OP : "Đã ghi nhận sự cố xe [ID] tại Hub [Tên Hub]"
+  CTRL ->> SS1 : loại xe INCIDENT khỏi danh sách khả dụng
+
+  opt Mức độ Cao hoặc Khẩn cấp
+    UI --> OP : cảnh báo đỏ - yêu cầu kỹ thuật xử lý khẩn cấp
+  end
+end
+
+opt Xem lịch sử sự cố
+  OP -> UI : mở tab "Nhật ký"
+  UI -> LOG : đọc toàn bộ bản ghi
+  LOG --> UI : các bản ghi sự cố
+  UI --> OP : danh sách nhật ký sự cố
+end
+@enduml
