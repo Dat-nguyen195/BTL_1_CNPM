@@ -32,3 +32,6 @@ Thumbs.db
 *.blg
 *.lof
 *.lot
+# AI assistant metadata
+.agents/
+.claude/
