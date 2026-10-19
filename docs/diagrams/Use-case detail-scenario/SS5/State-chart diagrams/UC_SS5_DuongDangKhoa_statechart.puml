@@ -1,0 +1,43 @@
+
+@startuml SS5_DuongDangKhoa_statechart
+!theme plain
+hide empty description
+
+title State-chart Diagram for SS5 Charging Lifecycle
+
+[*] --> WAITING : Phuong tien vao hang cho sac
+
+state WAITING
+state SCHEDULED
+state CHARGING
+state CHARGE_COMPLETED
+state GRACE_PERIOD
+state AVAILABLE
+state OVERSTAY
+state ERROR
+
+WAITING --> SCHEDULED : He thong tinh do uu tien\nva lap lich sac
+SCHEDULED --> CHARGING : Cong sac san sang\n[Khong vuot Peak Power Capping]
+SCHEDULED --> WAITING : Chua the cap cong sac\n[Vuot gioi han cong suat]
+
+CHARGING --> CHARGE_COMPLETED : SoC = 100%
+CHARGING --> CHARGING : SoC >= 90%\n[Gui canh bao sac gan day]
+
+CHARGE_COMPLETED --> GRACE_PERIOD : Gui thong bao hoan tat\nva bien nhan nang luong
+
+GRACE_PERIOD --> AVAILABLE : Xe roi cong trong 15 phut
+GRACE_PERIOD --> OVERSTAY : Het 15 phut an han\n[Xe van chiem cong]
+
+OVERSTAY --> AVAILABLE : Xe roi cong sac\n[Da xu ly phi hoac ghi nhan no]
+
+WAITING --> ERROR : Mat ket noi IoT
+SCHEDULED --> ERROR : Loi he thong
+CHARGING --> ERROR : Loi cong sac / Mat dien
+GRACE_PERIOD --> ERROR : Loi IoT / Loi he thong
+
+ERROR --> WAITING : Khoi phuc ket noi\n[Trang thai sac duoc xac nhan]
+ERROR --> AVAILABLE : Khac phuc su co\n[Cong sac trong]
+
+AVAILABLE --> [*]
+
+@enduml
