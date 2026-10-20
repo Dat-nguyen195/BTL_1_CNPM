@@ -3,9 +3,18 @@
 % ============================================================
 %                   CẤU HÌNH GÓI LỆNH (PREAMBLE)
 % ============================================================
-\usepackage[utf8]{inputenc}
-\usepackage[T5]{fontenc}
-\usepackage[vietnamese]{babel}
+\usepackage{iftex}
+\ifxetex
+  \usepackage{fontspec}
+  \setmainfont{Liberation Serif}
+  \setsansfont{Liberation Sans}
+  \setmonofont{Liberation Mono}
+  \usepackage[vietnamese]{babel}
+\else
+  \usepackage[utf8]{inputenc}
+  \usepackage[T5]{fontenc}
+  \usepackage[vietnamese]{babel}
+\fi
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{geometry}
@@ -65,6 +74,8 @@
 % Hyperlink & Metadata
 \usepackage{hyperref}
 \hypersetup{
+    unicode=true,
+    pdfencoding=auto,
     colorlinks=true,
     linkcolor=blue,
     filecolor=magenta,
@@ -122,6 +133,7 @@
 % ============================================================
 \vspace*{\fill}
 \begin{center}
+    {\large\textbf{DANH SÁCH THÀNH VIÊN VÀ PHÂN CÔNG NHIỆM VỤ}}\\[0.4cm]
     \renewcommand{\arraystretch}{1.45}
     \begin{tabularx}{\textwidth}{|c|X|c|X|c|c|}
         \hline
@@ -142,9 +154,6 @@
         7 & Nguyễn Trung Nguyên & 2011710 & SS7: Mô phỏng What-if Hạ tầng & Dev/Analyst & 100\% \\
         \hline
     \end{tabularx}
-    \vspace{0.3cm}
-    
-    \textit{Bảng 0.1: Danh sách Thành viên Nhóm BEE BRAVE, MSSV và Phân hệ Phụ trách}
 \end{center}
 \vspace*{\fill}
 \newpage
@@ -276,8 +285,6 @@
     \hline
     \textbf{Ký hiệu} & \textbf{Tên bảng biểu} & \textbf{Vị trí / Mục} & \textbf{Số trang} \\
     \hline
-    \textbf{Bảng 0.1} & Danh sách Thành viên Nhóm BEE BRAVE, MSSV và Phân hệ Phụ trách & Trang bìa & 1 \\
-    \hline
     \textbf{Bảng 1.1} & Ma trận Đáp ứng Yêu cầu Phi chức năng trên Giao diện UI/UX & Mục 1.1 & \pageref{tab:ui-nfr-matrix} \\
     \hline
     \textbf{Bảng 1.2} & Ma trận Phân bổ Phạm vi Hiện thực Prototype theo MoSCoW & Mục 1.2 & \pageref{tab:moscow-scope} \\
@@ -359,14 +366,14 @@ Hệ thống Smart E-Mobility Hub được xây dựng dựa trên nguyên lý t
     \end{tabularx}
 \end{table}
 
-\subsection{Kế hoạch Hiện thực Hóa Prototype theo Mô hình MoSCoW (Cam kết $\ge 70\%$)}
+\subsection{Kế hoạch Hiện thực Hóa Prototype theo Mô hình MoSCoW (Cam kết \texorpdfstring{$\ge 70\%$}{>= 70\%})}
 Nhằm đảm bảo tính khả thi cao trong quá trình phát triển sản phẩm thực tế theo yêu cầu của môn học (hiện thực tối thiểu 70\% chức năng cốt lõi), nhóm tiến hành phân kỳ phạm vi tính năng thông qua ma trận \textbf{MoSCoW (Must-have, Should-have, Could-have, Won't-have)}. Trong đó, các chức năng thuộc nhóm Must-have ($50\%$) và Should-have ($25\%$) chiếm $75\%$ tổng khối lượng đáp ứng vượt chuẩn cam kết tối thiểu, kết hợp cùng nhóm Could-have ($15\%$) nâng tổng mức độ hiện thực hóa prototype lên đến $\mathbf{90\%}$. Nhóm Won't-have ($10\%$) dành cho phần cứng IoT thực địa được thay thế bằng module mô phỏng telemetry.
 
 \begin{table}[H]
     \centering
     \small
     \renewcommand{\arraystretch}{1.25}
-    \caption{Ma trận Phân bổ Phạm vi Hiện thực Prototype theo MoSCoW (Cam kết $\ge 70\%$)}
+    \caption{Ma trận Phân bổ Phạm vi Hiện thực Prototype theo MoSCoW (Cam kết \texorpdfstring{$\ge 70\%$}{>= 70\%})}
     \label{tab:moscow-scope}
     \begin{tabularx}{\textwidth}{|l|c|X|c|}
         \hline
@@ -1218,8 +1225,8 @@ Toàn bộ 17 sơ đồ hoạt động phân làn (Swimlane Activity Diagrams) t
         DISPATCHED & Đến Hub tiếp nhận & KTV/Lái xe bàn giao tại Hub đích & Mở khóa xe, đưa vào danh sách đỗ & AVAILABLE \\
         Bất kỳ (AVAILABLE, IN\_USE, RESERVED, CHARGING) & Phát hiện sự cố (SS4) & KTV/SV báo cáo hỏng hóc, chập điện & Khóa phương tiện, ẩn khỏi app SV & INCIDENT \\
         INCIDENT & Sửa chữa tại chỗ & Lỗi nhẹ xử lý xong tại Hub & KTV nghiệm thu, mở khóa & AVAILABLE \\
-        INCIDENT & Lỗi nghiêm trọng & Hỏng hóc nặng cần kéo về xưởng & Chuyển xe vào diện đại tu & MAINTENANCE\_OFFLINE \\
-        MAINTENANCE\_OFFLINE & Hoàn tất đại tu & Thay thế linh kiện, kiểm định đạt & Bàn giao xe trở lại hệ thống & AVAILABLE \\
+        INCIDENT & Lỗi nghiêm trọng & Hỏng hóc nặng cần kéo về xưởng & Chuyển xe vào diện đại tu & MAINTENANCE\_\allowbreak OFFLINE \\
+        MAINTENANCE\_\allowbreak OFFLINE & Hoàn tất đại tu & Thay thế linh kiện, kiểm định đạt & Bàn giao xe trở lại hệ thống & AVAILABLE \\
         \hline
     \end{tabularx}
 \end{table}
@@ -1252,10 +1259,10 @@ Phân hệ SS5 quản lý toàn diện vòng đời sạc từ khi phương ti�
         WAITING & Lập lịch tự động & Tính điểm ưu tiên & Sắp xếp vị trí trong hàng đợi & SCHEDULED \\
         SCHEDULED & Cấp nguồn sạc & Cổng sạc trống, không vượt công suất đỉnh & Đóng rơ-le, cấp điện áp & CHARGING \\
         SCHEDULED & Nghẽn công suất & Vượt trần tải lưới (Peak Capping) & Tạm lùi xe về hàng đợi & WAITING \\
-        CHARGING & Pin đầy & $\text{SoC} = 100\%$ & Ngắt dòng sạc, xuất biên nhận & CHARGE\_COMPLETED \\
-        CHARGE\_COMPLETED & Kích hoạt ân hạn & Hệ thống gửi thông báo cho SV & Khởi động đếm ngược 15 phút & GRACE\_PERIOD \\
-        GRACE\_PERIOD & Rút xe đúng hạn & Rút chốt trong vòng 15 phút & Xác nhận hoàn tất, miễn phạt & AVAILABLE \\
-        GRACE\_PERIOD & Hết giờ ân hạn & Quá 15 phút xe chưa rời cổng & Áp phí chiếm dụng 10.000đ/15p & OVERSTAY \\
+        CHARGING & Pin đầy & $\text{SoC} = 100\%$ & Ngắt dòng sạc, xuất biên nhận & CHARGE\_\allowbreak COMPLETED \\
+        CHARGE\_\allowbreak COMPLETED & Kích hoạt ân hạn & Hệ thống gửi thông báo cho SV & Khởi động đếm ngược 15 phút & GRACE\_\allowbreak PERIOD \\
+        GRACE\_\allowbreak PERIOD & Rút xe đúng hạn & Rút chốt trong vòng 15 phút & Xác nhận hoàn tất, miễn phạt & AVAILABLE \\
+        GRACE\_\allowbreak PERIOD & Hết giờ ân hạn & Quá 15 phút xe chưa rời cổng & Áp phí chiếm dụng 10.000đ/15p & OVERSTAY \\
         OVERSTAY & Rút xe quá hạn & Xe rời cổng sau khi phạt & Quyết toán phí quá hạn & AVAILABLE \\
         Bất kỳ (WAITING, SCHEDULED, CHARGING, GRACE) & Mất kết nối / Sự cố trạm & Cảm biến ngắt kết nối / quá nhiệt & Báo động kỹ thuật, cách ly cổng & ERROR \\
         ERROR & Khắc phục sự cố & IoT kết nối lại / Đã sửa chữa & Khôi phục về hàng đợi hoặc sẵn sàng & WAITING / AVAILABLE \\
@@ -1284,14 +1291,14 @@ Hệ thống giám sát Hub liên tục đánh giá tỷ lệ lấp đầy xe v�
         \hline
         \textbf{Trạng thái gốc} & \textbf{Sự kiện (Event)} & \textbf{Điều kiện (Guard)} & \textbf{Hành động (Action)} & \textbf{Trạng thái đích} \\
         \hline
-        NORMAL\_OPERATION & Metro đến / Khách tăng & $70\% \le \text{Lấp đầy} \le 85\%$ & Hiển thị cảnh báo Vàng trên bản đồ & HIGH\_DEMAND \\
-        HIGH\_DEMAND & Khách dồn dập vượt tải & $\text{Lấp đầy} > 85\%$ & Kích hoạt cảnh báo Đỏ, đề xuất điều xe SS4 & CRITICAL\_OVERLOAD \\
-        HIGH\_DEMAND & Giảm lưu lượng & $\text{Lấp đầy} < 70\%$ & Trở về trạng thái bình thường (xanh) & NORMAL\_OPERATION \\
-        CRITICAL\_OVERLOAD & Hết sạch chỗ đỗ / cổng & Chỗ trống $= 0$ hoặc Cổng $= 0$ & Khóa nhận xe tại Hub, cảnh báo nghẽn trạm & GRIDLOCK\_DEPLETED \\
-        CRITICAL\_OVERLOAD & Hạ tải / Reset & $\text{Lấp đầy} \le 85\%$ & Khôi phục trạng thái vận hành & NORMAL\_OPERATION \\
-        GRIDLOCK\_DEPLETED & Điều phối xe thành công & Giải tỏa chỗ trống $> 0$ & Mở lại luồng nhận xe & NORMAL\_OPERATION \\
-        Bất kỳ (NORMAL, HIGH, CRITICAL) & Mất điện lưới / Chập trạm & Cảm biến điện áp $= 0\text{V}$ & Kích hoạt UPS, phát lệnh điều hướng SS7 & GRID\_OFFLINE \\
-        GRID\_OFFLINE & Điện phục hồi & Điện áp ổn định $\ge 1$ phút & Đồng bộ dữ liệu IoT, mở lại trạm & NORMAL\_OPERATION \\
+        NORMAL\_\allowbreak OPERATION & Metro đến / Khách tăng & $70\% \le \text{Lấp đầy} \le 85\%$ & Hiển thị cảnh báo Vàng trên bản đồ & HIGH\_DEMAND \\
+        HIGH\_DEMAND & Khách dồn dập vượt tải & $\text{Lấp đầy} > 85\%$ & Kích hoạt cảnh báo Đỏ, đề xuất điều xe SS4 & CRITICAL\_\allowbreak OVERLOAD \\
+        HIGH\_DEMAND & Giảm lưu lượng & $\text{Lấp đầy} < 70\%$ & Trở về trạng thái bình thường (xanh) & NORMAL\_\allowbreak OPERATION \\
+        CRITICAL\_\allowbreak OVERLOAD & Hết sạch chỗ đỗ / cổng & Chỗ trống $= 0$ hoặc Cổng $= 0$ & Khóa nhận xe tại Hub, cảnh báo nghẽn trạm & GRIDLOCK\_\allowbreak DEPLETED \\
+        CRITICAL\_\allowbreak OVERLOAD & Hạ tải / Reset & $\text{Lấp đầy} \le 85\%$ & Khôi phục trạng thái vận hành & NORMAL\_\allowbreak OPERATION \\
+        GRIDLOCK\_\allowbreak DEPLETED & Điều phối xe thành công & Giải tỏa chỗ trống $> 0$ & Mở lại luồng nhận xe & NORMAL\_\allowbreak OPERATION \\
+        Bất kỳ (NORMAL, HIGH, CRITICAL) & Mất điện lưới / Chập trạm & Cảm biến điện áp $= 0\text{V}$ & Kích hoạt UPS, phát lệnh điều hướng SS7 & GRID\_\allowbreak OFFLINE \\
+        GRID\_\allowbreak OFFLINE & Điện phục hồi & Điện áp ổn định $\ge 1$ phút & Đồng bộ dữ liệu IoT, mở lại trạm & NORMAL\_\allowbreak OPERATION \\
         \hline
     \end{tabularx}
 \end{table}
@@ -1312,7 +1319,7 @@ Mã nguồn toàn bộ hệ thống Smart E-Mobility Hub được quản lý t�
 \subsection{Cấu trúc Thư mục Dự án (Project Structure)}
 Dưới đây là cây thư mục hoàn chỉnh của dự án tại mốc bàn giao \textbf{Submission \#2}, phản ánh đầy đủ việc tổ chức các sơ đồ tuần tự, hoạt động, trạng thái và giao diện người dùng:
 
-{\footnotesize
+{\scriptsize
 \begin{verbatim}
 smart-emobility-hub/
 |-- .gitignore                     # Cấu hình bỏ qua file biên dịch, IDE
