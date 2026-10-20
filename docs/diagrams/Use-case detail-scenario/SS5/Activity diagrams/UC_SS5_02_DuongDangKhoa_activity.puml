@@ -8,74 +8,74 @@ skinparam activity {
 skinparam nodesep 20
 skinparam ranksep 25
 
-title Activity Diagram - UC_SS5_02: Giam sat hang cho sac
+title Activity Diagram - UC_SS5_02: Giám sát hàng đợi sạc & Phí chiếm dụng Overstay
 
-|Chuyen vien sac|
+|Chuyên viên vận hành sạc|
 start
-:Mo chuc nang giam sat;
+:Mở chức năng giám sát;
 
 |UI Layer|
-:Hien thi Dashboard;
+:Hiển thị Dashboard;
 
 |Control & State|
-:Lay danh sach xe va cong sac;
+:Lấy danh sách xe và cổng sạc;
 
 |IoT|
-:Cap nhat SoC va trang thai cong sac;
+:Cập nhật SoC và trạng thái cổng sạc;
 
 |Control & State|
-if (Du lieu hop le?) then (Co)
-  :Cap nhat trang thai;
-else (Khong)
+if (Dữ liệu hợp lệ?) then (Có)
+  :Cập nhật trạng thái;
+else (Không)
   |UI Layer|
-  :Thong bao loi ket noi IoT;
+  :Thông báo lỗi kết nối IoT;
   stop
 endif
 
 |Control & State|
-if (SoC >= 90%?) then (Co)
-  |He thong thong bao|
-  :Gui canh bao sac gan day;
+if (SoC >= 90%?) then (Có)
+  |Hệ thống thông báo|
+  :Gửi cảnh báo sạc gần đầy;
 endif
 
 |Control & State|
-if (SoC = 100%?) then (Co)
-  |He thong thong bao|
-  :Gui thong bao sac hoan tat;
-  :Gui bien nhan nang luong;
+if (SoC = 100%?) then (Có)
+  |Hệ thống thông báo|
+  :Gửi thông báo sạc hoàn tất;
+  :Gửi biên nhận năng lượng;
 
   |Control & State|
-  :Bat dau thoi gian an han 15 phut;
+  :Bắt đầu thời gian ân hạn 15 phút;
 
-  if (Xe roi cong trong 15 phut?) then (Co)
-    :Giai phong cong sac;
-    :Cap nhat trang thai AVAILABLE;
-  else (Khong)
-    :Kiem tra thoi gian chiem cong;
+  if (Xe rời cổng trong 15 phút?) then (Có)
+    :Giải phóng cổng sạc;
+    :Cập nhật trạng thái AVAILABLE;
+  else (Không)
+    :Kiểm tra thời gian chiếm cổng;
 
-    if (Het thoi gian an han?) then (Co)
-      |Tai khoan & Vi dien tu|
-      if (Vi du so du?) then (Co)
-        :Khau tru Overstay Fee;
-      else (Khong)
-        :Ghi nhan khoan no;
+    if (Hết thời gian ân hạn?) then (Có)
+      |Tài khoản & Ví điện tử|
+      if (Ví đủ số dư?) then (Có)
+        :Khấu trừ phí Overstay Fee;
+      else (Không)
+        :Ghi nhận khoản nợ ví;
       endif
 
-      |He thong thong bao|
-      :Gui canh bao Overstay;
+      |Hệ thống thông báo|
+      :Gửi cảnh báo Overstay;
 
       |Control & State|
-      :Danh dau xe Overstay;
-    else (Khong)
-      :Tiep tuc theo doi thoi gian;
+      :Đánh dấu xe Overstay;
+    else (Không)
+      :Tiếp tục theo dõi thời gian;
     endif
   endif
-else (Khong)
-  :Tiep tuc giam sat sac;
+else (Không)
+  :Tiếp tục giám sát sạc;
 endif
 
 |UI Layer|
-:Cap nhat Dashboard;
+:Cập nhật Dashboard;
 stop
 
 @enduml

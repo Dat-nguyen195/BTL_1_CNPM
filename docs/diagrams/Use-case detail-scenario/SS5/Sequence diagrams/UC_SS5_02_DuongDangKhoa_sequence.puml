@@ -5,9 +5,9 @@ skinparam sequenceMessageAlign center
 skinparam maxMessageSize 150
 skinparam BoxPadding 10
 
-title "Detailed UML Sequence Diagram: SS5 - Giam sat hang cho sac"
+title "Detailed UML Sequence Diagram: SS5 - Giám sát hàng đợi sạc & Phí chiếm dụng Overstay"
 
-actor "Chuyen vien sac" as Operator
+actor "Chuyên viên vận hành sạc\n(Operator)" as Operator
 
 box "Boundary / UI Layer" #LightCyan
 participant "smart_charging.py\n(UI)" as UI
@@ -18,49 +18,49 @@ participant "st.session_state\n(AppState)" as AppState
 end box
 
 box "Hardware / IoT" #LightGray
-participant "Cam bien IoT\n(ChargingIoT)" as IoT
+participant "Cảm biến IoT\n(ChargingIoT)" as IoT
 end box
 
 box "Notification System" #White
-participant "He thong thong bao\n(Notification)" as Notification
+participant "Hệ thống thông báo\n(Notification)" as Notification
 end box
 
 box "External Payment" #White
-participant "Vi dien tu\n(E-Wallet)" as EWallet
+participant "Ví điện tử\n(E-Wallet)" as EWallet
 end box
 
 autonumber 1.1
-group 1. Giam sat trang thai sac
-    Operator -> UI: Mo chuc nang giam sat hang cho sac
+group 1. Giám sát trạng thái sạc
+    Operator -> UI: Mở chức năng giám sát hàng đợi sạc
     activate UI
 
-    UI -> AppState: Lay danh sach xe, hang cho\nva trang thai cong sac
+    UI -> AppState: Lấy danh sách xe, hàng đợi\nvà trạng thái cổng sạc
     activate AppState
-    AppState --> UI: Tra ve danh sach va trang thai
+    AppState --> UI: Trả về danh sách và trạng thái
     deactivate AppState
 
-    UI -> IoT: Lay SoC va trang thai cong sac
+    UI -> IoT: Lấy SoC và trạng thái cổng sạc
     activate IoT
-    IoT --> UI: Tra ve du lieu cam bien
+    IoT --> UI: Trả về dữ liệu cảm biến
     deactivate IoT
 
-    alt Mat ket noi IoT / Du lieu khong hop le
-        UI -> AppState: Ghi nhan trang thai UNKNOWN
+    alt Mất kết nối IoT / Dữ liệu không hợp lệ
+        UI -> AppState: Ghi nhận trạng thái UNKNOWN
         activate AppState
-        AppState --> UI: Xac nhan cap nhat
+        AppState --> UI: Xác nhận cập nhật
         deactivate AppState
 
-        UI --> Operator: Thong bao loi ket noi IoT
-    else Du lieu hop le
-        UI -> AppState: Cap nhat SoC va trang thai cong sac
+        UI --> Operator: Thông báo lỗi kết nối IoT
+    else Dữ liệu hợp lệ
+        UI -> AppState: Cập nhật SoC và trạng thái cổng sạc
         activate AppState
-        AppState --> UI: Xac nhan cap nhat
+        AppState --> UI: Xác nhận cập nhật
         deactivate AppState
 
         opt SoC >= 90%
-            UI -> Notification: Gui canh bao sac gan day
+            UI -> Notification: Gửi cảnh báo pin sắp đầy
             activate Notification
-            Notification --> UI: Xac nhan gui thong bao
+            Notification --> UI: Xác nhận gửi thông báo
             deactivate Notification
         end
     end
@@ -68,72 +68,72 @@ group 1. Giam sat trang thai sac
 end
 
 autonumber 2.1
-group 2. Xu ly khi xe sac day
-    Operator -> UI: Kiem tra trang thai xe sac
+group 2. Xử lý khi xe sạc đầy & Tính phí quá hạn (Overstay)
+    Operator -> UI: Kiểm tra trạng thái xe sạc
     activate UI
 
-    UI -> AppState: Lay SoC xe dang sac
+    UI -> AppState: Lấy SoC xe đang sạc
     activate AppState
-    AppState --> UI: Tra ve SoC hien tai
+    AppState --> UI: Trả về SoC hiện tại
     deactivate AppState
 
     alt SoC = 100%
-        UI -> Notification: Gui thong bao sac hoan tat
+        UI -> Notification: Gửi thông báo sạc hoàn tất
         activate Notification
-        Notification --> UI: Xac nhan gui thong bao
+        Notification --> UI: Xác nhận gửi thông báo
         deactivate Notification
 
-        UI -> Notification: Gui bien nhan nang luong va chi phi
+        UI -> Notification: Gửi biên nhận năng lượng và chi phí
         activate Notification
-        Notification --> UI: Xac nhan gui bien nhan
+        Notification --> UI: Xác nhận gửi biên nhận
         deactivate Notification
 
-        UI -> AppState: Bat dau thoi gian an han 15 phut
+        UI -> AppState: Bắt đầu thời gian ân hạn 15 phút
         activate AppState
-        AppState --> UI: Xac nhan bat dau bo dem
+        AppState --> UI: Xác nhận bắt đầu bộ đếm
         deactivate AppState
 
-        alt Xe roi cong trong 15 phut
-            UI -> AppState: Cap nhat phien sac hoan tat\nva cong = AVAILABLE
+        alt Xe rời cổng trong 15 phút
+            UI -> AppState: Cập nhật phiên sạc hoàn tất\nvà cổng = AVAILABLE
             activate AppState
-            AppState --> UI: Xac nhan giai phong cong
+            AppState --> UI: Xác nhận giải phóng cổng
             deactivate AppState
 
-            UI --> Operator: Cap nhat trang thai cong sac
-        else Xe van chiem cong sau 15 phut
-            UI -> AppState: Ghi nhan trang thai Overstay
+            UI --> Operator: Cập nhật trạng thái cổng sạc
+        else Xe vẫn chiếm cổng sau 15 phút
+            UI -> AppState: Ghi nhận trạng thái OVERSTAY
             activate AppState
-            AppState --> UI: Xac nhan Overstay
+            AppState --> UI: Xác nhận OVERSTAY
             deactivate AppState
 
-            UI -> EWallet: Kiem tra so du va thu Overstay Fee
+            UI -> EWallet: Kiểm tra số dư và thu Overstay Fee
             activate EWallet
 
-            alt Vi du so du
-                EWallet --> UI: Khau tru phi thanh cong
-            else Vi khong du so du
-                EWallet --> UI: Khong du so du
-                UI -> AppState: Ghi nhan khoan no
+            alt Ví đủ số dư
+                EWallet --> UI: Khấu trừ phí phạt thành công
+            else Ví không đủ số dư
+                EWallet --> UI: Không đủ số dư
+                UI -> AppState: Ghi nhận khoản nợ ví
                 activate AppState
-                AppState --> UI: Xac nhan ghi nhan no
+                AppState --> UI: Xác nhận ghi nợ
                 deactivate AppState
             end
             deactivate EWallet
 
-            UI -> Notification: Gui canh bao Overstay
+            UI -> Notification: Gửi cảnh báo Overstay Fee
             activate Notification
-            Notification --> UI: Xac nhan gui canh bao
+            Notification --> UI: Xác nhận gửi cảnh báo
             deactivate Notification
 
-            UI --> Operator: Hien thi xe Overstay
+            UI --> Operator: Hiển thị danh sách xe Overstay
         end
     else SoC < 100%
-        UI -> AppState: Tiep tuc theo doi phien sac
+        UI -> AppState: Tiếp tục theo dõi phiên sạc
         activate AppState
-        AppState --> UI: Tra ve trang thai hien tai
+        AppState --> UI: Trả về trạng thái hiện tại
         deactivate AppState
 
-        UI --> Operator: Cap nhat Dashboard
+        UI --> Operator: Cập nhật Dashboard
     end
 
     deactivate UI

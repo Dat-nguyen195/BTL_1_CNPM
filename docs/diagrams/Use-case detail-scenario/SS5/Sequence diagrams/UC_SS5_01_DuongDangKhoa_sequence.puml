@@ -5,9 +5,9 @@ skinparam sequenceMessageAlign center
 skinparam maxMessageSize 150
 skinparam BoxPadding 10
 
-title "Detailed UML Sequence Diagram: SS5 - Lap lich uu tien sac tu dong"
+title "Detailed UML Sequence Diagram: SS5 - Lập lịch ưu tiên sạc tự động"
 
-actor "Chuyen vien sac" as Operator
+actor "Chuyên viên vận hành sạc\n(Operator)" as Operator
 
 box "Boundary / UI Layer" #LightCyan
 participant "smart_charging.py\n(UI)" as UI
@@ -18,76 +18,76 @@ participant "st.session_state\n(AppState)" as AppState
 end box
 
 box "Hardware / IoT" #LightGray
-participant "Cam bien IoT\n(ChargingIoT)" as IoT
+participant "Cảm biến IoT\n(ChargingIoT)" as IoT
 end box
 
 box "Charging Scheduler" #LightYellow
-participant "Bo lap lich sac\n(Scheduler)" as Scheduler
+participant "Bộ lập lịch sạc\n(SmartChargingScheduler)" as Scheduler
 end box
 
 autonumber 1.1
-group 1. Lay du lieu va trang thai sac
-    Operator -> UI: Mo chuc nang lap lich sac
+group 1. Lấy dữ liệu và trạng thái sạc
+    Operator -> UI: Mở chức năng lập lịch sạc
     activate UI
 
-    UI -> AppState: Lay danh sach xe WAITING
+    UI -> AppState: Lấy danh sách xe WAITING
     activate AppState
-    AppState --> UI: Tra ve danh sach xe cho sac
+    AppState --> UI: Trả về danh sách xe chờ sạc
     deactivate AppState
 
-    UI -> IoT: Lay SoC va trang thai cong sac
+    UI -> IoT: Lấy SoC và trạng thái cổng sạc
     activate IoT
-    IoT --> UI: Tra ve du lieu IoT
+    IoT --> UI: Trả về dữ liệu IoT
     deactivate IoT
 
-    UI -> AppState: Lay cau hinh gio dien\nva gioi han cong suat
+    UI -> AppState: Lấy cấu hình giờ điện\nvà giới hạn công suất
     activate AppState
-    AppState --> UI: Tra ve cau hinh
+    AppState --> UI: Trả về cấu hình
     deactivate AppState
 end
 
 autonumber 2.1
-group 2. Tinh do uu tien va sap xep
-    UI -> Scheduler: Gui danh sach xe va du lieu sac
+group 2. Tính điểm ưu tiên và sắp xếp
+    UI -> Scheduler: Gửi danh sách xe và dữ liệu sạc
     activate Scheduler
 
-    alt Du lieu khong hop le
-        Scheduler --> UI: Bao loi du lieu dau vao
-        UI --> Operator: Hien thi thong bao loi
-    else Du lieu hop le
-        Scheduler -> Scheduler: Tinh Priority Score\n(SoC, thoi gian cho, do khan cap, gio dien)
-        Scheduler -> Scheduler: Sap xep hang cho giam dan\ntheo Priority Score
-        Scheduler --> UI: Tra ve thu tu uu tien
+    alt Dữ liệu không hợp lệ
+        Scheduler --> UI: Báo lỗi dữ liệu đầu vào
+        UI --> Operator: Hiển thị thông báo lỗi
+    else Dữ liệu hợp lệ
+        Scheduler -> Scheduler: Tính Priority Score\n(SoC, HasBooking, độ khẩn cấp, giờ điện)
+        Scheduler -> Scheduler: Sắp xếp hàng chờ giảm dần\ntheo Priority Score
+        Scheduler --> UI: Trả về thứ tự ưu tiên
     end
     deactivate Scheduler
 end
 
 autonumber 3.1
-group 3. Phan bo cong suat va lap lich
-    UI -> Scheduler: Yeu cau lap lich sac
+group 3. Phân bổ công suất và lập lịch
+    UI -> Scheduler: Yêu cầu lập lịch sạc
     activate Scheduler
 
-    Scheduler -> Scheduler: Kiem tra Peak Power Capping
+    Scheduler -> Scheduler: Kiểm tra Peak Power Capping
 
-    alt Vuot gioi han cong suat
-        Scheduler -> Scheduler: Dieu chinh cong suat\nhoac thoi diem sac
-        alt Van vuot gioi han
-            Scheduler --> UI: Chua the phan bo cong sac
-            UI --> Operator: Thong bao gioi han cong suat
-        else Cong suat hop le
-            Scheduler --> UI: Tra ve lich sac da dieu chinh
+    alt Vượt giới hạn công suất
+        Scheduler -> Scheduler: Điều chỉnh công suất\nhoặc thời điểm sạc
+        alt Vẫn vượt giới hạn
+            Scheduler --> UI: Chưa thể phân bổ cổng sạc
+            UI --> Operator: Thông báo giới hạn công suất
+        else Công suất hợp lệ
+            Scheduler --> UI: Trả về lịch sạc đã điều chỉnh
         end
-    else Khong vuot gioi han
-        Scheduler --> UI: Tra ve lich sac hop le
+    else Không vượt giới hạn
+        Scheduler --> UI: Trả về lịch sạc hợp lệ
     end
     deactivate Scheduler
 
-    UI -> AppState: Cap nhat xe va cong sac\ntheo lich da lap
+    UI -> AppState: Cập nhật xe và cổng sạc\ntheo lịch đã lập
     activate AppState
-    AppState --> UI: Xac nhan cap nhat
+    AppState --> UI: Xác nhận cập nhật
     deactivate AppState
 
-    UI --> Operator: Hien thi thu tu uu tien\nva lich sac
+    UI --> Operator: Hiển thị thứ tự ưu tiên\nvà lịch sạc
     deactivate UI
 end
 
