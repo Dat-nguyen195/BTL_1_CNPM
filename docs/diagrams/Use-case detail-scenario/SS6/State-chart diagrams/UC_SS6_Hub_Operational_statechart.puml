@@ -2,28 +2,28 @@
 !theme plain
 hide empty description
 
-title State-chart Diagram: Trạng thái Vận hành Hub dưới tác động Mô phỏng Metro Surge
+title State-chart Diagram: Trạng thái Vận hành Hub dưới tác động Mô phỏng Metro Surge & Sự cố Lưới
 
 [*] --> NORMAL_OPERATION : Hub hoạt động bình thường trong mạng lưới 6 Hub
 
 state NORMAL_OPERATION {
     state "Sức chứa ổn định" as STABLE
-    STABLE : occupancy < 70%
-    STABLE : Chỗ đỗ và cổng sạc dồi dào
+    STABLE : Tỷ lệ lấp đầy < 70%
+    STABLE : Chỗ đỗ và cổng sạc dồi dào (Màu xanh)
 }
 
-NORMAL_OPERATION --> HIGH_DEMAND : Tàu Metro đến, khách đổ dồn về Hub\n[occupancy tăng từ 70% đến 85%]
+NORMAL_OPERATION --> HIGH_DEMAND : Tàu Metro đến, khách đổ dồn về Hub\n[Tỷ lệ lấp đầy từ 70% đến 85%]
 
 state HIGH_DEMAND {
     state "Cảnh báo tải cao" as ELEVATED_LOAD
-    ELEVATED_LOAD : Hàng đợi tích luỹ tăng dần
+    ELEVATED_LOAD : Hàng đợi tích lũy tăng dần (Màu vàng)
     ELEVATED_LOAD : Thời gian chờ tăng
 }
 
-HIGH_DEMAND --> CRITICAL_OVERLOAD : Khách tăng đột biến vượt ngưỡng\n[occupancy > 85%]
+HIGH_DEMAND --> CRITICAL_OVERLOAD : Khách tăng đột biến vượt ngưỡng\n[Tỷ lệ lấp đầy > 85%]
 state CRITICAL_OVERLOAD {
     state "Cảnh báo quá tải nghiêm trọng" as OVERLOADED
-    OVERLOADED : Kích hoạt thông báo đỏ trên giao diện
+    OVERLOADED : Kích hoạt cảnh báo đỏ trên Dashboard
     OVERLOADED : Tự sinh xe ảo EV-SURGE-xxxx
 }
 
@@ -31,12 +31,23 @@ HIGH_DEMAND --> NORMAL_OPERATION : Giảm lưu lượng khách / Kết thúc đ�
 CRITICAL_OVERLOAD --> GRIDLOCK_DEPLETED : Số chỗ trống == 0 HOẶC Cổng sạc == 0
 
 state GRIDLOCK_DEPLETED {
-    state "Nghẽn trạm hoàn toàn" as BLOCKED
+    state "Nghẽn trạm hoàn toàn (Exhausted)" as BLOCKED
     BLOCKED : Không thể tiếp nhận thêm xe
     BLOCKED : Đề xuất điều phối xe sang Hub lân cận (SS4)
 }
 
 GRIDLOCK_DEPLETED --> NORMAL_OPERATION : Điều phối giải tỏa tải thành công
 CRITICAL_OVERLOAD --> NORMAL_OPERATION : Reset mô phỏng / Khôi phục trạng thái ban đầu
+
+state GRID_OFFLINE {
+    state "Mất điện lưới hoàn toàn (Grid Offline)" as POWER_OUTAGE
+    POWER_OUTAGE : Cảm biến điện áp = 0V
+    POWER_OUTAGE : Kích hoạt UPS, phát lệnh điều hướng (SS7)
+}
+
+NORMAL_OPERATION --> GRID_OFFLINE : Sự cố mất điện lưới trạm Hub
+HIGH_DEMAND --> GRID_OFFLINE : Sự cố chập cháy / Mất điện lưới
+CRITICAL_OVERLOAD --> GRID_OFFLINE : Quá tải ngắt cầu dao trạm
+GRID_OFFLINE --> NORMAL_OPERATION : Lưới điện phục hồi / Máy phát khởi động
 
 @enduml

@@ -1175,17 +1175,23 @@ Toàn bộ 17 sơ đồ hoạt động phân làn (Swimlane Activity Diagrams) t
         RESERVED & Quét mã QR/PIN & Mã hợp lệ, $< 15$ phút & Mở chốt điện, tính giờ & IN\_USE \\
         RESERVED & Sinh viên hủy & Trong hạn 15 phút & Hủy đặt, hoàn 100\% cọc (50k) & AVAILABLE \\
         RESERVED & Timeout hủy (No-show) & Quá 15 phút chưa nhận & Tự hủy, phạt 10k, hoàn 40k cọc & AVAILABLE \\
-        IN\_USE & Cắm trả tại Hub & Cổng khóa nhận diện & Tính cước, hoàn cọc thừa & AVAILABLE \\
-        IN\_USE & Pin $< 20\%$ & Cắm vào cổng sạc & Chuyển sang hàng đợi sạc & CHARGING \\
-        Bất kỳ & Báo cáo sự cố & KTV / SV gửi cảnh báo lỗi & Khóa xe trên hệ thống & INCIDENT \\
+        IN\_USE & Cắm trả tại Hub & Cổng khóa nhận diện, $\text{SoC} \ge 20\%$ & Tính cước, hoàn cọc thừa & AVAILABLE \\
+        IN\_USE & Pin yếu & Cắm trả tại Hub, $\text{SoC} < 20\%$ & Chuyển sang hàng đợi sạc & CHARGING \\
+        CHARGING & Sạc hoàn tất & Pin $\text{SoC} \ge 80\%$ (đủ chuẩn) & Rút sạc, chuyển xe khả dụng & AVAILABLE \\
+        AVAILABLE & Lệnh điều phối (SS4) & Hub quá tải / Cần cân bằng & Khóa xe điều chuyển sang Hub đích & DISPATCHED \\
+        DISPATCHED & Đến Hub tiếp nhận & KTV/Lái xe bàn giao tại Hub đích & Mở khóa xe, đưa vào danh sách đỗ & AVAILABLE \\
+        Bất kỳ (AVAILABLE, IN\_USE, RESERVED, CHARGING) & Phát hiện sự cố (SS4) & KTV/SV báo cáo hỏng hóc, chập điện & Khóa phương tiện, ẩn khỏi app SV & INCIDENT \\
+        INCIDENT & Sửa chữa tại chỗ & Lỗi nhẹ xử lý xong tại Hub & KTV nghiệm thu, mở khóa & AVAILABLE \\
+        INCIDENT & Lỗi nghiêm trọng & Hỏng hóc nặng cần kéo về xưởng & Chuyển xe vào diện đại tu & MAINTENANCE\_OFFLINE \\
+        MAINTENANCE\_OFFLINE & Hoàn tất đại tu & Thay thế linh kiện, kiểm định đạt & Bàn giao xe trở lại hệ thống & AVAILABLE \\
         \hline
     \end{tabularx}
 \end{table}
 
-\subsection{Vòng đời trạng thái Cổng sạc \& Phiên sạc (Phí chiếm dụng Overstay)}
-Trụ sạc thông minh quản lý chuyển đổi giữa các trạng thái cắm sạc, đang sạc, sạc hoàn tất và trạng thái chiếm dụng trụ sạc (Overstay Fee):
+\subsection{Vòng đời trạng thái Phiên sạc \& Cổng sạc (Phí chiếm dụng Overstay)}
+Phân hệ SS5 quản lý toàn diện vòng đời sạc từ khi phương tiện vào hàng đợi, được lập lịch, cấp nguồn sạc, ân hạn rút xe và áp dụng phí chiếm dụng cổng (Overstay Fee):
 \begin{center}
-\small\textbf{Chuỗi chuyển trạng thái cổng sạc:} \texttt{IDLE} $\rightarrow$ \texttt{PLUGGED\_IN} $\rightarrow$ \texttt{CHARGING} $\rightarrow$ \texttt{FULLY\_CHARGED} $\xrightarrow{> 15\text{p}}$ \texttt{OVERSTAY}
+\small\textbf{Chuỗi chuyển trạng thái sạc:} \texttt{WAITING} $\rightarrow$ \texttt{SCHEDULED} $\rightarrow$ \texttt{CHARGING} $\rightarrow$ \texttt{CHARGE\_COMPLETED} $\rightarrow$ \texttt{GRACE\_PERIOD} $\xrightarrow{> 15\text{p}}$ \texttt{OVERSTAY} $\rightarrow$ \texttt{AVAILABLE}
 \end{center}
 
 \begin{figure}[H]
@@ -1199,18 +1205,24 @@ Trụ sạc thông minh quản lý chuyển đổi giữa các trạng thái c�
     \centering
     \small
     \renewcommand{\arraystretch}{1.3}
-    \caption{Bảng Đặc tả Chuyển Trạng thái Cổng Sạc \& Trụ Sạc}
+    \caption{Bảng Đặc tả Chuyển Trạng thái Chu trình Sạc \& Quản lý Cổng Sạc}
     \label{tab:state-charger-spec}
     \footnotesize
     \begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{2.4cm}|>{\raggedright\arraybackslash}p{2.2cm}|>{\raggedright\arraybackslash}p{2.6cm}|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}p{2.4cm}|}
         \hline
         \textbf{Trạng thái gốc} & \textbf{Sự kiện (Event)} & \textbf{Điều kiện (Guard)} & \textbf{Hành động (Action)} & \textbf{Trạng thái đích} \\
         \hline
-        IDLE & Cắm súng sạc & Xe kết nối hợp lệ & Kiểm tra thông tin xe & PLUGGED\_IN \\
-        PLUGGED\_IN & Bắt đầu cấp điện & Đến lượt trong hàng đợi sạc & Đóng rơ-le, cấp điện áp & CHARGING \\
-        CHARGING & Pin đạt 100\% & Dòng sạc $< 0.1\text{A}$ & Ngắt điện, push thông báo SV & FULLY\_CHARGED \\
-        FULLY\_CHARGED & Thời gian $> 15$p & Xe chưa rút chốt sạc & Kích hoạt tính phí 10k/15p & OVERSTAY \\
-        OVERSTAY / FULL & Rút súng sạc & Cảm biến ngắt kết nối & Quyết toán phí sạc + phạt & IDLE \\
+        [*] & Xe cắm sạc & Xe vào hàng chờ sạc & Ghi nhận yêu cầu sạc & WAITING \\
+        WAITING & Lập lịch tự động & Tính điểm ưu tiên & Sắp xếp vị trí trong hàng đợi & SCHEDULED \\
+        SCHEDULED & Cấp nguồn sạc & Cổng sạc trống, không vượt công suất đỉnh & Đóng rơ-le, cấp điện áp & CHARGING \\
+        SCHEDULED & Nghẽn công suất & Vượt trần tải lưới (Peak Capping) & Tạm lùi xe về hàng đợi & WAITING \\
+        CHARGING & Pin đầy & $\text{SoC} = 100\%$ & Ngắt dòng sạc, xuất biên nhận & CHARGE\_COMPLETED \\
+        CHARGE\_COMPLETED & Kích hoạt ân hạn & Hệ thống gửi thông báo cho SV & Khởi động đếm ngược 15 phút & GRACE\_PERIOD \\
+        GRACE\_PERIOD & Rút xe đúng hạn & Rút chốt trong vòng 15 phút & Xác nhận hoàn tất, miễn phạt & AVAILABLE \\
+        GRACE\_PERIOD & Hết giờ ân hạn & Quá 15 phút xe chưa rời cổng & Áp phí chiếm dụng 10.000đ/15p & OVERSTAY \\
+        OVERSTAY & Rút xe quá hạn & Xe rời cổng sau khi phạt & Quyết toán phí quá hạn & AVAILABLE \\
+        Bất kỳ (WAITING, SCHEDULED, CHARGING, GRACE) & Mất kết nối / Sự cố trạm & Cảm biến ngắt kết nối / quá nhiệt & Báo động kỹ thuật, cách ly cổng & ERROR \\
+        ERROR & Khắc phục sự cố & IoT kết nối lại / Đã sửa chữa & Khôi phục về hàng đợi hoặc sẵn sàng & WAITING / AVAILABLE \\
         \hline
     \end{tabularx}
 \end{table}
@@ -1232,15 +1244,18 @@ Hệ thống giám sát Hub liên tục đánh giá tỷ lệ lấp đầy xe v�
     \caption{Bảng Đặc tả Chuyển Trạng thái Vận hành Mạng lưới Mobility Hub}
     \label{tab:state-hub-spec}
     \footnotesize
-    \begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{2.4cm}|>{\raggedright\arraybackslash}p{2.2cm}|>{\raggedright\arraybackslash}p{2.6cm}|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}p{2.4cm}|}
+    \begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{2.6cm}|>{\raggedright\arraybackslash}p{2.2cm}|>{\raggedright\arraybackslash}p{2.6cm}|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}p{2.6cm}|}
         \hline
         \textbf{Trạng thái gốc} & \textbf{Sự kiện (Event)} & \textbf{Điều kiện (Guard)} & \textbf{Hành động (Action)} & \textbf{Trạng thái đích} \\
         \hline
-        NORMAL & Số xe tăng & $70\% \le \text{Lấp đầy} < 85\%$ & Cảnh báo Vàng trên map & ELEVATED (Vàng) \\
-        ELEVATED & Số xe tiếp tục tăng & $\ge 85\%$ tải & Cảnh báo Đỏ, đề xuất điều xe SS4 & CRITICAL (Cam/Đỏ) \\
-        CRITICAL & Hết sạch chỗ đỗ & Đạt $100\%$ dung lượng & Khóa nhận xe tại Hub, đổi Hub khác & EXHAUSTED \\
-        Bất kỳ & Mất điện lưới & Cảm biến điện áp $= 0$ & Kích hoạt UPS, gợi ý điều hướng SS7 & GRID\_OFFLINE \\
-        GRID\_OFFLINE & Điện phục hồi & Điện áp ổn định $\ge 1$ phút & Đồng bộ dữ liệu IoT, mở lại trạm & NORMAL \\
+        NORMAL\_OPERATION & Metro đến / Khách tăng & $70\% \le \text{Lấp đầy} \le 85\%$ & Hiển thị cảnh báo Vàng trên bản đồ & HIGH\_DEMAND \\
+        HIGH\_DEMAND & Khách dồn dập vượt tải & $\text{Lấp đầy} > 85\%$ & Kích hoạt cảnh báo Đỏ, đề xuất điều xe SS4 & CRITICAL\_OVERLOAD \\
+        HIGH\_DEMAND & Giảm lưu lượng & $\text{Lấp đầy} < 70\%$ & Trở về trạng thái bình thường (xanh) & NORMAL\_OPERATION \\
+        CRITICAL\_OVERLOAD & Hết sạch chỗ đỗ / cổng & Chỗ trống $= 0$ hoặc Cổng $= 0$ & Khóa nhận xe tại Hub, cảnh báo nghẽn trạm & GRIDLOCK\_DEPLETED \\
+        CRITICAL\_OVERLOAD & Hạ tải / Reset & $\text{Lấp đầy} \le 85\%$ & Khôi phục trạng thái vận hành & NORMAL\_OPERATION \\
+        GRIDLOCK\_DEPLETED & Điều phối xe thành công & Giải tỏa chỗ trống $> 0$ & Mở lại luồng nhận xe & NORMAL\_OPERATION \\
+        Bất kỳ (NORMAL, HIGH, CRITICAL) & Mất điện lưới / Chập trạm & Cảm biến điện áp $= 0\text{V}$ & Kích hoạt UPS, phát lệnh điều hướng SS7 & GRID\_OFFLINE \\
+        GRID\_OFFLINE & Điện phục hồi & Điện áp ổn định $\ge 1$ phút & Đồng bộ dữ liệu IoT, mở lại trạm & NORMAL\_OPERATION \\
         \hline
     \end{tabularx}
 \end{table}

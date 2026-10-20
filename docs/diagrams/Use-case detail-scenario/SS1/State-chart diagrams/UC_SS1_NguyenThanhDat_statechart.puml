@@ -10,6 +10,8 @@ state AVAILABLE
 state RESERVED
 state IN_USE
 state CHARGING
+state DISPATCHED
+state INCIDENT
 state MAINTENANCE_OFFLINE
 
 AVAILABLE --> RESERVED : Sinh viên đặt giữ chỗ (Cọc 50k)
@@ -21,11 +23,16 @@ IN_USE --> AVAILABLE : Trả xe tại Hub đích\n[SoC >= 20%]
 IN_USE --> CHARGING : Trả xe tại Hub đích\n[SoC < 20%]
 CHARGING --> AVAILABLE : Xe đã sạc đầy / Đủ chuẩn\n[SoC >= 80%]
 
-AVAILABLE --> MAINTENANCE_OFFLINE : Khai báo hỏng hóc / Báo lỗi
-RESERVED --> MAINTENANCE_OFFLINE : Lỗi hệ thống / Mất kết nối IoT
-IN_USE --> MAINTENANCE_OFFLINE : Sự cố trên đường / Tai nạn
-CHARGING --> MAINTENANCE_OFFLINE : Lỗi trạm sạc / Mất điện
+AVAILABLE --> DISPATCHED : Điều phối xe sang Hub khác (SS4)
+DISPATCHED --> AVAILABLE : Xe đến Hub đích thành công
 
-MAINTENANCE_OFFLINE --> AVAILABLE : Sửa chữa / Bảo trì xong\n[Operator mở khóa hệ thống]
+AVAILABLE --> INCIDENT : Khai báo sự cố kỹ thuật (SS4)
+RESERVED --> INCIDENT : Lỗi hệ thống / Mất kết nối IoT
+IN_USE --> INCIDENT : Sự cố trên đường / Tai nạn
+CHARGING --> INCIDENT : Lỗi trạm sạc / Chập điện
+
+INCIDENT --> MAINTENANCE_OFFLINE : Chuyển về xưởng bảo trì chuyên sâu
+INCIDENT --> AVAILABLE : KTV xử lý xong tại chỗ\n[Mở khóa xe]
+MAINTENANCE_OFFLINE --> AVAILABLE : Bảo trì định kỳ / Thay thế linh kiện xong\n[KTV nghiệm thu, mở khóa]
 
 @enduml
