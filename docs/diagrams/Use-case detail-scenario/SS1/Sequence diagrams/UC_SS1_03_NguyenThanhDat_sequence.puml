@@ -35,18 +35,29 @@ group 1. Yêu cầu Hủy
 end
 
 autonumber 2.1
-group 2. Xử lý Hoàn cọc 100%
-    UI -> EWallet: Hoàn trả 100% cọc (50,000 VNĐ)\ntừ locked_balance về wallet_balance
-    activate EWallet
-    EWallet --> UI: Xác nhận hoàn tiền thành công
-    deactivate EWallet
-    
-    UI -> AppState: Chuyển trạng thái xe:\nRESERVED -> AVAILABLE
-    activate AppState
-    AppState --> UI: Cập nhật hoàn tất
-    deactivate AppState
-    
-    UI --> Student: Thông báo hủy thành công &\nBiến động số dư ví
+group 2. Xử lý Hoàn cọc (Theo quy tắc D1)
+    alt Sinh viên chủ động hủy trong 15 phút
+        UI -> EWallet: Hoàn trả 100% cọc (50,000 VNĐ)\ntừ locked_balance về wallet_balance
+        activate EWallet
+        EWallet --> UI: Xác nhận hoàn 50,000 VNĐ
+        deactivate EWallet
+        
+        UI -> AppState: Chuyển trạng thái xe:\nRESERVED -> AVAILABLE
+        activate AppState
+        AppState --> UI: Cập nhật hoàn tất
+        deactivate AppState
+        
+        UI --> Student: Thông báo hủy thành công &\nHoàn 100% cọc (50,000 VNĐ)
+    else Hết 15 phút không nhận xe (Tự động hủy - No-show)
+        AppState -> EWallet: Khấu trừ phí phạt No-show (10,000 VNĐ),\nhoàn 40,000 VNĐ về wallet_balance
+        activate EWallet
+        EWallet --> AppState: Xác nhận hoàn 40,000 VNĐ
+        deactivate EWallet
+        
+        AppState -> AppState: Chuyển trạng thái xe:\nRESERVED -> AVAILABLE
+        AppState --> UI: Tự động hủy do No-show
+        UI --> Student: Thông báo tự hủy do quá hạn 15p &\nKhấu trừ 10,000 VNĐ, hoàn 40,000 VNĐ
+    end
     deactivate UI
 end
 

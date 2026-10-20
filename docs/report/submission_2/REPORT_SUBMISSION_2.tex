@@ -194,7 +194,7 @@
     \hline
     \textbf{Hình 2.2} & Sơ đồ Tuần tự Chi tiết -- UC\_SS1\_02 (Trả xe 1-chiều \& Quyết toán ví) & Mục 2.1 & \pageref{fig:seq-ss1-02} \\
     \hline
-    \textbf{Hình 2.3} & Sơ đồ Tuần tự Chi tiết -- UC\_SS1\_03 (Hủy đặt xe \& Hoàn cọc 100\%) & Mục 2.1 & \pageref{fig:seq-ss1-03} \\
+    \textbf{Hình 2.3} & Sơ đồ Tuần tự Chi tiết -- UC\_SS1\_03 (Hủy đặt xe \& Hoàn cọc / Phạt No-show) & Mục 2.1 & \pageref{fig:seq-ss1-03} \\
     \hline
     \textbf{Hình 2.4} & Sơ đồ Tuần tự Chi tiết -- UC\_SS2\_01 (Đăng ký xe EV cá nhân) & Mục 2.2 & \pageref{fig:seq-ss2-01} \\
     \hline
@@ -228,7 +228,7 @@
     \hline
     \textbf{Hình 3.2} & Sơ đồ Hoạt động Phân làn (Swimlane) -- UC\_SS1\_02 (Trả xe 1-chiều) & Mục 3.1 & \pageref{fig:act-ss1-02} \\
     \hline
-    \textbf{Hình 3.3} & Sơ đồ Hoạt động Phân làn (Swimlane) -- UC\_SS1\_03 (Hủy đặt xe) & Mục 3.1 & \pageref{fig:act-ss1-03} \\
+    \textbf{Hình 3.3} & Sơ đồ Hoạt động Phân làn (Swimlane) -- UC\_SS1\_03 (Hủy đặt xe \& Hoàn cọc / Phạt No-show) & Mục 3.1 & \pageref{fig:act-ss1-03} \\
     \hline
     \textbf{Hình 3.4} & Sơ đồ Hoạt động Phân làn (Swimlane) -- UC\_SS2\_01 (Đăng ký xe EV) & Mục 3.2 & \pageref{fig:act-ss2-01} \\
     \hline
@@ -591,10 +591,14 @@ Hỗ trợ Operator xử lý trực tiếp tình trạng mất cân đối phư�
 Ứng dụng thuật toán tối ưu hóa đa mục tiêu nhằm phân bổ hợp lý công suất trạm sạc cho các phương tiện:
 \begin{itemize}[nosep]
     \item \textbf{Bộ chỉ số trạng thái hàng đợi sạc:} Tổng số xe trong hàng đợi ($14\text{ xe}$), Số lượng xe pin nguy hiểm $\text{SoC} < 20\%$ ($8\text{ xe}$), và Số lượng xe gắn lịch đặt trước của sinh viên ($0\text{ xe}$).
-    \item \textbf{Hàng đợi sạc sắp xếp tự động theo điểm ưu tiên:} Thuật toán chấm điểm dựa trên công thức $Score = (100 - \text{SoC}) + 100 \times \mathbb{I}(\text{SoC} < 20\%) + 60 \times \mathbb{I}(\text{Booking}) + \dots$:
+    \item \textbf{Hàng đợi sạc sắp xếp tự động theo điểm ưu tiên:} Thuật toán chấm điểm dựa trên công thức đa tiêu chí hiện thực tại \texttt{src/core/scheduler.py}:
+    \begin{equation}
+        \text{Score} = (100 - \text{SoC}) \times 0.5 + 100 \times \mathbb{I}(\text{SoC} < 20\%) + 60 \times \mathbb{I}(\text{HasBooking}) + 30 \times \mathbb{I}(\text{SoC} < 50\%)
+    \end{equation}
+    trong đó $\mathbb{I}(\cdot)$ là hàm chỉ thị nhận giá trị $1$ nếu điều kiện thỏa mãn và $0$ nếu không. Điểm số phản ánh chính xác mức độ khẩn cấp:
     \begin{itemize}[nosep]
-        \item 8 xe có mức pin nguy hiểm được xếp ưu tiên hàng đầu và tô màu hồng/đỏ nhạt nổi bật: Top 1 là \texttt{EV-B009} (Pin $5\%$, Điểm: $177.5$), Top 2 là \texttt{EV-E005} (Pin $7\%$, Điểm: $176.5$), Top 3 là \texttt{EV-A006} (Pin $8\%$, Điểm: $176.0$), tiếp theo là \texttt{EV-C004}, \texttt{EV-F004}, \texttt{EV-B003}, \texttt{EV-D004}, \texttt{EV-A003}.
-        \item Các xe có mức pin an toàn hơn ($\text{SoC} \ge 30\%$) như \texttt{EV-A008} (Pin $30\%$, Điểm: $65.0$), \texttt{EV-B008} (Pin $33\%$, Điểm: $63.5$) được xếp sau và giữ màu nền trắng.
+        \item 8 xe có mức pin nguy hiểm ($\text{SoC} < 20\%$) được xếp ưu tiên hàng đầu và tô màu hồng/đỏ nhạt nổi bật. Ví dụ: Top 1 là \texttt{EV-B009} ($\text{SoC} = 5\%$, không booking): $\text{Score} = (100 - 5) \times 0.5 + 100 + 0 + 30 = 47.5 + 130 = \mathbf{177.5}$; Top 2 là \texttt{EV-E005} ($\text{SoC} = 7\%$): $\text{Score} = (100 - 7) \times 0.5 + 100 + 30 = \mathbf{176.5}$; Top 3 là \texttt{EV-A006} ($\text{SoC} = 8\%$): $\text{Score} = \mathbf{176.0}$, tiếp theo là \texttt{EV-C004}, \texttt{EV-F004}, \texttt{EV-B003}, \texttt{EV-D004}, \texttt{EV-A003}.
+        \item Các xe có mức pin an toàn hơn ($\text{SoC} \ge 30\%$) được xếp sau và giữ màu nền trắng. Ví dụ: \texttt{EV-A008} ($\text{SoC} = 30\%$, không booking): $\text{Score} = (100 - 30) \times 0.5 + 0 + 0 + 30 = 35.0 + 30 = \mathbf{65.0}$; \texttt{EV-B008} ($\text{SoC} = 33\%$): $\text{Score} = (100 - 33) \times 0.5 + 30 = \mathbf{63.5}$.
     \end{itemize}
     \item \textbf{Cơ chế phạt quá hạn cổng sạc (Overstay Fee):} Khi sạc đạt ngưỡng $100\%$, đồng hồ đếm ngược 15 phút ân hạn kích hoạt. Sau thời gian này, hệ thống tự động áp phí chiếm dụng cổng nhằm giải phóng chỗ cho xe tiếp theo trong hàng đợi.
 \end{itemize}
@@ -698,7 +702,7 @@ Mục này trình bày chi tiết \textbf{17 Sơ đồ Tuần tự (Sequence Dia
         \hline
         1 & UC\_SS1\_01 & Đặt giữ chỗ \& Quét QR/PIN nhận xe & Nguyễn Thành Đạt & Hoàn thành \\
         2 & UC\_SS1\_02 & Trả xe 1-chiều \& Quyết toán ví điện tử & Nguyễn Thành Đạt & Hoàn thành \\
-        3 & UC\_SS1\_03 & Hủy đặt xe \& Hoàn 100\% cọc & Nguyễn Thành Đạt & Hoàn thành \\
+        3 & UC\_SS1\_03 & Hủy đặt xe \& Hoàn cọc / Phạt No-show & Nguyễn Thành Đạt & Hoàn thành \\
         \hline
         4 & UC\_SS2\_01 & Đăng ký xe EV cá nhân & Nguyễn Anh Tài & Hoàn thành \\
         5 & UC\_SS2\_02 & Đặt chỗ đỗ và nhu cầu sạc xe EV cá nhân & Nguyễn Anh Tài & Hoàn thành \\
@@ -771,12 +775,12 @@ Mục này trình bày chi tiết \textbf{17 Sơ đồ Tuần tự (Sequence Dia
     \label{fig:seq-ss1-02}
 \end{figure}
 
-\subsubsection{UC\_SS1\_03: Hủy đặt xe \& Hoàn 100\% cọc}
-\paragraph{Mô tả nghiệp vụ:} Sinh viên chủ động hủy đặt chỗ trong thời hạn 15 phút hoặc khi hết hạn 15 phút mà sinh viên không đến nhận xe, hệ thống tự động giải phóng xe về trạng thái \texttt{AVAILABLE} và hoàn 100\% tiền cọc 50.000 VNĐ.
+\subsubsection{UC\_SS1\_03: Hủy đặt xe \& Hoàn cọc / Phạt No-show}
+\paragraph{Mô tả nghiệp vụ:} Khi sinh viên chủ động hủy đặt chỗ trong thời hạn 15 phút, hệ thống tự động giải phóng xe về trạng thái \texttt{AVAILABLE} và hoàn $100\%$ tiền cọc ($50.000\text{ VNĐ}$) về ví điện tử. Trường hợp quá 15 phút mà sinh viên không đến nhận xe (No-show), hệ thống tự động hủy lệnh, áp dụng phí phạt giữ chỗ $10.000\text{ VNĐ}$ và hoàn trả $40.000\text{ VNĐ}$ còn lại về ví.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.88\textwidth,height=0.68\textheight,keepaspectratio]{Use-case detail-scenario/SS1/Sequence diagrams/UC_SS1_03_NguyenThanhDat_sequence.png}
-    \caption{Sơ đồ Tuần tự Chi tiết -- UC\_SS1\_03 (Hủy đặt xe \& Hoàn cọc 100\%)}
+    \caption{Sơ đồ Tuần tự Chi tiết -- UC\_SS1\_03 (Hủy đặt xe \& Hoàn cọc / Phạt No-show)}
     \label{fig:seq-ss1-03}
 \end{figure}
 
@@ -873,7 +877,7 @@ Mục này trình bày chi tiết \textbf{17 Sơ đồ Tuần tự (Sequence Dia
 \subsection{Phân hệ SS5: Lập lịch Sạc Thông minh (Dương Đăng Khoa)}
 
 \subsubsection{UC\_SS5\_01: Lập lịch ưu tiên sạc tự động}
-\paragraph{Mô tả nghiệp vụ:} Thuật toán tối ưu hóa lịch sạc kiểm tra mức pin của từng xe trong hàng đợi, tự động ưu tiên cấp điện áp cao cho các xe có mức pin dưới 20\% và xếp lịch sạc ngoài giờ cao điểm.
+\paragraph{Mô tả nghiệp vụ:} Thuật toán tối ưu hóa lịch sạc (\texttt{SmartChargingScheduler}) tính toán điểm ưu tiên đa mục tiêu cho từng phương tiện trong hàng đợi dựa trên: mức pin khẩn cấp ($\text{SoC} < 20\%$), có lịch đặt xe của sinh viên ($\text{Booking}$), pin dưới trung bình ($\text{SoC} < 50\%$) và độ suy giảm pin tuyến tính. Hệ thống tự động phân bổ nguồn sạc trước cho các phương tiện có điểm ưu tiên cao nhất.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.88\textwidth,height=0.68\textheight,keepaspectratio]{Use-case detail-scenario/SS5/Sequence diagrams/UC_SS5_01_DuongDangKhoa_sequence.png}
@@ -961,9 +965,9 @@ Toàn bộ 17 sơ đồ hoạt động phân làn (Swimlane Activity Diagrams) t
         \hline
         \textbf{Phân hệ} & \textbf{Mã UC} & \textbf{Luồng Rẽ Nhánh (Alternate Flow)} & \textbf{Luồng Ngoại Lệ (Exception Flow)} \\
         \hline
-        SS1 & UC\_SS1\_01 & Nhập mã PIN thủ công thay vì quét QR & Số dư ví không đủ 50.000 VNĐ; quá 15p tự hủy \\
+        SS1 & UC\_SS1\_01 & Nhập mã PIN thủ công thay vì quét QR & Số dư ví không đủ 50.000 VNĐ; quá 15p No-show (phạt 10k, hoàn 40k) \\
         SS1 & UC\_SS1\_02 & Trả xe khác Hub mượn (1-chiều) & Pin dưới 20\% phạt sạc; chốt khóa Hub báo đầy \\
-        SS1 & UC\_SS1\_03 & Sinh viên chủ động hủy qua ứng dụng & Lỗi timeout kết nối ví điện tử VNU \\
+        SS1 & UC\_SS1\_03 & Hủy trong 15p hoàn 100\% cọc; chọn tìm Hub khác & Quá 15p không nhận (No-show: phạt 10k, hoàn 40k) \\
         \hline
         SS2 & UC\_SS2\_01 & Bổ sung giấy tờ xe qua xác minh thủ công & Biển số xe đã tồn tại trên hệ thống \\
         SS2 & UC\_SS2\_02 & Chỉ đỗ xe không sạc điện & Hết chỗ đỗ hoặc không có cổng sạc phù hợp \\
@@ -1011,11 +1015,11 @@ Toàn bộ 17 sơ đồ hoạt động phân làn (Swimlane Activity Diagrams) t
     \label{fig:act-ss1-02}
 \end{figure}
 
-\subsubsection{UC\_SS1\_03: Hủy đặt xe \& Hoàn 100\% cọc}
+\subsubsection{UC\_SS1\_03: Hủy đặt xe \& Hoàn cọc / Phạt No-show}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.92\textwidth,height=0.68\textheight,keepaspectratio]{Use-case detail-scenario/SS1/Activity diagrams/UC_SS1_03_NguyenThanhDat_activity.png}
-    \caption{Sơ đồ Hoạt động Phân làn (Swimlane) -- UC\_SS1\_03}
+    \caption{Sơ đồ Hoạt động Phân làn (Swimlane) -- UC\_SS1\_03 (Hủy đặt xe \& Hoàn cọc / Phạt No-show)}
     \label{fig:act-ss1-03}
 \end{figure}
 
@@ -1169,7 +1173,8 @@ Toàn bộ 17 sơ đồ hoạt động phân làn (Swimlane Activity Diagrams) t
         \hline
         AVAILABLE & Sinh viên đặt chỗ & Số dư ví $\ge 50.000$đ & Khóa cọc, sinh mã QR/PIN & RESERVED \\
         RESERVED & Quét mã QR/PIN & Mã hợp lệ, $< 15$ phút & Mở chốt điện, tính giờ & IN\_USE \\
-        RESERVED & Timeout hủy & Quá 15 phút chưa nhận & Hủy đặt, hoàn 100\% cọc & AVAILABLE \\
+        RESERVED & Sinh viên hủy & Trong hạn 15 phút & Hủy đặt, hoàn 100\% cọc (50k) & AVAILABLE \\
+        RESERVED & Timeout hủy (No-show) & Quá 15 phút chưa nhận & Tự hủy, phạt 10k, hoàn 40k cọc & AVAILABLE \\
         IN\_USE & Cắm trả tại Hub & Cổng khóa nhận diện & Tính cước, hoàn cọc thừa & AVAILABLE \\
         IN\_USE & Pin $< 20\%$ & Cắm vào cổng sạc & Chuyển sang hàng đợi sạc & CHARGING \\
         Bất kỳ & Báo cáo sự cố & KTV / SV gửi cảnh báo lỗi & Khóa xe trên hệ thống & INCIDENT \\
