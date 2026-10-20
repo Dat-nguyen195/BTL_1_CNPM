@@ -144,7 +144,7 @@
     \end{tabularx}
     \vspace{0.3cm}
     
-    \textit{Bảng 0.1: Danh sách Thành viên Nhóm 1, MSSV và Phân hệ Phụ trách}
+    \textit{Bảng 0.1: Danh sách Thành viên Nhóm BEE BRAVE, MSSV và Phân hệ Phụ trách}
 \end{center}
 \vspace*{\fill}
 \newpage
@@ -276,7 +276,7 @@
     \hline
     \textbf{Ký hiệu} & \textbf{Tên bảng biểu} & \textbf{Vị trí / Mục} & \textbf{Số trang} \\
     \hline
-    \textbf{Bảng 0.1} & Danh sách Thành viên Nhóm 1, MSSV và Phân hệ Phụ trách & Trang bìa & 1 \\
+    \textbf{Bảng 0.1} & Danh sách Thành viên Nhóm BEE BRAVE, MSSV và Phân hệ Phụ trách & Trang bìa & 1 \\
     \hline
     \textbf{Bảng 1.1} & Ma trận Đáp ứng Yêu cầu Phi chức năng trên Giao diện UI/UX & Mục 1.1 & \pageref{tab:ui-nfr-matrix} \\
     \hline
@@ -360,7 +360,7 @@ Hệ thống Smart E-Mobility Hub được xây dựng dựa trên nguyên lý t
 \end{table}
 
 \subsection{Kế hoạch Hiện thực Hóa Prototype theo Mô hình MoSCoW (Cam kết $\ge 70\%$)}
-Nhằm đảm bảo tính khả thi cao trong quá trình phát triển sản phẩm thực tế theo yêu cầu của môn học (hiện thực tối thiểu 70\% chức năng cốt lõi), nhóm tiến hành phân kỳ phạm vi tính năng thông qua ma trận \textbf{MoSCoW (Must-have, Should-have, Could-have, Won't-have)}. Toàn bộ các phân hệ từ SS1 đến SS5 thuộc phạm vi bắt buộc và ưu tiên cao ($85\%$ tổng khối lượng), trong khi các mô-đun mô phỏng nâng cao ở SS6 và SS7 đóng vai trò hoàn thiện năng lực phân tích.
+Nhằm đảm bảo tính khả thi cao trong quá trình phát triển sản phẩm thực tế theo yêu cầu của môn học (hiện thực tối thiểu 70\% chức năng cốt lõi), nhóm tiến hành phân kỳ phạm vi tính năng thông qua ma trận \textbf{MoSCoW (Must-have, Should-have, Could-have, Won't-have)}. Trong đó, các chức năng thuộc nhóm Must-have ($50\%$) và Should-have ($25\%$) chiếm $75\%$ tổng khối lượng đáp ứng vượt chuẩn cam kết tối thiểu, kết hợp cùng nhóm Could-have ($15\%$) nâng tổng mức độ hiện thực hóa prototype lên đến $\mathbf{90\%}$. Nhóm Won't-have ($10\%$) dành cho phần cứng IoT thực địa được thay thế bằng module mô phỏng telemetry.
 
 \begin{table}[H]
     \centering
@@ -474,8 +474,8 @@ Giao diện phân hệ SS1 (\texttt{src/components/student\_booking.py}) thể h
 \begin{itemize}[nosep]
     \item \textbf{Thanh điều hướng \& Định danh sinh viên:} Sidebar trái hiển thị biểu trưng ĐH Bách Khoa, tên phân hệ và thẻ thống kê nhanh toàn mạng lưới ($6\text{ Hub}$, $40\text{ xe}$, $95/240\text{ chỗ trống}$, $25/59\text{ cổng sạc trống}$). Header chính thể hiện danh tính sinh viên (Nguyễn Văn A - MSSV: 2211234), số dư ví ($500.000\text{ VNĐ}$) và số dư cọc tạm giữ ($0\text{ VNĐ}$).
     \item \textbf{Hệ thống 4 Tabs nghiệp vụ liên hoàn:} Phân định rõ 4 bước trong vòng đời chuyến đi: \textit{Đặt xe}, \textit{Nhận xe (Pick-up)}, \textit{Trả xe \& Quyết toán}, và \textit{Hủy đặt xe}.
-    \item \textbf{Bước 1 -- Chọn Hub xuất phát:} Lựa chọn trạm xuất phát (Hub KTX Khu A) với 3 thẻ đo lường động: Chỗ đỗ trống ($15/40$), Cổng sạc trống ($4/10$), và Số xe hiện có ($5\text{ xe}$).
-    \item \textbf{Bước 2 -- Tìm kiếm \& Lọc phương tiện:} Bộ lọc hỗ trợ chọn đa loại hình (bike, scooter, car), thanh trượt mức pin tối thiểu ($\text{SoC} \ge 20\%$). Danh sách xe khả dụng hiển thị trực quan: \texttt{EV-A001} (scooter, SoC $85\%$ - màu xanh), \texttt{EV-A005} (bike, SoC $90\%$ - màu xanh), \texttt{EV-A008} (bike, SoC $30\%$ - màu vàng cam), toàn bộ đều ở trạng thái \texttt{AVAILABLE}.
+    \item \textbf{Bước 1 -- Chọn Hub xuất phát:} Lựa chọn trạm xuất phát (Hub KTX Khu A) với 3 thẻ đo lường động: Chỗ đỗ trống ($15/40$), Cổng sạc trống ($4/10$), và Số xe hiện có ($8\text{ xe}$ tổng cộng, trong đó có $5\text{ xe khả dụng}$ sẵn sàng đặt).
+    \item \textbf{Bước 2 -- Tìm kiếm \& Lọc phương tiện:} Bộ lọc hỗ trợ chọn đa loại hình (bike, scooter, car), thanh trượt mức pin tối thiểu ($\text{SoC} \ge 20\%$). Danh sách 5 xe khả dụng hiển thị trực quan: \texttt{EV-A001} (scooter, SoC $85\%$ - màu xanh), \texttt{EV-A005} (bike, SoC $90\%$ - màu xanh), \texttt{EV-A008} (bike, SoC $30\%$ - màu vàng cam), toàn bộ đều ở trạng thái \texttt{AVAILABLE} (các xe đang sạc hoặc đã giữ chỗ được tự động ẩn khỏi danh sách cho thuê).
     \item \textbf{Bước 3 -- Đặt giữ xe, Khóa cọc \& Voucher:} Cho phép chọn xe cụ thể (\texttt{EV-A001} - scooter, SoC $85\%$), nhập mã ưu đãi học đường \texttt{SVBK50} (giảm $5.000\text{ VNĐ}$ cước thuê). Bảng giá tham khảo minh bạch: miễn phí 30 phút đầu theo chính sách ĐHQG-HCM, cước $1.000\text{ VNĐ/phút}$ sau 30p, tiền cọc giữ chỗ $50.000\text{ VNĐ}$ được giữ trong 15 phút.
     \item \textbf{Luồng xác nhận \& Nhận xe qua IoT:} Khi bấm [Xác nhận đặt giữ xe], hệ thống tự động khóa cọc $50.000\text{ VNĐ}$ từ ví, chuyển xe sang trạng thái \texttt{RESERVED}, sinh mã PIN 6 chữ số (\texttt{745768}) để sinh viên nhập tại trụ trạm thông minh kích hoạt mở khóa cơ điện.
 \end{itemize}
@@ -550,8 +550,8 @@ Bảng \ref{tab:ui-operator-screens} dưới đây đặc tả các màn hình �
 Bảng điều khiển giám sát mạng lưới cung cấp bức tranh tổng thể về hạ tầng toàn đô thị ĐHQG-HCM:
 \begin{itemize}[nosep]
     \item \textbf{Bộ 4 thẻ KPI vận hành trọng yếu:} Tổng số xe hiện hữu trên mạng lưới ($40\text{ xe}$), Tỉ lệ lấp đầy bình quân ($60.4\%$), Tổng chỗ trống khả dụng ($95/240\text{ chỗ}$), và Tổng số cổng sạc khả dụng ($25/59\text{ cổng}$).
-    \item \textbf{Hộp cảnh báo quá tải tự động (Yellow Visual Alert):} Hệ thống giám sát tự động kích hoạt cảnh báo nổi bật khi phát hiện trạm vượt ngưỡng tải cảnh báo ($85\%$): \textit{"Hub KTX Khu B -- Tỉ lệ lấp đầy: 87\% $\rightarrow$ Cần điều phối!"}.
-    \item \textbf{Bản đồ tương tác OpenStreetMap:} Thể hiện tọa độ địa lý thực tế của 6 Hub trung tâm trong khuôn viên ĐHQG-HCM (KTX Khu A, KTX Khu B, Nhà Khách, ĐH Bách Khoa, ĐH KHXH\&NV, ĐH CNTT) với màu sắc phản ánh tức thời mức độ bận rộn của trạm.
+    \item \textbf{Hộp cảnh báo quá tải tự động (Red Visual Alert):} Hệ thống giám sát tự động kích hoạt cảnh báo đỏ nổi bật khi phát hiện trạm vượt ngưỡng tải cảnh báo ($> 85\%$): \textit{"Hub KTX Khu B -- Tỉ lệ lấp đầy: 87\% $\rightarrow$ Cần điều phối!"}.
+    \item \textbf{Bản đồ tương tác OpenStreetMap (Folium/PyDeck):} Thể hiện tọa độ địa lý thực tế của 6 Hub trung tâm trong khuôn viên ĐHQG-HCM (KTX Khu A, KTX Khu B, Nhà Khách, ĐH Bách Khoa, ĐH KHXH\&NV, ĐH CNTT) với màu sắc phản ánh tức thời mức độ bận rộn của trạm theo ngưỡng quy định: $<70\%$ Bình thường (xanh), $70-85\%$ Mức cao (vàng), $>85\%$ Quá tải (đỏ).
     \item \textbf{Quản lý thiết bị thời gian thực:} Hỗ trợ Operator thao tác bật/tắt (Activate/Deactivate) các cổng sạc hoặc khóa xe phục vụ bảo trì mà không cần can thiệp mức cơ sở dữ liệu.
 \end{itemize}
 
@@ -568,10 +568,10 @@ Bảng điều khiển giám sát mạng lưới cung cấp bức tranh tổng t
 Hỗ trợ Operator xử lý trực tiếp tình trạng mất cân đối phương tiện và sự cố kỹ thuật phát sinh:
 \begin{itemize}[nosep]
     \item \textbf{Tabs chức năng nghiệp vụ:} Gồm \textit{Điều phối xe}, \textit{Báo cáo sự cố}, và \textit{Nhật ký}.
-    \item \textbf{Ma trận trạng thái tải 6 Hub:} Hiển thị đầy đủ số xe, chỗ trống, tỷ lệ lấp đầy và phân loại trạng thái bằng mã màu:
+    \item \textbf{Ma trận trạng thái tải 6 Hub:} Hiển thị đầy đủ số xe, chỗ trống, tỷ lệ lấp đầy và phân loại trạng thái theo ngưỡng quy định:
     \begin{itemize}[nosep]
-        \item Hub KTX Khu B: $10\text{ xe}$, $8\text{ chỗ trống}$, lấp đầy $\mathbf{86.7\%}$ $\rightarrow$ \textbf{Quá tải} (chấm đỏ).
-        \item Hub KTX Khu A: $8\text{ xe}$, $15\text{ chỗ trống}$, lấp đầy $\mathbf{62.5\%}$ $\rightarrow$ \textbf{Mức cao} (chấm vàng).
+        \item Hub KTX Khu B: $10\text{ xe}$, $8\text{ chỗ trống}$, lấp đầy $\mathbf{86.7\%}$ $\rightarrow$ \textbf{Quá tải} (chấm đỏ, $>85\%$).
+        \item Hub KTX Khu A: $8\text{ xe}$, $15\text{ chỗ trống}$, lấp đầy $\mathbf{62.5\%}$ $\rightarrow$ \textbf{Mức cao} (chấm vàng theo ngưỡng giao diện prototype $>60\%$).
         \item Hub Trường ĐH Bách Khoa: $7\text{ xe}$, $20\text{ chỗ trống}$, lấp đầy $\mathbf{60.0\%}$ $\rightarrow$ \textbf{Bình thường} (chấm xanh).
         \item Các Hub Nhà Khách ($52\%$), ĐH KHXH\&NV ($40\%$), ĐH CNTT ($37.1\%$) đều ở trạng thái bình thường.
     \end{itemize}
@@ -644,8 +644,8 @@ Giúp nhà vận hành thử nghiệm các kịch bản gia tăng hành khách �
     \item \textbf{Cấu hình tham số mô phỏng trực quan:} Cho phép tùy chỉnh tỉ lệ sinh viên đến cơ bản ($15\text{ SV/giờ}$), thanh trượt hệ số tăng đột biến (Surge Multiplier $1.00\times - 5.00\times$), và số giờ mô phỏng ($12\text{ giờ}$).
     \item \textbf{Biểu đồ phân tích Plotly tương tác 2 trục tung:}
     \begin{itemize}[nosep]
-        \item Cột màu lam (trục tung trái): Biểu diễn số lượng sinh viên đổ về Hub theo từng mốc thời gian trong ngày (đạt đỉnh $40\text{ người/giờ}$ vào các khung giờ 08:00 sáng và 17:00 chiều).
-        \item Đường đỏ cam (trục tung phải): Thể hiện độ dài hàng đợi tích lũy dồn ứ tăng dần từ sáng sớm đến cuối buổi chiều (vượt mốc $170\text{ người}$ nếu không có biện pháp điều phối xe kịp thời).
+        \item Cột màu lam (trục tung trái): Biểu diễn số lượng sinh viên đổ về Hub theo từng mốc thời gian trong ngày (đạt đỉnh gần $40\text{ người/giờ}$ vào các khung giờ 08:00 sáng và 17:00 chiều).
+        \item Đường đỏ cam (trục tung phải): Thể hiện độ dài hàng đợi tích lũy dồn ứ tăng dần từ sáng sớm đến cuối buổi chiều (vượt mốc $150\text{ người}$ nếu không có biện pháp điều phối xe kịp thời).
     \end{itemize}
     \item \textbf{Ứng dụng hỗ trợ ra quyết định:} Giúp người vận hành dự báo trước chính xác số lượng phương tiện cần điều động bổ sung về trạm ga Metro trước các khung giờ cao điểm.
 \end{itemize}
@@ -928,7 +928,7 @@ Mục này trình bày chi tiết \textbf{17 Sơ đồ Tuần tự (Sequence Dia
 \subsection{Phân hệ SS6: Mô phỏng What-if Nhu cầu (Hoàng Văn Tấn)}
 
 \subsubsection{UC\_SS6\_01: Mô phỏng đợt tăng đột biến hành khách Metro (Metro Surge)}
-\paragraph{Mô tả nghiệp vụ:} Chuyên viên quy hoạch thiết lập tham số đợt xả khách Metro tại Ga Suối Tiên, động cơ mô phỏng \texttt{HubEventSimulator} tính toán áp lực thiếu xe và đề xuất lượng xe cần điều phối bù.
+\paragraph{Mô tả nghiệp vụ:} Nhà phân tích / Người vận hành Hub thiết lập tham số đợt xả khách tại ga Metro ĐHQG-HCM (Hub KTX Khu B), động cơ mô phỏng \texttt{HubEventSimulator} thực hiện biến đổi trên bản sao sâu (\texttt{deepcopy}) dữ liệu trạm, tính toán áp lực thiếu xe và đề xuất lượng xe cần điều phối bù sang SS4.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.88\textwidth,height=0.68\textheight,keepaspectratio]{Use-case detail-scenario/SS6/Sequence diagrams/UC_SS6_01_HoangVanTan_sequence.png}
@@ -994,7 +994,7 @@ Toàn bộ 17 sơ đồ hoạt động phân làn (Swimlane Activity Diagrams) t
         \textbf{Phân hệ} & \textbf{Mã UC} & \textbf{Luồng Rẽ Nhánh (Alternate Flow)} & \textbf{Luồng Ngoại Lệ (Exception Flow)} \\
         \hline
         SS1 & UC\_SS1\_01 & Nhập mã PIN thủ công thay vì quét QR & Số dư ví không đủ 50.000 VNĐ; quá 15p No-show (phạt 10k, hoàn 40k) \\
-        SS1 & UC\_SS1\_02 & Trả xe khác Hub mượn (1-chiều) & Pin dưới 20\% phạt sạc; chốt khóa Hub báo đầy \\
+        SS1 & UC\_SS1\_02 & Trả xe tại Hub khác điểm mượn & Hub đích đầy/offline: kích hoạt gợi ý 1-chạm sang Hub lân cận \\
         SS1 & UC\_SS1\_03 & Hủy trong 15p hoàn 100\% cọc; chọn tìm Hub khác & Quá 15p không nhận (No-show: phạt 10k, hoàn 40k) \\
         \hline
         SS2 & UC\_SS2\_01 & Bổ sung giấy tờ xe qua xác minh thủ công & Biển số xe đã tồn tại trên hệ thống \\
@@ -1002,7 +1002,7 @@ Toàn bộ 17 sơ đồ hoạt động phân làn (Swimlane Activity Diagrams) t
         SS2 & UC\_SS2\_03 & Nhận diện tự động qua camera ANPR & Thẻ RFID lỗi, nhập mã đặt chỗ dự phòng \\
         SS2 & UC\_SS2\_04 & Thanh toán qua ví điện tử nội bộ & Số dư ví không đủ, chuyển cổng VNPay \\
         \hline
-        SS3 & UC\_SS3\_01 & Lọc hiển thị theo từng khu vực Hub & Mất tín hiệu cảm biến IoT quá 60 giây \\
+        SS3 & UC\_SS3\_01 & Đẩy thông báo lỗi cảm biến sang KTV & Cảm biến IoT timeout, chuyển hiển thị dữ liệu cache \\
         SS3 & UC\_SS3\_02 & Hệ thống tự động đẩy đề xuất lệnh sang SS4 & Người điều hành từ chối lệnh đề xuất \\
         \hline
         SS4 & UC\_SS4\_01 & Điều phối xe tải lớn vận chuyển hàng loạt & Lái xe điều phối báo tắc đường trễ giờ \\
@@ -1012,7 +1012,7 @@ Toàn bộ 17 sơ đồ hoạt động phân làn (Swimlane Activity Diagrams) t
         SS5 & UC\_SS5\_02 & Sinh viên di chuyển xe trong 15p ân hạn & Quá 15p tính phí chiếm dụng 10.000đ/15p \\
         \hline
         SS6 & UC\_SS6\_01 & Điều chỉnh tham số Metro tăng 200\% & Dữ liệu lịch sử tuyến Metro không khả dụng \\
-        SS6 & UC\_SS6\_02 & Xuất báo cáo phân tích định dạng PDF & Thời gian chờ tính toán vượt ngưỡng an toàn \\
+        SS6 & UC\_SS6\_02 & Tùy chỉnh tham số What-if trực quan & Tham số ngoài khoảng: fallback về giá trị mặc định \\
         \hline
         SS7 & UC\_SS7\_01 & Chuyển tải sang máy phát điện phụ trợ & Trạm sạc chập điện ngắt toàn bộ trạm \\
         SS7 & UC\_SS7\_02 & Sinh viên chấp nhận gợi ý Hub lân cận & Sinh viên từ chối, hủy phiên và hoàn cọc \\

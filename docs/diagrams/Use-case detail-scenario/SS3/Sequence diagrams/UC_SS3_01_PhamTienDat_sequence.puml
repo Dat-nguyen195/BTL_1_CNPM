@@ -1,6 +1,6 @@
 @startuml
 !theme aws-orange
-actor "Operator / Admin" as Op
+actor "Nhân viên Vận hành\n(Operator)" as Op
 participant "Dashboard SS3" as UI
 participant "st.session_state" as SS
 participant "Mạng cảm biến IoT" as IoT
