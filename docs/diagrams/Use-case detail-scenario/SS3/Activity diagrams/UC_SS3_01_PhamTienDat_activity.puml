@@ -1,6 +1,6 @@
 @startuml
-!theme aws-orange
-|Operator / Admin|
+!theme plain
+|Nhân viên Vận hành (Operator)|
 start
 :Truy cập tab "Dashboard Giám sát" trên giao diện SS3;
 
@@ -17,7 +17,7 @@ if (Tài khoản Admin?) then (Có)
 else (Không)
 endif
 
-|Operator / Admin|
+|Nhân viên Vận hành (Operator)|
 :Quan sát các chỉ số cập nhật theo thời gian thực;
 
 |Hệ thống SS3 (Dashboard · st.session_state · IoT)|

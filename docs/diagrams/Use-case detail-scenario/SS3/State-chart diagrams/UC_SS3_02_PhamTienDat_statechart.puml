@@ -1,5 +1,5 @@
 @startuml
-!theme aws-orange
+!theme plain
 [*] --> BinhThuong
 
 state "Bình thường" as BinhThuong : Tỷ lệ lấp đầy < 70%

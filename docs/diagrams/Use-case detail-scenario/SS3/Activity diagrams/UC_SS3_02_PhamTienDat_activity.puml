@@ -1,5 +1,5 @@
 @startuml
-!theme aws-orange
+!theme plain
 |Hệ thống – Multi-level alert logic|
 start
 :Đánh giá tỷ lệ lấp đầy từng Hub (số xe / sức chứa) từ st.session_state["hubs"];

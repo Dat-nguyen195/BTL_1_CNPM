@@ -1,5 +1,5 @@
 @startuml
-!theme aws-orange
+!theme plain
 participant "Logic cảnh báo (Multi-level)" as Sys
 participant "st.session_state" as SS
 participant "Dashboard cảnh báo" as UI

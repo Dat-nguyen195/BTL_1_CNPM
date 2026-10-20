@@ -1,5 +1,5 @@
 @startuml
-!theme aws-orange
+!theme plain
 [*] --> ChoTruyCap
 
 state "Chờ truy cập" as ChoTruyCap : Operator/Admin đã đăng nhập

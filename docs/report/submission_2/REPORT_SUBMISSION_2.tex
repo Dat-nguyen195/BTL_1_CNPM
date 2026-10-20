@@ -336,7 +336,7 @@ Nhóm \textbf{BEE BRAVE} xin bày tỏ lòng biết ơn chân thành và sâu s�
 \subsection{Tổng quan nguyên tắc thiết kế UI/UX \& Điều hướng chung}
 Hệ thống Smart E-Mobility Hub được xây dựng dựa trên nguyên lý tối giản thao tác, định hướng trải nghiệm người dùng hiện đại và tích hợp hoàn chỉnh các yêu cầu phi chức năng:
 \begin{itemize}[nosep]
-    \item \textbf{Đáp ứng đa nền tảng (NFR-07 Responsive):} Giao diện thích ứng linh hoạt từ màn hình điện thoại di động ($375\text{ px}$), máy tính bảng đến màn hình Dashboard điều hành lớn ($1920\text{ px}$).
+    \item \textbf{Đáp ứng đa nền tảng (NFR-07 Responsive):} Giao diện Streamlit hỗ trợ co giãn theo tỷ lệ màn hình hiển thị (Responsive Layout), từ trình duyệt di động đến màn hình Dashboard điều hành trung tâm ($1920\text{ px}$).
     \item \textbf{Thao tác tối giản (NFR-08 User Journey):} Đảm bảo quy trình đặt xe hoặc đăng ký trụ sạc hoàn tất trong \textbf{không quá 03 bước tương tác chính}.
     \item \textbf{Bản địa hóa \& Trực quan (NFR-09 Usability):} 100\% giao diện hỗ trợ ngôn ngữ tiếng Việt chuẩn mực, tích hợp định dạng tiền tệ Việt Nam (VNĐ), mã màu phân định trạng thái pin (Xanh $\ge 50\%$, Vàng $20-49\%$, Đỏ $<20\%$) và mức độ lấp đầy Hub.
 \end{itemize}
@@ -427,16 +427,16 @@ Sơ đồ dưới đây thể hiện luồng di chuyển tổng quan của ngư�
         \draw[arr] (dispatch) -- (whatif);
     \end{tikzpicture}%
     }
-    \caption{Sơ đồ Luồng Màn hình Điều hướng Tổng thể (Screen Navigation Flow)}
+    \caption{Sơ đồ Luồng Màn hình Điều hướng Tổng thể (Screen Navigation Flow -- Đăng nhập SSO và phân vai là thiết kế mục tiêu, prototype điều hướng qua Sidebar)}
     \label{fig:screen-flow}
 \end{figure}
 
 \clearpage
 \clearpage
 \subsection{Giao diện Thực tế Phân hệ Sinh viên (SS1 \& SS2)}
-Phân hệ Sinh viên được xây dựng theo triết lý thiết kế di động ưu tiên (\textit{Mobile-first Design}), hướng tới phục vụ hơn $60.000$ sinh viên, giảng viên và cán bộ đang sinh hoạt, học tập tại Đô thị ĐHQG-HCM. Toàn bộ hành trình người dùng (User Journey) được tinh gọn tối đa nhằm đáp ứng tiêu chuẩn thời gian thao tác dưới 60 giây từ khi mở ứng dụng đến khi nhận xe thành công:
+Phân hệ Sinh viên được thiết kế giao diện hướng người dùng di động (Mobile-friendly Layout), hướng tới quy mô phục vụ toàn Đô thị ĐHQG-HCM. Toàn bộ hành trình người dùng (User Journey) được tinh gọn tối đa nhằm đáp ứng tiêu chuẩn thời gian thao tác nhanh chóng từ khi mở ứng dụng đến khi nhận xe thành công:
 \begin{itemize}[nosep]
-    \item \textbf{Định danh tập trung \& Bảo mật 2 lớp (VNU-SSO):} Tích hợp giao thức OAuth 2.0 / OpenID Connect với hệ sinh thái quản lý tài khoản của ĐHQG-HCM, tự động đồng bộ dữ liệu sinh viên (MSSV, Họ tên, Viện/Trường) và liên kết số dư ví điện tử sinh viên.
+    \item \textbf{Định danh tập trung \& Bảo mật 2 lớp (VNU-SSO):} Mô phỏng cơ chế định danh VNU-SSO (thiết kế mục tiêu hỗ trợ giao thức OAuth 2.0 / OpenID Connect) tích hợp dữ liệu sinh viên (MSSV, Họ tên, Viện/Trường) và số dư ví điện tử mô phỏng.
     \item \textbf{Trực quan hóa Bản đồ GIS \& Năng lực Trạm:} Giao diện hiển thị trực quan bản đồ 6 Hub trung tâm với trạng thái cập nhật thời gian thực về số chỗ đỗ trống, số cổng sạc khả dụng và số lượng xe điện sẵn sàng lăn bánh.
     \item \textbf{Quy trình 3 bước minh bạch (3-Step Booking Journey):} Xóa bỏ hoàn toàn tình trạng nhập nhằng phí ẩn thông qua cơ chế bảng giá tham khảo trực quan, thông báo miễn phí 30 phút đầu theo chính sách Đại học Xanh, và cấp mã PIN mở khóa IoT chỉ sau 1 chạm xác nhận.
 \end{itemize}
@@ -453,7 +453,7 @@ Bảng \ref{tab:ui-student-screens} dưới đây tổng hợp danh mục và đ
         \hline
         \textbf{Mã MH} & \textbf{Tên Màn hình / Chức năng} & \textbf{Các Thành phần Giao diện \& Dữ liệu Chính} \\
         \hline
-        M-01 & Đăng nhập VNU-SSO & Xác thực tập trung tài khoản ĐHQG-HCM, hỗ trợ 2FA OTP. \\
+        M-01 & Đăng nhập VNU-SSO (Thiết kế mục tiêu) & Giao diện đăng nhập tài khoản sinh viên ĐHQG-HCM (mục tiêu OAuth 2.0 / 2FA OTP). \\
         \hline
         M-02 & Bản đồ Mạng lưới 6 Hub & Định vị trạm theo GIS, hiển thị số xe sẵn sàng và cổng sạc trống. \\
         \hline
@@ -463,7 +463,7 @@ Bảng \ref{tab:ui-student-screens} dưới đây tổng hợp danh mục và đ
         \hline
         M-05 & Đăng ký Xe EV Cá nhân (SS2) & Biểu mẫu thu thập biển số, model xe, dung lượng pin và cổng sạc. \\
         \hline
-        M-06 & Check-in / Check-out Hub & Quét mã QR/thẻ RFID, tự động nâng hạ barie và quyết toán ví điện tử. \\
+        M-06 & Check-in / Check-out Hub (Thiết kế mục tiêu) & Mô phỏng quét mã QR/thẻ RFID, tín hiệu mở cổng và quyết toán ví điện tử. \\
         \hline
     \end{tabularx}
 \end{table}
@@ -500,7 +500,7 @@ Phân hệ SS2 (\texttt{src/components/personal\_ev.py}) giải quyết bài to�
         \item Hãng sản xuất \& Model: \textbf{VinFast Klara S 2026}; Dung lượng pin danh định: $\mathbf{2.00}\textbf{ kWh}$.
     \end{itemize}
     \item \textbf{Hành động Đăng ký xe:} Nút bấm [Đăng ký xe] thực hiện kiểm tra tính hợp lệ dữ liệu, tự động cấp mã định danh duy nhất \texttt{PEV-2026}, liên kết trực tiếp với thẻ RFID sinh viên hoặc mã QR Check-in.
-    \item \textbf{Tích hợp vận hành bãi đỗ:} Dữ liệu xe cá nhân sau khi đăng ký được đưa vào cơ sở dữ liệu Hub, phục vụ tự động nâng hạ barie khi xe check-in tại cổng trạm và áp dụng biểu giá sạc ưu đãi nội bộ dành riêng cho sinh viên ĐHQG-HCM.
+    \item \textbf{Tích hợp vận hành bãi đỗ:} Dữ liệu xe cá nhân sau khi đăng ký được đưa vào cơ sở dữ liệu Hub, phục vụ xác thực check-in tại cổng trạm (mô phỏng tín hiệu barie) và áp dụng biểu giá sạc ưu đãi nội bộ dành riêng cho sinh viên ĐHQG-HCM.
 \end{itemize}
 
 \begin{figure}[H]
@@ -508,7 +508,7 @@ Phân hệ SS2 (\texttt{src/components/personal\_ev.py}) giải quyết bài to�
     \includegraphics[width=0.92\textwidth,height=0.36\textheight,keepaspectratio]{screenshots/ss2_personal_ev.png}
     \caption{Giao diện Thực tế Prototype: Đăng ký Phương tiện EV Cá nhân \& Quản lý Bãi đỗ (Phân hệ SS2)}
     \label{fig:ui-ss2-real}
-    Biểu mẫu trực tuyến hỗ trợ sinh viên đăng ký thông số kỹ thuật xe máy điện cá nhân (VinFast Klara S, pin 2.0 kWh), cấp mã định danh PEV phục vụ check-in tự động qua cảm biến barie và lập lịch sạc thông minh.
+    Biểu mẫu trực tuyến hỗ trợ sinh viên đăng ký thông số kỹ thuật xe máy điện cá nhân (VinFast Klara S, pin 2.0 kWh), cấp mã định danh PEV phục vụ xác thực check-in tự động và lập lịch sạc thông minh.
 \end{figure}
 
 \clearpage
@@ -517,7 +517,7 @@ Trung tâm vận hành và điều phối mạng lưới (\texttt{hub\_monitor.p
 \begin{itemize}[nosep]
     \item \textbf{Kiến trúc hiển thị phân tầng (Hierarchical Layout):} Cung cấp góc nhìn 3 cấp độ: Cấp độ vĩ mô toàn đô thị (Bộ 4 thẻ KPIs tổng hợp), Cấp độ trạm Hub (Mã màu cảnh báo quá tải $70\%/85\%$), và Cấp độ chi tiết thiết bị (Tình trạng từng xe và từng trụ sạc).
     \item \textbf{Phân định vai trò Operator vs Admin:} Giao diện trao quyền cho Operator thao tác trực tiếp trên dữ liệu thời gian thực: phát lệnh điều xe thừa sang thiếu, bật/tắt (Activate/Deactivate) cổng sạc phục vụ bảo dưỡng khẩn cấp, mà không cần can thiệp mức cơ sở dữ liệu.
-    \item \textbf{Tối ưu hóa hàng đợi sạc đa tiêu chí:} Tự động chấm điểm ưu tiên phương tiện theo dung lượng pin xả sâu (SoC) và lịch đặt trước, loại bỏ hoàn toàn can thiệp cảm tính của con người.
+    \item \textbf{Tối ưu hóa hàng đợi sạc đa tiêu chí:} Tự động chấm điểm ưu tiên phương tiện theo dung lượng pin xả sâu (SoC) và lịch đặt trước, tự động hóa chấm điểm dựa trên thuật toán đa mục tiêu.
 \end{itemize}
 
 Bảng \ref{tab:ui-operator-screens} dưới đây đặc tả các màn hình điều khiển nghiệp vụ phục vụ công tác giám sát, điều phối và sạc thông minh:
@@ -534,7 +534,7 @@ Bảng \ref{tab:ui-operator-screens} dưới đây đặc tả các màn hình �
         \hline
         D-01 & Dashboard Giám sát Mạng lưới (SS3) & 4 thẻ KPI đô thị, cảnh báo quá tải $>85\%$, bản đồ số 6 Hub. \\
         \hline
-        D-02 & Quản lý Tài nguyên \& Thiết bị (SS3) & Bật/Tắt (Activate/Deactivate) cổng sạc, trụ xe theo thời gian thực. \\
+        D-02 & Quản lý Tài nguyên \& Thiết bị (SS3/SS7) & Bật/Tắt (Activate/Deactivate) cổng sạc, trụ xe theo thời gian thực. \\
         \hline
         D-03 & Trung tâm Điều phối Xe (SS4) & Bảng ma trận tải 6 Hub, form chuyển xe từ Hub thừa sang Hub thiếu. \\
         \hline
@@ -551,7 +551,7 @@ Bảng điều khiển giám sát mạng lưới cung cấp bức tranh tổng t
 \begin{itemize}[nosep]
     \item \textbf{Bộ 4 thẻ KPI vận hành trọng yếu:} Tổng số xe hiện hữu trên mạng lưới ($40\text{ xe}$), Tỉ lệ lấp đầy bình quân ($60.4\%$), Tổng chỗ trống khả dụng ($95/240\text{ chỗ}$), và Tổng số cổng sạc khả dụng ($25/59\text{ cổng}$).
     \item \textbf{Hộp cảnh báo quá tải tự động (Red Visual Alert):} Hệ thống giám sát tự động kích hoạt cảnh báo đỏ nổi bật khi phát hiện trạm vượt ngưỡng tải cảnh báo ($> 85\%$): \textit{"Hub KTX Khu B -- Tỉ lệ lấp đầy: 87\% $\rightarrow$ Cần điều phối!"}.
-    \item \textbf{Bản đồ tương tác OpenStreetMap (Folium/PyDeck):} Thể hiện tọa độ địa lý thực tế của 6 Hub trung tâm trong khuôn viên ĐHQG-HCM (KTX Khu A, KTX Khu B, Nhà Khách, ĐH Bách Khoa, ĐH KHXH\&NV, ĐH CNTT) với màu sắc phản ánh tức thời mức độ bận rộn của trạm theo ngưỡng quy định: $<70\%$ Bình thường (xanh), $70-85\%$ Mức cao (vàng), $>85\%$ Quá tải (đỏ).
+    \item \textbf{Bản đồ tương tác các trạm Hub (Streamlit map / PyDeck):} Thể hiện tọa độ địa lý thực tế của 6 Hub trung tâm trong khuôn viên ĐHQG-HCM (KTX Khu A, KTX Khu B, Nhà Khách, ĐH Bách Khoa, ĐH KHXH\&NV, ĐH CNTT) với trực quan hóa vị trí các trạm kết hợp ma trận giám sát tải theo ngưỡng quy định: $<70\%$ Bình thường (xanh), $70-85\%$ Mức cao (vàng), $>85\%$ Quá tải (đỏ).
     \item \textbf{Quản lý thiết bị thời gian thực:} Hỗ trợ Operator thao tác bật/tắt (Activate/Deactivate) các cổng sạc hoặc khóa xe phục vụ bảo trì mà không cần can thiệp mức cơ sở dữ liệu.
 \end{itemize}
 
@@ -787,7 +787,7 @@ Mục này trình bày chi tiết \textbf{17 Sơ đồ Tuần tự (Sequence Dia
 \end{table}
 
 \subsubsection{UC\_SS1\_02: Trả xe 1-chiều \& Quyết toán ví điện tử}
-\paragraph{Mô tả nghiệp vụ:} Sinh viên đưa xe vào chốt khóa tại Hub bất kỳ. Cảm biến IoT xác thực vị trí chốt, đọc dung lượng pin hiện tại, tính cước thuê xe thực tế, hoàn lại phần cọc dư vào ví và xuất hóa đơn điện tử e-Invoice.
+\paragraph{Mô tả nghiệp vụ:} Sinh viên đưa xe vào chốt khóa tại Hub bất kỳ. Tín hiệu cảm biến IoT (mô phỏng) xác thực vị trí chốt, đọc dung lượng pin hiện tại, tính cước thuê xe thực tế, hoàn lại phần cọc dư vào ví và xuất hóa đơn điện tử e-Invoice.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.88\textwidth,height=0.68\textheight,keepaspectratio]{Use-case detail-scenario/SS1/Sequence diagrams/UC_SS1_02_NguyenThanhDat_sequence.png}
@@ -832,7 +832,7 @@ Mục này trình bày chi tiết \textbf{17 Sơ đồ Tuần tự (Sequence Dia
 \clearpage
 
 \subsubsection{UC\_SS2\_03: Check-in xe EV cá nhân tại Hub}
-\paragraph{Mô tả nghiệp vụ:} Camera ANPR tại cổng Hub nhận diện biển số xe trùng khớp với phiên đặt trước, mở barie tự động và chỉ dẫn sinh viên vào đúng vị trí slot đỗ/sạc.
+\paragraph{Mô tả nghiệp vụ:} Hệ thống nhận diện biển số xe (hoặc mã QR/RFID) trùng khớp với phiên đặt trước, kích hoạt tín hiệu mở cổng tự động và chỉ dẫn sinh viên vào đúng vị trí slot đỗ/sạc.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.88\textwidth,height=0.68\textheight,keepaspectratio]{Use-case detail-scenario/SS2/Sequence diagrams/UC_SS2_03_NguyenAnhTai_sequence.png}
@@ -843,7 +843,7 @@ Mục này trình bày chi tiết \textbf{17 Sơ đồ Tuần tự (Sequence Dia
 \clearpage
 \begin{landscape}
 \subsubsection{UC\_SS2\_04: Check-out và thanh toán dịch vụ xe cá nhân}
-\paragraph{Mô tả nghiệp vụ:} Khi sinh viên lấy xe ra, hệ thống tính toán tổng thời gian đỗ, điện năng tiêu thụ (kWh), tự động trừ ví điện tử và mở barie ra.
+\paragraph{Mô tả nghiệp vụ:} Khi sinh viên lấy xe ra, hệ thống tính toán tổng thời gian đỗ, điện năng tiêu thụ (kWh), tự động trừ ví điện tử và phát tín hiệu mở cổng bãi đỗ.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.98\linewidth,height=0.82\textheight,keepaspectratio]{Use-case detail-scenario/SS2/Sequence diagrams/UC_SS2_04_NguyenAnhTai_sequence.png}
@@ -859,7 +859,7 @@ Mục này trình bày chi tiết \textbf{17 Sơ đồ Tuần tự (Sequence Dia
 \subsection{Phân hệ SS3: Giám sát Mạng lưới Hub (Phạm Tiến Đạt)}
 
 \subsubsection{UC\_SS3\_01: Giám sát trạng thái Hub theo thời gian thực}
-\paragraph{Mô tả nghiệp vụ:} Dashboard liên tục truy vấn dữ liệu từ cảm biến IoT và trạng thái xe trong \texttt{st.session\_state["hubs"]}, tính toán tỷ lệ lấp đầy, số xe hoạt động và doanh thu tạm tính.
+\paragraph{Mô tả nghiệp vụ:} Dashboard liên tục truy vấn dữ liệu từ cảm biến IoT (mô phỏng qua trạng thái xe) trong \texttt{st.session\_state["hubs"]}, tính toán tỷ lệ lấp đầy, số xe hoạt động và doanh thu tạm tính.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.88\textwidth,height=0.68\textheight,keepaspectratio]{Use-case detail-scenario/SS3/Sequence diagrams/UC_SS3_01_PhamTienDat_sequence.png}
