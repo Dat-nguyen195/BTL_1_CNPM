@@ -1,40 +1,79 @@
-@startuml
-!theme plain
+@startuml UC_SS3_01_PhamTienDat_sequence
+!include ../../../common.puml
+skinparam sequenceMessageAlign center
+skinparam maxMessageSize 150
+skinparam BoxPadding 10
+
+title "Detailed UML Sequence Diagram: SS3 - Giám sát tổng quan mạng lưới Hub & Doanh thu (US-07)"
+
 actor "Nhân viên Vận hành\n(Operator)" as Op
-participant "Dashboard SS3" as UI
-participant "st.session_state" as SS
-participant "Mạng cảm biến IoT" as IoT
-actor "Kỹ thuật viên" as Tech
 
-Op -> UI: Truy cập tab «Dashboard Giám sát»
-UI -> SS: Truy xuất st.session_state["hubs"]
-SS --> UI: Dữ liệu các Hub
-UI -> IoT: Yêu cầu dữ liệu cảm biến
+box "Boundary / UI Layer" #LightCyan
+participant "hub_monitor.py\n(Dashboard UI)" as UI
+end box
 
-alt IoT phản hồi đúng hạn
-    IoT --> UI: Dữ liệu cảm biến
-    UI --> Op: Trả về Dashboard: số xe, tỷ lệ lấp đầy từng Hub, doanh thu tạm tính (VNĐ)
-else Timeout / mất kết nối (Exception 1)
-    UI -> UI: Đọc cache gần nhất
-    UI --> Op: Hiển thị cache + "Cảnh báo: Dữ liệu thời gian thực đang bị gián đoạn"
+box "External Authentication" #White
+participant "Cổng VNU-SSO\n(SSO)" as SSO
+end box
+
+box "Control & State" #LightYellow
+participant "st.session_state\n(AppState)" as AppState
+end box
+
+box "External Payment" #White
+participant "Sổ cái / Doanh thu\n(Wallet Ledger)" as EWallet
+end box
+
+box "Hardware / IoT" #LightGray
+participant "Cảm biến trạm Hub\n(IoT Telemetry)" as IoT
+end box
+
+autonumber 1.1
+group 1. Tải dữ liệu trạng thái các Hub & Doanh thu
+    Op -> UI: Truy cập tab "Giám sát Mạng lưới Hub"
+    activate UI
+    
+    UI -> AppState: Đọc st.session_state["hubs"]\n& st.session_state["current_sim_time"]
+    activate AppState
+    AppState --> UI: Danh sách Hub, sức chứa, chỗ trống, cổng sạc
+    deactivate AppState
+
+    UI -> EWallet: Truy vấn số dư sổ cái & doanh thu (US-07)
+    activate EWallet
+    EWallet --> UI: Dữ liệu giao dịch, tổng doanh thu dịch vụ
+    deactivate EWallet
+
+    UI -> IoT: Yêu cầu dữ liệu cảm biến thời gian thực
+    activate IoT
+    IoT --> UI: Phản hồi thông số cảm biến trạm
+    deactivate IoT
+
+    UI --> Op: Hiển thị KPI cards, bản đồ trạm và biểu đồ lấp đầy
+    deactivate UI
 end
 
-opt Tài khoản Admin
-    UI --> Op: Hiển thị thêm doanh thu tổng hợp và công cụ cấu hình ngưỡng cảnh báo
+autonumber 2.1
+group 2. Làm mới Telemetry & Giám sát liên tục
+    Op -> UI: Nhấn "Cập nhật Telemetry"
+    activate UI
+    
+    UI -> IoT: Quét lại dữ liệu cảm biến
+    activate IoT
+    alt Cảm biến hoạt động bình thường
+        IoT --> UI: Dữ liệu đo đạc mới nhất (Timestamp đồng bộ)
+        deactivate IoT
+        UI --> Op: Làm mới giao diện giám sát & cập nhật trạng thái
+    else Cảm biến mất kết nối / Timeout
+        activate IoT
+        IoT --> UI: Lỗi kết nối cảm biến trạm
+        deactivate IoT
+        UI -> AppState: Ghi nhận sự cố cảnh báo cảm biến
+        activate AppState
+        AppState --> UI: Đã cập nhật nhật ký sự cố
+        deactivate AppState
+        UI --> Op: Hiển thị nhãn "Dữ liệu cache gần nhất - Cảnh báo mất kết nối"
+    end
+    deactivate UI
 end
 
-loop Cập nhật thời gian thực
-    IoT -> UI: Đẩy chỉ số cập nhật liên tục
-    UI --> Op: Làm mới các chỉ số
-end
-
-alt Lỗi nghiêm trọng từ cảm biến (Alt 1)
-    IoT -> UI: Lỗi nghiêm trọng (mất tín hiệu hoàn toàn)
-    UI -> Tech: Push notification / pop-up
-    Tech -> UI: Nhấp vào thông báo để xem chi tiết
-else Kỹ thuật viên chủ động kiểm tra
-    Tech -> UI: Nhấp mục «Log/Lỗi IoT»
-    UI --> Tech: Danh sách cảm biến sự cố / dữ liệu bất thường
-    Tech -> Tech: Ghi nhận vị trí Hub, loại cảm biến;\nlên phương án bảo trì
-end
 @enduml

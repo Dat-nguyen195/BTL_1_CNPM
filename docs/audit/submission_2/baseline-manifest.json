@@ -1,0 +1,959 @@
+{
+  "audit_date": "2026-10-21",
+  "root": "smart-emobility-hub",
+  "source_pdf": "../BTL_SoftwareEngineering_HK261_v1.pdf",
+  "files": [
+    {
+      "path": ".github/pull_request_template.md",
+      "sha256": "a640c4eb031ac17f35d888fb596e776a8c03c25802e7ba3403ea531196d9884f"
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "3ad70f924f5e74cfaad5dd6f23be4fd6bc809c135891337ff916c22f4b2e0843"
+    },
+    {
+      "path": "PLAN_FIX_SUBMISSION_2.md",
+      "sha256": "3ca44df303b34a92ca54351652a5a7d7863a0c2311c41fe5d2610191ddf46f59"
+    },
+    {
+      "path": "README.md",
+      "sha256": "bc257bbe9462062bb769e184c6b8d10c82d00fe5bef210d42bb195020870f695"
+    },
+    {
+      "path": "docs/README.md",
+      "sha256": "7c9364e4c069adfdb6592a6ba3cfa7b2652db7382d63408fd0706feaa6c2d482"
+    },
+    {
+      "path": "docs/ai-statement.md",
+      "sha256": "a76bfedb16d7c69772b7d7d38b7d533dc08d9638eebaae8f76715aa6af6834af"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS1/Activity diagrams/UC_SS1_01_NguyenThanhDat_activity.png",
+      "sha256": "9b7281f0367cacef5deb19b672932b83c5804d04353a22ae949a434968909d80"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS1/Activity diagrams/UC_SS1_01_NguyenThanhDat_activity.puml",
+      "sha256": "16a2bf54b95877e06fd121ed53ddc575e6f4267a46e8a0e0963f4e5ab2e16838"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS1/Activity diagrams/UC_SS1_02_NguyenThanhDat_activity.png",
+      "sha256": "f47e05ef9ad4b854b82fb82e7d916598e95a825cb9e281ecf1b4941bd3d0b72a"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS1/Activity diagrams/UC_SS1_02_NguyenThanhDat_activity.puml",
+      "sha256": "4f0d304482e8c448190ca8f4d2dd84f3b2ce2f54abfada880d60646862cbdbed"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS1/Activity diagrams/UC_SS1_03_NguyenThanhDat_activity.png",
+      "sha256": "c60a9526a35a37414f30d158920c80c60b3c7b0dba22ac8019d1dd8f4546f43c"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS1/Activity diagrams/UC_SS1_03_NguyenThanhDat_activity.puml",
+      "sha256": "8701924e8a9b78e6de45844a8a6bf14e535f26530f49f3a0a0cc5b5b91673ea8"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS1/Sequence diagrams/UC_SS1_01_NguyenThanhDat_sequence.png",
+      "sha256": "6766bc9df8fb636c4ebf6f9496069bcfdcacc3707bce252e7aa8af324257e6e6"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS1/Sequence diagrams/UC_SS1_01_NguyenThanhDat_sequence.puml",
+      "sha256": "76e29f027f1cb71fae0591a33338810553329d0cc37bc5b65112f2d1197e9a7f"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS1/Sequence diagrams/UC_SS1_02_NguyenThanhDat_sequence.png",
+      "sha256": "ecdbb3c18a18c4f939cca2c57bcc0dfff8029b1020444a7ab475139f666c233c"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS1/Sequence diagrams/UC_SS1_02_NguyenThanhDat_sequence.puml",
+      "sha256": "42e4d5e7149472fb11eae108998cc6520cb2da3ee887ef4e1afbae6c56ae15b8"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS1/Sequence diagrams/UC_SS1_03_NguyenThanhDat_sequence.png",
+      "sha256": "bd5220271bbb95cf41acddbc7dc304a08687da73898d8fd5bae6e5cbf5c24336"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS1/Sequence diagrams/UC_SS1_03_NguyenThanhDat_sequence.puml",
+      "sha256": "68de4c6cf6eb7c17a9763539c30d887d2d38d7ef07cef4e34c4cd70c4dcec3be"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS1/State-chart diagrams/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS1/State-chart diagrams/UC_SS1_NguyenThanhDat_statechart.png",
+      "sha256": "b4f3048ebb9e18c9ec036e2e24a580a6c3fca4fdcd1cacdcb7107b67f193694b"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS1/State-chart diagrams/UC_SS1_NguyenThanhDat_statechart.puml",
+      "sha256": "5eded4f90ed8e3292fb66c5dfbcec4e95cb6fd02d52ea3bea645b2a1ecade400"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS1/Usecase scenario/UC_SS1_NguyenThanhDat.docx",
+      "sha256": "1f5419350434d20ae62f13c836120e4d91e0f960b4429d5182c4a8974d8b46e6"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS1/Usecase scenario/UC_SS1_NguyenThanhDat.md",
+      "sha256": "5d12368a784b430633588fbdb09fb842f6477367b6f8383fe7ce911614613dfe"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS1/Usecase scenario/UC_SS1_NguyenThanhDat_diagram.drawio",
+      "sha256": "2be58f5a56ac1eaf62f3b0741f26144496b55404839281b6a26ad0a5941c43d8"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS1/Usecase scenario/UC_SS1_NguyenThanhDat_diagram.pdf",
+      "sha256": "0a7c81ef79ffab074ae357c17982c613c05274c56d0742b86e399e166549e212"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS1/Usecase scenario/mau.png",
+      "sha256": "a9679067d0cd2af8d83bc1d8eaa880d74b06675f0bcad7bca0c227c3871f8d9d"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS2/Activity diagrams/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS2/Activity diagrams/UC_SS2_01_NguyenAnhTai_activity.png",
+      "sha256": "f140a6d950fc840a76914ce607f37f3ea284ee60eb23a9f521a28db8b8ff6e85"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS2/Activity diagrams/UC_SS2_01_NguyenAnhTai_activity.puml",
+      "sha256": "666bf69f3b9e2c2e0047b7289fc5f2f11d285f5fb68acf2fd6e3b1589a1ab2fd"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS2/Activity diagrams/UC_SS2_02_NguyenAnhTai_activity.png",
+      "sha256": "ee8ad8eb4bf54bf06ceecee146e17907fdc44297bf06af3fa0179c52563a9381"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS2/Activity diagrams/UC_SS2_02_NguyenAnhTai_activity.puml",
+      "sha256": "7fe307eb13490efb2232634cf22198a2dd04fb367596d20b828b5ecbe02e8c0f"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS2/Activity diagrams/UC_SS2_03_NguyenAnhTai_activity.png",
+      "sha256": "0df11e858df2714b5e55ee992fab47f9fe5859324805d7c8b38da4e6488a4035"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS2/Activity diagrams/UC_SS2_03_NguyenAnhTai_activity.puml",
+      "sha256": "41189b7ade839b15e0938cbc89f2fa50f8752325ce9a81bf017c526c83447fa9"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS2/Activity diagrams/UC_SS2_04_NguyenAnhTai_activity.png",
+      "sha256": "83750450cf30f3174abda0746e459bd7900be67e5f1d9fbf0647f6fca52dbb48"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS2/Activity diagrams/UC_SS2_04_NguyenAnhTai_activity.puml",
+      "sha256": "29979d162572132ed0349aa6cb4cb893a02926bf29757a3a48f247807b4523cf"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS2/Sequence diagrams/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS2/Sequence diagrams/UC_SS2_01_NguyenAnhTai_sequence.png",
+      "sha256": "e0f96e9434a685227cc5f9ba1980646278406f42a97f20b6f241a6e45cc7da2d"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS2/Sequence diagrams/UC_SS2_01_NguyenAnhTai_sequence.puml",
+      "sha256": "a60fa85f593aa1873d6b180e808da027ce17552bde97bd301715f67e3f2deacc"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS2/Sequence diagrams/UC_SS2_02_NguyenAnhTai_sequence.png",
+      "sha256": "584aeaccb00a781c60c621784b7ee36ebaff07b89772272524f50d3ec4ffd17e"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS2/Sequence diagrams/UC_SS2_02_NguyenAnhTai_sequence.puml",
+      "sha256": "2c03421ffe44bdc3ec61c78b45cbbac81edee074d9bd61a06db5ad9f9344545e"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS2/Sequence diagrams/UC_SS2_03_NguyenAnhTai_sequence.png",
+      "sha256": "f222ba708cd1593693d799679998d48bdcb0b43afa72441abce582b26722a7a9"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS2/Sequence diagrams/UC_SS2_03_NguyenAnhTai_sequence.puml",
+      "sha256": "33140a7bea6768b7f22ed52e6d6b159e4ae639df32faf7b197fee80aa56e62a9"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS2/Sequence diagrams/UC_SS2_04_NguyenAnhTai_sequence.png",
+      "sha256": "8a5b1e7ad54c6c88b439daab9f5e5bad3042e2067c488bb3a3bb386b1a9d682c"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS2/Sequence diagrams/UC_SS2_04_NguyenAnhTai_sequence.puml",
+      "sha256": "8b30204dda627fa09511659c9c3134d32dbb8b4825c30b46a29192b5e65f71dd"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS2/State-chart diagrams/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS2/State-chart diagrams/UC_SS2_NguyenAnhTai_statechart.png",
+      "sha256": "fff4e6843ba35f5957d20648b4cadef574a78c9221b7916a39cf40464a2d503e"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS2/State-chart diagrams/UC_SS2_NguyenAnhTai_statechart.puml",
+      "sha256": "8f833e33073e2c45a2a8afd4a85305262085f55c96b1453d210bc4fe9f7f3941"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS2/Usecase scenario/UC_SS2_NguyenAnhTai.docx",
+      "sha256": "f91c06e928d769e0e0dcdb2bde001e64dccef81b7885b50a8ba1fd59f5fe4120"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS2/Usecase scenario/UC_SS2_NguyenAnhTai.md",
+      "sha256": "37250562d976f601ca52be71db555ceb185645a21322efaa69b3223478c12852"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS2/Usecase scenario/UC_SS2_NguyenAnhTai_diagram.drawio",
+      "sha256": "16acc2e08883f1fdf5c5406074bfd9001ecf804aec7d956abfc8b6df19fbef2b"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS2/Usecase scenario/UC_SS2_NguyenAnhTai_diagram.png",
+      "sha256": "126e750f6481ed969ed153e0a870b40dc39d4c0fc27b2e68c0e3951821ab77ce"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS3/Activity diagrams/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS3/Activity diagrams/SS3_Activity_diagrams.drawio",
+      "sha256": "d5ff71c3acd3700624b7ef42c953903ca83f720df3fbc62fa166e8510fc4db7a"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS3/Activity diagrams/SS3_Activity_diagrams.drawio.pdf",
+      "sha256": "5bb3af9a3dc78c1eae32116dc21a20a88716350d733b606051dc57276e6b8e2e"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS3/Activity diagrams/UC_SS3_01_PhamTienDat_activity.png",
+      "sha256": "bee38117956c6718fd4ae6a62f284b2ed5afcc3697abf6ad6fdd215d06a1db0e"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS3/Activity diagrams/UC_SS3_01_PhamTienDat_activity.puml",
+      "sha256": "e9405df9a8ff8790dcf5ae0bd2c7b2e8dca8fbf919d305fa9da5251ed6d036f1"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS3/Activity diagrams/UC_SS3_02_PhamTienDat_activity.png",
+      "sha256": "49a168084c529c7d8462dae8d0535d9928e85a78bc005f82120e43c725364edf"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS3/Activity diagrams/UC_SS3_02_PhamTienDat_activity.puml",
+      "sha256": "034c529ae3d2f58a4c761ee6b387a0dc41e6a31855736008deafa716cbfd277b"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS3/Sequence diagrams/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS3/Sequence diagrams/SS3_Sequence_diagrams.drawio",
+      "sha256": "e9f57d124ba8ed6f0a5214a5a188ef5e4b82a4207308affa145fe50b56f8ce0d"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS3/Sequence diagrams/SS3_Sequence_diagrams.drawio.pdf",
+      "sha256": "c48c7bcfae67c1064f169dcf3389f8395426029ad94c9ce44a7df5b3cba3b6da"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS3/Sequence diagrams/UC_SS3_01_PhamTienDat_sequence.png",
+      "sha256": "11ba2f023c22f7edfa161da6e728627f99543405cd123f23d4ba260df6492705"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS3/Sequence diagrams/UC_SS3_01_PhamTienDat_sequence.puml",
+      "sha256": "0f9fec764be83e4f949e503b97dfa636392b84b7baaaf9a3fedba9b24a745992"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS3/Sequence diagrams/UC_SS3_02_PhamTienDat_sequence.png",
+      "sha256": "e438d9236371a7abb01fe01fbcbd2ccec2398b3244b555cc0f880045bef2a108"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS3/Sequence diagrams/UC_SS3_02_PhamTienDat_sequence.puml",
+      "sha256": "18bbf8bf4c8871d67504515f33dfc0d43a6bc2a41c7dc72e657a1f1764bd9844"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS3/State-chart diagrams/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS3/State-chart diagrams/SS3_State-chart_diagrams.drawio",
+      "sha256": "a3a578c9d782a60466e487492cedd648bc42533f4be7f6f57bb4e94e8f20a375"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS3/State-chart diagrams/SS3_State-chart_diagrams.drawio.pdf",
+      "sha256": "c7c6a0e605862e6ea81785eae14d2e9f4d595a5a04f8be71ce355b5d5a405067"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS3/State-chart diagrams/UC_SS3_01_PhamTienDat_statechart.png",
+      "sha256": "8379e77a39d4086fd6d3b0b5564b344cc5ae2e6144133853e9e68db887e5a90d"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS3/State-chart diagrams/UC_SS3_01_PhamTienDat_statechart.puml",
+      "sha256": "f4a72a93859f36e6d1087e8809578dcd3761969cc9f90fd65ece407d53af385a"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS3/State-chart diagrams/UC_SS3_02_PhamTienDat_statechart.png",
+      "sha256": "9452fd73193301190b8eebeb6c951195efdbb188a927c3cb78eef31fe1edd4e0"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS3/State-chart diagrams/UC_SS3_02_PhamTienDat_statechart.puml",
+      "sha256": "a3c3701ee486a0736adf2898a85762059a5f1dca078365f6e9565330de69aca8"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS3/Usecase scenario/UC_SS3_PhamTienDat.docx",
+      "sha256": "23ff2f143f369cebf629007cb65856c8ec75d575a5d1a9c5424409034bcbe092"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS3/Usecase scenario/UC_SS3_PhamTienDat.md",
+      "sha256": "4ca799534a692aa7efd409c5abc37b52f33eff46b88256b897a2338282657d06"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS3/Usecase scenario/UC_SS3_PhamTienDat_diagram.png",
+      "sha256": "6f0081a71f96535a0acbd986b65e185a14d77d7bb70f05c1b3caf87b4e9ff753"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS3/Usecase scenario/UC_SS3_PhamTienDat_diagram.puml",
+      "sha256": "adb59b574c2dc1f97c51707385e812db96e62edb764061b9e537a8d9c2e2ea18"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS4/Activity diagrams/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS4/Activity diagrams/UC_SS4_01_activity.png",
+      "sha256": "c39ac5c554c4726bba4b5ab4e25414d6c8ad1b1362b978705f3eced64584ebff"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS4/Activity diagrams/UC_SS4_01_activity.puml",
+      "sha256": "70f8bc58011e2472b4babfad8169d0c4fcd69f15b52b0029db598f46b913e2c1"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS4/Activity diagrams/UC_SS4_02_activity.png",
+      "sha256": "adb152f3f3ea93c5c98473172b9f141e084efa0d61839818abfce5e0daff875c"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS4/Activity diagrams/UC_SS4_02_activity.puml",
+      "sha256": "980638a834f5a9e8937b39984e39f0b807ba824d969ecbeaa1b61ed6542c3a28"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS4/Sequence diagrams/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS4/Sequence diagrams/UC_SS4_01_sequence.png",
+      "sha256": "c43562e3453ad44933c7549019316a4c09a1525a65c5959b8578b8734a339294"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS4/Sequence diagrams/UC_SS4_01_sequence.puml",
+      "sha256": "476701b648a191d9eeff9af6a2d39a8dd6c9e469620538a8dadc42ef465dd923"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS4/Sequence diagrams/UC_SS4_02_sequence.png",
+      "sha256": "4e3c2179bb2b1c32a84f7e16e342b2dcd38d56a813aa0956ac05de09313f43c9"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS4/Sequence diagrams/UC_SS4_02_sequence.puml",
+      "sha256": "8ecc0b45625e8fea5b7a5a6942d2e16062c69c234bdd40c0faae877223187403"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS4/State-chart diagrams/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS4/State-chart diagrams/UC_SS4_01_statechart.png",
+      "sha256": "716dcf58c60e91f008492860c525cc44a71f77145e0af69ecdebfa99dc7ce9ea"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS4/State-chart diagrams/UC_SS4_01_statechart.puml",
+      "sha256": "24a315ea2c4459f4735e7cc3ac6a2e068734dc226e41ffe835a32f4c866d9579"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS4/State-chart diagrams/UC_SS4_02_statechart.png",
+      "sha256": "0aefe1b1d771c6e0d10fe6f962b3126ce768db2c9b8cd4439981c561a0028777"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS4/State-chart diagrams/UC_SS4_02_statechart.puml",
+      "sha256": "c2d25f610b4ecdd12070526437baa73a13198f636376c4d0e97fd5afdab8a206"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS4/Usecase scenario/UC_SS4_DangHoangQuyNhan.docx",
+      "sha256": "5479273dd1bcd0e976a765ff9fab5162e5e1bd6269cc2efebdd19bb3e90db071"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS4/Usecase scenario/UC_SS4_DangHoangQuyNhan.md",
+      "sha256": "ef1870ddb26773951b08d464a1bd89ad9b52b758cfb9b2cc608f075010d83a76"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS4/Usecase scenario/UC_SS4_DangHoangQuyNhan_diagram.drawio",
+      "sha256": "83f78cde7c061121e033ff074f738733c8cbde5129c6b4f12e8029c1b757106e"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS4/Usecase scenario/UC_SS4_DangHoangQuyNhan_diagram.png",
+      "sha256": "15e79916df985121c4f2035e88850f51896b93d37d0bb4756dae1dfd6bbaadd8"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS5/Activity diagrams/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS5/Activity diagrams/UC_SS5_01_DuongDangKhoa_activity.png",
+      "sha256": "9f928755157f1513481bb90c5c4c63bd239000355464321621e64e54b95347a4"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS5/Activity diagrams/UC_SS5_01_DuongDangKhoa_activity.puml",
+      "sha256": "46564b1e65e55f4aaa5b88ceacc3c7be11a236641eb671b6db34d02337e51a3a"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS5/Activity diagrams/UC_SS5_02_DuongDangKhoa_activity.png",
+      "sha256": "f106154434e951e268ac0e959ff1790263fb4ad7ee6432620beeccd35fadde5f"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS5/Activity diagrams/UC_SS5_02_DuongDangKhoa_activity.puml",
+      "sha256": "382f7e6b56a00c454f0f51b6a9ff1f7348fdf925a5364710f16d58de7ca23e08"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS5/Sequence diagrams/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS5/Sequence diagrams/UC_SS5_01_DuongDangKhoa_sequence.png",
+      "sha256": "127f6d1cc805b9c0a8d5475cbe1bae2ab259e82e722412e3205165417731498b"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS5/Sequence diagrams/UC_SS5_01_DuongDangKhoa_sequence.puml",
+      "sha256": "76822c9dc065f5551ff78a85697124268d236839e8c28f73b45ed527f9aed34a"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS5/Sequence diagrams/UC_SS5_02_DuongDangKhoa_sequence.png",
+      "sha256": "be54aa43bcca4b10775695d210f04b7e659124e7bbc07f5129fa2510b3303631"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS5/Sequence diagrams/UC_SS5_02_DuongDangKhoa_sequence.puml",
+      "sha256": "6f773ead8d288561f9edeeb2619762f0815cea734fdfa42c4f6590ec429fd887"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS5/State-chart diagrams/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS5/State-chart diagrams/UC_SS5_DuongDangKhoa_statechart.png",
+      "sha256": "fc4a861a61cee0c674eff8ee676763b3cf1434713056d2c2ed75aad75c166a6e"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS5/State-chart diagrams/UC_SS5_DuongDangKhoa_statechart.puml",
+      "sha256": "23d92b3c95541ecb97c2b85f85e149326c6c1c0e11ee895895ce46899fbef9de"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS5/Usecase scenario/UC_SS5_DuongDangKhoa.docx",
+      "sha256": "aebf6a6ca4e66de82142a11217df219069ec86b43cd10c79ee50842f411c377f"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS5/Usecase scenario/UC_SS5_DuongDangKhoa.md",
+      "sha256": "1e10e1c9fcfbee50195125057647734e59d422b8209aff8df47a98c58de7b034"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS5/Usecase scenario/UC_SS5_DuongDangKhoa_diagram.drawio",
+      "sha256": "ce260660cef7e8681edd750dc665af89c267d19cd8886a8294fb971ec3b80ad2"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS5/Usecase scenario/UC_SS5_DuongDangKhoa_diagram.pdf",
+      "sha256": "974fd253ef8e9561cd5add53a88fda2400a0c9e521846810b9d54d42219bc676"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS6/Activity diagrams/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS6/Activity diagrams/UC_SS6_01_HoangVanTan_activity.png",
+      "sha256": "02f946cfa97a13e398db35f79f04b44514723f5ed73ed9a813316c5594977aa0"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS6/Activity diagrams/UC_SS6_01_HoangVanTan_activity.puml",
+      "sha256": "1fd475e043aef5a82a70ceb5603796d335bb97be94ef94d0b2022b982206a8f2"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS6/Activity diagrams/UC_SS6_02_HoangVanTan_activity.png",
+      "sha256": "504b0cb7f1b11298caede1c1b2df2c079e25399da7710941d3721f3abaf37f6a"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS6/Activity diagrams/UC_SS6_02_HoangVanTan_activity.puml",
+      "sha256": "02984053616f364eaa8217bebaa98635ec184c98fe597fd064dd4fa0f0e7b722"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS6/Sequence diagrams/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS6/Sequence diagrams/UC_SS6_01_HoangVanTan_sequence.png",
+      "sha256": "b47f8394d9916701872603e66fe4e8eec47032884f9f10c892901a92f4b4acf3"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS6/Sequence diagrams/UC_SS6_01_HoangVanTan_sequence.puml",
+      "sha256": "ce638e9f7e1050a7ea3797b5e1362521aa297d3e0860837bbd0b4b08ea4f5fe7"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS6/Sequence diagrams/UC_SS6_02_HoangVanTan_sequence.png",
+      "sha256": "ad336ae75256ab3c034625f865973e19a6b8a361febfec402c2435461bb329ec"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS6/Sequence diagrams/UC_SS6_02_HoangVanTan_sequence.puml",
+      "sha256": "de5a2da8b9a66a577dae953617c77fd90083b4faeeaa2189cb5f929095dc1c2c"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS6/State-chart diagrams/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS6/State-chart diagrams/UC_SS6_Hub_Operational_statechart.png",
+      "sha256": "76b1daf3fb8bdea3a71d3d1749fd88f819f5b2b0f44667f8b9062613833e9b2a"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS6/State-chart diagrams/UC_SS6_Hub_Operational_statechart.puml",
+      "sha256": "32ae0fa49b63e4809d59ec317d2a7dfbb0ae60e5377ec5aad45f8e0700b8e872"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS6/State-chart diagrams/UC_SS6_Scenario_Lifecycle_statechart.png",
+      "sha256": "bc496900eb0d8a6f469015d9c90f348adaceba1b9fd6e7b13fca113beb445298"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS6/State-chart diagrams/UC_SS6_Scenario_Lifecycle_statechart.puml",
+      "sha256": "ec1894b5e56e27992626b4402fdf03766b4c981d3f4ec420944360a4aa491ec8"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS6/Usecase scenario/UC_SS6_HoangVanTan.docx",
+      "sha256": "bbc76428aa2bfa55fb616f415518213145bf0597e4f202607c7a9f407c0361b2"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS6/Usecase scenario/UC_SS6_HoangVanTan.md",
+      "sha256": "f7ad4ef953543df0c78016f91728d2b08797608b63f98860745fd3dc48aebfaf"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS6/Usecase scenario/UC_SS6_HoangVanTan_diagram.drawio",
+      "sha256": "c98bd07bd3a1e12b38b98a0904a42fa0c2041e35002fad5a356f3ea08073d7a3"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS6/Usecase scenario/UC_SS6_HoangVanTan_diagram.pdf",
+      "sha256": "58ba20680bb9ff62b5c5d1fd258be3fa9c87ae823084b90af57c2eca6688487d"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS7/Activity diagrams/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS7/Activity diagrams/UC_SS7_01_NguyenTrungNguyen_activity.png",
+      "sha256": "3c2c6d480b5371b8fee8cda15fd72729828c3341668f6b3d408df96fcaea6692"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS7/Activity diagrams/UC_SS7_01_NguyenTrungNguyen_activity.puml",
+      "sha256": "3a29db6b719761688494e972da2d88217774c4a248eee7a644cdb17f3dab8448"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS7/Activity diagrams/UC_SS7_02_NguyenTrungNguyen_activity.png",
+      "sha256": "389e66ec7b1e47dad69619a02d4b49e3b03fc96c879c098ac080b5d10d0922f0"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS7/Activity diagrams/UC_SS7_02_NguyenTrungNguyen_activity.puml",
+      "sha256": "fcd82087a35d8e5f95ca6d45cac09d4b1694ca50f7245f031e4722768fa31234"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS7/Sequence diagrams/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS7/Sequence diagrams/UC_SS7_01_NguyenTrungNguyen_sequence.png",
+      "sha256": "add76c06c532705e209a7599036e02aeb089f98f6d0e13bd8c2401c79268e1fb"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS7/Sequence diagrams/UC_SS7_01_NguyenTrungNguyen_sequence.puml",
+      "sha256": "b71334c8beea90156f9b4dc93a7c3dc4cded82cf334fd0c1a67d1c43073ab9b5"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS7/Sequence diagrams/UC_SS7_02_NguyenTrungNguyen_sequence.png",
+      "sha256": "d34e8a460efaada06be892c81170f19228e99551a20640e140047105afc1f92d"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS7/Sequence diagrams/UC_SS7_02_NguyenTrungNguyen_sequence.puml",
+      "sha256": "3abe0ed7ecc47002ca895870ac30b8407d7b103fa94c1f424de45026f7edd987"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS7/State-chart diagrams/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS7/State-chart diagrams/UC_SS7_01_NguyenTrungNguyen_statechart.png",
+      "sha256": "1d23c481bad36ab2ea225e2ee9804a5912b3aa5a300d4c19573036db9873cfd1"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS7/State-chart diagrams/UC_SS7_01_NguyenTrungNguyen_statechart.puml",
+      "sha256": "e33afcb2cb81f6a8dda4052e88f467b373d210a38d17b4df3870fe02b0c87311"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS7/State-chart diagrams/UC_SS7_02_NguyenTrungNguyen_statechart.png",
+      "sha256": "1911020209bac2f7717fe9bbdd6bd3134c179332ce420ae21dec438cfba4223d"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS7/State-chart diagrams/UC_SS7_02_NguyenTrungNguyen_statechart.puml",
+      "sha256": "0e8b932a767442187e96eae3593b454aa909af0770ad9c43787862c3693b3ea5"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS7/Usecase scenario/UC_SS7_NguyenTrungNguyen.docx",
+      "sha256": "c5eb2db79fc491ac5ebc36f9e34a77df4f073da5d63450f69fbc270a2438b49c"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS7/Usecase scenario/UC_SS7_NguyenTrungNguyen.md",
+      "sha256": "0054fbf376e996a498ba48489bccd7e8beb2fdfcf1edbde79dbfb6acad41327d"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS7/Usecase scenario/UC_SS7_NguyenTrungNguyen_diagram.drawio",
+      "sha256": "135f2ffcb7ddac4dc18340d8da1b95aa9664b8e3d212079c5419e222907909a6"
+    },
+    {
+      "path": "docs/diagrams/Use-case detail-scenario/SS7/Usecase scenario/UC_SS7_NguyenTrungNguyen_diagram.png",
+      "sha256": "a1b9dc1a42efbde2e1f752473a6ae575f1fe4ecdc7e90b96d08ef378f4ce2b89"
+    },
+    {
+      "path": "docs/diagrams/system/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/diagrams/system/generate_system_usecase.py",
+      "sha256": "74de6916ccab02168a7d5135b24cb8c223783c82fba9c4df7925ab46c5d44f3c"
+    },
+    {
+      "path": "docs/diagrams/system/parse_drawio.py",
+      "sha256": "829afa2490228ed5da63a7ff4d815b8aeb8170b786cf3a3389a8e228865d73e8"
+    },
+    {
+      "path": "docs/diagrams/system/smartEhub.drawio",
+      "sha256": "77492f3f0c37d7a4f46c15f0b70c66c2a42b14d4ae27446d1bd933690b09e611"
+    },
+    {
+      "path": "docs/diagrams/system/smartEhub.pdf",
+      "sha256": "c0b0e45af5b600cb20d66c55f235fcfa8cd0cd2f35ac0e3e8b9ce843d8a52cab"
+    },
+    {
+      "path": "docs/diagrams/system/smartEhub.png",
+      "sha256": "c06ea39db54ad200d88b83f4b6a0ecf30854cd8fdf27f467532abc3fc444bdf4"
+    },
+    {
+      "path": "docs/diagrams/system/smartEhub.svg",
+      "sha256": "e2fd4a4e401fbb95e0f17996e1e439bdc4a2896c4b21cda3369192ec869d04e0"
+    },
+    {
+      "path": "docs/meeting-minutes/.gitignore",
+      "sha256": "c9588c0b019112e5a1c970b86ac620d0c9f245f13984490ecdce9d03c1b17929"
+    },
+    {
+      "path": "docs/meeting-minutes/Meeting_01_20260908.aux",
+      "sha256": "2982d54cca54be53fa9cfd0e9dc6276962d8720c65710258036e74579cee53af"
+    },
+    {
+      "path": "docs/meeting-minutes/Meeting_01_20260908.fdb_latexmk",
+      "sha256": "b22d38311eede140bce9572558b700b7294a738bf95fc7694d0a8592738db635"
+    },
+    {
+      "path": "docs/meeting-minutes/Meeting_01_20260908.fls",
+      "sha256": "f748da94bd2fbc66e310ee0166dd8e7d8fdf735908ef3da04c245baa47f1c7a9"
+    },
+    {
+      "path": "docs/meeting-minutes/Meeting_01_20260908.log",
+      "sha256": "4b27f5ff712cd165060cdd83f976ed4936e6777b95e4634290680c695a82bb58"
+    },
+    {
+      "path": "docs/meeting-minutes/Meeting_01_20260908.md",
+      "sha256": "a052b51167c84fc187f31c9e68eb1bd8112de0e283976eb9a4a965235454ba2a"
+    },
+    {
+      "path": "docs/meeting-minutes/Meeting_01_20260908.out",
+      "sha256": "1134fe7c97d963a736c71d2209b671b4d16209cf7e39f6881a0e3c375f7558ef"
+    },
+    {
+      "path": "docs/meeting-minutes/Meeting_01_20260908.pdf",
+      "sha256": "ec13d5a8c1046b260b27e6362ff6718345ff8698af1831450b89aeec97072932"
+    },
+    {
+      "path": "docs/meeting-minutes/Meeting_01_20260908.tex",
+      "sha256": "6498d0d975673ae36f60cd539e9bc8047fbcdfb6fca20a0367683041443841af"
+    },
+    {
+      "path": "docs/meeting-minutes/README.md",
+      "sha256": "6383a7c15d000533a7d3f2eb57ad3cfdd1c1de54d7b15f10ad22f2907851889b"
+    },
+    {
+      "path": "docs/meeting-minutes/compile_pdf.sh",
+      "sha256": "afa30cfbef9af447c816b7c7edf145e9990a649709172fb334d2759625533f3c"
+    },
+    {
+      "path": "docs/meeting-minutes/signature.png",
+      "sha256": "ad2da4a846cc27f5501f0baf193a9abb8d540c9eadab154f2125b5b5694a28ce"
+    },
+    {
+      "path": "docs/prompt-history/README.md",
+      "sha256": "6ab6ca4c6acb6d165856e39e31c20c92edbf751480440d5e8838163ca9041fd6"
+    },
+    {
+      "path": "docs/prompt-history/TV1_NguyenThanhDat/README.md",
+      "sha256": "9f8ee52513402376811bbd5b368d995017d742c1356f73472cbf3dd7f6ee0577"
+    },
+    {
+      "path": "docs/prompt-history/TV1_NguyenThanhDat/prompt_history_NguyenThanhDat.txt",
+      "sha256": "4c0ce0808da2b19f63d9f17537b01a541b6d771e5b5a29a1bf4eeb8bd407cd25"
+    },
+    {
+      "path": "docs/prompt-history/TV2_NguyenAnhTai/README.md",
+      "sha256": "6938143faa19ae83acaeb207a3c145befd2783ba92cee03eacb9b8eedea69c36"
+    },
+    {
+      "path": "docs/prompt-history/TV2_NguyenAnhTai/prompt_history_NguyenAnhTai.txt",
+      "sha256": "c50d9dd7cc352f27aa154b0027a9ebbadab79476e69aecaf96d98b8254542503"
+    },
+    {
+      "path": "docs/prompt-history/TV3_PhamTienDat/README.md",
+      "sha256": "7c3ea6d30a7541d2ed06ada37970bc1f67e0c1afcb85e1a920c052fc9bbd9386"
+    },
+    {
+      "path": "docs/prompt-history/TV3_PhamTienDat/prompt_history_PhamTienDat.txt",
+      "sha256": "d67c874d5b62aa5daf066d020116dbc6a0676d32d69c7fc40d0c20a1553e2e20"
+    },
+    {
+      "path": "docs/prompt-history/TV4_DangHoangQuyNhan/README.md",
+      "sha256": "48422225985d3d7d90f3f7e2a94595e2a8e0c5201d2b62e5168b1d4b9d27ba17"
+    },
+    {
+      "path": "docs/prompt-history/TV4_DangHoangQuyNhan/prompt_history_DangHoangQuyNhan.txt",
+      "sha256": "8ec23e011176af35f9c7fdc0052551c396bbfde171cf7ac34be7bb5910164b18"
+    },
+    {
+      "path": "docs/prompt-history/TV5_DuongDangKhoa/README.md",
+      "sha256": "e860a21427deedc4b9d9a2f141f2386a32df5d1eadecec8003ba0c977f561fb6"
+    },
+    {
+      "path": "docs/prompt-history/TV5_DuongDangKhoa/promt_history_DuongDangKhoa.txt",
+      "sha256": "b00ccaf1a2325ef28cce0fefd0aa95cd936ff3879fcd1c38d969b7ae8701f89f"
+    },
+    {
+      "path": "docs/prompt-history/TV6_HoangVanTan/Prompt_History_Sprint1_2213074_HoangVanTan.docx",
+      "sha256": "6715917a86721c6bc235018d36df96351ba58ead443c19073d59f125f06597e1"
+    },
+    {
+      "path": "docs/prompt-history/TV6_HoangVanTan/Prompt_History_Sprint1_2213074_HoangVanTan.txt",
+      "sha256": "e4a7d0b61ef4aefbc987df0b40a4e6276343cb4c074a283e8ba6a86ad8b5e4a7"
+    },
+    {
+      "path": "docs/prompt-history/TV6_HoangVanTan/README.md",
+      "sha256": "9b5be66681e8e1412a288be452920e636f44e5fc4f9e60d15a5480c7ea98baa3"
+    },
+    {
+      "path": "docs/prompt-history/TV7_NguyenTrungNguyen/README.md",
+      "sha256": "8f550498950a6f9f66b9dc33d9ad392d631926383462d631af37abc8eb93f89d"
+    },
+    {
+      "path": "docs/prompt-history/TV7_NguyenTrungNguyen/prompt_history_NguyenTrungNguyen.txt",
+      "sha256": "b789c7505d4bd73f6a4c9d117a5e3aafac14213b8477bcf9c304e94322088e45"
+    },
+    {
+      "path": "docs/report/assets/mau.png",
+      "sha256": "ec0f270ed380f50710f429d773f8bff059f779b11961648d59d81cf4f3f00fb3"
+    },
+    {
+      "path": "docs/report/assets/screenshots/ss1_student_booking.png",
+      "sha256": "9119ff4d684987481461afc04e56f146e5eb88020bfa5471139271b5ea1c6e63"
+    },
+    {
+      "path": "docs/report/assets/screenshots/ss2_personal_ev.png",
+      "sha256": "f22736a5fcb7fefd25ac7f3ba6672071fbd484025bf917e5ab6fa08fd5c1fc6a"
+    },
+    {
+      "path": "docs/report/assets/screenshots/ss3_hub_monitor.png",
+      "sha256": "524543871d0227503f883eb698560ee59b079a2397b3166f5bfac66d86299894"
+    },
+    {
+      "path": "docs/report/assets/screenshots/ss4_dispatch_incident.png",
+      "sha256": "897f1c250b7ca0d498efa57e3be4d94a2782aa7b78da3a9f00db90c4464c3ff7"
+    },
+    {
+      "path": "docs/report/assets/screenshots/ss5_smart_charging.png",
+      "sha256": "b19e2e1fba879cde08cd36cb04bc6ea52cda5f6589cd88ff64318a6e54b59513"
+    },
+    {
+      "path": "docs/report/assets/screenshots/ss6_sim_demand.png",
+      "sha256": "9fb302d265ad53181432296bd5bdeeed1280742131554db004d5d9989f22227f"
+    },
+    {
+      "path": "docs/report/assets/screenshots/ss7_sim_infrastructure.png",
+      "sha256": "ddf643b4d94c95c283e33f16bd6dad88d8d16daaea0cd35784ca156e59fe3e9b"
+    },
+    {
+      "path": "docs/report/scripts/generate_md.py",
+      "sha256": "a96c24726f0513631f78a7d47a0d0373cc98bf64f7f1879f1cb54434d43c157e"
+    },
+    {
+      "path": "docs/report/scripts/insert_img.py",
+      "sha256": "ef795a2a7d6a3f13fa4384332c0f0a870cf91ddfcade8ccb03474de6375dd3e7"
+    },
+    {
+      "path": "docs/report/submission_1/REPORT_SUBMISSION_1.aux",
+      "sha256": "b8504402bac92e5686ed7763769824bf76e1643886a76f4a97e1fc789476e82c"
+    },
+    {
+      "path": "docs/report/submission_1/REPORT_SUBMISSION_1.fdb_latexmk",
+      "sha256": "556ea98d74cfb450ec343d40a42faef86e8a1d6da41fc9d05d025783f9e9755a"
+    },
+    {
+      "path": "docs/report/submission_1/REPORT_SUBMISSION_1.fls",
+      "sha256": "5e87ab79fa85717cd3e84013de9cb7f02d622c9d9e290be43d05fc3bb0a96912"
+    },
+    {
+      "path": "docs/report/submission_1/REPORT_SUBMISSION_1.log",
+      "sha256": "e8dd5e8c6c03b7594d1ca91e459ff889528cb366000b180ca5f6ef89d6f700ff"
+    },
+    {
+      "path": "docs/report/submission_1/REPORT_SUBMISSION_1.md",
+      "sha256": "67adf3248c6d91459e2a2f81abc86fe7142591cea7ea5deeec0e61edd1dc7361"
+    },
+    {
+      "path": "docs/report/submission_1/REPORT_SUBMISSION_1.out",
+      "sha256": "12a022aefc435c5883836f3922c7ffe985db8260d76beedc7438b20a87598218"
+    },
+    {
+      "path": "docs/report/submission_1/REPORT_SUBMISSION_1.pdf",
+      "sha256": "6df16f048ebfbe3c542173ee483cb5d27a034185cd6a8f1dc512989f7593a4a0"
+    },
+    {
+      "path": "docs/report/submission_1/REPORT_SUBMISSION_1.tex",
+      "sha256": "d4b67a54f52cab9a928da8801940cdee25af0c65a04ee49ea097405245d2de43"
+    },
+    {
+      "path": "docs/report/submission_1/REPORT_SUBMISSION_1.toc",
+      "sha256": "ebfb6fa88db1dd061ef19defbb527973631a87c767c855a005d49dcd81460aa0"
+    },
+    {
+      "path": "docs/report/submission_1/mau.png",
+      "sha256": "ec0f270ed380f50710f429d773f8bff059f779b11961648d59d81cf4f3f00fb3"
+    },
+    {
+      "path": "docs/report/submission_2/CHANGELOG_FIX.md",
+      "sha256": "553c25dfee0d36dbeecd48b91c745493befe3ee4863d34bc9a57f5386df77793"
+    },
+    {
+      "path": "docs/report/submission_2/OPEN_QUESTIONS.md",
+      "sha256": "f116552a97f89df4054792f7885bdb5263f346fc3743f5e26778227bb32e0080"
+    },
+    {
+      "path": "docs/report/submission_2/REPORT_SUBMISSION_2.aux",
+      "sha256": "0e30039d2bf390d67446933caa09287a00f50398c8ec191b1f1bf56c23e962d2"
+    },
+    {
+      "path": "docs/report/submission_2/REPORT_SUBMISSION_2.fdb_latexmk",
+      "sha256": "44f19a12e4085ca3cd13d0933ed8d9a50cfe4e7667923f01ef640f556a229992"
+    },
+    {
+      "path": "docs/report/submission_2/REPORT_SUBMISSION_2.fls",
+      "sha256": "565d0be11d281ae5c2602aacb9e904d49fcc49b4cf3f8143cce114391d117f79"
+    },
+    {
+      "path": "docs/report/submission_2/REPORT_SUBMISSION_2.log",
+      "sha256": "236b92a35c0cbeafe3b055e78867639fdaa64e077d43440c8f9ab9b468967d14"
+    },
+    {
+      "path": "docs/report/submission_2/REPORT_SUBMISSION_2.out",
+      "sha256": "959eee496bb31d690087e993e690d00dbf0a5a9ad7f673e1ac4ab13e3ffd4330"
+    },
+    {
+      "path": "docs/report/submission_2/REPORT_SUBMISSION_2.pdf",
+      "sha256": "1d4e40b427098ca78810d19cda78009b7cf80ac4aa6ea1a053ae67fddf97be30"
+    },
+    {
+      "path": "docs/report/submission_2/REPORT_SUBMISSION_2.tex",
+      "sha256": "163aa38c37c8df12229c0555de7db6d6de4c7304f8071360e3edfb7ebc75f21f"
+    },
+    {
+      "path": "docs/report/submission_2/REPORT_SUBMISSION_2.toc",
+      "sha256": "c1826fce3857f3dfd2bf20e2c6cd8051c2125f6121bee5be86c8435e1825e987"
+    },
+    {
+      "path": "docs/report/submission_2/mau.png",
+      "sha256": "ec0f270ed380f50710f429d773f8bff059f779b11961648d59d81cf4f3f00fb3"
+    },
+    {
+      "path": "docs/report/submission_3/mau.png",
+      "sha256": "ec0f270ed380f50710f429d773f8bff059f779b11961648d59d81cf4f3f00fb3"
+    },
+    {
+      "path": "docs/report/submission_4/mau.png",
+      "sha256": "ec0f270ed380f50710f429d773f8bff059f779b11961648d59d81cf4f3f00fb3"
+    },
+    {
+      "path": "docs/requirements-analysis.md",
+      "sha256": "dc64873bb56c4723f3112a513f3e70acbadc52e8f9e7af5d61f6231ad2c7a7d0"
+    },
+    {
+      "path": "docs/tasks-assignment.md",
+      "sha256": "b81954c73efdab8bcd194d9c7a8a55fbdf92a4ddc3a8a2182e3a548ffc5b9c44"
+    },
+    {
+      "path": "requirements.txt",
+      "sha256": "cf5d5e5eff1bbe8d92717b6d4bef9d650711a3d6b70c683740791a506b1291c6"
+    },
+    {
+      "path": "scripts/capture_all_perfect.py",
+      "sha256": "cee1046f966dd020f6b4ba256e53be1a7071e5864d89c6ebde9201bbcaa3f997"
+    },
+    {
+      "path": "scripts/capture_real_screenshots.py",
+      "sha256": "ec2d1ea90dea231ac3522d479f8ca87233179504f58a9a4ca29e7079afc4f610"
+    },
+    {
+      "path": "scripts/fix_lists_perfect.py",
+      "sha256": "e955d580806a39b004c56f9a5de97a8b43cbd83b5410f23c1ab8eb920ab709da"
+    },
+    {
+      "path": "scripts/test_capture_details.py",
+      "sha256": "4258e3567aaa6f791c117f42bf0da6a1bafa3b9fb1e12ced193522bee26bf628"
+    },
+    {
+      "path": "scripts/update_submission_2.py",
+      "sha256": "f48319089578ef4c1ada083a975c51a79d81af11c0ac2bd9519cd6a7dd2c4ed0"
+    },
+    {
+      "path": "src/app.py",
+      "sha256": "4935b288dc90a7209e37640a4bf25e3e8999bed2692aee9a1964323e68782474"
+    },
+    {
+      "path": "src/assets/vnu_logo.png",
+      "sha256": "ef60538d1f47328cbb42d83bc1e04d25d7aebc1872e66ae7e522e321207c12df"
+    },
+    {
+      "path": "src/components/dispatch_incident.py",
+      "sha256": "2a11552647dbff4edd10e8ebd5458afe2692833a4a0906edba7db5be74685454"
+    },
+    {
+      "path": "src/components/hub_monitor.py",
+      "sha256": "8b3effcccc8eb6dafb3edbbee65555b39b9bbcce522af6edea3e072067d54e8a"
+    },
+    {
+      "path": "src/components/personal_ev.py",
+      "sha256": "6d6d490a59d5244921addf028e70112ad84cab9bccdb6201e37dc7cf8a2b22c7"
+    },
+    {
+      "path": "src/components/sim_demand.py",
+      "sha256": "309c079b9e90540f9a48ca798d5cf8c47e5775e6f0a797a7c59414494fab0f76"
+    },
+    {
+      "path": "src/components/sim_infrastructure.py",
+      "sha256": "869ebb5f7601ca59060aad9c00727a7d7c99e47ad976f54f8f8dc6709400787e"
+    },
+    {
+      "path": "src/components/smart_charging.py",
+      "sha256": "3c09e5564756fb60290efc1c2a850f5c57e483d6f822a0cf0a7da139eb5fbae9"
+    },
+    {
+      "path": "src/components/student_booking.py",
+      "sha256": "3245d6a42c16a6ee9da8d03ef4ae3dc9dfaba931ade2c5c4ed85e6dff7534091"
+    },
+    {
+      "path": "src/core/scheduler.py",
+      "sha256": "57f63f7a76675ab270a8d5e64d9ea52160dcfe346e0b1a53f0efa77398a8b4fc"
+    },
+    {
+      "path": "src/core/simulator.py",
+      "sha256": "2ca34a2c6f083522c80d87ab69d11e32e59b60388e25ed8b0947d341b2325655"
+    },
+    {
+      "path": "src/data/mock_hubs.json",
+      "sha256": "7fc73e72f7a068acdaee883da9dad143d7152d5c7b7fab3c6449e2a04a50dcac"
+    }
+  ]
+}

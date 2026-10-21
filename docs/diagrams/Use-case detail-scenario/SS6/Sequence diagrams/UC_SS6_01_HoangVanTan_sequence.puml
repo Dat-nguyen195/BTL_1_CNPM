@@ -1,5 +1,5 @@
-@startuml
-!theme plain
+@startuml UC_SS6_01_HoangVanTan_sequence
+!include ../../../common.puml
 skinparam sequenceMessageAlign center
 skinparam maxMessageSize 160
 skinparam BoxPadding 10
@@ -7,35 +7,47 @@ skinparam BoxPadding 10
 title "Sequence Diagram: UC_SS6_01 - Mô phỏng đợt tăng đột biến hành khách Metro (Metro Surge)"
 
 actor "Nhà phân tích /\nNgười vận hành Hub" as Analyst
+
 box "UI Layer (Streamlit)" #LightCyan
-participant "demand_simulation.py\n(SS6_UI)" as UI
+participant "sim_demand.py\n(SS6_UI)" as UI
 end box
+
+box "External Authentication" #White
+participant "Cổng VNU-SSO\n(SSO)" as SSO
+end box
+
 box "Control & Memory State" #LightYellow
-participant "st.session_state['hubs']\n(HubState)" as AppState
+participant "st.session_state\n(AppState)" as AppState
 end box
+
 box "Simulation Engine" #LightGreen
 participant "HubEventSimulator\n(Engine)" as Engine
 end box
+
+box "External Payment" #White
+participant "Sổ cái / Ví điện tử\n(E-Wallet)" as EWallet
+end box
+
 box "External Subsystems" #LightGray
-participant "Dashboard Giám sát (SS3) &\nĐiều chuyển Hub (SS4)" as ExternalSS
+participant "Cảm biến & IoT\n(IoT_Sensors)" as IoT
 end box
 
 autonumber 1.1
 group 1. Cấu hình tham số Metro Surge
     Analyst -> UI: Truy cập phân hệ SS6 & chọn mục "Mô phỏng Metro Surge"
     activate UI
-    UI -> AppState: Đọc danh sách Hub khả dụng
+    UI -> AppState: Đọc danh sách Hub khả dụng & state_version
     activate AppState
     AppState --> UI: Trả về danh sách Hubs
     deactivate AppState
     UI --> Analyst: Hiển thị form cấu hình (Chọn Hub, số lượng SV đến [5-100])
     
     Analyst -> UI: Chọn Hub mục tiêu & Nhập số lượng SV đến đột biến
-    Analyst -> UI: Nhấn nút "Chạy mô phỏng Metro Surge"
+    Analyst -> UI: Nhấn nút "Chạy mô phỏng Metro Surge (Tạo Preview)"
 end
 
 autonumber 2.1
-group 2. Khởi tạo & Thực thi thuật toán mô phỏng (Deep Copy)
+group 2. Khởi tạo & Thực thi thuật toán mô phỏng (Deep Copy Isolation)
     UI -> AppState: Lấy bản sao sâu dữ liệu Hubs (copy.deepcopy)
     activate AppState
     AppState --> UI: Trả về bản sao Hubs
@@ -43,49 +55,60 @@ group 2. Khởi tạo & Thực thi thuật toán mô phỏng (Deep Copy)
     
     UI -> Engine: Khởi tạo HubEventSimulator(hubs_copy)
     activate Engine
-    UI -> Engine: simulate_metro_surge(target_hub_id, surge_count)
+    UI -> Engine: simulate_metro_surge(target_hub_id, surge_count, seed=42)
     
     Engine -> Engine: Trừ số chỗ đỗ khả dụng (min = 0)
-    Engine -> Engine: Tự động sinh xe mới (EV-SURGE-xxxx, pin 10-40%, AVAILABLE)
-    Engine -> Engine: Giảm số cổng sạc khả dụng
+    Engine -> Engine: Theo dõi số lượng unserved_arrivals nếu trạm đầy
+    Engine -> Engine: Tự động sinh xe mới (EV-SURGE-xxxx, pin 15-45%, AVAILABLE)
+    Engine -> Engine: Giảm số cổng sạc khả dụng cho xe pin thấp
     
-    alt Hub mục tiêu hết sạch chỗ đỗ (available_slots == 0) [Alternative 3]
-        Engine -> Engine: Ghi nhận cảnh báo "Nghẽn trạm & Đề xuất điều phối sang Hub lân cận"
-    else Hết cổng sạc khả dụng [Alternative 4]
+    alt Hub mục tiêu hết sạch chỗ đỗ (available_slots == 0)
+        Engine -> Engine: Ghi nhận cảnh báo "Nghẽn trạm & unserved students"
+    else Hết cổng sạc khả dụng
         Engine -> Engine: Ghi nhận cảnh báo đỏ "KHÔNG CÒN cổng sạc khả dụng!"
     end
     
     Engine -> Engine: Tính tỷ lệ lấp đầy: occupancy = 1 - (available_slots / total_slots)
-    opt Tỷ lệ lấp đầy occupancy > 0.85
-        Engine -> Engine: Kích hoạt cảnh báo quá tải nghiêm trọng (Critical Overload)
-    end
-    
-    Engine --> UI: Trả về event_log & delta_metrics (Chỗ trống, Trụ sạc, Tổng xe)
+    Engine --> UI: Trả về (mod_hubs, event_log, metrics) [list[dict]]
     deactivate Engine
-    
-    UI --> Analyst: Hiển thị bảng so sánh Trước/Sau & Nhật ký sự kiện có màu cảnh báo
+
+    UI -> AppState: Lưu bản xem trước vào st.session_state["sim_preview_ss6"]\n(Gồm preview_id, baseline_version, modified_hubs)
+    activate AppState
+    AppState --> UI: Đã lưu Preview độc lập
+    deactivate AppState
+
+    UI --> Analyst: Hiển thị Preview so sánh Trước / Sau mô phỏng
+    deactivate UI
 end
 
 autonumber 3.1
-group 3. Đánh giá & Áp dụng kết quả vào toàn hệ thống
-    alt Chỉ quan sát thử nghiệm (Không áp dụng) [Alternative 2]
-        Analyst -> UI: Rời màn hình hoặc chạy lại tham số mới
-        note right of UI: Dữ liệu st.session_state['hubs'] gốc được giữ nguyên
-    else Xác nhận áp dụng kết quả [Normal Flow]
-        Analyst -> UI: Nhấn nút "Áp dụng kết quả mô phỏng vào hệ thống"
-        UI -> AppState: Ghi đè danh sách Hub mới vào st.session_state['hubs']
+group 3. Quyết định Áp dụng hoặc Hủy bỏ (Tách biệt độc lập)
+    alt Nhà phân tích nhấn "Áp dụng kết quả vào vận hành trạm"
+        Analyst -> UI: Nhấn nút "Áp dụng kết quả vào vận hành trạm"
+        activate UI
+        UI -> AppState: Kiểm tra state_version hiện tại == baseline_version
         activate AppState
-        AppState --> UI: Cập nhật thành công
+        alt Dữ liệu trạm không bị thay đổi trong lúc mô phỏng
+            AppState -> AppState: st.session_state["hubs"] = modified_hubs
+            AppState -> AppState: Tăng state_version và xóa sim_preview_ss6
+            AppState --> UI: Áp dụng thành công
+            UI --> Analyst: Thông báo: "Đã cập nhật dữ liệu vận hành hệ thống thành công!"
+        else Dữ liệu bị thay đổi (Stale version)
+            AppState --> UI: Lỗi xung đột phiên bản
+            UI --> Analyst: Báo lỗi: "Dữ liệu trạm đã thay đổi. Vui lòng chạy lại mô phỏng!"
+        end
         deactivate AppState
-        
-        UI -> ExternalSS: Đồng bộ trạng thái mới sang Dashboard (SS3) & Điều phối (SS4)
-        activate ExternalSS
-        ExternalSS --> UI: Xác nhận đã nhận tín hiệu đồng bộ
-        deactivate ExternalSS
-        
-        UI -> UI: Kích hoạt st.rerun() làm mới ứng dụng
-        UI --> Analyst: Thông báo áp dụng thành công & giao diện cập nhật mới
+        deactivate UI
+    else Nhà phân tích nhấn "Hủy bỏ bản xem trước"
+        Analyst -> UI: Nhấn nút "Hủy bỏ bản xem trước"
+        activate UI
+        UI -> AppState: Xóa st.session_state["sim_preview_ss6"]
+        activate AppState
+        AppState --> UI: Đã xóa preview, giữ nguyên dữ liệu gốc
+        deactivate AppState
+        UI --> Analyst: Thông báo: "Đã hủy xem trước mô phỏng"
+        deactivate UI
     end
-    deactivate UI
 end
+
 @enduml

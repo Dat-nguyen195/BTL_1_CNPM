@@ -1,37 +1,73 @@
-@startuml
-!theme plain
-participant "Logic cảnh báo (Multi-level)" as Sys
-participant "st.session_state" as SS
-participant "Dashboard cảnh báo" as UI
-actor "Operator" as Op
-participant "Phân hệ SS4" as SS4
-participant "Phân hệ SS1/SS2" as SS12
+@startuml UC_SS3_02_PhamTienDat_sequence
+!include ../../../common.puml
+skinparam sequenceMessageAlign center
+skinparam maxMessageSize 150
+skinparam BoxPadding 10
 
-loop Quét định kỳ / khi cập nhật số chỗ trống
-    Sys -> SS: Đọc st.session_state["hubs"]
-    SS --> Sys: Số xe, sức chứa tối đa
-    Sys -> Sys: Tính tỷ lệ lấp đầy
+title "Detailed UML Sequence Diagram: SS3 - Cảnh báo quá tải phân cấp (70% / 85% / 100%)"
+
+actor "Nhân viên Vận hành\n(Operator)" as Op
+
+box "Boundary / UI Layer" #LightCyan
+participant "hub_monitor.py\n(Dashboard UI)" as UI
+end box
+
+box "External Authentication" #White
+participant "Cổng VNU-SSO\n(SSO)" as SSO
+end box
+
+box "Control & State" #LightYellow
+participant "st.session_state\n(AppState)" as AppState
+end box
+
+box "External Payment" #White
+participant "Sổ cái / Ví điện tử\n(E-Wallet)" as EWallet
+end box
+
+box "Hardware / IoT" #LightGray
+participant "Cảm biến cổng & xe\n(IoT_Sensors)" as IoT
+end box
+
+autonumber 1.1
+group 1. Tính toán tỉ lệ lấp đầy & Phát hiện ngưỡng quá tải
+    Op -> UI: Quan sát trạng thái cảnh báo trên Dashboard
+    activate UI
     
-    alt ≥ 70% và < 85%
-        Sys -> UI: Chuyển Hub A sang MÀU VÀNG
-        UI --> Op: Cảnh báo sớm: theo dõi, chuẩn bị nguồn lực điều phối
-    else ≥ 85% và < 100% (Alt 1)
-        Sys -> UI: Màu Đỏ nhấp nháy + pop-up / âm thanh khẩn cấp
-        Sys -> SS4: Gửi đề xuất lệnh điều xe (uc_ss4_01)
-        Op -> UI: Nhấp xác nhận cảnh báo
-        UI -> SS4: Chuyển sang quy trình Điều phối
-    else 100% hoặc hết sạch xe (Alt 2)
-        Sys -> SS12: Khóa nhận đặt chỗ / đặt xe tại Hub A
-        
-        alt Khóa thành công
-            SS12 --> Sys: Xác nhận đã khóa
-            Sys -> UI: Hiển thị Khóa Đỏ khẩn cấp
-            SS12 -> SS12: Từ chối mọi truy vấn đặt chỗ mới
-        else Lỗi đồng bộ / xung đột session (Exception 1)
-            SS12 --> Sys: Lỗi khóa
-            Sys -> UI: Cảnh báo kỹ thuật khẩn cấp
-            Op -> UI: Khóa Hub thủ công
-        end
+    UI -> AppState: Đọc số liệu slots và xe tại từng Hub
+    activate AppState
+    AppState --> UI: Danh sách Hubs (total_slots, available_slots)
+    deactivate AppState
+
+    UI -> UI: Tính toán tỉ lệ lấp đầy: occ = (1 - avail/total) * 100%
+
+    alt 70% <= occ < 85% (Ngưỡng Vàng - Cảnh báo sớm)
+        UI --> Op: Hiển thị trạng thái VÀNG (Chuẩn bị phương án điều phối)
+    else 85% <= occ < 100% (Ngưỡng Đỏ - Quá tải nghiêm trọng)
+        UI -> AppState: Ghi nhận cảnh báo quá tải đỏ (Kích hoạt đề xuất SS4)
+        activate AppState
+        AppState --> UI: Đã cập nhật trạng thái trạm
+        deactivate AppState
+        UI --> Op: Bật cảnh báo ĐỎ nhấp nháy; gợi ý điều xe sang Hub thiếu hụt
+    else occ >= 100% (Trạm đầy 100% - Khóa tiếp nhận)
+        UI -> AppState: Đặt cờ khóa nhận xe mới tại trạm (Kích hoạt Rerouting SS7)
+        activate AppState
+        AppState --> UI: Đã khóa tiếp nhận chỗ đỗ
+        deactivate AppState
+        UI --> Op: Hiển thị biểu tượng KHÓA ĐỎ 100%; tự động điều hướng khách đến trạm khác
     end
+    deactivate UI
 end
+
+autonumber 2.1
+group 2. Điều phối phản ứng nhanh (Tích hợp SS4)
+    Op -> UI: Nhấp nút "Chuyển sang Điều phối SS4"
+    activate UI
+    UI -> AppState: Chuyển hướng phiên làm việc sang Phân hệ SS4
+    activate AppState
+    AppState --> UI: Tải màn hình điều phối xe
+    deactivate AppState
+    UI --> Op: Hiển thị giao diện điều phối xe giữa các Hub
+    deactivate UI
+end
+
 @enduml

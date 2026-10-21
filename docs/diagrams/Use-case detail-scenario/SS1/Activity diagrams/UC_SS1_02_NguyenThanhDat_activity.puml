@@ -1,42 +1,50 @@
 @startuml UC_SS1_02_NguyenThanhDat_activity
-!theme plain
+!include ../../../common.puml
 skinparam activityMessageAlign center
 
 title Activity Diagram - UC_SS1_02: Trả xe 1-chiều & Quyết toán ví điện tử
 
 |Sinh viên ĐHQG-HCM|
 start
-:Di chuyển xe đến Hub đích\n& bấm "Trả xe";
+:Di chuyển xe đến Hub đích đã chọn\n& chọn "Trả xe";
 
 |UI Layer (student_booking.py)|
-:Kiểm tra trạng thái Hub đích;
-if (Trạng thái Hub đích?) then (Full 100% / OFFLINE)
-  :Kích hoạt UC_SS7_02:\nĐề xuất điều hướng 1-chạm\nsang Hub lân cận;
-  
-  |Sinh viên ĐHQG-HCM|
-  :Xác nhận 1-chạm;
-  
-  |UI Layer (student_booking.py)|
-  :Cập nhật sang Hub mới\n(Giữ 100% cọc & tặng\n15p di chuyển miễn phí);
-else (Khả dụng / Normal)
-  |UI Layer (student_booking.py)|
-  :Gửi tín hiệu khóa xe\nsang Khóa IoT;
-  
-  |Khóa thông minh IoT / Trạm Hub|
-  :Chốt an toàn &\nĐọc số liệu km/kWh tiêu thụ;
-  
-  |UI Layer (student_booking.py)|
-  :Tính cước di chuyển\n(Áp dụng chính sách miễn phí\n30p đầu cho sinh viên ĐHQG-HCM);
-  
-  |Tài khoản & Ví điện tử|
-  :Giải phóng 50,000 VNĐ từ locked_balance,\ntrừ tiền cước phát sinh (nếu có)\ntừ wallet_balance;
-  
-  |UI Layer (student_booking.py)|
-  :Xuất e-invoice;
-  
-  |Control & State (st.session_state)|
-  :Chuyển trạng thái xe về AVAILABLE\n(hoặc CHARGING nếu SoC < 20%);
-endif
+repeat
+  :Kiểm tra sức chứa Hub đích (available_slots > 0);
+  if (Trạng thái Hub đích?) then (Full 100% hoặc OFFLINE)
+    :Kích hoạt UC_SS7_02: Đề xuất 2 Hub lân cận;
+    |Sinh viên ĐHQG-HCM|
+    :Xác nhận điều hướng 1-chạm\nsang Hub gợi ý;
+    |Control & State (st.session_state)|
+    :Chuyển đặt chỗ sang Hub mới\n(+15 phút thuê miễn phí bổ sung);
+    |Sinh viên ĐHQG-HCM|
+    :Di chuyển tiếp đến Hub mới;
+    |UI Layer (student_booking.py)|
+  else (Khả dụng / Còn chỗ trống)
+    break
+  endif
+repeat while (Cần kiểm tra lại trạm mới)
+
+|UI Layer (student_booking.py)|
+:Gửi tín hiệu chốt khóa an toàn;
+
+|Khóa thông minh IoT / Trạm Hub|
+:Chốt khóa IoT thành công &\nGửi dữ liệu thời gian/km chuyến đi;
+
+|UI Layer (student_booking.py)|
+:Tính toán chi phí chuyến đi\n(Miễn phí 30p đầu + phút bổ sung);
+
+|Tài khoản & Ví điện tử (E-Wallet)|
+:Giải phóng 50,000 VNĐ tiền cọc;\nKhấu trừ cước thuê hoặc ghi nhận nợ;
+
+|Control & State (st.session_state)|
+:Tiếp nhận xe tại Hub đích (available_slots - 1);\nĐổi trạng thái xe = AVAILABLE (hoặc CHARGING nếu SoC < 20%);
+
+|UI Layer (student_booking.py)|
+:Xuất hóa đơn điện tử (E-Invoice) bền vững;
+
+|Sinh viên ĐHQG-HCM|
+:Xem biên lai chuyến đi & rời trạm;
 stop
 
 @enduml

@@ -1,0 +1,17 @@
+{
+  "R08_old_hold_after_return": 0,
+  "R09_active_kw": 14.8,
+  "R10_after_expiry": {
+    "held": 0,
+    "balance": 140000
+  },
+  "R07_repeated_failure": {
+    "total": 12,
+    "available": 0,
+    "offline": 12
+  },
+  "R07_actual_UI_toggle": {
+    "before": 5,
+    "restored": 5
+  }
+}

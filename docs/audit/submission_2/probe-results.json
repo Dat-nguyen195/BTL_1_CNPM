@@ -1,0 +1,120 @@
+[
+  {
+    "probe": "expired_pin_accepted",
+    "observed": {
+      "booking_status": "IN_USE",
+      "booked_at": "00:00:00 01/01/2000"
+    }
+  },
+  {
+    "probe": "expired_cancel_full_refund",
+    "observed": {
+      "wallet": 500000,
+      "cost": 0
+    }
+  },
+  {
+    "probe": "same_hub_return_unpaid",
+    "observed": {
+      "slots_before": 15,
+      "slots_after": 14,
+      "charge": 270000,
+      "wallet": 0,
+      "booking": "COMPLETED"
+    }
+  },
+  {
+    "probe": "duplicate_personal_ev_booking",
+    "observed": {
+      "same_id_occurrences": 2,
+      "slots": 13,
+      "private_vehicle_status": "registered"
+    }
+  },
+  {
+    "probe": "ss4_text_area",
+    "observed": "UI.text_area() got an unexpected keyword argument 'dispatch_reason'"
+  },
+  {
+    "probe": "scheduler_score",
+    "observed": {
+      "soc": 5,
+      "booking": false,
+      "score": 177.5
+    }
+  },
+  {
+    "probe": "scheduler_score",
+    "observed": {
+      "soc": 30,
+      "booking": false,
+      "score": 65.0
+    }
+  },
+  {
+    "probe": "scheduler_score",
+    "observed": {
+      "soc": 30,
+      "booking": true,
+      "score": 125.0
+    }
+  },
+  {
+    "probe": "scheduler_duplicate_ids",
+    "observed": 4
+  },
+  {
+    "probe": "port_failure_3",
+    "observed": {
+      "original_unchanged": true,
+      "ports": {
+        "total": 12,
+        "available": 2
+      },
+      "hub_status": null,
+      "waiting": 2
+    }
+  },
+  {
+    "probe": "all_busy_ports_failure",
+    "observed": {
+      "charging_after": 2,
+      "log": [
+        "[00:45:19] 🔧 BẮT ĐẦU mô phỏng Port Failure tại Hub KTX Khu A (-2 cổng sạc)",
+        "[00:45:19]   • Cổng sạc bị hỏng: -0 → còn 0",
+        "[00:45:19] 🚨 CẢNH BÁO: Hub Hub KTX Khu A KHÔNG CÒN cổng sạc khả dụng!",
+        "[00:45:19] 💡 ĐỀ XUẤT: Điều phối xe chờ sạc sang Hub lân cận."
+      ]
+    }
+  },
+  {
+    "probe": "metro_surge_copy",
+    "observed": {
+      "original_unchanged": true,
+      "slots_after": 0,
+      "added_vehicles": 8
+    }
+  },
+  {
+    "probe": "nested_buttons_sim_demand.py",
+    "observed": [
+      {
+        "outer": 146,
+        "nested_button_lines": [
+          197
+        ]
+      }
+    ]
+  },
+  {
+    "probe": "nested_buttons_sim_infrastructure.py",
+    "observed": [
+      {
+        "outer": 132,
+        "nested_button_lines": [
+          203
+        ]
+      }
+    ]
+  }
+]

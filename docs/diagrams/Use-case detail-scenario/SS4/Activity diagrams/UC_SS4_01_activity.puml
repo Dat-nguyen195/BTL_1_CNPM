@@ -35,10 +35,10 @@ repeat
   |Hệ thống|
   if (Hub nguồn trùng Hub đích?) then (có)
     :Báo lỗi "Hub nguồn và Hub đích phải khác nhau!";
-    #FADBD8:Lệnh không hợp lệ;
+    :Lệnh không hợp lệ;
   elseif (Chưa chọn xe nào?) then (có)
     :Báo lỗi "Vui lòng chọn ít nhất 1 xe để điều phối.";
-    #FADBD8:Lệnh không hợp lệ;
+    :Lệnh không hợp lệ;
   else (hợp lệ)
     :Lệnh hợp lệ;
   endif

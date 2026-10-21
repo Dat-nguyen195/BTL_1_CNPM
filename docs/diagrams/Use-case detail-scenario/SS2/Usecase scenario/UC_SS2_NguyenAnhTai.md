@@ -203,7 +203,7 @@
         <strong>Alternative 3 (Hủy đơn trước Check-in):</strong> Sau bước 8, sinh viên được hủy theo chính sách áp dụng; hệ thống cập nhật đơn đã hủy và giải phóng từ <code>RESERVED</code> thành <code>AVAILABLE</code>.<br/>
         <strong>Alternative 4 (Thông tin hoặc lịch đặt không hợp lệ):</strong> Tại bước 5 hoặc 7, thời gian không hợp lệ, lịch sạc ngoài thời gian đỗ hoặc xe có lịch sử dụng trùng nhau; hệ thống yêu cầu điều chỉnh form nhập.<br/>
         <strong>Alternative 5 (Không còn vị trí đỗ khả dụng):</strong> Tại bước 5 hoặc 7, hệ thống thông báo hết chỗ và gợi ý sinh viên chọn Hub lân cận hoặc khung giờ khác.<br/>
-        <strong>Alternative 6 (Quá thời hạn giữ chỗ 15 phút - No-show Timeout):</strong> Nếu sinh viên không Check-in trong vòng 15 phút kể từ <code>booking_start_time</code>, hệ thống tự động cập nhật trạng thái đơn sang <code>EXPIRED</code>, giải phóng vị trí về <code>AVAILABLE</code> và khấu trừ phí giữ chỗ theo quy định.
+        <strong>Alternative 6 (Quá thời hạn giữ chỗ 15 phút - No-show Timeout):</strong> Nếu sinh viên không Check-in trong vòng 15 phút kể từ <code>booking_start_time</code>, hệ thống tự động cập nhật trạng thái đơn sang <code>EXPIRED</code>, giải phóng vị trí về <code>AVAILABLE</code> và quyết toán cọc 50.000 VNĐ: phạt 10.000 VNĐ, hoàn 40.000 VNĐ đúng một lần.
       </td>
     </tr>
     <tr>

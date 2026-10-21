@@ -1,0 +1,107 @@
+@startuml UC_SS2_04_NguyenAnhTai_sequence_p3
+!theme plain
+skinparam sequenceMessageAlign center
+skinparam maxMessageSize 150
+skinparam BoxPadding 10
+
+title "UC_SS2_04_ - Phần 3/3: Mở barie và giải phóng tài nguyên"
+
+' Nguồn: UC_SS2_NguyenAnhTai (2).md, cập nhật 21/09/2026.
+' Thiết kế theo đặc tả; không khẳng định toàn bộ chức năng đã có trong mã nguồn.
+
+actor "Sinh viên ĐHQG-HCM" as Student
+box "Boundary / UI Layer" #LightCyan
+participant "personal_ev.py\n(UI)" as UI
+end box
+box "External Authentication" #White
+participant "Cổng VNU-SSO\n(SSO)" as SSO
+end box
+box "Control & State" #LightYellow
+participant "st.session_state\n(AppState)" as AppState
+end box
+box "External Payment" #White
+participant "Cổng thanh toán & Ví nội bộ\n(Payment / E-Wallet)" as EWallet
+end box
+box "Hardware / IoT" #LightGray
+participant "Barie & Cảm biến cổng\n(Gate_IoT)" as Gate
+participant "Trụ sạc\n(Charger_IoT)" as Charger
+end box
+box "Operations" #White
+actor "Nhân viên vận hành\n(Operators)" as Operators
+end box
+
+
+note over UI, AppState #LightCyan
+  Phần 3/3 - Nhóm nghiệp vụ: 4, 5
+  Đọc theo thứ tự các phần; thông điệp giữ số của sơ đồ gốc.
+end note
+autonumber 4.1
+group 4. Đối chiếu tại cổng ra và mở barie
+    Student -> UI: Xác thực xe tại cổng ra
+    activate UI
+    UI -> AppState: Đối chiếu xe và phiên sử dụng;\nkiểm tra đã hoàn tất quyết toán
+    activate AppState
+    AppState --> UI: Kết quả đối chiếu và nghĩa vụ thanh toán
+    deactivate AppState
+    UI --> Student: Kết quả kiểm tra tại cổng
+    deactivate UI
+
+    break Xe không khớp hoặc chưa thanh toán đầy đủ
+        UI --> Student: Không mở cổng;\nyêu cầu xác thực đúng xe hoặc thanh toán bổ sung
+    end
+
+    UI -> Gate: Gửi lệnh mở barie cổng ra
+    activate Gate
+    Gate --> UI: Kết quả mở cổng
+    deactivate Gate
+
+    break Cổng gặp sự cố
+        UI -> Operators: Chuyển yêu cầu xử lý cổng ra
+        activate Operators
+        Operators --> UI: Tiếp nhận và xác minh
+        deactivate Operators
+        UI --> Student: Chờ nhân viên hướng dẫn;\nchưa hoàn tất phiên hoặc giải phóng vị trí
+    end
+
+    Student -> Gate: Đưa xe qua cổng ra
+    activate Gate
+    Gate --> UI: Kết quả xác nhận xe rời Hub
+    deactivate Gate
+
+    break Chưa xác nhận xe đã ra
+        UI -> Operators: Xác minh hiện diện của xe
+        UI --> Student: Chưa hoàn tất Check-out
+    end
+end
+
+autonumber 5.1
+group 5. Hoàn tất phiên và giải phóng tài nguyên
+    UI -> AppState: Ghi thời điểm Check-out;\nkết thúc phiên; đơn = COMPLETED
+    activate AppState
+    AppState -> AppState: Kết thúc phần chiếm dụng vị trí của phiên;\nOCCUPIED -> AVAILABLE khi đủ điều kiện
+    AppState --> UI: Đã cập nhật phiên và vị trí đỗ
+    deactivate AppState
+
+    opt Còn cổng sạc được giữ hoặc sử dụng bởi phiên
+        UI -> Charger: Xác nhận cổng hết kết nối/chiếm dụng thực tế
+        activate Charger
+        Charger --> UI: Trạng thái thực tế của cổng
+        deactivate Charger
+        UI -> AppState: Giải phóng phần giữ/sử dụng của phiên;\nchỉ trả AVAILABLE khi cổng đủ điều kiện
+        activate AppState
+        AppState --> UI: Kết quả cập nhật cổng sạc
+        deactivate AppState
+    end
+
+    UI -> AppState: Hoàn tất cập nhật số chỗ/cổng khả dụng;\ngiữ nguyên hồ sơ đăng ký xe
+    activate AppState
+    AppState --> UI: Hóa đơn và kết quả Check-out
+    deactivate AppState
+    UI --> Student: Check-out thành công;\ncung cấp hóa đơn điện tử
+
+    note over UI, AppState
+        Mỗi tài nguyên chỉ được giải phóng một lần.
+        Cổng đã giải phóng trước đó không được cộng lại.
+    end note
+end
+@enduml

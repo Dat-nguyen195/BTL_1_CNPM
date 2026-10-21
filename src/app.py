@@ -21,63 +21,18 @@ st.set_page_config(
 )
 
 # ──────────────────────────────────────────────
-# KHỞI TẠO DỮ LIỆU MOCK VÀO SESSION STATE
-# Dữ liệu chỉ load 1 lần khi ứng dụng khởi động
+# KHỞI TẠO DỮ LIỆU VÀ TRẠNG THÁI HỆ THỐNG
 # ──────────────────────────────────────────────
-if "hubs" not in st.session_state:
-    # Đọc file JSON mock data
-    data_path = os.path.join(os.path.dirname(__file__), "data", "mock_hubs.json")
-    with open(data_path, "r", encoding="utf-8") as f:
-        st.session_state["hubs"] = json.load(f)
+from core.state import init_session_state, advance_sim_time, UserRole
+from core.booking import process_expired_bookings
+from core.personal_ev import sweep_expired_personal_reservations
 
-if "personal_evs" not in st.session_state:
-    st.session_state["personal_evs"] = [
-        {
-            "ev_id": "PEV-2026",
-            "owner": "Nguyễn Anh Tài",
-            "mssv": "2213001",
-            "plate": "59-X1 12345",
-            "type": "scooter",
-            "brand": "VinFast Klara S",
-            "battery_kwh": 2.0,
-            "registered_at": "2026-10-18 08:30",
-            "status": "registered",
-        },
-        {
-            "ev_id": "PEV-2027",
-            "owner": "Trần Thị B",
-            "mssv": "2212345",
-            "plate": "59-V2 67890",
-            "type": "scooter",
-            "brand": "VinFast Feliz",
-            "battery_kwh": 2.2,
-            "registered_at": "2026-10-18 09:15",
-            "status": "charging",
-        },
-    ]
+# Centralized session state initialization
+init_session_state(st.session_state)
 
-if "dispatch_log" not in st.session_state or not st.session_state.get("dispatch_log"):
-    st.session_state["dispatch_log"] = [
-        {
-            "time": "2026-10-19 07:45:00",
-            "from": "Hub KTX Khu B",
-            "to": "Hub KTX Khu A",
-            "vehicles": 5,
-            "reason": "Cân bằng tải giờ cao điểm sáng Metro",
-        }
-    ]
-
-if "incident_log" not in st.session_state or not st.session_state.get("incident_log"):
-    st.session_state["incident_log"] = [
-        {
-            "time": "2026-10-19 08:10:00",
-            "hub": "Hub Trường ĐH Bách Khoa",
-            "vehicle": "EV-B005",
-            "type": "Lỗi cổng sạc / cáp",
-            "severity": "Cao",
-            "note": "Cổng #3 không nhận tiếp xúc điện",
-        }
-    ]
+# Automatically sweep expired reservations (shared EV 15-min & personal EV 15-min after scheduled arrival) before rendering any view
+process_expired_bookings(st.session_state)
+sweep_expired_personal_reservations(st.session_state)
 
 
 # ──────────────────────────────────────────────
@@ -108,6 +63,21 @@ selected_label = st.sidebar.radio(
     list(SUBSYSTEMS.keys()),
     index=0,
 )
+
+st.sidebar.divider()
+
+# Điều khiển thời gian giả lập & Demo State
+sim_time_str = st.session_state.get("current_sim_time", "2026-10-21 08:00:00")
+st.sidebar.markdown(f"🕒 **Đồng hồ Demo:** `{sim_time_str}`")
+col_t1, col_t2 = st.sidebar.columns([1, 1])
+with col_t1:
+    if st.button("⏩ +15 phút", use_container_width=True, help="Tua nhanh 15 phút để kiểm thử đếm ngược hết hạn, ân hạn sạc"):
+        advance_sim_time(st.session_state, minutes=15)
+        st.rerun()
+with col_t2:
+    if st.button("🔄 Reset", use_container_width=True, help="Khôi phục trạng thái ban đầu (Reset Demo)"):
+        init_session_state(st.session_state, force_reset=True)
+        st.rerun()
 
 st.sidebar.divider()
 

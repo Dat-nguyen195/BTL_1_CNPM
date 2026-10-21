@@ -1,0 +1,13 @@
+\subsection{Phạm vi Prototype và Bằng chứng Kiểm thử (MoSCoW)}
+Các tỷ lệ sau là phép tính theo trọng số nội bộ của nhóm, không phải rubric định lượng của môn học. Mục tiêu nhóm là xác thực ít nhất 90\% trọng số luồng prototype. VERIFIED chỉ áp dụng cho luồng mô phỏng có bằng chứng tự động; PARTIAL không được cộng vào trọng số đã xác thực. SSO, IoT, QR/barie và cổng thanh toán thật nằm ngoài phạm vi tích hợp của đợt nộp này.
+\begin{table}[H]\centering\small
+\caption{Mức xác thực luồng Prototype theo trọng số MoSCoW}\label{tab:moscow-scope}
+\begin{tabularx}{\textwidth}{|X|r|r|r|r|}\hline
+Nhóm & Số US & Trọng số & Điểm xác thực & Tỷ lệ \\\hline
+MUST & 23 & 99 & 94 & 94.95\% \\\hline
+SHOULD & 6 & 18 & 12 & 66.67\% \\\hline
+COULD & 1 & 2 & 2 & 100.00\% \\\hline
+Tổng & 30 & 119 & 108 & 90.76\% \\\hline
+\end{tabularx}\end{table}
+\noindent Ma trận chi tiết US--FR--UC--code--test được bàn giao trong \path{docs/traceability/submission_2.md}. Các tiêu chí còn một phần gồm: US-06 chưa đo quãng đường thực tế; US-12 chưa xác thực toàn bộ hành trình thanh toán riêng của nhân viên; US-21 chưa mô hình hóa biến động doanh thu. Những giới hạn này không được tính là VERIFIED.
+\par Mỗi bản nộp kèm kết quả Pytest và kiểm tra cú pháp PlantUML; việc vượt kiểm tra không thay thế đánh giá nội dung thiết kế.

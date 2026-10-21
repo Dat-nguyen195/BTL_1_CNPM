@@ -1,0 +1,90 @@
+@startuml UC_SS2_04_NguyenAnhTai_sequence_p2
+!theme plain
+skinparam sequenceMessageAlign center
+skinparam maxMessageSize 150
+skinparam BoxPadding 10
+
+title "UC_SS2_04_ - Phần 2/3: Thanh toán và quyết toán tiền cọc"
+
+' Nguồn: UC_SS2_NguyenAnhTai (2).md, cập nhật 21/09/2026.
+' Thiết kế theo đặc tả; không khẳng định toàn bộ chức năng đã có trong mã nguồn.
+
+actor "Sinh viên ĐHQG-HCM" as Student
+box "Boundary / UI Layer" #LightCyan
+participant "personal_ev.py\n(UI)" as UI
+end box
+box "External Authentication" #White
+participant "Cổng VNU-SSO\n(SSO)" as SSO
+end box
+box "Control & State" #LightYellow
+participant "st.session_state\n(AppState)" as AppState
+end box
+box "External Payment" #White
+participant "Cổng thanh toán & Ví nội bộ\n(Payment / E-Wallet)" as EWallet
+end box
+box "Hardware / IoT" #LightGray
+participant "Barie & Cảm biến cổng\n(Gate_IoT)" as Gate
+participant "Trụ sạc\n(Charger_IoT)" as Charger
+end box
+box "Operations" #White
+actor "Nhân viên vận hành\n(Operators)" as Operators
+end box
+
+
+note over UI, AppState #LightCyan
+  Phần 2/3 - Nhóm nghiệp vụ: 3
+  Đọc theo thứ tự các phần; thông điệp giữ số của sơ đồ gốc.
+end note
+autonumber 3.1
+group 3. Thanh toán và quyết toán tiền cọc
+    Student -> UI: Kiểm tra hóa đơn;\nxác nhận thanh toán qua ví nội bộ
+    activate UI
+    UI -> EWallet: Quyết toán hóa đơn thực tế;\nđối soát khoản cọc tạm giữ 50.000 VNĐ
+    activate EWallet
+    EWallet --> UI: Kết quả giao dịch ví
+    deactivate EWallet
+    deactivate UI
+
+    alt Ví thanh toán thành công
+        note over UI, EWallet
+            Thu đúng tổng tiền thực tế và giải phóng khoản cọc
+            trong cùng nghiệp vụ quyết toán.
+            Tiền cọc không phải khoản phí cộng thêm vào hóa đơn.
+        end note
+
+    else Ví từ chối do thiếu số dư
+        UI --> Student: Thông báo không đủ số dư;\ncho phép chọn phương thức khác
+        Student -> UI: Chọn hình thức thanh toán thay thế
+        activate UI
+        UI -> EWallet: Xử lý thanh toán theo phương thức được chọn
+        activate EWallet
+        EWallet --> UI: Kết quả thanh toán thay thế
+        deactivate EWallet
+        deactivate UI
+
+        opt Thanh toán thay thế thành công
+            UI -> EWallet: Đối soát và giải phóng khoản cọc;\nkhông thu lại khoản đã thanh toán
+            activate EWallet
+            EWallet --> UI: Kết quả quyết toán khoản cọc
+            deactivate EWallet
+        end
+
+    else Giao dịch lỗi hoặc chưa xác định kết quả
+        UI -> EWallet: Tra soát giao dịch trước khi cho phép thử lại
+        activate EWallet
+        EWallet --> UI: Kết quả tra soát / còn chờ xử lý
+        deactivate EWallet
+    end
+
+    break Chưa xác nhận thanh toán đủ và quyết toán thành công
+        UI --> Student: Yêu cầu thanh toán khoản còn thiếu\nhoặc chờ đối soát; chưa cho phép ra Hub
+    end
+
+    UI -> AppState: Ghi nhận hóa đơn đã thanh toán;\nlưu giao dịch và hóa đơn điện tử
+    activate AppState
+    AppState --> UI: Xác nhận đã quyết toán
+    deactivate AppState
+    UI --> Student: Thanh toán thành công
+end
+
+@enduml

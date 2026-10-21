@@ -66,3 +66,7 @@ Nhóm thực hiện nghiêm túc quy định lưu vết Prompt:
 ## 6. LỜI CAM ĐOAN
 
 > Chúng tôi – tập thể 7 thành viên nhóm thực hiện dự án Smart E-Mobility Hub – xin cam đoan rằng toàn bộ nội dung trong Báo cáo Đặc tả Yêu cầu (Submission #1), Sơ đồ Use-case và Mã nguồn Prototype phản ánh đúng tư duy phân tích, công sức lao động trí tuệ và sự phối hợp của các thành viên. Các nội dung tham khảo công cụ AI đều đã được khai báo trung thực, đầy đủ và chịu sự kiểm soát hoàn toàn của nhóm.
+
+## 7. Bổ sung phiên hoàn thiện Submission #2 ngày 21/10/2026
+
+Codex hỗ trợ đối chiếu mã US/FR với SRS, sửa chính sách đặt chỗ SS2, sửa đọc ledger trên dashboard, bổ sung kiểm thử hành vi Streamlit/core, sửa tài liệu truy vết và dựng lại PDF. Kết quả kiểm thử tự động được lưu cùng hồ sơ; không thay cho việc từng thành viên đọc hiểu và xác nhận phần được phân công. Các tỷ lệ đóng góp AI ở bảng cũ là ước lượng của nhóm cho giai đoạn trước, không được dùng để suy ra tỷ lệ của phiên hỗ trợ này. Không có xác nhận thay mặt thành viên hoặc kết luận đã bảo vệ đồ án.

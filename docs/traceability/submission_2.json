@@ -1,0 +1,1067 @@
+{
+  "project": "Smart E-Mobility Hub",
+  "team": "BEE BRAVE (Group 7)",
+  "course": "CO3001 Software Engineering - HK261",
+  "submission": "Submission #2",
+  "verification_scope": "Automated prototype workflow evidence; partial criteria are explicitly excluded from verified weight. This is not an official grading score.",
+  "canonical_use_cases": {
+    "UC_SS1_01": {
+      "subsystem": "SS1",
+      "name": "Tra cứu, Đặt xe & Nhận xe qua QR/PIN",
+      "owner": "Nguyễn Thành Đạt",
+      "owner_role": "Leader / PM",
+      "scenario_file": "docs/diagrams/Use-case detail-scenario/SS1/Usecase scenario/UC_SS1_NguyenThanhDat.md",
+      "sequence_file": "docs/diagrams/Use-case detail-scenario/SS1/Sequence diagrams/UC_SS1_01_NguyenThanhDat_sequence.puml",
+      "activity_file": "docs/diagrams/Use-case detail-scenario/SS1/Activity diagrams/UC_SS1_01_NguyenThanhDat_activity.puml",
+      "statechart_file": "docs/diagrams/Use-case detail-scenario/SS1/State-chart diagrams/UC_SS1_NguyenThanhDat_statechart.puml",
+      "component": "src/components/student_booking.py",
+      "functions": [
+        "_tab_book",
+        "_tab_pickup",
+        "core.booking.create_booking",
+        "core.booking.pickup_vehicle"
+      ]
+    },
+    "UC_SS1_02": {
+      "subsystem": "SS1",
+      "name": "Trả xe, Cập nhật vị trí & Quyết toán ví điện tử",
+      "owner": "Nguyễn Thành Đạt",
+      "owner_role": "Leader / PM",
+      "scenario_file": "docs/diagrams/Use-case detail-scenario/SS1/Usecase scenario/UC_SS1_NguyenThanhDat.md",
+      "sequence_file": "docs/diagrams/Use-case detail-scenario/SS1/Sequence diagrams/UC_SS1_02_NguyenThanhDat_sequence.puml",
+      "activity_file": "docs/diagrams/Use-case detail-scenario/SS1/Activity diagrams/UC_SS1_02_NguyenThanhDat_activity.puml",
+      "statechart_file": "docs/diagrams/Use-case detail-scenario/SS1/State-chart diagrams/UC_SS1_NguyenThanhDat_statechart.puml",
+      "component": "src/components/student_booking.py",
+      "functions": [
+        "_tab_return",
+        "core.booking.return_vehicle",
+        "core.billing.settle_rental_payment"
+      ]
+    },
+    "UC_SS1_03": {
+      "subsystem": "SS1",
+      "name": "Hủy đặt chỗ & Hoàn cọc / Phạt quá giờ",
+      "owner": "Nguyễn Thành Đạt",
+      "owner_role": "Leader / PM",
+      "scenario_file": "docs/diagrams/Use-case detail-scenario/SS1/Usecase scenario/UC_SS1_NguyenThanhDat.md",
+      "sequence_file": "docs/diagrams/Use-case detail-scenario/SS1/Sequence diagrams/UC_SS1_03_NguyenThanhDat_sequence.puml",
+      "activity_file": "docs/diagrams/Use-case detail-scenario/SS1/Activity diagrams/UC_SS1_03_NguyenThanhDat_activity.puml",
+      "statechart_file": "docs/diagrams/Use-case detail-scenario/SS1/State-chart diagrams/UC_SS1_NguyenThanhDat_statechart.puml",
+      "component": "src/components/student_booking.py",
+      "functions": [
+        "_tab_cancel",
+        "core.booking.cancel_booking",
+        "core.booking.expire_booking"
+      ]
+    },
+    "UC_SS2_01": {
+      "subsystem": "SS2",
+      "name": "Đăng ký xe EV cá nhân lên hệ thống",
+      "owner": "Nguyễn Anh Tài",
+      "owner_role": "Developer / Analyst",
+      "scenario_file": "docs/diagrams/Use-case detail-scenario/SS2/Usecase scenario/UC_SS2_NguyenAnhTai.md",
+      "sequence_file": "docs/diagrams/Use-case detail-scenario/SS2/Sequence diagrams/UC_SS2_01_NguyenAnhTai_sequence.puml",
+      "activity_file": "docs/diagrams/Use-case detail-scenario/SS2/Activity diagrams/UC_SS2_01_NguyenAnhTai_activity.puml",
+      "statechart_file": "docs/diagrams/Use-case detail-scenario/SS2/State-chart diagrams/UC_SS2_NguyenAnhTai_statechart.puml",
+      "component": "src/components/personal_ev.py",
+      "functions": [
+        "render",
+        "core.personal_ev.register_personal_ev"
+      ]
+    },
+    "UC_SS2_02": {
+      "subsystem": "SS2",
+      "name": "Đặt trước chỗ đỗ và nhu cầu sạc xe EV cá nhân",
+      "owner": "Nguyễn Anh Tài",
+      "owner_role": "Developer / Analyst",
+      "scenario_file": "docs/diagrams/Use-case detail-scenario/SS2/Usecase scenario/UC_SS2_NguyenAnhTai.md",
+      "sequence_file": "docs/diagrams/Use-case detail-scenario/SS2/Sequence diagrams/UC_SS2_02_NguyenAnhTai_sequence.puml",
+      "activity_file": "docs/diagrams/Use-case detail-scenario/SS2/Activity diagrams/UC_SS2_02_NguyenAnhTai_activity.puml",
+      "statechart_file": "docs/diagrams/Use-case detail-scenario/SS2/State-chart diagrams/UC_SS2_NguyenAnhTai_statechart.puml",
+      "component": "src/components/personal_ev.py",
+      "functions": [
+        "render",
+        "core.personal_ev.reserve_personal_ev_slot",
+        "core.personal_ev.sweep_expired_personal_reservations"
+      ]
+    },
+    "UC_SS2_03": {
+      "subsystem": "SS2",
+      "name": "Check-in xe EV cá nhân tại cổng Hub (QR/Biển số)",
+      "owner": "Nguyễn Anh Tài",
+      "owner_role": "Developer / Analyst",
+      "scenario_file": "docs/diagrams/Use-case detail-scenario/SS2/Usecase scenario/UC_SS2_NguyenAnhTai.md",
+      "sequence_file": "docs/diagrams/Use-case detail-scenario/SS2/Sequence diagrams/UC_SS2_03_NguyenAnhTai_sequence.puml",
+      "activity_file": "docs/diagrams/Use-case detail-scenario/SS2/Activity diagrams/UC_SS2_03_NguyenAnhTai_activity.puml",
+      "statechart_file": "docs/diagrams/Use-case detail-scenario/SS2/State-chart diagrams/UC_SS2_NguyenAnhTai_statechart.puml",
+      "component": "src/components/personal_ev.py",
+      "functions": [
+        "render",
+        "core.personal_ev.check_in_personal_ev"
+      ]
+    },
+    "UC_SS2_04": {
+      "subsystem": "SS2",
+      "name": "Check-out và thanh toán tổng hợp dịch vụ xe EV cá nhân",
+      "owner": "Nguyễn Anh Tài",
+      "owner_role": "Developer / Analyst",
+      "scenario_file": "docs/diagrams/Use-case detail-scenario/SS2/Usecase scenario/UC_SS2_NguyenAnhTai.md",
+      "sequence_file": "docs/diagrams/Use-case detail-scenario/SS2/Sequence diagrams/UC_SS2_04_NguyenAnhTai_sequence.puml",
+      "activity_file": "docs/diagrams/Use-case detail-scenario/SS2/Activity diagrams/UC_SS2_04_NguyenAnhTai_activity.puml",
+      "statechart_file": "docs/diagrams/Use-case detail-scenario/SS2/State-chart diagrams/UC_SS2_NguyenAnhTai_statechart.puml",
+      "component": "src/components/personal_ev.py",
+      "functions": [
+        "render",
+        "core.personal_ev.check_out_personal_ev"
+      ]
+    },
+    "UC_SS3_01": {
+      "subsystem": "SS3",
+      "name": "Giám sát mạng lưới Hub, KPI & Doanh thu thời gian thực",
+      "owner": "Phạm Tiến Đạt",
+      "owner_role": "Developer / Analyst",
+      "scenario_file": "docs/diagrams/Use-case detail-scenario/SS3/Usecase scenario/UC_SS3_PhamTienDat.md",
+      "sequence_file": "docs/diagrams/Use-case detail-scenario/SS3/Sequence diagrams/UC_SS3_01_PhamTienDat_sequence.puml",
+      "activity_file": "docs/diagrams/Use-case detail-scenario/SS3/Activity diagrams/UC_SS3_01_PhamTienDat_activity.puml",
+      "statechart_file": "docs/diagrams/Use-case detail-scenario/SS3/State-chart diagrams/UC_SS3_01_PhamTienDat_statechart.puml",
+      "component": "src/components/hub_monitor.py",
+      "functions": [
+        "render",
+        "core.state.validate_hub_capacity",
+        "core.state.get_occupancy_status"
+      ]
+    },
+    "UC_SS3_02": {
+      "subsystem": "SS3",
+      "name": "Cảnh báo phân cấp chiếm dụng Hub & Sự cố IoT",
+      "owner": "Phạm Tiến Đạt",
+      "owner_role": "Developer / Analyst",
+      "scenario_file": "docs/diagrams/Use-case detail-scenario/SS3/Usecase scenario/UC_SS3_PhamTienDat.md",
+      "sequence_file": "docs/diagrams/Use-case detail-scenario/SS3/Sequence diagrams/UC_SS3_02_PhamTienDat_sequence.puml",
+      "activity_file": "docs/diagrams/Use-case detail-scenario/SS3/Activity diagrams/UC_SS3_02_PhamTienDat_activity.puml",
+      "statechart_file": "docs/diagrams/Use-case detail-scenario/SS3/State-chart diagrams/UC_SS3_02_PhamTienDat_statechart.puml",
+      "component": "src/components/hub_monitor.py",
+      "functions": [
+        "render",
+        "core.state.get_occupancy_status"
+      ]
+    },
+    "UC_SS4_01": {
+      "subsystem": "SS4",
+      "name": "Lập lệnh điều chuyển phương tiện cân bằng phụ tải",
+      "owner": "Đặng Hoàng Quý Nhân",
+      "owner_role": "Developer / Analyst",
+      "scenario_file": "docs/diagrams/Use-case detail-scenario/SS4/Usecase scenario/UC_SS4_DangHoangQuyNhan.md",
+      "sequence_file": "docs/diagrams/Use-case detail-scenario/SS4/Sequence diagrams/UC_SS4_01_sequence.puml",
+      "activity_file": "docs/diagrams/Use-case detail-scenario/SS4/Activity diagrams/UC_SS4_01_activity.puml",
+      "statechart_file": "docs/diagrams/Use-case detail-scenario/SS4/State-chart diagrams/UC_SS4_01_statechart.puml",
+      "component": "src/components/dispatch_incident.py",
+      "functions": [
+        "render",
+        "core.state.normalize_status"
+      ]
+    },
+    "UC_SS4_02": {
+      "subsystem": "SS4",
+      "name": "Báo cáo, tiếp nhận xử lý và khắc phục sự cố phương tiện",
+      "owner": "Đặng Hoàng Quý Nhân",
+      "owner_role": "Developer / Analyst",
+      "scenario_file": "docs/diagrams/Use-case detail-scenario/SS4/Usecase scenario/UC_SS4_DangHoangQuyNhan.md",
+      "sequence_file": "docs/diagrams/Use-case detail-scenario/SS4/Sequence diagrams/UC_SS4_02_sequence.puml",
+      "activity_file": "docs/diagrams/Use-case detail-scenario/SS4/Activity diagrams/UC_SS4_02_activity.puml",
+      "statechart_file": "docs/diagrams/Use-case detail-scenario/SS4/State-chart diagrams/UC_SS4_02_statechart.puml",
+      "component": "src/components/dispatch_incident.py",
+      "functions": [
+        "render",
+        "core.state.VehicleStatus"
+      ]
+    },
+    "UC_SS5_01": {
+      "subsystem": "SS5",
+      "name": "Lập lịch sạc tự động theo điểm ưu tiên & Giới hạn công suất lưới",
+      "owner": "Dương Đăng Khoa",
+      "owner_role": "Developer / Analyst",
+      "scenario_file": "docs/diagrams/Use-case detail-scenario/SS5/Usecase scenario/UC_SS5_DuongDangKhoa.md",
+      "sequence_file": "docs/diagrams/Use-case detail-scenario/SS5/Sequence diagrams/UC_SS5_01_DuongDangKhoa_sequence.puml",
+      "activity_file": "docs/diagrams/Use-case detail-scenario/SS5/Activity diagrams/UC_SS5_01_DuongDangKhoa_activity.puml",
+      "statechart_file": "docs/diagrams/Use-case detail-scenario/SS5/State-chart diagrams/UC_SS5_DuongDangKhoa_statechart.puml",
+      "component": "src/components/smart_charging.py",
+      "functions": [
+        "render",
+        "core.scheduler.SmartChargingScheduler.calculate_priority_score",
+        "core.scheduler.SmartChargingScheduler.allocate_charging_sessions"
+      ]
+    },
+    "UC_SS5_02": {
+      "subsystem": "SS5",
+      "name": "Giám sát hàng chờ sạc, hoàn thành, ân hạn & Tính phí quá giờ",
+      "owner": "Dương Đăng Khoa",
+      "owner_role": "Developer / Analyst",
+      "scenario_file": "docs/diagrams/Use-case detail-scenario/SS5/Usecase scenario/UC_SS5_DuongDangKhoa.md",
+      "sequence_file": "docs/diagrams/Use-case detail-scenario/SS5/Sequence diagrams/UC_SS5_02_DuongDangKhoa_sequence.puml",
+      "activity_file": "docs/diagrams/Use-case detail-scenario/SS5/Activity diagrams/UC_SS5_02_DuongDangKhoa_activity.puml",
+      "statechart_file": "docs/diagrams/Use-case detail-scenario/SS5/State-chart diagrams/UC_SS5_DuongDangKhoa_statechart.puml",
+      "component": "src/components/smart_charging.py",
+      "functions": [
+        "render",
+        "core.scheduler.SmartChargingScheduler.tick",
+        "core.billing.settle_overstay_charging"
+      ]
+    },
+    "UC_SS6_01": {
+      "subsystem": "SS6",
+      "name": "Mô phỏng tăng đột biến nhu cầu khách Metro (What-if Metro Surge)",
+      "owner": "Hoàng Văn Tấn",
+      "owner_role": "Developer / Analyst",
+      "scenario_file": "docs/diagrams/Use-case detail-scenario/SS6/Usecase scenario/UC_SS6_HoangVanTan.md",
+      "sequence_file": "docs/diagrams/Use-case detail-scenario/SS6/Sequence diagrams/UC_SS6_01_HoangVanTan_sequence.puml",
+      "activity_file": "docs/diagrams/Use-case detail-scenario/SS6/Activity diagrams/UC_SS6_01_HoangVanTan_activity.puml",
+      "statechart_file": "docs/diagrams/Use-case detail-scenario/SS6/State-chart diagrams/UC_SS6_Scenario_Lifecycle_statechart.puml",
+      "component": "src/components/sim_demand.py",
+      "functions": [
+        "render",
+        "core.simulator.HubEventSimulator.simulate_metro_surge"
+      ]
+    },
+    "UC_SS6_02": {
+      "subsystem": "SS6",
+      "name": "Dự báo phụ tải nhu cầu và phân tích hàng đợi 24h",
+      "owner": "Hoàng Văn Tấn",
+      "owner_role": "Developer / Analyst",
+      "scenario_file": "docs/diagrams/Use-case detail-scenario/SS6/Usecase scenario/UC_SS6_HoangVanTan.md",
+      "sequence_file": "docs/diagrams/Use-case detail-scenario/SS6/Sequence diagrams/UC_SS6_02_HoangVanTan_sequence.puml",
+      "activity_file": "docs/diagrams/Use-case detail-scenario/SS6/Activity diagrams/UC_SS6_02_HoangVanTan_activity.puml",
+      "statechart_file": "docs/diagrams/Use-case detail-scenario/SS6/State-chart diagrams/UC_SS6_Hub_Operational_statechart.puml",
+      "component": "src/components/sim_demand.py",
+      "functions": [
+        "render",
+        "core.simulator.HubEventSimulator.simulate_metro_surge"
+      ]
+    },
+    "UC_SS7_01": {
+      "subsystem": "SS7",
+      "name": "Mô phỏng sự cố hạ tầng & Mất điện trạm sạc",
+      "owner": "Nguyễn Trung Nguyên",
+      "owner_role": "Developer / Analyst",
+      "scenario_file": "docs/diagrams/Use-case detail-scenario/SS7/Usecase scenario/UC_SS7_NguyenTrungNguyen.md",
+      "sequence_file": "docs/diagrams/Use-case detail-scenario/SS7/Sequence diagrams/UC_SS7_01_NguyenTrungNguyen_sequence.puml",
+      "activity_file": "docs/diagrams/Use-case detail-scenario/SS7/Activity diagrams/UC_SS7_01_NguyenTrungNguyen_activity.puml",
+      "statechart_file": "docs/diagrams/Use-case detail-scenario/SS7/State-chart diagrams/UC_SS7_01_NguyenTrungNguyen_statechart.puml",
+      "component": "src/components/sim_infrastructure.py",
+      "functions": [
+        "render",
+        "core.simulator.HubEventSimulator.simulate_port_failure"
+      ]
+    },
+    "UC_SS7_02": {
+      "subsystem": "SS7",
+      "name": "Đề xuất gợi ý điều hướng tự động sang Hub lân cận & Cảnh báo",
+      "owner": "Nguyễn Trung Nguyên",
+      "owner_role": "Developer / Analyst",
+      "scenario_file": "docs/diagrams/Use-case detail-scenario/SS7/Usecase scenario/UC_SS7_NguyenTrungNguyen.md",
+      "sequence_file": "docs/diagrams/Use-case detail-scenario/SS7/Sequence diagrams/UC_SS7_02_NguyenTrungNguyen_sequence.puml",
+      "activity_file": "docs/diagrams/Use-case detail-scenario/SS7/Activity diagrams/UC_SS7_02_NguyenTrungNguyen_activity.puml",
+      "statechart_file": "docs/diagrams/Use-case detail-scenario/SS7/State-chart diagrams/UC_SS7_02_NguyenTrungNguyen_statechart.puml",
+      "component": "src/components/sim_infrastructure.py",
+      "functions": [
+        "render",
+        "core.routing.find_alternative_hubs",
+        "core.simulator.HubEventSimulator.simulate_port_failure"
+      ]
+    }
+  },
+  "functional_requirements": {
+    "FR-01": {
+      "description": "Đặt chỗ đỗ & chọn xe điện dùng chung",
+      "user_stories": [
+        "US-01",
+        "US-02"
+      ],
+      "subsystem": "SS1 –`src/components/student_booking.py`"
+    },
+    "FR-01b": {
+      "description": "**Tự động tính phí thuê xe điện dùng chung** dựa trên thời gian sử dụng và loại phương tiện (chính sách miễn phí 30 phút đầu cho SV ĐHQG-HCM, tạm tính cọc 15 phút, áp dụng voucher sinh viên)",
+      "user_stories": [
+        "US-02",
+        "US-03",
+        "US-04"
+      ],
+      "subsystem": "SS1 –`src/components/student_booking.py`"
+    },
+    "FR-01c": {
+      "description": "**Xử lý Nhận xe & Trả xe điện dùng chung**:• *Nhận xe:* Xác thực mã QR/PIN trong hạn 15 phút, chuyển trạng thái xe sang `IN_USE`, bắt đầu đếm giờ chuyến đi.• *Trả xe:* Cập nhật vị trí xe mới tại Hub đích, trả xe về trạng thái `AVAILABLE`, cập nhật chỗ đỗ khả dụng tại Hub trả, chốt tổng thời gian di chuyển, tính phí thuê thực tế (sau 30 phút miễn phí) và quyết toán ví điện tử",
+      "user_stories": [
+        "US-03b",
+        "US-05b"
+      ],
+      "subsystem": "SS1 –`src/components/student_booking.py`"
+    },
+    "FR-02": {
+      "description": "Hủy đặt xe & hoàn trả 100% tiền cọc tự động trong 15 phút",
+      "user_stories": [
+        "US-05"
+      ],
+      "subsystem": "SS1 –`src/components/student_booking.py`"
+    },
+    "FR-03": {
+      "description": "Đăng ký xe EV cá nhân (biển số, loại xe, dung lượng pin)",
+      "user_stories": [
+        "US-08"
+      ],
+      "subsystem": "SS2 –`src/components/personal_ev.py`"
+    },
+    "FR-03b": {
+      "description": "**Xác thực Check-in & Check-out xe cá nhân tại cổng Hub**:• *Check-in:* Quét mã QR/biển số mở barie, kích hoạt giữ đúng slot đỗ và cổng sạc đã đặt.• *Check-out:* Xác nhận đã hoàn tất thanh toán hóa đơn tổng hợp, mở barie cho xe xuất bãi và giải phóng slot về `AVAILABLE`",
+      "user_stories": [
+        "US-11b"
+      ],
+      "subsystem": "SS2 –`src/components/personal_ev.py`"
+    },
+    "FR-04": {
+      "description": "Đặt lịch sạc cho xe cá nhân",
+      "user_stories": [
+        "US-10",
+        "US-12"
+      ],
+      "subsystem": "SS2 –`src/components/personal_ev.py` + SS5 – `src/components/smart_charging.py`"
+    },
+    "FR-05b": {
+      "description": "**Tự động tính phí dịch vụ đỗ xe cá nhân và phí sạc điện** dựa trên công suất trạm sạc (kW) & điện năng tiêu thụ (kWh) theo khung giờ cao điểm / thấp điểm",
+      "user_stories": [
+        "US-09",
+        "US-10",
+        "US-11",
+        "US-12"
+      ],
+      "subsystem": "SS2 –`src/components/personal_ev.py` + SS5 – `src/core/scheduler.py`"
+    },
+    "FR-05": {
+      "description": "Dashboard giám sát hub, KPI & doanh thu thời gian thực",
+      "user_stories": [
+        "US-07",
+        "US-13"
+      ],
+      "subsystem": "SS3 –`src/components/hub_monitor.py`"
+    },
+    "FR-05c": {
+      "description": "**Cảnh báo phân cấp ngưỡng chiếm dụng Hub**:• Vàng ($\\ge 70\\%$): Trạng thái cảnh giác.• Đỏ ($\\ge 85\\%$): Nguy cơ quá tải cao, đẩy pop-up cảnh báo.• Đỏ khẩn cấp ($100\\%$): Khóa tính năng nhận đặt chỗ mới tại Hub đó",
+      "user_stories": [
+        "US-13b"
+      ],
+      "subsystem": "SS3 –`src/components/hub_monitor.py`"
+    },
+    "FR-06": {
+      "description": "Thông báo IoT khi phát hiện lỗi cảm biến / trạm sạc",
+      "user_stories": [
+        "US-14"
+      ],
+      "subsystem": "SS3 –`src/components/hub_monitor.py`"
+    },
+    "FR-07": {
+      "description": "Điều phối xe giữa các hub để cân bằng phụ tải",
+      "user_stories": [
+        "US-15"
+      ],
+      "subsystem": "SS4 –`src/components/dispatch_incident.py`"
+    },
+    "FR-08": {
+      "description": "Báo cáo, tiếp nhận xử lý và lưu lịch sử sự cố phương tiện",
+      "user_stories": [
+        "US-16",
+        "US-17"
+      ],
+      "subsystem": "SS4 –`src/components/dispatch_incident.py`"
+    },
+    "FR-09": {
+      "description": "Lập lịch sạc tự động theo điểm ưu tiên (SoC < 20%, lịch gấp, giá điện theo giờ)",
+      "user_stories": [
+        "US-18"
+      ],
+      "subsystem": "SS5 –`src/components/smart_charging.py` & `src/core/scheduler.py`"
+    },
+    "FR-10": {
+      "description": "Thông báo hoàn thành sạc & xuất biên nhận năng lượng tiêu thụ",
+      "user_stories": [
+        "US-19"
+      ],
+      "subsystem": "SS5 –`src/components/smart_charging.py`"
+    },
+    "FR-10b": {
+      "description": "**Giám sát giải phóng trụ sạc & Tính phí chiếm dụng quá giờ (Overstay Fee)**: Tự động gửi cảnh báo khi pin đạt 90% và 100%; sau 15 phút ân hạn nếu chưa rút sạc sẽ tính phí giữ chỗ quá giờ để nhường trụ sạc",
+      "user_stories": [
+        "US-19b"
+      ],
+      "subsystem": "SS5 –`src/components/smart_charging.py` & `src/core/scheduler.py`"
+    },
+    "FR-11": {
+      "description": "Đặt giới hạn năng lượng tối đa (Peak Power Capping) của trạm sạc",
+      "user_stories": [
+        "US-20"
+      ],
+      "subsystem": "SS5 –`src/components/smart_charging.py`"
+    },
+    "FR-12": {
+      "description": "Mô phỏng nhu cầu sinh viên tăng đột biến từ Ga Metro (What-if Metro Surge)",
+      "user_stories": [
+        "US-21"
+      ],
+      "subsystem": "SS6 –`src/components/sim_demand.py` & `src/core/simulator.py`"
+    },
+    "FR-13": {
+      "description": "Biểu đồ dự báo nhu cầu & phân tích phụ tải hàng đợi 24h (thời gian chờ trung bình)",
+      "user_stories": [
+        "US-22"
+      ],
+      "subsystem": "SS6 –`src/components/sim_demand.py`"
+    },
+    "FR-14": {
+      "description": "Mô phỏng lỗi cổng sạc / mất điện trạm sạc hoàn toàn",
+      "user_stories": [
+        "US-23"
+      ],
+      "subsystem": "SS7 –`src/components/sim_infrastructure.py`"
+    },
+    "FR-15": {
+      "description": "Đánh giá tác động lỗi hạ tầng lên luồng xe & hỗ trợ quyết định điều phối",
+      "user_stories": [
+        "US-24"
+      ],
+      "subsystem": "SS7 –`src/components/sim_infrastructure.py` + SS4 – `src/components/dispatch_incident.py`"
+    },
+    "FR-15c": {
+      "description": "**Tự động đề xuất gợi ý điều hướng người dùng sang Hub lân cận**: Khi Hub đích bị sự cố mất điện hoặc hết 100% chỗ đỗ, tự động quét tìm 02 Hub gần nhất còn chỗ khả dụng và gửi thông báo gợi ý điều hướng kèm nút chuyển đặt chỗ 1 chạm",
+      "user_stories": [
+        "US-24b"
+      ],
+      "subsystem": "SS7 –`src/components/sim_infrastructure.py` & SS1 – `src/components/student_booking.py`"
+    },
+    "FR-15b": {
+      "description": "**Tích hợp cổng thanh toán / ví điện tử mô phỏng, xuất hóa đơn điện tử (e-invoice)** cho người dùng sau mỗi lượt sử dụng dịch vụ",
+      "user_stories": [
+        "US-06",
+        "US-07",
+        "US-11"
+      ],
+      "subsystem": "Toàn hệ thống –`src/components/student_booking.py`, `src/components/personal_ev.py`, `src/core/scheduler.py`"
+    }
+  },
+  "user_stories": {
+    "US-01": {
+      "title": "Là một sinh viên tôi muốn đặt một chỗ đỗ xe chung để có chỗ đỗ bảo mật khi tới campus.",
+      "fr_links": [
+        "FR-01"
+      ],
+      "canonical_ucs": [
+        "UC_SS1_01",
+        "UC_SS1_02"
+      ],
+      "component": "src/components/student_booking.py",
+      "function": "_tab_book",
+      "scenario_section": "docs/diagrams/Use-case detail-scenario/SS1/Usecase scenario/UC_SS1_NguyenThanhDat.md",
+      "sequence_path": "docs/diagrams/Use-case detail-scenario/SS1/Sequence diagrams/UC_SS1_01_NguyenThanhDat_sequence.puml",
+      "activity_path": "docs/diagrams/Use-case detail-scenario/SS1/Activity diagrams/UC_SS1_01_NguyenThanhDat_activity.puml",
+      "moscow": "MUST",
+      "weight": 5,
+      "test_id": "test_booking_pickup_return_capacity_conservation",
+      "status": "VERIFIED",
+      "evidence_scope": "Luồng prototype với dữ liệu trong session; SSO, IoT và ví thanh toán được mô phỏng."
+    },
+    "US-02": {
+      "title": "Là một sinh viên tôi muốn tra cứu danh sách xe điện khả dụng kèm mức pin (SoC %) và đơn giá thuê minh bạch (VNĐ/phút hoặc chính sách miễn phí 30 phút đầu cho SV ĐHQG-HCM) để chủ động lựa chọn phương tiện phù hợp với lộ trình.",
+      "fr_links": [
+        "FR-01",
+        "FR-01b"
+      ],
+      "canonical_ucs": [
+        "UC_SS1_01"
+      ],
+      "component": "src/components/student_booking.py",
+      "function": "_tab_book",
+      "scenario_section": "docs/diagrams/Use-case detail-scenario/SS1/Usecase scenario/UC_SS1_NguyenThanhDat.md",
+      "sequence_path": "docs/diagrams/Use-case detail-scenario/SS1/Sequence diagrams/UC_SS1_01_NguyenThanhDat_sequence.puml",
+      "activity_path": "docs/diagrams/Use-case detail-scenario/SS1/Activity diagrams/UC_SS1_01_NguyenThanhDat_activity.puml",
+      "moscow": "MUST",
+      "weight": 4,
+      "test_id": "test_student_ui_filters_available_vehicles_and_books_voucher",
+      "status": "VERIFIED",
+      "evidence_scope": "Luồng prototype với dữ liệu trong session; SSO, IoT và ví thanh toán được mô phỏng."
+    },
+    "US-03": {
+      "title": "Là một sinh viên tôi muốn thanh toán tiền cọc tạm tính qua ví điện tử nội bộ và khóa giữ chỗ xe trong 15 phút để đảm bảo xe không bị người khác lấy trước khi tôi đến Hub.",
+      "fr_links": [
+        "FR-01b"
+      ],
+      "canonical_ucs": [
+        "UC_SS1_01",
+        "UC_SS1_03"
+      ],
+      "component": "src/components/student_booking.py",
+      "function": "_tab_book",
+      "scenario_section": "docs/diagrams/Use-case detail-scenario/SS1/Usecase scenario/UC_SS1_NguyenThanhDat.md",
+      "sequence_path": "docs/diagrams/Use-case detail-scenario/SS1/Sequence diagrams/UC_SS1_01_NguyenThanhDat_sequence.puml",
+      "activity_path": "docs/diagrams/Use-case detail-scenario/SS1/Activity diagrams/UC_SS1_01_NguyenThanhDat_activity.puml",
+      "moscow": "MUST",
+      "weight": 4,
+      "test_id": "test_noshow_expiry_and_penalty",
+      "status": "VERIFIED",
+      "evidence_scope": "Luồng prototype với dữ liệu trong session; SSO, IoT và ví thanh toán được mô phỏng."
+    },
+    "US-03b": {
+      "title": "Là một sinh viên đã đặt giữ chỗ xe, tôi muốn quét mã QR/PIN tại Hub để Nhận xe (Pick-up) để mở khóa phương tiện và bắt đầu tính thời gian di chuyển.",
+      "fr_links": [
+        "FR-01c"
+      ],
+      "canonical_ucs": [
+        "UC_SS1_01"
+      ],
+      "component": "src/components/student_booking.py",
+      "function": "_tab_pickup",
+      "scenario_section": "docs/diagrams/Use-case detail-scenario/SS1/Usecase scenario/UC_SS1_NguyenThanhDat.md",
+      "sequence_path": "docs/diagrams/Use-case detail-scenario/SS1/Sequence diagrams/UC_SS1_01_NguyenThanhDat_sequence.puml",
+      "activity_path": "docs/diagrams/Use-case detail-scenario/SS1/Activity diagrams/UC_SS1_01_NguyenThanhDat_activity.puml",
+      "moscow": "MUST",
+      "weight": 4,
+      "test_id": "test_booking_pickup_return_capacity_conservation",
+      "status": "VERIFIED",
+      "evidence_scope": "Luồng prototype với dữ liệu trong session; SSO, IoT và ví thanh toán được mô phỏng."
+    },
+    "US-04": {
+      "title": "Là một sinh viên tôi muốn áp dụng mã giảm giá / voucher sinh viên khi đặt xe để được hưởng ưu đãi chi phí thuê xe.",
+      "fr_links": [
+        "FR-01b"
+      ],
+      "canonical_ucs": [
+        "UC_SS1_01",
+        "UC_SS1_02"
+      ],
+      "component": "src/components/student_booking.py",
+      "function": "_tab_book",
+      "scenario_section": "docs/diagrams/Use-case detail-scenario/SS1/Usecase scenario/UC_SS1_NguyenThanhDat.md",
+      "sequence_path": "docs/diagrams/Use-case detail-scenario/SS1/Sequence diagrams/UC_SS1_01_NguyenThanhDat_sequence.puml",
+      "activity_path": "docs/diagrams/Use-case detail-scenario/SS1/Activity diagrams/UC_SS1_01_NguyenThanhDat_activity.puml",
+      "moscow": "SHOULD",
+      "weight": 3,
+      "test_id": "test_dashboard_shows_actual_booking_ledger_and_revenue",
+      "status": "VERIFIED",
+      "evidence_scope": "Luồng prototype với dữ liệu trong session; SSO, IoT và ví thanh toán được mô phỏng."
+    },
+    "US-05": {
+      "title": "Là một sinh viên tôi muốn hủy đặt chỗ và được hoàn trả 100% tiền cọc về ví điện tử nếu thay đổi kế hoạch trong thời hạn 15 phút.",
+      "fr_links": [
+        "FR-02"
+      ],
+      "canonical_ucs": [
+        "UC_SS1_03"
+      ],
+      "component": "src/components/student_booking.py",
+      "function": "_tab_cancel",
+      "scenario_section": "docs/diagrams/Use-case detail-scenario/SS1/Usecase scenario/UC_SS1_NguyenThanhDat.md",
+      "sequence_path": "docs/diagrams/Use-case detail-scenario/SS1/Sequence diagrams/UC_SS1_03_NguyenThanhDat_sequence.puml",
+      "activity_path": "docs/diagrams/Use-case detail-scenario/SS1/Activity diagrams/UC_SS1_03_NguyenThanhDat_activity.puml",
+      "moscow": "MUST",
+      "weight": 5,
+      "test_id": "test_early_cancellation_full_refund",
+      "status": "VERIFIED",
+      "evidence_scope": "Luồng prototype với dữ liệu trong session; SSO, IoT và ví thanh toán được mô phỏng."
+    },
+    "US-05b": {
+      "title": "Là một sinh viên đang sử dụng xe điện dùng chung, tôi muốn Trả xe (Return Vehicle) tại Hub điểm đến để kết thúc chuyến đi, hệ thống giải phóng xe về trạng thái sẵn sàng và tự động quyết toán chi phí thuê xe vào ví điện tử.",
+      "fr_links": [
+        "FR-01c"
+      ],
+      "canonical_ucs": [
+        "UC_SS1_02"
+      ],
+      "component": "src/components/student_booking.py",
+      "function": "_tab_return",
+      "scenario_section": "docs/diagrams/Use-case detail-scenario/SS1/Usecase scenario/UC_SS1_NguyenThanhDat.md",
+      "sequence_path": "docs/diagrams/Use-case detail-scenario/SS1/Sequence diagrams/UC_SS1_02_NguyenThanhDat_sequence.puml",
+      "activity_path": "docs/diagrams/Use-case detail-scenario/SS1/Activity diagrams/UC_SS1_02_NguyenThanhDat_activity.puml",
+      "moscow": "MUST",
+      "weight": 5,
+      "test_id": "test_r08_alternate_hub_return_releases_destination_hold",
+      "status": "VERIFIED",
+      "evidence_scope": "Luồng prototype với dữ liệu trong session; SSO, IoT và ví thanh toán được mô phỏng."
+    },
+    "US-06": {
+      "title": "Là một sinh viên tôi muốn xem hóa đơn điện tử chi tiết sau chuyến đi (thời gian di chuyển, quãng đường, chi phí thực tế đã trừ) để quản lý chi tiêu cá nhân minh bạch.",
+      "fr_links": [
+        "FR-15b"
+      ],
+      "canonical_ucs": [
+        "UC_SS1_02"
+      ],
+      "component": "src/components/student_booking.py",
+      "function": "_tab_return",
+      "scenario_section": "docs/diagrams/Use-case detail-scenario/SS1/Usecase scenario/UC_SS1_NguyenThanhDat.md",
+      "sequence_path": "docs/diagrams/Use-case detail-scenario/SS1/Sequence diagrams/UC_SS1_02_NguyenThanhDat_sequence.puml",
+      "activity_path": "docs/diagrams/Use-case detail-scenario/SS1/Activity diagrams/UC_SS1_02_NguyenThanhDat_activity.puml",
+      "moscow": "SHOULD",
+      "weight": 3,
+      "test_id": "test_dashboard_shows_actual_booking_ledger_and_revenue",
+      "status": "PARTIAL",
+      "evidence_scope": "Đã kiểm thử hóa đơn thời gian, phí và voucher; chưa có số đo quãng đường chuyến đi."
+    },
+    "US-07": {
+      "title": "Là một quản trị viên tôi muốn xem danh sách đặt chỗ hiện tại và doanh thu dịch vụ xe chung để quản lý khả năng phục vụ và hiệu quả vận hành.",
+      "fr_links": [
+        "FR-05",
+        "FR-15b"
+      ],
+      "canonical_ucs": [
+        "UC_SS3_01"
+      ],
+      "component": "src/components/hub_monitor.py",
+      "function": "render",
+      "scenario_section": "docs/diagrams/Use-case detail-scenario/SS3/Usecase scenario/UC_SS3_PhamTienDat.md",
+      "sequence_path": "docs/diagrams/Use-case detail-scenario/SS3/Sequence diagrams/UC_SS3_01_PhamTienDat_sequence.puml",
+      "activity_path": "docs/diagrams/Use-case detail-scenario/SS3/Activity diagrams/UC_SS3_01_PhamTienDat_activity.puml",
+      "moscow": "MUST",
+      "weight": 4,
+      "test_id": "test_dashboard_shows_actual_booking_ledger_and_revenue",
+      "status": "VERIFIED",
+      "evidence_scope": "Luồng prototype với dữ liệu trong session; SSO, IoT và ví thanh toán được mô phỏng."
+    },
+    "US-08": {
+      "title": "Là một sinh viên tôi muốn đăng ký xe EV\t cá nhân (biển số, loại xe, dung lượng pin) để hệ thống xác thực quyền đỗ xe và cấp quyền sạc tại các Hub ĐHQG-HCM.",
+      "fr_links": [
+        "FR-03"
+      ],
+      "canonical_ucs": [
+        "UC_SS2_01"
+      ],
+      "component": "src/components/personal_ev.py",
+      "function": "render",
+      "scenario_section": "docs/diagrams/Use-case detail-scenario/SS2/Usecase scenario/UC_SS2_NguyenAnhTai.md",
+      "sequence_path": "docs/diagrams/Use-case detail-scenario/SS2/Sequence diagrams/UC_SS2_01_NguyenAnhTai_sequence.puml",
+      "activity_path": "docs/diagrams/Use-case detail-scenario/SS2/Activity diagrams/UC_SS2_01_NguyenAnhTai_activity.puml",
+      "moscow": "MUST",
+      "weight": 5,
+      "test_id": "test_register_personal_ev_success_and_duplicate",
+      "status": "VERIFIED",
+      "evidence_scope": "Luồng prototype với dữ liệu trong session; SSO, IoT và ví thanh toán được mô phỏng."
+    },
+    "US-09": {
+      "title": "Là một chủ xe cá nhân tôi muốn tra cứu biểu phí đỗ xe theo giờ và đặt trước vị trí đỗ để an tâm có chỗ gửi xe an toàn khi vào học.",
+      "fr_links": [
+        "FR-05b"
+      ],
+      "canonical_ucs": [
+        "UC_SS2_02",
+        "UC_SS2_04"
+      ],
+      "component": "src/components/personal_ev.py",
+      "function": "render",
+      "scenario_section": "docs/diagrams/Use-case detail-scenario/SS2/Usecase scenario/UC_SS2_NguyenAnhTai.md",
+      "sequence_path": "docs/diagrams/Use-case detail-scenario/SS2/Sequence diagrams/UC_SS2_02_NguyenAnhTai_sequence.puml",
+      "activity_path": "docs/diagrams/Use-case detail-scenario/SS2/Activity diagrams/UC_SS2_02_NguyenAnhTai_activity.puml",
+      "moscow": "MUST",
+      "weight": 4,
+      "test_id": "test_reserve_and_checkin_checkout_lifecycle",
+      "status": "VERIFIED",
+      "evidence_scope": "Luồng prototype với dữ liệu trong session; SSO, IoT và ví thanh toán được mô phỏng."
+    },
+    "US-10": {
+      "title": "Là một chủ xe cá nhân tôi muốn đặt lịch sạc và được hệ thống tự động tính phí dựa trên lượng điện năng tiêu thụ (kWh) kết hợp khung giờ sạc (giờ cao điểm / thấp điểm) để tối ưu chi phí nạp năng lượng.",
+      "fr_links": [
+        "FR-04",
+        "FR-05b"
+      ],
+      "canonical_ucs": [
+        "UC_SS2_02",
+        "UC_SS2_04",
+        "UC_SS5_01"
+      ],
+      "component": "src/components/personal_ev.py",
+      "function": "render",
+      "scenario_section": "docs/diagrams/Use-case detail-scenario/SS2/Usecase scenario/UC_SS2_NguyenAnhTai.md",
+      "sequence_path": "docs/diagrams/Use-case detail-scenario/SS2/Sequence diagrams/UC_SS2_02_NguyenAnhTai_sequence.puml",
+      "activity_path": "docs/diagrams/Use-case detail-scenario/SS2/Activity diagrams/UC_SS2_02_NguyenAnhTai_activity.puml",
+      "moscow": "MUST",
+      "weight": 4,
+      "test_id": "test_reserve_and_checkin_checkout_lifecycle",
+      "status": "VERIFIED",
+      "evidence_scope": "Luồng prototype với dữ liệu trong session; SSO, IoT và ví thanh toán được mô phỏng."
+    },
+    "US-11": {
+      "title": "Là một chủ xe cá nhân tôi muốn thanh toán tích hợp cả phí gửi xe và phí sạc trên một hóa đơn điện tử qua ví nội bộ để tiết kiệm thời gian giao dịch.",
+      "fr_links": [
+        "FR-05b",
+        "FR-15b"
+      ],
+      "canonical_ucs": [
+        "UC_SS2_04"
+      ],
+      "component": "src/components/personal_ev.py",
+      "function": "render",
+      "scenario_section": "docs/diagrams/Use-case detail-scenario/SS2/Usecase scenario/UC_SS2_NguyenAnhTai.md",
+      "sequence_path": "docs/diagrams/Use-case detail-scenario/SS2/Sequence diagrams/UC_SS2_04_NguyenAnhTai_sequence.puml",
+      "activity_path": "docs/diagrams/Use-case detail-scenario/SS2/Activity diagrams/UC_SS2_04_NguyenAnhTai_activity.puml",
+      "moscow": "MUST",
+      "weight": 4,
+      "test_id": "test_reserve_and_checkin_checkout_lifecycle",
+      "status": "VERIFIED",
+      "evidence_scope": "Luồng prototype với dữ liệu trong session; SSO, IoT và ví thanh toán được mô phỏng."
+    },
+    "US-11b": {
+      "title": "Là một chủ xe điện cá nhân đã đặt trước chỗ đỗ/sạc, tôi muốn xác thực quét mã QR/biển số Check-in vào đúng vị trí đỗ và Check-out rời bãi đỗ tại cổng kiểm soát barie tự động để đảm bảo xe đỗ đúng vị trí được cấp phép và tự động mở cổng khi đã hoàn tất quyết toán.",
+      "fr_links": [
+        "FR-03b"
+      ],
+      "canonical_ucs": [
+        "UC_SS2_03",
+        "UC_SS2_04"
+      ],
+      "component": "src/components/personal_ev.py",
+      "function": "render",
+      "scenario_section": "docs/diagrams/Use-case detail-scenario/SS2/Usecase scenario/UC_SS2_NguyenAnhTai.md",
+      "sequence_path": "docs/diagrams/Use-case detail-scenario/SS2/Sequence diagrams/UC_SS2_03_NguyenAnhTai_sequence.puml",
+      "activity_path": "docs/diagrams/Use-case detail-scenario/SS2/Activity diagrams/UC_SS2_03_NguyenAnhTai_activity.puml",
+      "moscow": "MUST",
+      "weight": 4,
+      "test_id": "test_reserve_and_checkin_checkout_lifecycle",
+      "status": "VERIFIED",
+      "evidence_scope": "Luồng prototype với dữ liệu trong session; SSO, IoT và ví thanh toán được mô phỏng."
+    },
+    "US-12": {
+      "title": "Là một nhân viên sạc/vận hành tôi muốn kiểm tra trạng thái sạc hiện tại, biểu phí áp dụng và xác nhận thanh toán để quyết định thứ tự ưu tiên sạc.",
+      "fr_links": [
+        "FR-04",
+        "FR-05b"
+      ],
+      "canonical_ucs": [
+        "UC_SS2_02",
+        "UC_SS2_04",
+        "UC_SS5_02"
+      ],
+      "component": "src/components/personal_ev.py",
+      "function": "render",
+      "scenario_section": "docs/diagrams/Use-case detail-scenario/SS2/Usecase scenario/UC_SS2_NguyenAnhTai.md",
+      "sequence_path": "docs/diagrams/Use-case detail-scenario/SS2/Sequence diagrams/UC_SS2_02_NguyenAnhTai_sequence.puml",
+      "activity_path": "docs/diagrams/Use-case detail-scenario/SS2/Activity diagrams/UC_SS2_02_NguyenAnhTai_activity.puml",
+      "moscow": "SHOULD",
+      "weight": 3,
+      "test_id": "test_peak_hour_boundaries",
+      "status": "PARTIAL",
+      "evidence_scope": "Có trạng thái sạc, biểu phí và quyết toán mô phỏng; chưa kiểm thử đầy đủ hành trình xác nhận thanh toán riêng của nhân viên vận hành."
+    },
+    "US-13": {
+      "title": "Là một nhân viên giám sát tôi muốn xem dashboard tổng quan về số lượng xe, mức độ sử dụng, doanh thu tạm tính và cảnh báo quá tải.",
+      "fr_links": [
+        "FR-05"
+      ],
+      "canonical_ucs": [
+        "UC_SS3_01"
+      ],
+      "component": "src/components/hub_monitor.py",
+      "function": "render",
+      "scenario_section": "docs/diagrams/Use-case detail-scenario/SS3/Usecase scenario/UC_SS3_PhamTienDat.md",
+      "sequence_path": "docs/diagrams/Use-case detail-scenario/SS3/Sequence diagrams/UC_SS3_01_PhamTienDat_sequence.puml",
+      "activity_path": "docs/diagrams/Use-case detail-scenario/SS3/Activity diagrams/UC_SS3_01_PhamTienDat_activity.puml",
+      "moscow": "MUST",
+      "weight": 4,
+      "test_id": "test_dashboard_shows_actual_booking_ledger_and_revenue",
+      "status": "VERIFIED",
+      "evidence_scope": "Luồng prototype với dữ liệu trong session; SSO, IoT và ví thanh toán được mô phỏng."
+    },
+    "US-13b": {
+      "title": "Là một nhân viên giám sát trung tâm, tôi muốn hệ thống tự động kích hoạt cảnh báo phân cấp theo ngưỡng chiếm dụng (Màu vàng khi $\\ge 70\\%$, Màu đỏ nhấp nháy khi $\\ge 85\\%$, và Khóa nhận đặt chỗ khi $100\\%$ hết chỗ/hết xe) để kịp thời điều phối trước khi xảy ra ùn ứ.",
+      "fr_links": [
+        "FR-05c"
+      ],
+      "canonical_ucs": [
+        "UC_SS3_02"
+      ],
+      "component": "src/components/hub_monitor.py",
+      "function": "render",
+      "scenario_section": "docs/diagrams/Use-case detail-scenario/SS3/Usecase scenario/UC_SS3_PhamTienDat.md",
+      "sequence_path": "docs/diagrams/Use-case detail-scenario/SS3/Sequence diagrams/UC_SS3_02_PhamTienDat_sequence.puml",
+      "activity_path": "docs/diagrams/Use-case detail-scenario/SS3/Activity diagrams/UC_SS3_02_PhamTienDat_activity.puml",
+      "moscow": "MUST",
+      "weight": 4,
+      "test_id": "test_occupancy_threshold_levels",
+      "status": "VERIFIED",
+      "evidence_scope": "Luồng prototype với dữ liệu trong session; SSO, IoT và ví thanh toán được mô phỏng."
+    },
+    "US-14": {
+      "title": "Là một kỹ thuật viên tôi muốn nhận thông báo IoT khi cảm biến phát hiện lỗi để kịp thời xử lý.",
+      "fr_links": [
+        "FR-06"
+      ],
+      "canonical_ucs": [
+        "UC_SS3_01",
+        "UC_SS4_02"
+      ],
+      "component": "src/components/hub_monitor.py",
+      "function": "render",
+      "scenario_section": "docs/diagrams/Use-case detail-scenario/SS3/Usecase scenario/UC_SS3_PhamTienDat.md",
+      "sequence_path": "docs/diagrams/Use-case detail-scenario/SS3/Sequence diagrams/UC_SS3_01_PhamTienDat_sequence.puml",
+      "activity_path": "docs/diagrams/Use-case detail-scenario/SS3/Activity diagrams/UC_SS3_01_PhamTienDat_activity.puml",
+      "moscow": "SHOULD",
+      "weight": 3,
+      "test_id": "test_infrastructure_preview_isolated_apply_and_stale_rejected",
+      "status": "VERIFIED",
+      "evidence_scope": "Luồng prototype với dữ liệu trong session; SSO, IoT và ví thanh toán được mô phỏng."
+    },
+    "US-15": {
+      "title": "Là một điều phối viên tôi muốn chỉ định xe từ hub A sang hub B để cân bằng tải.",
+      "fr_links": [
+        "FR-07"
+      ],
+      "canonical_ucs": [
+        "UC_SS4_01"
+      ],
+      "component": "src/components/dispatch_incident.py",
+      "function": "render",
+      "scenario_section": "docs/diagrams/Use-case detail-scenario/SS4/Usecase scenario/UC_SS4_DangHoangQuyNhan.md",
+      "sequence_path": "docs/diagrams/Use-case detail-scenario/SS4/Sequence diagrams/UC_SS4_01_sequence.puml",
+      "activity_path": "docs/diagrams/Use-case detail-scenario/SS4/Activity diagrams/UC_SS4_01_activity.puml",
+      "moscow": "MUST",
+      "weight": 4,
+      "test_id": "test_dispatch_ui_moves_vehicle_and_conserves_capacity",
+      "status": "VERIFIED",
+      "evidence_scope": "Luồng prototype với dữ liệu trong session; SSO, IoT và ví thanh toán được mô phỏng."
+    },
+    "US-16": {
+      "title": "Là một kỹ thuật viên hiện trường tôi muốn báo cáo sự cố (va chạm, hết pin, hỏng), tiếp nhận xử lý và ghi nhận thời gian khắc phục để phương tiện sớm trở lại trạng thái khả dụng.",
+      "fr_links": [
+        "FR-08"
+      ],
+      "canonical_ucs": [
+        "UC_SS4_02"
+      ],
+      "component": "src/components/dispatch_incident.py",
+      "function": "render",
+      "scenario_section": "docs/diagrams/Use-case detail-scenario/SS4/Usecase scenario/UC_SS4_DangHoangQuyNhan.md",
+      "sequence_path": "docs/diagrams/Use-case detail-scenario/SS4/Sequence diagrams/UC_SS4_02_sequence.puml",
+      "activity_path": "docs/diagrams/Use-case detail-scenario/SS4/Activity diagrams/UC_SS4_02_activity.puml",
+      "moscow": "MUST",
+      "weight": 4,
+      "test_id": "test_incident_ui_report_acknowledge_resolve_and_history",
+      "status": "VERIFIED",
+      "evidence_scope": "Luồng prototype với dữ liệu trong session; SSO, IoT và ví thanh toán được mô phỏng."
+    },
+    "US-17": {
+      "title": "Là một quản trị viên tôi muốn xem lịch sử sự cố để phân tích nguyên nhân.",
+      "fr_links": [
+        "FR-08"
+      ],
+      "canonical_ucs": [
+        "UC_SS4_02"
+      ],
+      "component": "src/components/dispatch_incident.py",
+      "function": "render",
+      "scenario_section": "docs/diagrams/Use-case detail-scenario/SS4/Usecase scenario/UC_SS4_DangHoangQuyNhan.md",
+      "sequence_path": "docs/diagrams/Use-case detail-scenario/SS4/Sequence diagrams/UC_SS4_02_sequence.puml",
+      "activity_path": "docs/diagrams/Use-case detail-scenario/SS4/Activity diagrams/UC_SS4_02_activity.puml",
+      "moscow": "COULD",
+      "weight": 2,
+      "test_id": "test_incident_ui_report_acknowledge_resolve_and_history",
+      "status": "VERIFIED",
+      "evidence_scope": "Luồng prototype với dữ liệu trong session; SSO, IoT và ví thanh toán được mô phỏng."
+    },
+    "US-18": {
+      "title": "Là một chuyên viên sạc tôi muốn tự động xếp hàng sạc dựa trên mức ưu tiên (pin, thời gian, mức độ khẩn cấp, giá điện theo giờ).",
+      "fr_links": [
+        "FR-09"
+      ],
+      "canonical_ucs": [
+        "UC_SS5_01"
+      ],
+      "component": "src/components/smart_charging.py",
+      "function": "render",
+      "scenario_section": "docs/diagrams/Use-case detail-scenario/SS5/Usecase scenario/UC_SS5_DuongDangKhoa.md",
+      "sequence_path": "docs/diagrams/Use-case detail-scenario/SS5/Sequence diagrams/UC_SS5_01_DuongDangKhoa_sequence.puml",
+      "activity_path": "docs/diagrams/Use-case detail-scenario/SS5/Activity diagrams/UC_SS5_01_DuongDangKhoa_activity.puml",
+      "moscow": "MUST",
+      "weight": 5,
+      "test_id": "test_priority_scores_matching_plan_specification",
+      "status": "VERIFIED",
+      "evidence_scope": "Luồng prototype với dữ liệu trong session; SSO, IoT và ví thanh toán được mô phỏng."
+    },
+    "US-19": {
+      "title": "Là một sinh viên tôi muốn được thông báo khi xe đã sạc xong và nhận biên nhận chi phí điện năng đã nạp.",
+      "fr_links": [
+        "FR-10"
+      ],
+      "canonical_ucs": [
+        "UC_SS5_02"
+      ],
+      "component": "src/components/smart_charging.py",
+      "function": "render",
+      "scenario_section": "docs/diagrams/Use-case detail-scenario/SS5/Usecase scenario/UC_SS5_DuongDangKhoa.md",
+      "sequence_path": "docs/diagrams/Use-case detail-scenario/SS5/Sequence diagrams/UC_SS5_02_DuongDangKhoa_sequence.puml",
+      "activity_path": "docs/diagrams/Use-case detail-scenario/SS5/Activity diagrams/UC_SS5_02_DuongDangKhoa_activity.puml",
+      "moscow": "SHOULD",
+      "weight": 3,
+      "test_id": "test_charging_completion_notification_survives_rerun_and_receipt_is_recorded",
+      "status": "VERIFIED",
+      "evidence_scope": "Luồng prototype với dữ liệu trong session; SSO, IoT và ví thanh toán được mô phỏng."
+    },
+    "US-19b": {
+      "title": "Là một chuyên viên quản lý trạm sạc, tôi muốn hệ thống tự động cảnh báo xe sạc đầy và áp dụng phí chiếm dụng trụ sạc (Overstay fee) nếu sau 15 phút ân hạn xe vẫn chưa được di dời/rút sạc, để giải phóng cổng sạc cho các phương tiện tiếp theo trong hàng đợi.",
+      "fr_links": [
+        "FR-10b"
+      ],
+      "canonical_ucs": [
+        "UC_SS5_02"
+      ],
+      "component": "src/components/smart_charging.py",
+      "function": "render",
+      "scenario_section": "docs/diagrams/Use-case detail-scenario/SS5/Usecase scenario/UC_SS5_DuongDangKhoa.md",
+      "sequence_path": "docs/diagrams/Use-case detail-scenario/SS5/Sequence diagrams/UC_SS5_02_DuongDangKhoa_sequence.puml",
+      "activity_path": "docs/diagrams/Use-case detail-scenario/SS5/Activity diagrams/UC_SS5_02_DuongDangKhoa_activity.puml",
+      "moscow": "MUST",
+      "weight": 4,
+      "test_id": "test_r11_overstay_charging_settlement_and_debt",
+      "status": "VERIFIED",
+      "evidence_scope": "Luồng prototype với dữ liệu trong session; SSO, IoT và ví thanh toán được mô phỏng."
+    },
+    "US-20": {
+      "title": "Là một quản trị viên tôi muốn đặt giới hạn năng lượng tối đa (Peak Power Capping) để tránh quá tải lưới và tối ưu chi phí vận hành trong giờ cao điểm.",
+      "fr_links": [
+        "FR-11"
+      ],
+      "canonical_ucs": [
+        "UC_SS5_01"
+      ],
+      "component": "src/components/smart_charging.py",
+      "function": "render",
+      "scenario_section": "docs/diagrams/Use-case detail-scenario/SS5/Usecase scenario/UC_SS5_DuongDangKhoa.md",
+      "sequence_path": "docs/diagrams/Use-case detail-scenario/SS5/Sequence diagrams/UC_SS5_01_DuongDangKhoa_sequence.puml",
+      "activity_path": "docs/diagrams/Use-case detail-scenario/SS5/Activity diagrams/UC_SS5_01_DuongDangKhoa_activity.puml",
+      "moscow": "SHOULD",
+      "weight": 3,
+      "test_id": "test_r09_repeated_charging_allocation_obeys_power_cap",
+      "status": "VERIFIED",
+      "evidence_scope": "Luồng prototype với dữ liệu trong session; SSO, IoT và ví thanh toán được mô phỏng."
+    },
+    "US-21": {
+      "title": "Là một nhà phân tích tôi muốn mô phỏng tăng/giảm nhu cầu sinh viên dựa trên dữ liệu lưu lượng Ga Metro (Metro Surge) để dự đoán tải, thời gian chờ hàng đợi trung bình và biến động doanh thu.",
+      "fr_links": [
+        "FR-12"
+      ],
+      "canonical_ucs": [
+        "UC_SS6_01",
+        "UC_SS6_02"
+      ],
+      "component": "src/components/sim_demand.py",
+      "function": "render",
+      "scenario_section": "docs/diagrams/Use-case detail-scenario/SS6/Usecase scenario/UC_SS6_HoangVanTan.md",
+      "sequence_path": "docs/diagrams/Use-case detail-scenario/SS6/Sequence diagrams/UC_SS6_01_HoangVanTan_sequence.puml",
+      "activity_path": "docs/diagrams/Use-case detail-scenario/SS6/Activity diagrams/UC_SS6_01_HoangVanTan_activity.puml",
+      "moscow": "MUST",
+      "weight": 5,
+      "test_id": "test_metro_surge_deepcopy_isolation_and_unserved_students",
+      "status": "PARTIAL",
+      "evidence_scope": "Đã kiểm thử Metro Surge, sức chứa, preview/apply và hàng đợi dự báo; chưa có mô hình biến động doanh thu theo nhu cầu."
+    },
+    "US-22": {
+      "title": "Là một nhà quản lý tôi muốn xem biểu đồ dự báo nhu cầu và phân tích phụ tải hàng đợi 24h để lên kế hoạch mở rộng hub và phân bổ nguồn lực.",
+      "fr_links": [
+        "FR-13"
+      ],
+      "canonical_ucs": [
+        "UC_SS6_02"
+      ],
+      "component": "src/components/sim_demand.py",
+      "function": "render",
+      "scenario_section": "docs/diagrams/Use-case detail-scenario/SS6/Usecase scenario/UC_SS6_HoangVanTan.md",
+      "sequence_path": "docs/diagrams/Use-case detail-scenario/SS6/Sequence diagrams/UC_SS6_02_HoangVanTan_sequence.puml",
+      "activity_path": "docs/diagrams/Use-case detail-scenario/SS6/Activity diagrams/UC_SS6_02_HoangVanTan_activity.puml",
+      "moscow": "MUST",
+      "weight": 4,
+      "test_id": "test_forecast_24h_queue_wait_and_reproducibility",
+      "status": "VERIFIED",
+      "evidence_scope": "Luồng prototype với dữ liệu trong session; SSO, IoT và ví thanh toán được mô phỏng."
+    },
+    "US-23": {
+      "title": "Là một kỹ thuật viên tôi muốn kích hoạt mô phỏng lỗi cổng sạc hoặc mất điện trạm sạc để kiểm tra quy trình phục hồi và độ chịu lỗi hệ thống.",
+      "fr_links": [
+        "FR-14"
+      ],
+      "canonical_ucs": [
+        "UC_SS7_01"
+      ],
+      "component": "src/components/sim_infrastructure.py",
+      "function": "render",
+      "scenario_section": "docs/diagrams/Use-case detail-scenario/SS7/Usecase scenario/UC_SS7_NguyenTrungNguyen.md",
+      "sequence_path": "docs/diagrams/Use-case detail-scenario/SS7/Sequence diagrams/UC_SS7_01_NguyenTrungNguyen_sequence.puml",
+      "activity_path": "docs/diagrams/Use-case detail-scenario/SS7/Activity diagrams/UC_SS7_01_NguyenTrungNguyen_activity.puml",
+      "moscow": "MUST",
+      "weight": 4,
+      "test_id": "test_infrastructure_preview_isolated_apply_and_stale_rejected",
+      "status": "VERIFIED",
+      "evidence_scope": "Luồng prototype với dữ liệu trong session; SSO, IoT và ví thanh toán được mô phỏng."
+    },
+    "US-24": {
+      "title": "Là một điều phối viên tôi muốn xem ảnh hưởng của lỗi hạ tầng lên luồng xe và đưa ra quyết định điều hướng.",
+      "fr_links": [
+        "FR-15"
+      ],
+      "canonical_ucs": [
+        "UC_SS7_01",
+        "UC_SS7_02",
+        "UC_SS4_01"
+      ],
+      "component": "src/components/sim_infrastructure.py",
+      "function": "render",
+      "scenario_section": "docs/diagrams/Use-case detail-scenario/SS7/Usecase scenario/UC_SS7_NguyenTrungNguyen.md",
+      "sequence_path": "docs/diagrams/Use-case detail-scenario/SS7/Sequence diagrams/UC_SS7_01_NguyenTrungNguyen_sequence.puml",
+      "activity_path": "docs/diagrams/Use-case detail-scenario/SS7/Activity diagrams/UC_SS7_01_NguyenTrungNguyen_activity.puml",
+      "moscow": "MUST",
+      "weight": 4,
+      "test_id": "test_infrastructure_preview_isolated_apply_and_stale_rejected",
+      "status": "VERIFIED",
+      "evidence_scope": "Luồng prototype với dữ liệu trong session; SSO, IoT và ví thanh toán được mô phỏng."
+    },
+    "US-24b": {
+      "title": "Là một sinh viên đang di chuyển đến Hub gặp sự cố hoặc hết chỗ, tôi muốn nhận thông báo cảnh báo tự động và đề xuất gợi ý điều hướng sang Hub lân cận còn chỗ trống/cổng sạc khả dụng để không bị gián đoạn hành trình.",
+      "fr_links": [
+        "FR-15c"
+      ],
+      "canonical_ucs": [
+        "UC_SS7_02",
+        "UC_SS1_02"
+      ],
+      "component": "src/components/sim_infrastructure.py",
+      "function": "render",
+      "scenario_section": "docs/diagrams/Use-case detail-scenario/SS7/Usecase scenario/UC_SS7_NguyenTrungNguyen.md",
+      "sequence_path": "docs/diagrams/Use-case detail-scenario/SS7/Sequence diagrams/UC_SS7_02_NguyenTrungNguyen_sequence.puml",
+      "activity_path": "docs/diagrams/Use-case detail-scenario/SS7/Activity diagrams/UC_SS7_02_NguyenTrungNguyen_activity.puml",
+      "moscow": "MUST",
+      "weight": 5,
+      "test_id": "test_rerouting_selects_two_hubs_and_transfers_hold_once",
+      "status": "VERIFIED",
+      "evidence_scope": "Luồng prototype với dữ liệu trong session; SSO, IoT và ví thanh toán được mô phỏng."
+    }
+  },
+  "moscow_summary": {
+    "total_user_stories": 30,
+    "total_weight": 119,
+    "must": {
+      "count": 23,
+      "weight": 99,
+      "verified_count": 22,
+      "verified_weight": 94,
+      "coverage_pct": 94.95
+    },
+    "should": {
+      "count": 6,
+      "weight": 18,
+      "verified_count": 4,
+      "verified_weight": 12,
+      "coverage_pct": 66.67
+    },
+    "could": {
+      "count": 1,
+      "weight": 2,
+      "verified_count": 1,
+      "verified_weight": 2,
+      "coverage_pct": 100.0
+    },
+    "verified_count": 27,
+    "overall_verified_weight": 108,
+    "overall_coverage_pct": 90.76
+  }
+}

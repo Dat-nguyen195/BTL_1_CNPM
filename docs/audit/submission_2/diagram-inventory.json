@@ -1,0 +1,690 @@
+[
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS1/Activity diagrams/UC_SS1_01_NguyenThanhDat_activity.puml",
+    "png": true,
+    "size": [
+      1869,
+      1014
+    ],
+    "lifelines": 0,
+    "lanes": [
+      "Control & State (st.session_state)",
+      "Khóa thông minh IoT / Trạm Hub",
+      "Sinh viên ĐHQG-HCM",
+      "Tài khoản & Ví điện tử",
+      "UI Layer (student_booking.py)"
+    ],
+    "autonumber": false,
+    "activate": 0,
+    "fork": true
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS1/Activity diagrams/UC_SS1_02_NguyenThanhDat_activity.puml",
+    "png": true,
+    "size": [
+      1701,
+      797
+    ],
+    "lifelines": 0,
+    "lanes": [
+      "Control & State (st.session_state)",
+      "Khóa thông minh IoT / Trạm Hub",
+      "Sinh viên ĐHQG-HCM",
+      "Tài khoản & Ví điện tử",
+      "UI Layer (student_booking.py)"
+    ],
+    "autonumber": false,
+    "activate": 0,
+    "fork": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS1/Activity diagrams/UC_SS1_03_NguyenThanhDat_activity.puml",
+    "png": true,
+    "size": [
+      1231,
+      579
+    ],
+    "lifelines": 0,
+    "lanes": [
+      "Control & State (st.session_state)",
+      "Sinh viên ĐHQG-HCM",
+      "Tài khoản & Ví điện tử",
+      "UI Layer (student_booking.py)"
+    ],
+    "autonumber": false,
+    "activate": 0,
+    "fork": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS1/Sequence diagrams/UC_SS1_01_NguyenThanhDat_sequence.puml",
+    "png": true,
+    "size": [
+      1274,
+      1618
+    ],
+    "lifelines": 6,
+    "lanes": [],
+    "autonumber": true,
+    "activate": 11,
+    "fork": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS1/Sequence diagrams/UC_SS1_02_NguyenThanhDat_sequence.puml",
+    "png": true,
+    "size": [
+      1321,
+      1183
+    ],
+    "lifelines": 6,
+    "lanes": [],
+    "autonumber": true,
+    "activate": 4,
+    "fork": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS1/Sequence diagrams/UC_SS1_03_NguyenThanhDat_sequence.puml",
+    "png": true,
+    "size": [
+      1169,
+      759
+    ],
+    "lifelines": 6,
+    "lanes": [],
+    "autonumber": true,
+    "activate": 5,
+    "fork": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS1/State-chart diagrams/UC_SS1_NguyenThanhDat_statechart.puml",
+    "png": true,
+    "size": [
+      1463,
+      720
+    ],
+    "lifelines": 0,
+    "lanes": [],
+    "autonumber": false,
+    "activate": 0,
+    "fork": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS2/Activity diagrams/UC_SS2_01_NguyenAnhTai_activity.puml",
+    "png": true,
+    "size": [
+      1309,
+      1850
+    ],
+    "lifelines": 0,
+    "lanes": [
+      "Control & State (st.session_state)",
+      "Sinh viên ĐHQG-HCM",
+      "UI Layer (personal_ev.py)"
+    ],
+    "autonumber": false,
+    "activate": 0,
+    "fork": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS2/Activity diagrams/UC_SS2_02_NguyenAnhTai_activity.puml",
+    "png": true,
+    "size": [
+      3562,
+      2760
+    ],
+    "lifelines": 0,
+    "lanes": [
+      "Control & State (st.session_state)",
+      "Phân hệ lập lịch sạc (SS5)",
+      "Sinh viên ĐHQG-HCM",
+      "Tài khoản & Ví điện tử",
+      "UI Layer (personal_ev.py)"
+    ],
+    "autonumber": false,
+    "activate": 0,
+    "fork": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS2/Activity diagrams/UC_SS2_03_NguyenAnhTai_activity.puml",
+    "png": true,
+    "size": [
+      1962,
+      2509
+    ],
+    "lifelines": 0,
+    "lanes": [
+      "Control & State (st.session_state)",
+      "IoT / Barie & Trụ sạc tại Hub",
+      "Khối Vận hành (Operators)",
+      "Sinh viên ĐHQG-HCM",
+      "UI Layer (personal_ev.py)"
+    ],
+    "autonumber": false,
+    "activate": 0,
+    "fork": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS2/Activity diagrams/UC_SS2_04_NguyenAnhTai_activity.puml",
+    "png": true,
+    "size": [
+      2383,
+      2430
+    ],
+    "lifelines": 0,
+    "lanes": [
+      "Control & State (st.session_state)",
+      "IoT / Barie & Trụ sạc tại Hub",
+      "Khối Vận hành (Operators)",
+      "Sinh viên ĐHQG-HCM",
+      "Tài khoản & Cổng thanh toán",
+      "UI Layer (personal_ev.py)"
+    ],
+    "autonumber": false,
+    "activate": 0,
+    "fork": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS2/Sequence diagrams/UC_SS2_01_NguyenAnhTai_sequence.puml",
+    "png": true,
+    "size": [
+      1115,
+      2191
+    ],
+    "lifelines": 4,
+    "lanes": [],
+    "autonumber": true,
+    "activate": 9,
+    "fork": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS2/Sequence diagrams/UC_SS2_02_NguyenAnhTai_sequence.puml",
+    "png": true,
+    "size": [
+      1807,
+      4096
+    ],
+    "lifelines": 6,
+    "lanes": [],
+    "autonumber": true,
+    "activate": 20,
+    "fork": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS2/Sequence diagrams/UC_SS2_03_NguyenAnhTai_sequence.puml",
+    "png": true,
+    "size": [
+      1466,
+      3544
+    ],
+    "lifelines": 6,
+    "lanes": [],
+    "autonumber": true,
+    "activate": 14,
+    "fork": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS2/Sequence diagrams/UC_SS2_04_NguyenAnhTai_sequence.puml",
+    "png": true,
+    "size": [
+      2022,
+      4096
+    ],
+    "lifelines": 8,
+    "lanes": [],
+    "autonumber": true,
+    "activate": 23,
+    "fork": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS2/State-chart diagrams/UC_SS2_NguyenAnhTai_statechart.puml",
+    "png": true,
+    "size": [
+      1892,
+      670
+    ],
+    "lifelines": 0,
+    "lanes": [],
+    "autonumber": false,
+    "activate": 0,
+    "fork": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS3/Activity diagrams/UC_SS3_01_PhamTienDat_activity.puml",
+    "png": true,
+    "size": [
+      2056,
+      903
+    ],
+    "lifelines": 0,
+    "lanes": [
+      "Hệ thống SS3 (Dashboard · st.session_state · IoT)",
+      "Kỹ thuật viên",
+      "Nhân viên Vận hành (Operator)"
+    ],
+    "autonumber": false,
+    "activate": 0,
+    "fork": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS3/Activity diagrams/UC_SS3_02_PhamTienDat_activity.puml",
+    "png": true,
+    "size": [
+      3344,
+      641
+    ],
+    "lifelines": 0,
+    "lanes": [
+      "Hệ thống – Multi-level alert logic",
+      "Operator",
+      "SS1/SS2 · SS4"
+    ],
+    "autonumber": false,
+    "activate": 0,
+    "fork": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS3/Sequence diagrams/UC_SS3_01_PhamTienDat_sequence.puml",
+    "png": true,
+    "size": [
+      1482,
+      955
+    ],
+    "lifelines": 5,
+    "lanes": [],
+    "autonumber": false,
+    "activate": 0,
+    "fork": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS3/Sequence diagrams/UC_SS3_02_PhamTienDat_sequence.puml",
+    "png": true,
+    "size": [
+      1718,
+      886
+    ],
+    "lifelines": 6,
+    "lanes": [],
+    "autonumber": false,
+    "activate": 0,
+    "fork": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS3/State-chart diagrams/UC_SS3_01_PhamTienDat_statechart.puml",
+    "png": true,
+    "size": [
+      662,
+      1069
+    ],
+    "lifelines": 0,
+    "lanes": [],
+    "autonumber": false,
+    "activate": 0,
+    "fork": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS3/State-chart diagrams/UC_SS3_02_PhamTienDat_statechart.puml",
+    "png": true,
+    "size": [
+      885,
+      785
+    ],
+    "lifelines": 0,
+    "lanes": [],
+    "autonumber": false,
+    "activate": 0,
+    "fork": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS3/Usecase scenario/UC_SS3_PhamTienDat_diagram.puml",
+    "png": true,
+    "size": [
+      1065,
+      616
+    ],
+    "lifelines": 6,
+    "lanes": [],
+    "autonumber": false,
+    "activate": 0,
+    "fork": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS4/Activity diagrams/UC_SS4_01_activity.puml",
+    "png": true,
+    "size": [
+      1438,
+      1639
+    ],
+    "lifelines": 0,
+    "lanes": [
+      "Hệ thống",
+      "Nhân viên vận hành"
+    ],
+    "autonumber": false,
+    "activate": 0,
+    "fork": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS4/Activity diagrams/UC_SS4_02_activity.puml",
+    "png": true,
+    "size": [
+      956,
+      1573
+    ],
+    "lifelines": 0,
+    "lanes": [
+      "Hệ thống",
+      "Nhân viên vận hành / Kỹ thuật viên"
+    ],
+    "autonumber": false,
+    "activate": 0,
+    "fork": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS4/Sequence diagrams/UC_SS4_01_sequence.puml",
+    "png": true,
+    "size": [
+      1771,
+      1283
+    ],
+    "lifelines": 6,
+    "lanes": [],
+    "autonumber": true,
+    "activate": 0,
+    "fork": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS4/Sequence diagrams/UC_SS4_02_sequence.puml",
+    "png": true,
+    "size": [
+      1711,
+      1210
+    ],
+    "lifelines": 7,
+    "lanes": [],
+    "autonumber": true,
+    "activate": 0,
+    "fork": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS4/State-chart diagrams/UC_SS4_01_statechart.puml",
+    "png": true,
+    "size": [
+      776,
+      1525
+    ],
+    "lifelines": 0,
+    "lanes": [],
+    "autonumber": false,
+    "activate": 0,
+    "fork": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS4/State-chart diagrams/UC_SS4_02_statechart.puml",
+    "png": true,
+    "size": [
+      991,
+      664
+    ],
+    "lifelines": 0,
+    "lanes": [],
+    "autonumber": false,
+    "activate": 0,
+    "fork": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS5/Activity diagrams/UC_SS5_01_DuongDangKhoa_activity.puml",
+    "png": true,
+    "size": [
+      2112,
+      1455
+    ],
+    "lifelines": 0,
+    "lanes": [
+      "Bộ lập lịch sạc (scheduler.py)",
+      "Chuyên viên sạc",
+      "Control & State (st.session_state)",
+      "Mạng lưới Cảm biến IoT",
+      "UI Layer (smart_charging.py)"
+    ],
+    "autonumber": false,
+    "activate": 0,
+    "fork": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS5/Activity diagrams/UC_SS5_02_DuongDangKhoa_activity.puml",
+    "png": true,
+    "size": [
+      2410,
+      1394
+    ],
+    "lifelines": 0,
+    "lanes": [
+      "Chuyên viên vận hành sạc",
+      "Control & State",
+      "Hệ thống thông báo",
+      "IoT",
+      "Tài khoản & Ví điện tử",
+      "UI Layer"
+    ],
+    "autonumber": false,
+    "activate": 0,
+    "fork": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS5/Sequence diagrams/UC_SS5_01_DuongDangKhoa_sequence.puml",
+    "png": true,
+    "size": [
+      1078,
+      1590
+    ],
+    "lifelines": 5,
+    "lanes": [],
+    "autonumber": true,
+    "activate": 7,
+    "fork": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS5/Sequence diagrams/UC_SS5_02_DuongDangKhoa_sequence.puml",
+    "png": true,
+    "size": [
+      1151,
+      2146
+    ],
+    "lifelines": 6,
+    "lanes": [],
+    "autonumber": true,
+    "activate": 17,
+    "fork": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS5/State-chart diagrams/UC_SS5_DuongDangKhoa_statechart.puml",
+    "png": true,
+    "size": [
+      1070,
+      1084
+    ],
+    "lifelines": 0,
+    "lanes": [],
+    "autonumber": false,
+    "activate": 0,
+    "fork": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS6/Activity diagrams/UC_SS6_01_HoangVanTan_activity.puml",
+    "png": true,
+    "size": [
+      2716,
+      1522
+    ],
+    "lifelines": 0,
+    "lanes": [
+      "Control & Memory State",
+      "Nhà phân tích / Hub Operator",
+      "Phân hệ liên kết (SS3/SS4)",
+      "Simulation Engine (HubEventSimulator)",
+      "UI Layer (demand_simulation.py)"
+    ],
+    "autonumber": false,
+    "activate": 0,
+    "fork": true
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS6/Activity diagrams/UC_SS6_02_HoangVanTan_activity.puml",
+    "png": true,
+    "size": [
+      1947,
+      1131
+    ],
+    "lifelines": 0,
+    "lanes": [
+      "Nhà phân tích / Hoạch định",
+      "Simulation Engine (HubEventSimulator)",
+      "UI Layer (demand_forecast.py)"
+    ],
+    "autonumber": false,
+    "activate": 0,
+    "fork": true
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS6/Sequence diagrams/UC_SS6_01_HoangVanTan_sequence.puml",
+    "png": true,
+    "size": [
+      1830,
+      2141
+    ],
+    "lifelines": 5,
+    "lanes": [],
+    "autonumber": true,
+    "activate": 6,
+    "fork": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS6/Sequence diagrams/UC_SS6_02_HoangVanTan_sequence.puml",
+    "png": true,
+    "size": [
+      1187,
+      1573
+    ],
+    "lifelines": 4,
+    "lanes": [],
+    "autonumber": true,
+    "activate": 4,
+    "fork": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS6/State-chart diagrams/UC_SS6_Hub_Operational_statechart.puml",
+    "png": true,
+    "size": [
+      1273,
+      873
+    ],
+    "lifelines": 0,
+    "lanes": [],
+    "autonumber": false,
+    "activate": 0,
+    "fork": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS6/State-chart diagrams/UC_SS6_Scenario_Lifecycle_statechart.puml",
+    "png": true,
+    "size": [
+      830,
+      1607
+    ],
+    "lifelines": 0,
+    "lanes": [],
+    "autonumber": false,
+    "activate": 0,
+    "fork": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS7/Activity diagrams/UC_SS7_01_NguyenTrungNguyen_activity.puml",
+    "png": true,
+    "size": [
+      2403,
+      1222
+    ],
+    "lifelines": 0,
+    "lanes": [
+      "Core Simulator (simulator.py)",
+      "Ctrl&State (st.session_state)",
+      "Giám sát & Sự cố (SS3 & SS4)",
+      "Kỹ thuật viên / Điều phối viên",
+      "Phân hệ Đặt xe & Sạc (SS1 & SS2)",
+      "UI Layer (sim_infrastructure.py)"
+    ],
+    "autonumber": false,
+    "activate": 0,
+    "fork": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS7/Activity diagrams/UC_SS7_02_NguyenTrungNguyen_activity.puml",
+    "png": true,
+    "size": [
+      3251,
+      960
+    ],
+    "lifelines": 0,
+    "lanes": [
+      "Control & State (st.session_state)",
+      "Phân hệ Đặt xe (SS1)",
+      "Sinh viên ĐHQG-HCM",
+      "Spatial Routing (sim_infrastructure.py)",
+      "UI Layer (student_booking.py)"
+    ],
+    "autonumber": false,
+    "activate": 0,
+    "fork": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS7/Sequence diagrams/UC_SS7_01_NguyenTrungNguyen_sequence.puml",
+    "png": true,
+    "size": [
+      1387,
+      2269
+    ],
+    "lifelines": 7,
+    "lanes": [],
+    "autonumber": true,
+    "activate": 11,
+    "fork": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS7/Sequence diagrams/UC_SS7_02_NguyenTrungNguyen_sequence.puml",
+    "png": true,
+    "size": [
+      1314,
+      2251
+    ],
+    "lifelines": 6,
+    "lanes": [],
+    "autonumber": true,
+    "activate": 12,
+    "fork": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS7/State-chart diagrams/UC_SS7_01_NguyenTrungNguyen_statechart.puml",
+    "png": true,
+    "size": [
+      1613,
+      506
+    ],
+    "lifelines": 0,
+    "lanes": [],
+    "autonumber": false,
+    "activate": 0,
+    "fork": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS7/State-chart diagrams/UC_SS7_02_NguyenTrungNguyen_statechart.puml",
+    "png": true,
+    "size": [
+      1288,
+      727
+    ],
+    "lifelines": 0,
+    "lanes": [],
+    "autonumber": false,
+    "activate": 0,
+    "fork": false
+  }
+]

@@ -1,204 +1,188 @@
 """
 hub_monitor.py – Subsystem 3: Giám sát mạng lưới Hub (Operator Dashboard)
+Smart E-Mobility Hub – ĐHQG-HCM
 
-Chức năng:
-  • Bản đồ vị trí các Hub (bảng toạ độ mock)
-  • KPI cards: Tổng xe đang hoạt động, Tỉ lệ lấp đầy, Cảnh báo Hub quá tải
-  • Biểu đồ tổng quan
+Chức năng chuẩn hóa:
+  • KPI cards thời gian thực: Tỉ lệ lấp đầy, xe sẵn sàng, cổng sạc, công suất lưới
+  • Cảnh báo phân cấp ngưỡng: Vàng (70% <= occ < 85%), Đỏ (85% <= occ < 100%), Đầy (100%)
+  • Doanh thu & Dòng tiền ví điện tử (US-07 / FR-05, FR-15b)
+  • Giám sát nạp năng lượng & Biểu phí sạc (US-12 / FR-04, FR-05b)
+  • Bản đồ vị trí Hub & Nhật ký cảm biến IoT
 """
 
 import streamlit as st
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
+from datetime import datetime
 
+from core.policies import (
+    ALERT_YELLOW_THRESHOLD_PCT,
+    ALERT_RED_THRESHOLD_PCT,
+    ALERT_FULL_THRESHOLD_PCT,
+    HUB_POWER_CAP_KW
+)
+from core.state import VehicleStatus
 
 def render():
-    """Render giao diện Subsystem 3 – Dashboard Giám sát Hub cho Operator."""
-
+    """Render giao diện Subsystem 3 – Dashboard Giám sát Mạng lưới Hub."""
     st.header("📊 Giám sát Mạng lưới Hub – Operator Dashboard")
-    st.caption("Tổng quan tình trạng tất cả Hub trong khu đô thị ĐHQG-HCM theo thời gian thực.")
+    st.caption("Tổng quan vận hành mạng lưới trạm sạc & xe điện ĐHQG-HCM theo thời gian thực (FR-05, FR-15b).")
 
     hubs = st.session_state.get("hubs", [])
-
     if not hubs:
         st.error("Không có dữ liệu Hub.")
         return
 
+    sim_time = st.session_state.get("current_sim_time", datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+
+    for hub in hubs:
+        offline = hub.get("charging_ports", {}).get("offline", 0)
+        if offline:
+            st.warning(f"Cảnh báo IoT mô phỏng: {hub['name']} có {offline} cổng sạc OFFLINE. Chuyển SS4/SS7 để xử lý.")
+
+    # Thanh điều khiển & Refresh Telemetry
+    top_col1, top_col2 = st.columns([3, 1])
+    with top_col1:
+        st.info(f"🕒 **Thời gian Telemetry IoT:** `{sim_time}` (Trạng thái cảm biến: **Bình thường / Đồng bộ**)")
+    with top_col2:
+        if st.button("🔄 Cập nhật Telemetry", key="btn_refresh_telemetry"):
+            st.rerun()
+
     # ═══════════════════════════════════════════════
-    # KPI CARDS – Tổng quan toàn hệ thống
+    # 1. KPI CARDS TOÀN HỆ THỐNG
     # ═══════════════════════════════════════════════
-    total_vehicles = sum(len(h["current_vehicles"]) for h in hubs)
     total_slots = sum(h["total_slots"] for h in hubs)
-    total_available = sum(h["available_slots"] for h in hubs)
+    total_avail_slots = sum(h["available_slots"] for h in hubs)
+    total_held_slots = sum(h.get("destination_holds", 0) for h in hubs)
+    total_vehicles = sum(len(h["current_vehicles"]) for h in hubs)
     total_ports = sum(h["charging_ports"]["total"] for h in hubs)
-    total_ports_avail = sum(h["charging_ports"]["available"] for h in hubs)
-    occupancy_rate = (1 - total_available / total_slots) * 100 if total_slots > 0 else 0
+    total_avail_ports = sum(h["charging_ports"]["available"] for h in hubs)
+
+    system_occ_pct = ((total_slots - total_avail_slots) / total_slots * 100) if total_slots > 0 else 0
 
     k1, k2, k3, k4 = st.columns(4)
-    k1.metric("🚗 Tổng xe đang có", total_vehicles)
-    k2.metric("📈 Tỉ lệ lấp đầy", f"{occupancy_rate:.1f}%")
-    k3.metric("🅿️ Chỗ trống", f"{total_available}/{total_slots}")
-    k4.metric("🔌 Cổng sạc trống", f"{total_ports_avail}/{total_ports}")
+    k1.metric("🚗 Xe hiện hữu tại trạm", f"{total_vehicles} xe")
+    k2.metric("📈 Tỉ lệ lấp đầy toàn mạng", f"{system_occ_pct:.1f}%")
+    k3.metric("🅿️ Chỗ đỗ khả dụng", f"{total_avail_slots}/{total_slots}")
+    k4.metric("🔌 Cổng sạc khả dụng", f"{total_avail_ports}/{total_ports}")
 
     st.divider()
 
     # ═══════════════════════════════════════════════
-    # CẢNH BÁO Hub quá tải (> 85% lấp đầy)
+    # 2. CẢNH BÁO QUÁ TẢI PHÂN CẤP (70% / 85% / 100%)
     # ═══════════════════════════════════════════════
-    overloaded = []
+    st.subheader("🚨 Cảnh báo Tình trạng Trọng tải & Nguy cơ Quá tải")
+    alert_cols = st.columns(3)
+
+    yellow_hubs = []
+    red_hubs = []
+    full_hubs = []
+
     for h in hubs:
-        occ = (1 - h["available_slots"] / h["total_slots"]) * 100
-        if occ > 85:
-            overloaded.append((h["name"], occ))
+        occ = ((h["total_slots"] - h["available_slots"]) / h["total_slots"] * 100) if h["total_slots"] > 0 else 0
+        h_info = {"name": h["name"], "occ": occ, "avail": h["available_slots"], "total": h["total_slots"]}
+        if occ >= ALERT_FULL_THRESHOLD_PCT:
+            full_hubs.append(h_info)
+        elif occ >= ALERT_RED_THRESHOLD_PCT:
+            red_hubs.append(h_info)
+        elif occ >= ALERT_YELLOW_THRESHOLD_PCT:
+            yellow_hubs.append(h_info)
 
-    if overloaded:
-        st.subheader("🚨 Cảnh báo Hub quá tải")
-        for name, occ in overloaded:
-            st.warning(f"**{name}** – Tỉ lệ lấp đầy: **{occ:.0f}%** → Cần điều phối!")
-    else:
-        st.success("✅ Tất cả Hub đang hoạt động bình thường (< 85% lấp đầy).")
+    with alert_cols[0]:
+        st.markdown(f"**🟡 Cảnh báo tải cao (70% - 85%):** {len(yellow_hubs)}")
+        for y in yellow_hubs:
+            st.warning(f"📍 **{y['name']}**: {y['occ']:.1f}% ({y['avail']} chỗ trống)")
+
+    with alert_cols[1]:
+        st.markdown(f"**🔴 Quá tải nghiêm trọng (85% - 100%):** {len(red_hubs)}")
+        for r in red_hubs:
+            st.error(f"🚨 **{r['name']}**: {r['occ']:.1f}% (Cần điều phối SS4!)")
+
+    with alert_cols[2]:
+        st.markdown(f"**⛔ Trạm đã đầy 100% (Khóa tiếp nhận):** {len(full_hubs)}")
+        for f in full_hubs:
+            st.error(f"⛔ **{f['name']}**: 100% (Đã kích hoạt Rerouting)")
+
+    if not (yellow_hubs or red_hubs or full_hubs):
+        st.success("✅ Mọi Hub trong hệ thống đang hoạt động trong ngưỡng an toàn (< 70% tải).")
 
     st.divider()
 
     # ═══════════════════════════════════════════════
-    # BẢN ĐỒ VỊ TRÍ CÁC HUB (st.map hoặc bảng toạ độ)
+    # 3. TABS CHI TIẾT: VỊ TRÍ, NĂNG LƯỢNG, DOANH THU (US-07 & US-12)
     # ═══════════════════════════════════════════════
-    st.subheader("🗺️ Vị trí các Hub trong ĐHQG-HCM")
+    tab_map, tab_rev, tab_power = st.tabs([
+        "🗺️ Bản đồ & Trạng thái Hub",
+        "💰 Doanh thu & Giao dịch ví (US-07)",
+        "⚡ Năng lượng sạc & Biểu phí (US-12)",
+    ])
 
-    map_data = pd.DataFrame([
-        {
+    with tab_map:
+        st.subheader("🗺️ Bản đồ & Chi tiết từng Hub")
+        map_data = pd.DataFrame([{
             "lat": h["latitude"],
             "lon": h["longitude"],
             "Hub": h["name"],
-        }
-        for h in hubs
-    ])
+        } for h in hubs])
+        st.map(map_data, latitude="lat", longitude="lon", zoom=14)
 
-    # Dùng st.map cho bản đồ đơn giản
-    st.map(map_data, latitude="lat", longitude="lon", zoom=14)
-
-    # Bảng chi tiết toạ độ
-    with st.expander("📋 Xem bảng toạ độ chi tiết"):
-        coord_df = pd.DataFrame([
-            {
-                "Hub": h["name"],
-                "Latitude": h["latitude"],
-                "Longitude": h["longitude"],
-                "Mô tả": h["description"],
-            }
-            for h in hubs
-        ])
-        st.dataframe(coord_df, use_container_width=True, hide_index=True)
-
-    st.divider()
-
-    # ═══════════════════════════════════════════════
-    # BIỂU ĐỒ – Tình trạng từng Hub
-    # ═══════════════════════════════════════════════
-    st.subheader("📊 Biểu đồ tình trạng các Hub")
-
-    chart_col1, chart_col2 = st.columns(2)
-
-    # ── Biểu đồ 1: Tỉ lệ lấp đầy theo Hub ────────
-    with chart_col1:
-        hub_occ_data = pd.DataFrame([
-            {
-                "Hub": h["name"].replace("Hub ", ""),
-                "Đã dùng": h["total_slots"] - h["available_slots"],
-                "Còn trống": h["available_slots"],
-            }
-            for h in hubs
-        ])
-
-        fig1 = px.bar(
-            hub_occ_data,
-            x="Hub",
-            y=["Đã dùng", "Còn trống"],
-            title="Tình trạng chỗ đỗ theo Hub",
-            barmode="stack",
-            color_discrete_sequence=["#ff6b6b", "#51cf66"],
-        )
-        fig1.update_layout(
-            xaxis_tickangle=-30,
-            legend_title_text="",
-            height=400,
-        )
-        st.plotly_chart(fig1, use_container_width=True)
-
-    # ── Biểu đồ 2: Phân bố loại xe ─────────────────
-    with chart_col2:
-        all_vehicles = []
+        hub_table_data = []
         for h in hubs:
-            for v in h["current_vehicles"]:
-                all_vehicles.append({
-                    "Hub": h["name"].replace("Hub ", ""),
-                    "Loại": v["type"],
-                })
+            occ = ((h["total_slots"] - h["available_slots"]) / h["total_slots"] * 100) if h["total_slots"] > 0 else 0
+            hub_table_data.append({
+                "Mã Hub": h["hub_id"],
+                "Tên Hub": h["name"],
+                "Tổng chỗ": h["total_slots"],
+                "Chỗ trống": h["available_slots"],
+                "Đang giữ chỗ": h.get("destination_holds", 0),
+                "Tỉ lệ lấp đầy": f"{occ:.1f}%",
+                "Cổng sạc trống": f"{h['charging_ports']['available']}/{h['charging_ports']['total']}",
+                "Trạng thái": "QUÁ TẢI" if occ >= 85 else ("CẢNH BÁO" if occ >= 70 else "HOẠT ĐỘNG")
+            })
+        st.dataframe(pd.DataFrame(hub_table_data), use_container_width=True, hide_index=True)
 
-        if all_vehicles:
-            vtype_df = pd.DataFrame(all_vehicles)
-            fig2 = px.histogram(
-                vtype_df,
-                x="Hub",
-                color="Loại",
-                title="Phân bố loại xe theo Hub",
-                barmode="group",
-                color_discrete_map={
-                    "scooter": "#748ffc",
-                    "bike": "#ffd43b",
-                    "car": "#ff922b",
-                },
-            )
-            fig2.update_layout(
-                xaxis_tickangle=-30,
-                legend_title_text="Loại xe",
-                height=400,
-            )
-            st.plotly_chart(fig2, use_container_width=True)
+    with tab_rev:
+        st.subheader("💰 Báo cáo Doanh thu & Sổ cái Giao dịch Ví (US-07)")
+        wallet = st.session_state.get("wallet", {})
+        txs = wallet.get("ledger", [])
+        
+        # Thống kê giao dịch
+        rev_shared = -sum(t.get("amount", 0) for t in txs if t.get("type") in ["SETTLE_RENTAL_FEE", "SETTLE_RENTAL_DEBT", "PENALTY_NOSHOW"])
+        total_tx = len(txs)
+        debt = wallet.get("debt", 0)
 
-    # ── Biểu đồ 3: Tình trạng pin trung bình ───────
-    st.subheader("🔋 Tình trạng pin trung bình theo Hub")
+        rc1, rc2, rc3 = st.columns(3)
+        rc1.metric("💵 Tổng doanh thu thu về", f"{rev_shared:,.0f} ₫")
+        rc2.metric("📋 Tổng số giao dịch ledger", f"{total_tx}")
+        rc3.metric("⚠️ Dư nợ người dùng ghi nhận", f"{debt:,.0f} ₫")
 
-    soc_data = []
-    for h in hubs:
-        vehicles = h["current_vehicles"]
-        if vehicles:
-            avg_soc = sum(v["battery_soc"] for v in vehicles) / len(vehicles)
+        st.markdown("##### Danh sách đặt chỗ hiện tại")
+        bookings = st.session_state.get("bookings", [])
+        if bookings:
+            st.dataframe(pd.DataFrame(bookings), use_container_width=True, hide_index=True)
         else:
-            avg_soc = 0
-        soc_data.append({
-            "Hub": h["name"].replace("Hub ", ""),
-            "SoC trung bình (%)": round(avg_soc, 1),
-        })
+            st.info("Chưa có đặt chỗ trong phiên.")
 
-    soc_df = pd.DataFrame(soc_data)
-    fig3 = px.bar(
-        soc_df,
-        x="Hub",
-        y="SoC trung bình (%)",
-        title="Pin trung bình (SoC) theo Hub",
-        color="SoC trung bình (%)",
-        color_continuous_scale=["#ff6b6b", "#ffd43b", "#51cf66"],
-        range_color=[0, 100],
-    )
-    fig3.update_layout(xaxis_tickangle=-30, height=400)
-    st.plotly_chart(fig3, use_container_width=True)
+        if txs:
+            st.markdown("##### 📜 Lịch sử biến động số dư / Ledger:")
+            st.dataframe(pd.DataFrame(txs), use_container_width=True, hide_index=True)
+        else:
+            st.info("Chưa có giao dịch phát sinh trên sổ cái.")
 
-    # ═══════════════════════════════════════════════
-    # BẢNG CHI TIẾT TỪNG HUB
-    # ═══════════════════════════════════════════════
-    st.divider()
-    st.subheader("📋 Chi tiết từng Hub")
+    with tab_power:
+        st.subheader("⚡ Giám sát Năng lượng Sạc & Biểu phí Điện (US-12)")
+        st.caption(f"Công suất trần (Power Cap) áp dụng: **{HUB_POWER_CAP_KW} kW/trạm** (FR-04, FR-05b).")
 
-    for h in hubs:
-        occ = (1 - h["available_slots"] / h["total_slots"]) * 100
-        status_emoji = "🔴" if occ > 85 else ("🟡" if occ > 60 else "🟢")
-
-        with st.expander(f"{status_emoji} {h['name']} – Lấp đầy: {occ:.0f}%"):
-            if h["current_vehicles"]:
-                vdf = pd.DataFrame(h["current_vehicles"])
-                vdf.columns = ["Mã xe", "Loại", "Pin (%)", "Trạng thái"]
-                st.dataframe(vdf, use_container_width=True, hide_index=True)
-            else:
-                st.info("Không có xe nào tại Hub này.")
+        power_data = []
+        for h in hubs:
+            busy_ports = h["charging_ports"]["total"] - h["charging_ports"]["available"]
+            est_kw = busy_ports * 7.4  # Giả định 7.4 kW mỗi cổng đang sạc
+            power_data.append({
+                "Hub": h["name"].replace("Hub ", ""),
+                "Cổng đang sạc": busy_ports,
+                "Cổng trống": h["charging_ports"]["available"],
+                "Công suất ước tính (kW)": round(est_kw, 1),
+                "Tải so với trần 150kW (%)": f"{(est_kw / HUB_POWER_CAP_KW * 100):.1f}%"
+            })
+        st.dataframe(pd.DataFrame(power_data), use_container_width=True, hide_index=True)

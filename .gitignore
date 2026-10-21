@@ -32,6 +32,10 @@ Thumbs.db
 *.blg
 *.lof
 *.lot
+*.xdv
+build/
 # AI assistant metadata
 .agents/
 .claude/
+tools/
+.venv/

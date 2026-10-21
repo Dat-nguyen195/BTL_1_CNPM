@@ -102,7 +102,7 @@ smart-emobility-hub/
 
 ```bash
 # Clone repository
-git clone https://github.com/<your-org>/smart-emobility-hub.git
+git clone https://github.com/Dat-nguyen195/BTL_1_CNPM.git
 cd smart-emobility-hub
 
 # Tạo virtual environment (khuyến nghị)
@@ -152,3 +152,32 @@ Nhóm phát triển đã sử dụng công cụ AI tạo sinh (Generative AI –
 
 Dự án phục vụ mục đích học tập tại HCMUT – ĐHQG-HCM.  
 © 2026 – Nhóm Sinh viên Công nghệ Phần mềm, Trường Đại học Bách Khoa TP.HCM.
+
+## Bản nộp Submission #2 (21/10/2026)
+
+- Báo cáo: `docs/report/submission_2/REPORT_SUBMISSION_2.pdf`.
+- Truy vết đúng baseline SRS: `docs/traceability/submission_2.md`.
+- Bằng chứng thực thi: `docs/audit/submission_2/final/`.
+- Hướng dẫn demo và giới hạn: `SUBMISSION_2_HANDOFF.md`.
+
+Môi trường đã kiểm thử dùng Python 3.12; các phiên bản thư viện được ghi trong `requirements-tested.txt`. Cài môi trường tái lập và kiểm thử:
+
+```bash
+python3 -m venv venv
+venv/bin/python -m pip install -r requirements-tested.txt -r requirements-dev.txt
+PYTHONPATH=src venv/bin/python -m pytest -q tests
+venv/bin/python -m streamlit run src/app.py
+```
+
+Dựng tài liệu từ thư mục gốc (cần Java, `tools/plantuml.jar`, XeLaTeX và latexmk):
+
+```bash
+venv/bin/python scripts/generate_traceability_json.py
+venv/bin/python scripts/generate_traceability_md.py
+venv/bin/python scripts/render_all_diagrams.py
+venv/bin/python scripts/generate_sequence_panels.py
+cd docs/report/submission_2
+latexmk -xelatex -interaction=nonstopmode -halt-on-error REPORT_SUBMISSION_2.tex
+```
+
+Các test xác thực luồng prototype với dữ liệu trong phiên. SSO, IoT, barie và cổng thanh toán thật được mô phỏng; ba tiêu chí PARTIAL được công khai trong ma trận và báo cáo.

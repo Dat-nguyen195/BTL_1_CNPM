@@ -1,191 +1,172 @@
 """
-simulator.py – Logic lõi cho mô phỏng sự kiện tại các Hub
+simulator.py – Core Logic for Hub What-if Simulation Scenarios
+Smart E-Mobility Hub – ĐHQG-HCM
 
-Bao gồm:
-  • simulate_metro_surge()  – Mô phỏng đợt tăng đột biến nhu cầu SV tại ga Metro
-  • simulate_port_failure() – Mô phỏng sự cố hỏng cổng sạc tại một Hub
+Features (PLAN.md 4.6 & 4.7):
+  • simulate_metro_surge()  – Reproducible Metro surge simulation with unserved arrivals tracking
+  • simulate_port_failure() – Port failure simulation distinguishing free vs busy ports with session interruption
+  • generate_demand_forecast() – Seeded reproducible queue and wait time forecasting
 """
 
 import random
 import copy
 import datetime
-from typing import Dict, List, Any, Tuple
-
+from typing import Dict, List, Any, Tuple, Optional
+import uuid
 
 class HubEventSimulator:
     """
-    Bộ mô phỏng sự kiện cho mạng lưới Hub.
-
-    Nhận vào danh sách hub (list[dict]) từ st.session_state
-    và trả về bản sao đã được biến đổi + nhật ký sự kiện.
+    Bộ mô phỏng sự kiện cho mạng lưới Hub với deepcopy isolation.
     """
 
     def __init__(self, hubs_data: List[Dict[str, Any]]) -> None:
-        # Lưu tham chiếu gốc – KHÔNG thay đổi trực tiếp
         self._original = hubs_data
 
-    # ──────────────────────────────────────────────
-    # Mô phỏng 1: Tăng đột biến nhu cầu tại Ga Metro
-    # ──────────────────────────────────────────────
     def simulate_metro_surge(
         self,
         target_hub_id: str = "HUB-002",
         num_new_students: int = 20,
-    ) -> Tuple[List[Dict], List[str]]:
+        seed: Optional[int] = 42
+    ) -> Tuple[List[Dict[str, Any]], List[str], Dict[str, Any]]:
         """
-        Mô phỏng sinh viên đổ về Hub gần ga Metro (mặc định: Hub KTX Khu B).
-
-        Kịch bản:
-          1. Giảm available_slots tương ứng (tối thiểu = 0).
-          2. Thêm xe mới (scooter/bike) với SoC ngẫu nhiên 10–40%.
-          3. Giảm cổng sạc khả dụng.
-
-        Returns:
-            (hubs_modified, event_log): bản sao dữ liệu đã đổi & nhật ký.
+        Mô phỏng đợt sinh viên đổ về Hub gần ga Metro (KTX Khu B).
+        Bảo toàn sức chứa, theo dõi unserved_arrivals nếu trạm hết chỗ.
         """
+        rng = random.Random(seed)
         hubs = copy.deepcopy(self._original)
         log: List[str] = []
         timestamp = datetime.datetime.now().strftime("%H:%M:%S")
 
-        for hub in hubs:
-            if hub["hub_id"] != target_hub_id:
-                continue
+        target_hub = next((h for h in hubs if h["hub_id"] == target_hub_id), None)
+        if not target_hub:
+            return hubs, [f"[{timestamp}] ❌ Không tìm thấy Hub {target_hub_id}."], {}
 
-            log.append(
-                f"[{timestamp}] ⚡ BẮT ĐẦU mô phỏng Metro Surge tại {hub['name']} "
-                f"(+{num_new_students} sinh viên)"
-            )
+        log.append(f"[{timestamp}] ⚡ BẮT ĐẦU mô phỏng Metro Surge tại {target_hub['name']} (+{num_new_students} SV, Seed={seed})")
 
-            # ── Giảm số chỗ trống ───────────────────
-            slots_taken = min(num_new_students, hub["available_slots"])
-            hub["available_slots"] -= slots_taken
-            log.append(
-                f"[{timestamp}]   • Chỗ đỗ trống giảm: -{slots_taken} → còn {hub['available_slots']}"
-            )
+        avail_slots = target_hub.get("available_slots", 0)
+        admitted = min(num_new_students, avail_slots)
+        unserved = max(0, num_new_students - avail_slots)
 
-            # ── Thêm xe mới vào danh sách ───────────
-            vehicle_types = ["scooter", "bike"]
-            for i in range(min(num_new_students, slots_taken)):
-                new_vehicle = {
-                    "vehicle_id": f"EV-SURGE-{random.randint(1000, 9999)}",
-                    "type": random.choice(vehicle_types),
-                    "battery_soc": random.randint(10, 40),
-                    "status": "parked",
-                }
-                hub["current_vehicles"].append(new_vehicle)
-                log.append(
-                    f"[{timestamp}]   • Xe mới: {new_vehicle['vehicle_id']} "
-                    f"({new_vehicle['type']}, SoC={new_vehicle['battery_soc']}%)"
-                )
+        target_hub["available_slots"] -= admitted
+        log.append(f"[{timestamp}]   • Chỗ đỗ tiếp nhận: {admitted} xe | Hết chỗ từ chối: {unserved} SV")
 
-            # ── Giảm cổng sạc khả dụng ──────────────
-            ports_used = min(slots_taken // 3, hub["charging_ports"]["available"])
-            hub["charging_ports"]["available"] -= ports_used
-            log.append(
-                f"[{timestamp}]   • Cổng sạc bị chiếm thêm: -{ports_used} → "
-                f"còn {hub['charging_ports']['available']}"
-            )
+        vehicle_types = ["scooter", "bike"]
+        new_vehicles = []
+        for i in range(admitted):
+            v_type = rng.choice(vehicle_types)
+            soc = rng.randint(15, 45)
+            v_id = f"EV-SURGE-{rng.randint(1000, 9999)}"
+            veh = {
+                "vehicle_id": v_id,
+                "type": v_type,
+                "battery_soc": soc,
+                "status": "AVAILABLE",
+                "ownership": "SHARED",
+                "hub_id": target_hub_id
+            }
+            target_hub.setdefault("current_vehicles", []).append(veh)
+            new_vehicles.append(veh)
 
-            # ── Cảnh báo quá tải ─────────────────────
-            occupancy = 1 - hub["available_slots"] / hub["total_slots"]
-            if occupancy > 0.85:
-                log.append(
-                    f"[{timestamp}] 🚨 CẢNH BÁO: Hub {hub['name']} quá tải! "
-                    f"Tỉ lệ lấp đầy: {occupancy:.0%}"
-                )
+        # Cổng sạc có thể bị chiếm thêm nếu xe pin thấp
+        need_charge = sum(1 for v in new_vehicles if v["battery_soc"] < 25)
+        ports_avail = target_hub["charging_ports"].get("available", 0)
+        ports_taken = min(need_charge, ports_avail)
+        target_hub["charging_ports"]["available"] = max(0, ports_avail - ports_taken)
 
-        return hubs, log
+        if ports_taken > 0:
+            log.append(f"[{timestamp}]   • {ports_taken} xe pin yếu (<25%) kết nối cổng sạc khả dụng.")
 
-    # ──────────────────────────────────────────────
-    # Mô phỏng 2: Sự cố hỏng cổng sạc
-    # ──────────────────────────────────────────────
+        occupancy = (1 - target_hub["available_slots"] / target_hub["total_slots"]) * 100
+        if occupancy >= 85.0:
+            log.append(f"[{timestamp}] 🚨 CẢNH BÁO: Hub {target_hub['name']} quá tải ({occupancy:.1f}% lấp đầy)!")
+
+        metrics = {
+            "admitted_students": admitted,
+            "unserved_students": unserved,
+            "new_vehicles_count": admitted,
+            "ports_allocated": ports_taken,
+            "final_occupancy_pct": round(occupancy, 1)
+        }
+
+        return hubs, log, metrics
+
     def simulate_port_failure(
         self,
         target_hub_id: str = "HUB-004",
         num_ports_down: int = 3,
-    ) -> Tuple[List[Dict], List[str]]:
+        seed: Optional[int] = 42
+    ) -> Tuple[List[Dict[str, Any]], List[str], Dict[str, Any]]:
         """
-        Mô phỏng cổng sạc bị hỏng tại một Hub (mặc định: Hub ĐH Bách Khoa).
-
-        Kịch bản:
-          1. Giảm charging_ports.available.
-          2. Xe đang sạc bị chuyển thành 'waiting' (chờ).
-          3. Ghi nhật ký cảnh báo.
-
-        Returns:
-            (hubs_modified, event_log): bản sao dữ liệu đã đổi & nhật ký.
+        Mô phỏng sự cố cổng sạc:
+        - Phân biệt cổng đang rảnh (free port) và cổng đang sạc (busy port).
+        - Cổng đang sạc bị ngắt: phiên bị gián đoạn, xe chuyển sang WAITING.
+        - Cổng rảnh bị hỏng: giảm available ports.
         """
+        rng = random.Random(seed)
         hubs = copy.deepcopy(self._original)
         log: List[str] = []
         timestamp = datetime.datetime.now().strftime("%H:%M:%S")
 
-        for hub in hubs:
-            if hub["hub_id"] != target_hub_id:
-                continue
+        hub = next((h for h in hubs if h["hub_id"] == target_hub_id), None)
+        if not hub:
+            return hubs, [f"[{timestamp}] ❌ Không tìm thấy Hub {target_hub_id}."], {}
 
-            log.append(
-                f"[{timestamp}] 🔧 BẮT ĐẦU mô phỏng Port Failure tại {hub['name']} "
-                f"(-{num_ports_down} cổng sạc)"
-            )
+        ports = hub.get("charging_ports", {})
+        total_p = ports.get("total", 0)
+        avail_p = ports.get("available", 0)
+        busy_p = max(0, total_p - avail_p)
 
-            # ── Giảm cổng sạc khả dụng ──────────────
-            actual_down = min(num_ports_down, hub["charging_ports"]["available"])
-            hub["charging_ports"]["available"] -= actual_down
-            log.append(
-                f"[{timestamp}]   • Cổng sạc bị hỏng: -{actual_down} → "
-                f"còn {hub['charging_ports']['available']}"
-            )
+        actual_down = min(num_ports_down, total_p)
+        log.append(f"[{timestamp}] 🔧 BẮT ĐẦU mô phỏng sự cố {actual_down} cổng sạc tại {hub['name']} (Tổng {total_p} cổng, Rảnh: {avail_p}, Đang sạc: {busy_p})")
 
-            # ── Chuyển xe đang sạc thành 'waiting' ──
-            affected_count = 0
-            for vehicle in hub["current_vehicles"]:
-                if vehicle["status"] == "charging" and affected_count < actual_down:
-                    vehicle["status"] = "waiting"
-                    affected_count += 1
-                    log.append(
-                        f"[{timestamp}]   • Xe {vehicle['vehicle_id']} chuyển từ "
-                        f"'charging' → 'waiting' (SoC={vehicle['battery_soc']}%)"
-                    )
+        # Phân bổ số cổng hỏng vào cổng bận trước rồi đến cổng rảnh
+        busy_affected = min(actual_down, busy_p)
+        free_affected = actual_down - busy_affected
 
-            # ── Cảnh báo nếu không còn cổng sạc ─────
-            if hub["charging_ports"]["available"] == 0:
-                log.append(
-                    f"[{timestamp}] 🚨 CẢNH BÁO: Hub {hub['name']} KHÔNG CÒN cổng sạc khả dụng!"
-                )
+        # Xử lý cổng rảnh bị hỏng
+        ports["available"] = max(0, avail_p - free_affected)
+        ports["offline"] = min(total_p, ports.get("offline", 0) + actual_down)
 
-            # ── Đề xuất điều phối sang Hub khác ──────
-            log.append(
-                f"[{timestamp}] 💡 ĐỀ XUẤT: Điều phối xe chờ sạc sang Hub lân cận."
-            )
+        # Xử lý xe đang sạc bị ngắt quãng
+        interrupted_vehicles = []
+        if busy_affected > 0:
+            for v in hub.get("current_vehicles", []):
+                if v.get("status") in ["CHARGING", "charging"] and len(interrupted_vehicles) < busy_affected:
+                    v["status"] = "WAITING"
+                    interrupted_vehicles.append(v["vehicle_id"])
+                    log.append(f"[{timestamp}]   • Xe {v['vehicle_id']} bị gián đoạn sạc do hỏng cổng, chuyển về trạng thái WAITING.")
 
-        return hubs, log
+        log.append(f"[{timestamp}]   • Cổng sạc còn khả dụng tại trạm: {ports['available']} cổng.")
+        if ports["available"] == 0:
+            log.append(f"[{timestamp}] 🚨 CẢNH BÁO: Hub {hub['name']} đã hết sạch cổng sạc khả dụng!")
 
-    # ──────────────────────────────────────────────
-    # Tiện ích: Tạo dự đoán hàng đợi cho biểu đồ
-    # ──────────────────────────────────────────────
+        metrics = {
+            "failed_ports_total": actual_down,
+            "busy_ports_interrupted": busy_affected,
+            "free_ports_disabled": free_affected,
+            "interrupted_vehicles": interrupted_vehicles,
+            "remaining_available_ports": ports["available"]
+        }
+
+        return hubs, log, metrics
+
     @staticmethod
     def generate_demand_forecast(
         base_arrival_rate: float = 10.0,
         surge_multiplier: float = 1.0,
         hours: int = 12,
+        seed: Optional[int] = 42
     ) -> List[Dict[str, Any]]:
         """
-        Tạo dữ liệu dự đoán nhu cầu theo giờ (dùng cho biểu đồ What-if).
-
-        Args:
-            base_arrival_rate: số SV đến trung bình mỗi giờ
-            surge_multiplier: hệ số tăng đột biến (1.0 = bình thường)
-            hours: số giờ mô phỏng
-
-        Returns:
-            List[dict] với keys: hour, arrivals, queue_length, wait_time_min
+        Dự đoán nhu cầu có thể tái lập (reproducible forecast).
+        Service rate: 8 xe/giờ theo PLAN.md 4.6.
         """
+        rng = random.Random(seed)
         forecast = []
         queue = 0
-        service_rate = 8  # Số SV được phục vụ mỗi giờ
+        service_rate = 8
 
         for h in range(hours):
-            # Giờ cao điểm: 7-9h sáng và 16-18h chiều
             hour_label = (6 + h) % 24
             if hour_label in (7, 8, 17, 18):
                 peak_factor = 2.5
@@ -194,16 +175,10 @@ class HubEventSimulator:
             else:
                 peak_factor = 1.0
 
-            arrivals = int(
-                base_arrival_rate * peak_factor * surge_multiplier
-                + random.gauss(0, 2)
-            )
+            arrivals = int(base_arrival_rate * peak_factor * surge_multiplier + rng.gauss(0, 1.5))
             arrivals = max(0, arrivals)
 
-            # Cập nhật hàng đợi
             queue = max(0, queue + arrivals - service_rate)
-
-            # Thời gian chờ ước tính (phút)
             wait_time = round(queue / max(service_rate, 1) * 60, 1)
 
             forecast.append({

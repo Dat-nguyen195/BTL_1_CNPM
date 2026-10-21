@@ -1,52 +1,71 @@
 @startuml UC_SS4_02_sequence
-title UC_SS4_02 - Báo cáo sự cố phương tiện (Sơ đồ tuần tự)
-skinparam shadowing false
-autonumber
+!include ../../../common.puml
+title UC_SS4_02 - Báo cáo & Xử lý sự cố phương tiện và hạ tầng trạm
+skinparam sequenceMessageAlign center
+skinparam maxMessageSize 150
+skinparam BoxPadding 10
 
-actor "Nhân viên vận hành / Kỹ thuật viên" as OP
-participant "Giao diện báo cáo sự cố SS4" as UI
-participant "Bộ điều khiển sự cố" as CTRL
-database "session_state[hubs]" as HUBS
-database "session_state[incident_log]" as LOG
-participant "SS1 Đặt xe cho sinh viên" as SS1
-actor "Cảm biến IoT" as IOT
+actor "Nhân viên Vận hành / KTV" as OP
 
-IOT -[#grey]-> OP : tín hiệu bất thường (nếu có)
-OP -> UI : mở tab "Báo cáo sự cố"
-OP -> UI : chọn Hub
-UI -> CTRL : lấy danh sách xe (mã Hub)
-CTRL -> HUBS : đọc danh sách xe của Hub
-HUBS --> CTRL : danh sách xe
-CTRL --> UI : danh sách xe
+box "Boundary / UI Layer" #LightCyan
+participant "dispatch_incident.py\n(UI)" as UI
+end box
 
-alt Hub không có phương tiện
-  UI --> OP : "Không có xe tại Hub này"
-  UI -> UI : vô hiệu hóa nút gửi báo cáo
-else Hub có phương tiện
-  UI --> OP : hiển thị danh sách xe (mã xe, loại xe)
-  OP -> UI : chọn xe gặp sự cố
-  OP -> UI : chọn loại sự cố
-  OP -> UI : chọn mức độ, nhập ghi chú
-  OP -> UI : nhấn "Gửi báo cáo sự cố"
-  UI -> CTRL : báo cáo sự cố (mã Hub, mã xe, loại, mức độ, ghi chú)
-  CTRL -> HUBS : tìm xe theo mã
-  HUBS --> CTRL : thông tin xe
-  CTRL -> HUBS : đặt trạng thái = INCIDENT
-  CTRL -> LOG : ghi bản ghi (thời gian, Hub, mã xe, loại, mức độ, ghi chú)
-  LOG --> CTRL : đã lưu
-  CTRL --> UI : thành công
-  UI --> OP : "Đã ghi nhận sự cố xe [ID] tại Hub [Tên Hub]"
-  CTRL ->> SS1 : loại xe INCIDENT khỏi danh sách khả dụng
+box "External Authentication" #White
+participant "Cổng VNU-SSO\n(SSO)" as SSO
+end box
 
-  opt Mức độ Cao hoặc Khẩn cấp
-    UI --> OP : cảnh báo đỏ - yêu cầu kỹ thuật xử lý khẩn cấp
-  end
+box "Control & State" #LightYellow
+participant "st.session_state\n(AppState)" as AppState
+end box
+
+box "External Payment" #White
+participant "Sổ cái / Ví điện tử\n(E-Wallet)" as EWallet
+end box
+
+box "Hardware / IoT" #LightGray
+participant "Cảm biến trạm Hub\n(IoT Telemetry)" as IoT
+end box
+
+autonumber 1.1
+group 1. Ghi nhận & Cách ly sự cố
+    OP -> UI: Mở tab "Báo cáo sự cố trạm"
+    activate UI
+    
+    OP -> UI: Chọn Hub, đối tượng sự cố (Xe / Cổng sạc), mức độ và nhập mô tả
+    OP -> UI: Nhấn nút "Ghi nhận sự cố & Cách ly"
+
+    UI -> AppState: Tìm đối tượng và chuyển trạng thái sang INCIDENT / OFFLINE
+    activate AppState
+    AppState -> AppState: Cách ly tài nguyên khỏi danh sách khả dụng (SS1 / SS2)
+    AppState -> AppState: Lưu thông tin vào st.session_state["incident_log"]
+    AppState --> UI: Xác nhận sự cố đã được ghi nhận và cách ly
+    deactivate AppState
+
+    UI --> OP: Thông báo: "Đã cách ly thành công tài nguyên gặp sự cố"
+    deactivate UI
 end
 
-opt Xem lịch sử sự cố
-  OP -> UI : mở tab "Nhật ký"
-  UI -> LOG : đọc toàn bộ bản ghi
-  LOG --> UI : các bản ghi sự cố
-  UI --> OP : danh sách nhật ký sự cố
+autonumber 2.1
+group 2. Tiếp nhận xử lý & Phục hồi tài nguyên
+    OP -> UI: Mở tab "Xử lý sự cố đang diễn ra"
+    activate UI
+    
+    OP -> UI: Chọn sự cố cần xử lý & nhấn "Xác nhận tiếp nhận"
+    UI -> AppState: Cập nhật trạng thái sự cố = ACKNOWLEDGED
+    activate AppState
+    AppState --> UI: Đã cập nhật
+    deactivate AppState
+    UI --> OP: Hiển thị: "Kỹ thuật viên đang tiến hành sửa chữa"
+
+    OP -> UI: Kỹ thuật hoàn tất sửa chữa & nhấn "Hoàn tất sửa chữa"
+    UI -> AppState: Đổi trạng thái sự cố = RESOLVED\nvà khôi phục xe/cổng sạc về AVAILABLE
+    activate AppState
+    AppState -> AppState: Cập nhật trạng thái tài nguyên sẵn sàng hoạt động
+    AppState --> UI: Khôi phục hoàn tất
+    deactivate AppState
+    UI --> OP: Thông báo: "Tài nguyên đã phục hồi an toàn về trạng thái AVAILABLE!"
+    deactivate UI
 end
+
 @enduml

@@ -1,0 +1,232 @@
+[
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS1/Activity diagrams/UC_SS1_01_NguyenThanhDat_activity.puml",
+    "embedded_source": true,
+    "matches_first_block": true
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS1/Activity diagrams/UC_SS1_02_NguyenThanhDat_activity.puml",
+    "embedded_source": true,
+    "matches_first_block": true
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS1/Activity diagrams/UC_SS1_03_NguyenThanhDat_activity.puml",
+    "embedded_source": true,
+    "matches_first_block": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS1/Sequence diagrams/UC_SS1_01_NguyenThanhDat_sequence.puml",
+    "embedded_source": true,
+    "matches_first_block": true
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS1/Sequence diagrams/UC_SS1_02_NguyenThanhDat_sequence.puml",
+    "embedded_source": true,
+    "matches_first_block": true
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS1/Sequence diagrams/UC_SS1_03_NguyenThanhDat_sequence.puml",
+    "embedded_source": true,
+    "matches_first_block": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS1/State-chart diagrams/UC_SS1_NguyenThanhDat_statechart.puml",
+    "embedded_source": true,
+    "matches_first_block": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS2/Activity diagrams/UC_SS2_01_NguyenAnhTai_activity.puml",
+    "embedded_source": true,
+    "matches_first_block": true
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS2/Activity diagrams/UC_SS2_02_NguyenAnhTai_activity.puml",
+    "embedded_source": true,
+    "matches_first_block": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS2/Activity diagrams/UC_SS2_03_NguyenAnhTai_activity.puml",
+    "embedded_source": true,
+    "matches_first_block": true
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS2/Activity diagrams/UC_SS2_04_NguyenAnhTai_activity.puml",
+    "embedded_source": true,
+    "matches_first_block": true
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS2/Sequence diagrams/UC_SS2_01_NguyenAnhTai_sequence.puml",
+    "embedded_source": true,
+    "matches_first_block": true
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS2/Sequence diagrams/UC_SS2_02_NguyenAnhTai_sequence.puml",
+    "embedded_source": true,
+    "matches_first_block": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS2/Sequence diagrams/UC_SS2_03_NguyenAnhTai_sequence.puml",
+    "embedded_source": true,
+    "matches_first_block": true
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS2/Sequence diagrams/UC_SS2_04_NguyenAnhTai_sequence.puml",
+    "embedded_source": true,
+    "matches_first_block": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS2/State-chart diagrams/UC_SS2_NguyenAnhTai_statechart.puml",
+    "embedded_source": true,
+    "matches_first_block": true
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS3/Activity diagrams/UC_SS3_01_PhamTienDat_activity.puml",
+    "embedded_source": true,
+    "matches_first_block": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS3/Activity diagrams/UC_SS3_02_PhamTienDat_activity.puml",
+    "embedded_source": true,
+    "matches_first_block": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS3/Sequence diagrams/UC_SS3_01_PhamTienDat_sequence.puml",
+    "embedded_source": true,
+    "matches_first_block": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS3/Sequence diagrams/UC_SS3_02_PhamTienDat_sequence.puml",
+    "embedded_source": true,
+    "matches_first_block": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS3/State-chart diagrams/UC_SS3_01_PhamTienDat_statechart.puml",
+    "embedded_source": true,
+    "matches_first_block": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS3/State-chart diagrams/UC_SS3_02_PhamTienDat_statechart.puml",
+    "embedded_source": true,
+    "matches_first_block": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS3/Usecase scenario/UC_SS3_PhamTienDat_diagram.puml",
+    "embedded_source": true,
+    "matches_first_block": true
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS4/Activity diagrams/UC_SS4_01_activity.puml",
+    "embedded_source": true,
+    "matches_first_block": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS4/Activity diagrams/UC_SS4_02_activity.puml",
+    "embedded_source": true,
+    "matches_first_block": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS4/Sequence diagrams/UC_SS4_01_sequence.puml",
+    "embedded_source": true,
+    "matches_first_block": true
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS4/Sequence diagrams/UC_SS4_02_sequence.puml",
+    "embedded_source": true,
+    "matches_first_block": true
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS4/State-chart diagrams/UC_SS4_01_statechart.puml",
+    "embedded_source": true,
+    "matches_first_block": true
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS4/State-chart diagrams/UC_SS4_02_statechart.puml",
+    "embedded_source": true,
+    "matches_first_block": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS5/Activity diagrams/UC_SS5_01_DuongDangKhoa_activity.puml",
+    "embedded_source": true,
+    "matches_first_block": true
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS5/Activity diagrams/UC_SS5_02_DuongDangKhoa_activity.puml",
+    "embedded_source": true,
+    "matches_first_block": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS5/Sequence diagrams/UC_SS5_01_DuongDangKhoa_sequence.puml",
+    "embedded_source": true,
+    "matches_first_block": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS5/Sequence diagrams/UC_SS5_02_DuongDangKhoa_sequence.puml",
+    "embedded_source": true,
+    "matches_first_block": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS5/State-chart diagrams/UC_SS5_DuongDangKhoa_statechart.puml",
+    "embedded_source": true,
+    "matches_first_block": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS6/Activity diagrams/UC_SS6_01_HoangVanTan_activity.puml",
+    "embedded_source": true,
+    "matches_first_block": true
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS6/Activity diagrams/UC_SS6_02_HoangVanTan_activity.puml",
+    "embedded_source": true,
+    "matches_first_block": true
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS6/Sequence diagrams/UC_SS6_01_HoangVanTan_sequence.puml",
+    "embedded_source": true,
+    "matches_first_block": true
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS6/Sequence diagrams/UC_SS6_02_HoangVanTan_sequence.puml",
+    "embedded_source": true,
+    "matches_first_block": true
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS6/State-chart diagrams/UC_SS6_Hub_Operational_statechart.puml",
+    "embedded_source": true,
+    "matches_first_block": false
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS6/State-chart diagrams/UC_SS6_Scenario_Lifecycle_statechart.puml",
+    "embedded_source": true,
+    "matches_first_block": true
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS7/Activity diagrams/UC_SS7_01_NguyenTrungNguyen_activity.puml",
+    "embedded_source": true,
+    "matches_first_block": true
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS7/Activity diagrams/UC_SS7_02_NguyenTrungNguyen_activity.puml",
+    "embedded_source": true,
+    "matches_first_block": true
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS7/Sequence diagrams/UC_SS7_01_NguyenTrungNguyen_sequence.puml",
+    "embedded_source": true,
+    "matches_first_block": true
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS7/Sequence diagrams/UC_SS7_02_NguyenTrungNguyen_sequence.puml",
+    "embedded_source": true,
+    "matches_first_block": true
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS7/State-chart diagrams/UC_SS7_01_NguyenTrungNguyen_statechart.puml",
+    "embedded_source": true,
+    "matches_first_block": true
+  },
+  {
+    "path": "docs/diagrams/Use-case detail-scenario/SS7/State-chart diagrams/UC_SS7_02_NguyenTrungNguyen_statechart.puml",
+    "embedded_source": true,
+    "matches_first_block": true
+  }
+]

@@ -84,16 +84,16 @@ endif
 
 if (Có yêu cầu sạc?) then (Có)
   |Phân hệ lập lịch sạc (SS5)|
- :Tiếp nhận yêu cầu sạc;\nxử lý lịch và phân bổ cổng phù hợp;
+ :Kiểm tra năng lực sạc dự kiến;\ncấp cổng khi Check-in;
   |Control & State (st.session_state)|
- :Ghi nhận lịch/cổng được phân bổ;\nchưa bắt đầu phiên sạc;
+ :Ghi nhận nhu cầu sạc;\nchưa giữ cổng vật lý;
 else (Không)
   |Control & State (st.session_state)|
  :Đơn chỉ đỗ xe;\nkhông giữ cổng sạc;
 endif
 
 |UI Layer (personal_ev.py)|
-:Thông báo đặt thành công;\nxuất mã đặt chỗ, QR Check-in\nvà QR mở trụ nếu có sạc;
+:Thông báo đặt thành công;\nxuất mã đặt chỗ, QR Check-in\n(QR/barie được mô phỏng);
 
 |Control & State (st.session_state)|
 :Chờ sự kiện:\nyêu cầu hủy, yêu cầu Check-in\nhoặc hết hạn nhận chỗ;

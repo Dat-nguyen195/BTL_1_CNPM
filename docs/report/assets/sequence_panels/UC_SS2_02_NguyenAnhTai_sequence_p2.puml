@@ -1,0 +1,92 @@
+@startuml UC_SS2_02_NguyenAnhTai_sequence_p2
+!theme plain
+skinparam sequenceMessageAlign center
+skinparam maxMessageSize 150
+skinparam BoxPadding 10
+
+title "UC_SS2_02_ - Phần 2/3: Đặt cọc và xác nhận giữ chỗ"
+
+' Nguồn: UC_SS2_NguyenAnhTai (2).md, cập nhật 21/09/2026.
+' Thiết kế theo đặc tả; không khẳng định toàn bộ chức năng đã có trong mã nguồn.
+
+actor "Sinh viên ĐHQG-HCM" as Student
+box "Boundary / UI Layer" #LightCyan
+participant "personal_ev.py\n(UI)" as UI
+end box
+box "External Authentication" #White
+participant "Cổng VNU-SSO\n(SSO)" as SSO
+end box
+box "Control & State" #LightYellow
+participant "st.session_state\n(AppState)" as AppState
+end box
+box "External Payment" #White
+participant "Tài khoản & Ví điện tử\n(E-Wallet)" as EWallet
+end box
+box "Charging Scheduling" #White
+participant "Phân hệ lập lịch sạc SS5\n(ChargingScheduler)" as Scheduler
+end box
+
+
+note over UI, AppState #LightCyan
+  Phần 2/3 - Nhóm nghiệp vụ: 3
+  Đọc theo thứ tự các phần; thông điệp giữ số của sơ đồ gốc.
+end note
+autonumber 3.1
+group 3. Đặt cọc và xác nhận giữ chỗ
+    UI -> EWallet: Kiểm tra số dư khả dụng >= 50.000 VNĐ
+    activate EWallet
+    EWallet --> UI: Kết quả kiểm tra số dư
+    deactivate EWallet
+
+    break Không đủ số dư cọc
+        UI --> Student: Thông báo không đủ tiền cọc;\nchưa xác nhận đơn
+    end
+
+    UI -> AppState: Kiểm tra lại lịch và khả dụng tại thời điểm xác nhận
+    activate AppState
+    AppState --> UI: Kết quả kiểm tra lại
+    deactivate AppState
+
+    break Lịch không hợp lệ hoặc vị trí không còn khả dụng
+        UI --> Student: Yêu cầu chọn lại lịch hoặc vị trí;\nkhông tạo đơn
+    end
+
+    UI -> EWallet: Tạm giữ 50.000 VNĐ tiền cọc
+    activate EWallet
+    EWallet --> UI: Kết quả tạm giữ tiền cọc
+    deactivate EWallet
+
+    break Không tạm giữ được tiền cọc
+        UI --> Student: Không thể xác nhận đơn;\nyêu cầu thử lại
+    end
+
+    UI -> AppState: Tạo đơn liên kết sinh viên, xe, Hub và lịch;\ngiữ vị trí AVAILABLE -> RESERVED
+    activate AppState
+    AppState -> AppState: Đặt hạn Check-in = booking_start_time + 15 phút
+    AppState --> UI: Kết quả tạo đơn và giữ chỗ
+    deactivate AppState
+
+    break Không ghi nhận được đơn sau khi tạm giữ cọc
+        UI -> EWallet: Hoàn tác khoản cọc của yêu cầu chưa thành công
+        activate EWallet
+        EWallet --> UI: Kết quả hoàn tác / chờ đối soát
+        deactivate EWallet
+        UI --> Student: Chưa xác nhận đặt chỗ;\nhiển thị trạng thái tiền cọc để đối soát
+    end
+
+    opt Đơn có yêu cầu sạc
+        UI -> Scheduler: Tra cứu phương án sạc gắn với giờ đến đã chọn
+        activate Scheduler
+        Scheduler -> Scheduler: Đánh giá năng lực; cấp cổng khi Check-in
+        Scheduler --> UI: Phương án sạc dự kiến; chưa giữ cổng vật lý
+        deactivate Scheduler
+        UI -> AppState: Ghi nhận nhu cầu sạc; cấp cổng lúc Check-in
+        activate AppState
+        AppState --> UI: Đã cập nhật thông tin dịch vụ sạc
+        deactivate AppState
+    end
+
+    UI --> Student: Đặt thành công;\nmã đặt chỗ, mã Check-in (QR/barie mô phỏng)
+end
+
+@enduml

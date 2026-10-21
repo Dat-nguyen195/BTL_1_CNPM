@@ -1,3 +1,4 @@
+import os
 import xml.etree.ElementTree as ET
 import urllib.parse
 import re
@@ -8,7 +9,9 @@ def unquote(text):
     return urllib.parse.unquote(text)
 
 try:
-    tree = ET.parse('/media/nguyen-dat/New Volume/HK1_261/Công nghệ Phần mềm/BTL_1/smart-emobility-hub/docs/diagrams/system/smartEhub.drawio')
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    drawio_path = os.path.join(base_dir, 'smartEhub.drawio')
+    tree = ET.parse(drawio_path)
     root = tree.getroot()
     
     nodes = {}

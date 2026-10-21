@@ -1,0 +1,47 @@
+{
+  "return_different_from_held_destination": {
+    "booking_status": "COMPLETED",
+    "old_destination_holds_after_completion": 1,
+    "destination_held_flag": true
+  },
+  "personal_ev_expiry": {
+    "deadline": "2026-10-21 08:30:00",
+    "checkin_success": false,
+    "reservation_status": "EXPIRED",
+    "before": {
+      "balance": 130000,
+      "held_deposit": 20000,
+      "debt": 0
+    },
+    "after": {
+      "balance": 130000,
+      "held_deposit": 20000,
+      "debt": 0
+    }
+  },
+  "repeated_power_allocation": {
+    "first_count": 2,
+    "second_count": 1,
+    "active_kw": 22.2,
+    "cap_kw": 20
+  },
+  "repeated_port_failure": {
+    "total": 12,
+    "available": 0,
+    "offline": 24
+  },
+  "actual_streamlit_toggle_roundtrip": {
+    "before": 5,
+    "all_off": 0,
+    "restored": 12
+  },
+  "actual_streamlit_deposit_card": {
+    "held_state": 50000,
+    "metric": [
+      {
+        "label": "🔒 Tiền khóa cọc",
+        "value": "50,000 ₫"
+      }
+    ]
+  }
+}

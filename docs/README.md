@@ -14,10 +14,11 @@
 
 | Tài liệu | Đường dẫn | Mô tả nội dung |
 | :--- | :--- | :--- |
-| **Phân tích yêu cầu (Requirements Analysis)** | [`requirements-analysis.md`](./requirements-analysis.md) | Ma trận Stakeholder, Danh sách User Stories (SS1–SS7), Mapping Functional Requirements, Đánh giá độ sẵn sàng |
-| **Kiểm toán tuân thủ Đề bài (Compliance Audit)** | [`compliance-check.md`](./compliance-check.md) | Bảng đối chiếu tiến độ với yêu cầu BTL Đợt 1 (73% đạt, checklist khắc phục) |
+| **Phân tích yêu cầu (Requirements Analysis)** | [`requirements-analysis.md`](./requirements-analysis.md) | Ma trận Stakeholder, Danh sách User Stories (SS1–SS7), Mapping Functional Requirements, Bảng 17 Canonical UCs |
+| **Ma trận truy vết (Traceability Matrix)** | [`traceability/submission_2.md`](./traceability/submission_2.md) | Truy vết 30 US, 23 FR, 17 Canonical UCs và mã kiểm thử tự động |
+| **Báo cáo kiểm toán & Kế hoạch (Audit & Plan)** | [`../AUDIT_SUBMISSION_2.md`](../AUDIT_SUBMISSION_2.md) | Báo cáo kiểm toán chất lượng Submission #2 và kế hoạch triển khai |
 | **Kế hoạch & Phân công (Tasks Assignment)** | [`tasks-assignment.md`](./tasks-assignment.md) | Phân chia công việc 7 thành viên, lộ trình các Sprint, quy định đóng góp |
-| **Sơ đồ thiết kế (Diagrams Hub)** | [`diagrams/README.md`](./diagrams/README.md) | Quy chuẩn nộp sơ đồ Use-case cá nhân trực tiếp vào `docs/diagrams/` và sơ đồ toàn hệ thống |
+| **Sơ đồ thiết kế (Diagrams Hub)** | [`diagrams/README.md`](./diagrams/README.md) | Cấu trúc 28 thư mục phân hệ, 17 Sequence, 17 Activity, 11 State-charts |
 | **Biên bản họp nhóm (Meeting Minutes)** | [`meeting-minutes/`](./meeting-minutes/) | Toàn bộ biên bản họp nhóm định kỳ (Meeting #01,...) |
 | **Nhật ký Prompt AI (Prompt History)** | [`prompt-history/`](./prompt-history/) | Thư mục lưu vết prompt cá nhân của 7 thành viên theo quy định tính minh bạch |
 

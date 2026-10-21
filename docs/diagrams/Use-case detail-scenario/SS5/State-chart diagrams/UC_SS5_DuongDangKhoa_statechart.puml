@@ -1,5 +1,5 @@
 
-@startuml SS5_DuongDangKhoa_statechart
+@startuml UC_SS5_DuongDangKhoa_statechart
 !theme plain
 hide empty description
 

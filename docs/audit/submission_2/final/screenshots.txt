@@ -1,0 +1,25 @@
+Starting Streamlit server on port 8503
+Streamlit is up! Launching Chrome WebDriver...
+
+--- Processing 1️⃣ -> ss1_student_booking.png ---
+✅ Successfully verified header & saved: ss1_student_booking.png
+
+--- Processing 2️⃣ -> ss2_personal_ev.png ---
+✅ Successfully verified header & saved: ss2_personal_ev.png
+
+--- Processing 3️⃣ -> ss3_hub_monitor.png ---
+✅ Successfully verified header & saved: ss3_hub_monitor.png
+
+--- Processing 4️⃣ -> ss4_dispatch_incident.png ---
+✅ Successfully verified header & saved: ss4_dispatch_incident.png
+
+--- Processing 5️⃣ -> ss5_smart_charging.png ---
+✅ Successfully verified header & saved: ss5_smart_charging.png
+
+--- Processing 6️⃣ -> ss6_sim_demand.png ---
+✅ Successfully verified header & saved: ss6_sim_demand.png
+
+--- Processing 7️⃣ -> ss7_sim_infrastructure.png ---
+✅ Successfully verified header & saved: ss7_sim_infrastructure.png
+
+Finished screenshot capture process.

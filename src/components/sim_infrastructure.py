@@ -1,252 +1,225 @@
 """
 sim_infrastructure.py – Subsystem 7: Mô phỏng kịch bản What-if (Sự cố Hạ tầng)
+Smart E-Mobility Hub – ĐHQG-HCM
 
-Chức năng:
-  • Toggle bật/tắt cổng sạc tại từng Hub (mô phỏng sự cố lưới điện)
-  • Hiển thị tác động & đề xuất điều phối tự động
-  • Nhật ký sự cố hạ tầng
+Chức năng chuẩn hóa:
+  • Console quản lý bật/tắt cổng sạc (Toggle) bảo toàn sức chứa (FR-13, FR-14)
+  • Mô phỏng Port Failure phân biệt cổng rảnh vs cổng đang sạc (ngắt phiên sạc) (FR-15)
+  • Tách biệt Preview và Nút Áp dụng (Khắc phục hoàn toàn lỗi lồng nút)
+  • Tự động đề xuất điều phối sang 2 Hub lân cận qua core/routing.py (FR-15c / UC_SS7_02)
+
+FR Covered: FR-14, FR-15, FR-15c
+US Covered: US-23, US-24, US-24b
 """
 
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-import sys
-import os
+from datetime import datetime
+import uuid
 
-# Thêm path để import core module
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 from core.simulator import HubEventSimulator
+from core.routing import find_alternative_hubs
+from core.state import bump_state_version
 
-
-def render():
-    """Render giao diện Subsystem 7 – Mô phỏng sự cố hạ tầng."""
-
-    st.header("🔧 Mô phỏng Sự cố Hạ tầng – Infrastructure Failure")
-    st.caption(
-        "Mô phỏng sự cố cổng sạc, mất điện lưới, và xem hệ thống tự động "
-        "đề xuất phương án điều phối thay thế."
-    )
-
-    hubs = st.session_state.get("hubs", [])
-
-    # Khởi tạo trạng thái toggle cổng sạc
+def _init_ss7():
     if "port_overrides" not in st.session_state:
-        st.session_state["port_overrides"] = {}  # hub_id -> số cổng bị tắt
-
+        st.session_state["port_overrides"] = {}
     if "infra_log" not in st.session_state:
         st.session_state["infra_log"] = []
 
+def render():
+    """Render giao diện Subsystem 7 – Mô phỏng Sự cố Hạ tầng."""
+    _init_ss7()
+
+    st.header("🔧 Mô phỏng Sự cố Hạ tầng – Infrastructure Failure")
+    st.caption("Mô phỏng sự cố cổng sạc, mất điện lưới và kích hoạt điều hướng tự động (FR-14, FR-15, FR-15c).")
+
+    hubs = st.session_state.get("hubs", [])
+    if not hubs:
+        st.error("Không có dữ liệu Hub.")
+        return
+
+    sim_time = st.session_state.get("current_sim_time", datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+
+    tab_console, tab_fail_sim, tab_overview, tab_log = st.tabs([
+        "🔌 1. Console bật/tắt cổng sạc",
+        "💥 2. Mô phỏng sự cố trạm (Failure Preview)",
+        "📊 3. Tổng quan hạ tầng mạng lưới",
+        "📋 4. Nhật ký thay đổi hạ tầng",
+    ])
+
     # ═══════════════════════════════════════════════
-    # PHẦN 1: Console bật/tắt cổng sạc
+    # TAB 1: CONSOLE BẬT/TẮT CỔNG SẠC
     # ═══════════════════════════════════════════════
-    st.subheader("🔌 Console quản lý cổng sạc")
-    st.markdown("Toggle cổng sạc bật/tắt để mô phỏng sự cố lưới điện tại từng Hub.")
+    with tab_console:
+        st.subheader("🔌 Console quản trị bật/tắt cổng sạc theo Hub")
+        st.caption("Mô phỏng ngắt kết nối cục bộ bảo trì hoặc sự cố lưới điện.")
 
-    for hub in hubs:
-        hid = hub["hub_id"]
-        total_ports = hub["charging_ports"]["total"]
-        current_avail = hub["charging_ports"]["available"]
-        ports_down = st.session_state["port_overrides"].get(hid, 0)
-
-        col_name, col_toggle, col_status = st.columns([3, 2, 2])
-
-        with col_name:
-            st.markdown(f"**{hub['name']}**")
-            st.caption(f"Tổng cổng: {total_ports} | Khả dụng: {current_avail}")
-
-        with col_toggle:
-            new_down = st.number_input(
-                f"Cổng bị tắt ({hid})",
-                min_value=0,
-                max_value=total_ports,
-                value=ports_down,
-                key=f"port_toggle_{hid}",
-                label_visibility="collapsed",
-            )
-
-        with col_status:
-            effective_avail = max(0, current_avail - new_down + ports_down)
-            if new_down == total_ports:
-                st.error("⛔ Toàn bộ offline")
-            elif new_down > 0:
-                st.warning(f"⚠️ {new_down} cổng offline")
-            else:
-                st.success("✅ Hoạt động BT")
-
-    st.divider()
-
-    # Nút áp dụng thay đổi toggle
-    if st.button("⚡ Áp dụng thay đổi cổng sạc", type="primary"):
-        import datetime
-
-        for hub in st.session_state["hubs"]:
+        for hub in hubs:
             hid = hub["hub_id"]
-            old_down = st.session_state["port_overrides"].get(hid, 0)
-            new_down = st.session_state.get(f"port_toggle_{hid}", 0)
+            total_p = hub["charging_ports"]["total"]
+            avail_p = hub["charging_ports"]["available"]
+            current_down = st.session_state["port_overrides"].get(hid, 0)
 
-            if new_down != old_down:
-                # Cập nhật số cổng khả dụng
-                delta = new_down - old_down
-                hub["charging_ports"]["available"] = max(
-                    0, hub["charging_ports"]["available"] - delta
+            c_name, c_input, c_stat = st.columns([3, 2, 2])
+            with c_name:
+                st.markdown(f"**{hub['name']}**")
+                st.caption(f"Tổng cổng: {total_p} | Đang khả dụng: {avail_p}")
+            with c_input:
+                new_down = st.number_input(
+                    f"Số cổng ngắt ({hid}):",
+                    min_value=0, max_value=total_p, value=current_down,
+                    key=f"toggle_port_{hid}"
                 )
+            with c_stat:
+                if new_down == total_p:
+                    st.error("⛔ Toàn bộ trạm offline")
+                elif new_down > 0:
+                    st.warning(f"⚠️ {new_down} cổng offline")
+                else:
+                    st.success("✅ Hoạt động bình thường")
 
-                # Ghi log
-                action = "TẮT" if delta > 0 else "BẬT LẠI"
-                st.session_state["infra_log"].append({
-                    "time": datetime.datetime.now().strftime("%H:%M:%S"),
-                    "hub": hub["name"],
-                    "action": f"{action} {abs(delta)} cổng sạc",
-                    "ports_remaining": hub["charging_ports"]["available"],
-                })
+        if st.button("⚡ Áp dụng trạng thái bật/tắt cổng sạc", type="primary", key="btn_apply_port_toggles"):
+            for hub in hubs:
+                hid = hub["hub_id"]
+                ports = hub["charging_ports"]
+                # Save baseline available capacity on first override
+                if "base_available" not in ports:
+                    ports["base_available"] = ports["available"]
+                base_avail = ports["base_available"]
 
-            st.session_state["port_overrides"][hid] = new_down
+                old_d = st.session_state["port_overrides"].get(hid, 0)
+                new_d = st.session_state.get(f"toggle_port_{hid}", 0)
+                if old_d != new_d:
+                    # New available cannot exceed baseline available
+                    ports["available"] = max(0, base_avail - new_d)
+                    ports["offline"] = min(ports["total"], new_d)
+                    action = "TẮT" if new_d > old_d else "BẬT LẠI"
+                    diff = abs(new_d - old_d)
+                    st.session_state["infra_log"].append({
+                        "time": sim_time,
+                        "hub": hub["name"],
+                        "action": f"{action} {diff} cổng sạc",
+                        "ports_remaining": ports["available"]
+                    })
+                    st.session_state["port_overrides"][hid] = new_d
 
-        st.success("✅ Đã cập nhật trạng thái cổng sạc.")
-        st.rerun()
-
-    st.divider()
-
-    # ═══════════════════════════════════════════════
-    # PHẦN 2: Mô phỏng Port Failure & Đề xuất điều phối
-    # ═══════════════════════════════════════════════
-    st.subheader("💥 Mô phỏng sự cố cổng sạc tự động")
-
-    sim_col1, sim_col2 = st.columns(2)
-
-    with sim_col1:
-        fail_hub = st.selectbox(
-            "Hub bị sự cố:",
-            [f"{h['hub_id']} – {h['name']}" for h in hubs],
-            index=3,   # Mặc định: ĐH Bách Khoa
-            key="infra_fail_hub",
-        )
-
-    with sim_col2:
-        fail_count = st.number_input(
-            "Số cổng bị hỏng:",
-            min_value=1, max_value=15, value=3,
-            key="infra_fail_count",
-        )
-
-    if st.button("🔧 Chạy mô phỏng Port Failure", type="secondary"):
-        fail_hub_id = fail_hub.split(" – ")[0]
-
-        simulator = HubEventSimulator(st.session_state["hubs"])
-        modified_hubs, event_log = simulator.simulate_port_failure(
-            target_hub_id=fail_hub_id,
-            num_ports_down=fail_count,
-        )
-
-        # Hiển thị nhật ký
-        st.subheader("📋 Nhật ký sự kiện")
-        for entry in event_log:
-            if "CẢNH BÁO" in entry:
-                st.error(entry)
-            elif "ĐỀ XUẤT" in entry:
-                st.info(entry)
-            elif "BẮT ĐẦU" in entry:
-                st.warning(entry)
-            else:
-                st.text(entry)
-
-        # ── Đề xuất điều phối tự động ───────────────
-        st.subheader("💡 Đề xuất điều phối tự động")
-
-        fail_hub_data = next(h for h in modified_hubs if h["hub_id"] == fail_hub_id)
-        waiting_vehicles = [
-            v for v in fail_hub_data["current_vehicles"]
-            if v["status"] == "waiting"
-        ]
-
-        if waiting_vehicles:
-            st.markdown(f"**{len(waiting_vehicles)} xe đang chờ sạc** tại Hub bị sự cố:")
-
-            # Tìm Hub có cổng sạc trống để đề xuất
-            alt_hubs = [
-                h for h in modified_hubs
-                if h["hub_id"] != fail_hub_id and h["charging_ports"]["available"] > 0
-            ]
-
-            if alt_hubs:
-                # Sắp xếp theo số cổng trống giảm dần
-                alt_hubs.sort(key=lambda h: h["charging_ports"]["available"], reverse=True)
-
-                reroute_data = []
-                v_idx = 0
-                for alt in alt_hubs:
-                    capacity = alt["charging_ports"]["available"]
-                    for _ in range(capacity):
-                        if v_idx >= len(waiting_vehicles):
-                            break
-                        v = waiting_vehicles[v_idx]
-                        reroute_data.append({
-                            "Xe": v["vehicle_id"],
-                            "SoC (%)": v["battery_soc"],
-                            "Chuyển đến": alt["name"],
-                            "Cổng trống": capacity,
-                        })
-                        v_idx += 1
-
-                if reroute_data:
-                    st.dataframe(
-                        pd.DataFrame(reroute_data),
-                        use_container_width=True,
-                        hide_index=True,
-                    )
-            else:
-                st.error("❌ Không có Hub nào còn cổng sạc trống để điều phối!")
-        else:
-            st.info("Không có xe nào đang chờ sạc.")
-
-        # Nút áp dụng
-        if st.button("✅ Áp dụng kết quả mô phỏng", key="apply_port_failure"):
-            st.session_state["hubs"] = modified_hubs
-            st.success("Đã cập nhật dữ liệu Hub.")
+            bump_state_version(st.session_state)
+            st.success("✅ Đã cập nhật trạng thái cổng sạc thành công (Bảo toàn sức chứa)!")
             st.rerun()
 
-    st.divider()
+    # ═══════════════════════════════════════════════
+    # TAB 2: MÔ PHỎNG SỰ CỐ TRẠM & ĐỀ XUẤT ĐIỀU PHỐI
+    # ═══════════════════════════════════════════════
+    with tab_fail_sim:
+        st.subheader("💥 Mô phỏng sự cố hỏng cổng sạc & Điều hướng thay thế")
+        f_col1, f_col2 = st.columns(2)
+        with f_col1:
+            hub_opts = [f"{h['hub_id']} – {h['name']}" for h in hubs]
+            fail_hub_str = st.selectbox("Hub xảy ra sự cố:", hub_opts, index=3, key="ss7_fail_hub")
+            fail_hub_id = fail_hub_str.split(" – ")[0]
+        with f_col2:
+            num_fail = st.number_input("Số cổng bị hỏng đột ngột:", min_value=1, max_value=15, value=4, key="ss7_fail_num")
+
+        if st.button("🔧 Chạy mô phỏng Port Failure (Tạo Preview)", type="primary", key="btn_run_port_failure"):
+            sim = HubEventSimulator(st.session_state["hubs"])
+            mod_hubs, log, metrics = sim.simulate_port_failure(
+                target_hub_id=fail_hub_id,
+                num_ports_down=num_fail,
+                seed=42
+            )
+            st.session_state["sim_preview_ss7"] = {
+                "preview_id": f"PREV-SS7-{uuid.uuid4().hex[:6].upper()}",
+                "baseline_version": st.session_state.get("state_version", 1),
+                "target_hub_id": fail_hub_id,
+                "modified_hubs": mod_hubs,
+                "event_log": log,
+                "metrics": metrics
+            }
+            st.success("✅ Đã chạy xong mô phỏng sự cố hạ tầng! Xem Preview ở phía dưới.")
+            st.rerun()
+
+        # Render Preview & Apply độc lập
+        prev7 = st.session_state.get("sim_preview_ss7")
+        if prev7:
+            st.divider()
+            st.subheader("🔍 Bản xem trước Sự cố Hạ tầng (Preview)")
+            st.info(f"Mã Preview: `{prev7['preview_id']}` | Baseline State Version: `{prev7['baseline_version']}`")
+
+            with st.expander("📋 Nhật ký chi tiết sự cố", expanded=True):
+                for e in prev7["event_log"]:
+                    if "CẢNH BÁO" in e:
+                        st.error(e)
+                    elif "BẮT ĐẦU" in e:
+                        st.warning(e)
+                    else:
+                        st.text(e)
+
+            # Đề xuất điều hướng tự động sang Hub lân cận (FR-15c / UC_SS7_02)
+            alts = find_alternative_hubs(
+                hubs=prev7["modified_hubs"],
+                target_hub_id=prev7["target_hub_id"],
+                need_ports=True,
+                need_slots=False,
+                limit=2
+            )
+            if alts:
+                st.warning("🔄 **Đề xuất điều phối tự động sang trạm sạc lân cận (FR-15c / UC_SS7_02):**")
+                for a in alts:
+                    st.write(f"- 📍 **{a['name']}** (~{a['distance_km']} km): Còn **{a['available_ports']}** cổng sạc trống | **{a['available_slots']}** chỗ đỗ")
+
+            # Nút Áp dụng & Hủy bỏ độc lập
+            ca1, ca2 = st.columns(2)
+            with ca1:
+                if st.button("✅ Áp dụng sự cố vào hệ thống vận hành", type="primary", key="btn_apply_ss7"):
+                    cur_v = st.session_state.get("state_version", 1)
+                    if prev7["baseline_version"] != cur_v:
+                        st.error("❌ Dữ liệu trạm đã thay đổi trong phiên. Vui lòng chạy lại mô phỏng trước khi áp dụng!")
+                    else:
+                        st.session_state["hubs"] = prev7["modified_hubs"]
+                        bump_state_version(st.session_state)
+                        del st.session_state["sim_preview_ss7"]
+                        st.success("🎉 Đã áp dụng thành công sự cố hạ tầng vào dữ liệu hệ thống!")
+                        st.rerun()
+
+            with ca2:
+                if st.button("❌ Hủy bỏ bản xem trước sự cố", key="btn_discard_ss7"):
+                    del st.session_state["sim_preview_ss7"]
+                    st.info("Đã hủy bản xem trước sự cố.")
+                    st.rerun()
 
     # ═══════════════════════════════════════════════
-    # PHẦN 3: Tổng quan trạng thái hạ tầng
+    # TAB 3: TỔNG QUAN HẠ TẦNG
     # ═══════════════════════════════════════════════
-    st.subheader("📊 Tổng quan trạng thái hạ tầng sạc")
-
-    infra_data = []
-    for h in hubs:
-        total_p = h["charging_ports"]["total"]
-        avail_p = h["charging_ports"]["available"]
-        usage_pct = ((total_p - avail_p) / total_p * 100) if total_p > 0 else 0
-        infra_data.append({
-            "Hub": h["name"].replace("Hub ", ""),
-            "Tổng cổng": total_p,
-            "Đang dùng": total_p - avail_p,
-            "Trống": avail_p,
-            "Sử dụng (%)": round(usage_pct, 1),
-        })
-
-    infra_df = pd.DataFrame(infra_data)
-
-    fig = px.bar(
-        infra_df,
-        x="Hub",
-        y=["Đang dùng", "Trống"],
-        title="Tình trạng cổng sạc theo Hub",
-        barmode="stack",
-        color_discrete_sequence=["#ff6b6b", "#51cf66"],
-    )
-    fig.update_layout(
-        xaxis_tickangle=-30,
-        height=400,
-        legend_title_text="",
-    )
-    st.plotly_chart(fig, use_container_width=True)
+    with tab_overview:
+        st.subheader("📊 Tình trạng cổng sạc theo Hub")
+        infra_data = []
+        for h in hubs:
+            tot = h["charging_ports"]["total"]
+            av = h["charging_ports"]["available"]
+            infra_data.append({
+                "Hub": h["name"].replace("Hub ", ""),
+                "Đang sạc / Bận": tot - av,
+                "Khả dụng": av
+            })
+        fig = px.bar(
+            pd.DataFrame(infra_data),
+            x="Hub",
+            y=["Đang sạc / Bận", "Khả dụng"],
+            title="Phân bổ trạng thái cổng sạc theo Hub",
+            barmode="stack",
+            color_discrete_sequence=["#ff6b6b", "#51cf66"]
+        )
+        fig.update_layout(height=400)
+        st.plotly_chart(fig, use_container_width=True)
 
     # ═══════════════════════════════════════════════
-    # PHẦN 4: Nhật ký thay đổi hạ tầng
+    # TAB 4: NHẬT KÝ THAY ĐỔI
     # ═══════════════════════════════════════════════
-    if st.session_state["infra_log"]:
-        st.subheader("📋 Nhật ký thay đổi hạ tầng")
-        log_df = pd.DataFrame(st.session_state["infra_log"])
-        log_df.columns = ["Thời gian", "Hub", "Hành động", "Cổng còn lại"]
-        st.dataframe(log_df, use_container_width=True, hide_index=True)
+    with tab_log:
+        st.subheader("📋 Nhật ký lịch sử thay đổi hạ tầng trạm")
+        if st.session_state["infra_log"]:
+            st.dataframe(pd.DataFrame(st.session_state["infra_log"]), use_container_width=True, hide_index=True)
+        else:
+            st.info("Chưa có sự kiện thay đổi hạ tầng.")

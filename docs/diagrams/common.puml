@@ -1,0 +1,39 @@
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName "DejaVu Sans, Arial, Helvetica, sans-serif"
+skinparam defaultFontSize 12
+skinparam roundCorner 8
+skinparam shadowing false
+skinparam ArrowColor #2C3E50
+skinparam ArrowThickness 1.2
+skinparam BoxPadding 10
+skinparam LifelineBorderColor #34495E
+skinparam LifelineBackgroundColor #ECF0F1
+
+skinparam sequence {
+    ActorBorderColor #2980B9
+    ActorBackgroundColor #EBF5FB
+    ParticipantBorderColor #2C3E50
+    ParticipantBackgroundColor #F8F9FA
+    GroupHeaderFontColor #2C3E50
+    GroupBorderColor #BDC3C7
+    GroupBackgroundColor #FAFAFA
+    DividerBorderColor #BDC3C7
+}
+
+skinparam activity {
+    StartColor #27AE60
+    EndColor #C0392B
+    BackgroundColor #FFFFFF
+    BorderColor #2C3E50
+    BarColor #2C3E50
+    DiamondBackgroundColor #FEF9E7
+    DiamondBorderColor #D4AC0D
+}
+
+skinparam state {
+    StartColor #27AE60
+    EndColor #C0392B
+    BackgroundColor #FFFFFF
+    BorderColor #2C3E50
+}

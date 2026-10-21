@@ -1,5 +1,5 @@
 @startuml UC_SS7_02_NguyenTrungNguyen_sequence
-!theme plain
+!include ../../../common.puml
 skinparam sequenceMessageAlign center
 skinparam maxMessageSize 150
 skinparam BoxPadding 10
@@ -7,102 +7,84 @@ skinparam BoxPadding 10
 title "Detailed UML Sequence Diagram: SS7 - Cảnh báo và điều hướng Hub 1-chạm"
 
 actor "Sinh viên ĐHQG-HCM" as Student
+
 box "Boundary / UI Layer" #LightCyan
 participant "student_booking.py\n(UI)" as UI
 end box
+
+box "External Authentication" #White
+participant "Cổng VNU-SSO\n(SSO)" as SSO
+end box
+
 box "Control & State" #LightYellow
 participant "st.session_state\n(AppState)" as AppState
 end box
+
 box "Routing Service" #LightGreen
-participant "Spatial Routing\n(Matrix)" as Routing
+participant "Spatial Routing\n(core/routing.py)" as Routing
 end box
-box "Related Subsystems" #White
-participant "Đặt xe dùng chung\n(SS1)" as SS1
-participant "Hub IoT" as IoT
+
+box "External Payment" #White
+participant "Sổ cái / Ví điện tử\n(E-Wallet)" as EWallet
+end box
+
+box "Related Subsystems" #LightGray
+participant "Cảm biến & Cổng sạc\n(IoT Hardware)" as IoT
 end box
 
 autonumber 1.1
-group 1. Phát hiện Hub đích không khả dụng
-    AppState -> UI: Phát hiện Hub đích OFFLINE / ERROR\nhoặc available_slots == 0
+group 1. Phát hiện Hub đích không khả dụng & Đề xuất điều hướng
+    Student -> UI: Di chuyển đến Hub đích để trả xe
     activate UI
-    UI -> AppState: Đọc booking và danh sách Hub
+    
+    UI -> AppState: Đọc thông tin chuyến đi active_booking\nvà kiểm tra available_slots của Hub đích
     activate AppState
-    AppState --> UI: Trả về Hub đích, booking và hubs
+    AppState --> UI: Hub đích available_slots == 0 hoặc OFFLINE
     deactivate AppState
 
-    UI -> Routing: Tìm Hub thay thế gần nhất
+    UI -> Routing: find_alternative_hubs(hubs, dest_hub_id, need_slots=True, limit=2)
     activate Routing
-    Routing -> IoT: Đọc trạng thái, slot và tọa độ các Hub
-    activate IoT
-    IoT --> Routing: Dữ liệu Hub trong mạng lưới
-    deactivate IoT
-    Routing -> Routing: Lọc available_slots > 0,\ntính khoảng cách và lấy Top 2
+    Routing -> Routing: Lọc Hubs đang mở, tính khoảng cách Haversine\nvà chọn Top 2 Hub gần nhất còn chỗ
+    Routing --> UI: Trả về danh sách 2 Hub thay thế
+    deactivate Routing
 
-    alt Không có Hub nào còn khả dụng
-        Routing --> UI: Không tìm thấy Hub thay thế
-        deactivate Routing
+    alt Không có Hub nào trong khu vực còn chỗ trống
         UI -> AppState: Đóng băng cước phí chờ phát sinh
         activate AppState
-        AppState --> UI: Thời gian chờ được miễn phí
+        AppState --> UI: Đã kích hoạt thời gian chờ miễn phí
         deactivate AppState
-        UI --> Student: Cảnh báo toàn mạng quá tải/sự cố;\nthông báo tạm giữ xe an toàn
-    else Có Hub thay thế
-        Routing --> UI: Danh sách tối đa 2 Hub gần nhất
-        deactivate Routing
-        UI --> Student: Hiển thị cảnh báo, khoảng cách,\nslot trống và lựa chọn điều hướng
-
-        alt Sinh viên xác nhận Hub gợi ý thứ nhất
-            Student -> UI: Chọn "Chuyển đặt chỗ 1 chạm"
-            UI -> SS1: Yêu cầu chuyển điểm đến sang Hub 1
-            activate SS1
-            SS1 -> IoT: Kiểm tra slot Hub 1 và giữ 1 slot
-            activate IoT
-            alt Hub 1 vẫn còn slot
-                IoT --> SS1: Giữ slot thành công
-            else Slot cuối vừa được giữ bởi người khác
-                IoT --> SS1: Hub 1 đã hết slot
-                SS1 -> IoT: Kiểm tra và giữ slot tại Hub 2
-                IoT --> SS1: Kết quả giữ slot Hub 2
-            end
-            deactivate IoT
-            SS1 --> UI: Xác nhận Hub mới và slot RESERVED
-            deactivate SS1
-        else Sinh viên tự chọn Hub thứ ba
-            Student -> UI: Mở danh sách Hub và chọn Hub khác
-            UI -> SS1: Yêu cầu chuyển điểm đến sang Hub đã chọn
-            activate SS1
-            SS1 -> IoT: Kiểm tra và giữ 1 slot tại Hub đã chọn
-            activate IoT
-            IoT --> SS1: Kết quả kiểm tra và giữ slot
-            deactivate IoT
-            SS1 --> UI: Xác nhận điểm đến mới
-            deactivate SS1
-        end
-
-        UI -> AppState: Cập nhật active_booking.destination_hub
-        activate AppState
-        AppState -> AppState: Bảo toàn tiền cọc;\ncộng 15 phút miễn phí (tổng 45 phút)
-        AppState --> UI: Cập nhật booking hoàn tất
-        deactivate AppState
-        UI --> Student: Xác nhận chuyển hướng và cập nhật lộ trình
+        UI --> Student: Cảnh báo sự cố toàn mạng; hướng dẫn đỗ xe tạm thời an toàn
+    else Có Hub thay thế khả dụng
+        UI --> Student: Hiển thị cảnh báo Hub đầy + Nút bấm "Chuyển tới đây (+15p)"
     end
     deactivate UI
 end
 
 autonumber 2.1
-group 2. Chặn đặt chỗ tại Hub lỗi
-    opt Sinh viên đang tạo đặt chỗ mới
-        Student -> UI: Chọn Hub đích gặp sự cố/hết chỗ
-        UI -> AppState: Kiểm tra trạng thái và slot Hub
-        activate AppState
-        AppState --> UI: Hub không khả dụng
-        deactivate AppState
-        UI -> Routing: Tìm tối đa 2 Hub lân cận còn slot
+group 2. Sinh viên xác nhận điều hướng 1-chạm (1-Tap Reroute)
+    Student -> UI: Nhấn nút "Chuyển tới đây (+15p)" cho Hub gợi ý
+    activate UI
+
+    UI -> AppState: apply_rerouting_to_booking(booking_id, new_hub_id)
+    activate AppState
+    AppState -> AppState: Kiểm tra Hub mới còn chỗ đỗ trống
+    
+    alt Hub mới vẫn còn chỗ đỗ
+        AppState -> AppState: Giải phóng giữ chỗ Hub cũ (destination_holds - 1)
+        AppState -> AppState: Giữ 1 chỗ tại Hub mới (available_slots - 1, destination_holds + 1)
+        AppState -> AppState: Bảo toàn 100% tiền cọc;\ncộng 15 phút thuê xe miễn phí (extra_free_minutes = 15)
+        AppState --> UI: Điều hướng thành công
+        UI --> Student: Thông báo: "Đã chuyển điểm đến sang Hub mới và tặng thêm 15 phút thuê miễn phí!"
+    else Hub mới vừa bị lấp đầy bởi người khác
+        AppState --> UI: Hub gợi ý vừa hết chỗ
+        UI -> Routing: Quét lại trạm thay thế thứ hai
         activate Routing
-        Routing --> UI: Danh sách Hub thay thế
+        Routing --> UI: Hub dự phòng kế tiếp
         deactivate Routing
-        UI --> Student: Chặn đặt chỗ tại Hub lỗi;\nhiển thị Hub thay thế
+        UI --> Student: Cảnh báo trạm vừa đầy; đề xuất trạm dự phòng tiếp theo
     end
+    deactivate AppState
+    deactivate UI
 end
 
 @enduml

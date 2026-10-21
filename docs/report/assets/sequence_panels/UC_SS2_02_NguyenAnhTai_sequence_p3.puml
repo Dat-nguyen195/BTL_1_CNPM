@@ -1,0 +1,91 @@
+@startuml UC_SS2_02_NguyenAnhTai_sequence_p3
+!theme plain
+skinparam sequenceMessageAlign center
+skinparam maxMessageSize 150
+skinparam BoxPadding 10
+
+title "UC_SS2_02_ - Phần 3/3: Hủy đơn và hết hạn Check-in"
+
+' Nguồn: UC_SS2_NguyenAnhTai (2).md, cập nhật 21/09/2026.
+' Thiết kế theo đặc tả; không khẳng định toàn bộ chức năng đã có trong mã nguồn.
+
+actor "Sinh viên ĐHQG-HCM" as Student
+box "Boundary / UI Layer" #LightCyan
+participant "personal_ev.py\n(UI)" as UI
+end box
+box "External Authentication" #White
+participant "Cổng VNU-SSO\n(SSO)" as SSO
+end box
+box "Control & State" #LightYellow
+participant "st.session_state\n(AppState)" as AppState
+end box
+box "External Payment" #White
+participant "Tài khoản & Ví điện tử\n(E-Wallet)" as EWallet
+end box
+box "Charging Scheduling" #White
+participant "Phân hệ lập lịch sạc SS5\n(ChargingScheduler)" as Scheduler
+end box
+
+
+note over UI, AppState #LightCyan
+  Phần 3/3 - Nhóm nghiệp vụ: 4
+  Đọc theo thứ tự các phần; thông điệp giữ số của sơ đồ gốc.
+end note
+autonumber 4.1
+group 4. Hủy đơn hoặc hết hạn trước Check-in
+    note over UI, AppState
+        Các nhánh dưới đây xảy ra sau khi đặt thành công.
+        Hạn 15 phút được tính từ booking_start_time,
+        không tính từ thời điểm tạo đơn.
+    end note
+
+    alt Sinh viên yêu cầu hủy trước Check-in
+        Student -> UI: Yêu cầu hủy đơn
+        UI -> AppState: Kiểm tra điều kiện hủy và trạng thái chưa Check-in
+        activate AppState
+        AppState --> UI: Kết quả kiểm tra
+        deactivate AppState
+
+        alt Được phép hủy
+            UI -> AppState: Ghi nhận đơn đã hủy;\ngiải phóng lịch RESERVED -> AVAILABLE
+            activate AppState
+            AppState --> UI: Xác nhận hủy phần giữ chỗ
+            deactivate AppState
+            opt Đơn có yêu cầu sạc
+                UI -> Scheduler: Hủy yêu cầu sạc;\ngiải phóng phần phân bổ của đơn
+                activate Scheduler
+                Scheduler --> UI: Xác nhận đã xử lý
+                deactivate Scheduler
+            end
+            UI --> Student: Thông báo hủy thành công
+        else Không đáp ứng điều kiện hủy
+            UI --> Student: Từ chối hủy;\ngiữ nguyên trạng thái hiện tại
+        end
+
+    else Quá booking_start_time + 15 phút và chưa Check-in
+        AppState -> AppState: Kiểm tra hạn nhận chỗ;\nđổi đơn = EXPIRED
+        activate AppState
+        AppState -> AppState: Giải phóng lịch đặt và vị trí RESERVED -> AVAILABLE
+        opt Đã gửi yêu cầu sạc
+            AppState -> Scheduler: Hủy yêu cầu sạc và phần cổng đã giữ
+            activate Scheduler
+            Scheduler --> AppState: Xác nhận giải phóng
+            deactivate Scheduler
+        end
+        AppState --> UI: Đơn đã hết hiệu lực
+        deactivate AppState
+        UI --> Student: Thông báo hết hạn nhận chỗ
+
+    else Có yêu cầu Check-in trong thời hạn
+        Student -> UI: Quét mã nhận chỗ tại Hub
+        ref over Student, UI, AppState
+            UC_SS2_03 — Check-in xe EV cá nhân
+        end ref
+    end
+
+    note over AppState, EWallet
+        Chính sách SS2: cọc 50.000 VNĐ; hủy hợp lệ hoàn 100%.
+        No-show: phạt 10.000 VNĐ, hoàn 40.000 VNĐ một lần.
+    end note
+end
+@enduml

@@ -1,56 +1,89 @@
 @startuml UC_SS4_01_sequence
-title UC_SS4_01 - Điều phối phương tiện giữa các Hub (Sơ đồ tuần tự)
-skinparam shadowing false
+!include ../../../common.puml
+title UC_SS4_01 - Điều phối phương tiện giữa các Hub
 skinparam sequenceMessageAlign center
-autonumber
+skinparam maxMessageSize 150
+skinparam BoxPadding 10
 
-actor "Nhân viên vận hành" as OP
-participant "Giao diện điều phối SS4" as UI
-participant "Bộ điều khiển điều phối" as CTRL
-database "session_state[hubs]" as HUBS
-database "session_state[dispatch_log]" as LOG
-participant "Dashboard SS3" as DASH
+actor "Nhân viên Vận hành\n(Operator)" as OP
 
-OP -> UI : mở tab "Điều chuyển phương tiện"
-OP -> UI : chọn Hub nguồn và Hub đích
-UI -> CTRL : lấy danh sách xe khả dụng (Hub nguồn)
-CTRL -> HUBS : đọc các xe có trạng thái PARKED
-HUBS --> CTRL : danh sách xe (mã xe, loại xe, SoC)
-CTRL --> UI : danh sách xe
+box "Boundary / UI Layer" #LightCyan
+participant "dispatch_incident.py\n(UI)" as UI
+end box
 
-alt Hub nguồn không có xe PARKED
-  UI --> OP : "Không có xe khả dụng tại Hub nguồn"
-  UI -> UI : vô hiệu hóa nút gửi lệnh
-else Hub nguồn có xe khả dụng
-  UI --> OP : hiển thị xe kèm mức pin và loại xe
-  OP -> UI : tích chọn xe, nhập lý do điều phối
-  OP -> UI : nhấn "Thực hiện điều phối"
-  UI -> CTRL : điều phối (Hub nguồn, Hub đích, danh sách mã xe, lý do)
+box "External Authentication" #White
+participant "Cổng VNU-SSO\n(SSO)" as SSO
+end box
 
-  alt Hub nguồn trùng Hub đích
-    CTRL --> UI : lỗi
-    UI --> OP : "Hub nguồn và Hub đích phải khác nhau!"
-  else Chưa chọn xe nào
-    CTRL --> UI : lỗi
-    UI --> OP : "Vui lòng chọn ít nhất 1 xe để điều phối."
-  else Lệnh hợp lệ
-    CTRL -> HUBS : chuyển xe từ Hub nguồn sang Hub đích
-    CTRL -> HUBS : đặt trạng thái xe = DISPATCHED
-    CTRL -> HUBS : cập nhật số chỗ trống (nguồn +N, đích -N)
-    HUBS --> CTRL : đã cập nhật
-    CTRL -> LOG : ghi bản ghi (thời gian, nguồn, đích, mã xe, lý do)
-    LOG --> CTRL : đã lưu
-    CTRL --> UI : thành công
-    UI --> OP : "Đã điều phối N xe từ Hub A → Hub B"
-    CTRL ->> DASH : làm mới dữ liệu Hub
-    note right: Thời gian xử lý dưới 1,0 giây
-  end
+box "Control & State" #LightYellow
+participant "st.session_state\n(AppState)" as AppState
+end box
+
+box "External Payment" #White
+participant "Sổ cái / Ví điện tử\n(E-Wallet)" as EWallet
+end box
+
+box "Hardware / IoT" #LightGray
+participant "Khóa IoT / Trạm Hub\n(Hub Hardware)" as IoT
+end box
+
+autonumber 1.1
+group 1. Chọn Hub & Lọc xe khả dụng
+    OP -> UI: Mở tab "Tạo lệnh điều phối"
+    activate UI
+    
+    OP -> UI: Chọn Hub nguồn và Hub đích
+    UI -> AppState: Lấy danh sách xe dùng chung có trạng thái AVAILABLE
+    activate AppState
+    AppState --> UI: Danh sách xe khả dụng tại Hub nguồn
+    deactivate AppState
+
+    alt Hub nguồn không có xe AVAILABLE
+        UI --> OP: Thông báo: "Không có xe khả dụng (AVAILABLE) tại Hub nguồn"
+    else Hub nguồn có xe khả dụng
+        UI --> OP: Hiển thị danh sách xe (Mã xe, mức pin SoC, loại xe)
+    end
+    deactivate UI
 end
 
-opt Xem lịch sử điều phối
-  OP -> UI : mở tab "Nhật ký"
-  UI -> LOG : đọc toàn bộ bản ghi
-  LOG --> UI : các bản ghi điều phối
-  UI --> OP : bảng nhật ký điều phối
+autonumber 2.1
+group 2. Kiểm tra sức chứa & Khởi tạo điều chuyển
+    OP -> UI: Chọn danh sách xe cần chuyển, nhập lý do điều phối\n& nhấn "Khởi tạo lệnh điều phối"
+    activate UI
+
+    alt Hub nguồn trùng Hub đích
+        UI --> OP: Báo lỗi: "Hub nguồn và Hub đích phải khác nhau!"
+    else Chưa chọn xe nào
+        UI --> OP: Báo lỗi: "Vui lòng chọn ít nhất 1 xe để điều phối."
+    else Sức chứa Hub đích không đủ (len(vehicles) > dest.available_slots)
+        UI -> AppState: Kiểm tra số chỗ đỗ khả dụng tại Hub đích
+        activate AppState
+        AppState --> UI: available_slots < số lượng xe cần chuyển
+        deactivate AppState
+        UI --> OP: Báo lỗi: "Hub đích không đủ chỗ đỗ tiếp nhận (Từ chối điều phối)!"
+    else Hợp lệ & Đủ sức chứa tiếp nhận
+        UI -> AppState: Cập nhật điều phối (Nguồn: available_slots + N;\nĐích: available_slots - N, destination_holds + N)
+        activate AppState
+        AppState -> AppState: Đổi trạng thái xe thành DISPATCHED
+        AppState -> AppState: Ghi nhật ký st.session_state["dispatch_log"]
+        AppState --> UI: Xác nhận đã kích hoạt chuyến trung chuyển
+        deactivate AppState
+        UI --> OP: Thông báo: "Đã tạo lệnh điều phối N xe sang trạng thái DISPATCHED"
+    end
+    deactivate UI
 end
+
+autonumber 3.1
+group 3. Tiếp nhận xe tại Hub đích (Hoàn tất điều chuyển)
+    OP -> UI: Mở tab "Tiếp nhận xe trung chuyển" & nhấn "Xác nhận tiếp nhận"
+    activate UI
+    UI -> AppState: Chuyển xe từ DISPATCHED về AVAILABLE tại Hub đích
+    activate AppState
+    AppState -> AppState: destination_holds - N, gắn xe vào current_vehicles của Hub đích
+    AppState --> UI: Tiếp nhận hoàn tất
+    deactivate AppState
+    UI --> OP: Thông báo: "Đã tiếp nhận xe an toàn tại Hub đích. Xe đã sẵn sàng (AVAILABLE)!"
+    deactivate UI
+end
+
 @enduml

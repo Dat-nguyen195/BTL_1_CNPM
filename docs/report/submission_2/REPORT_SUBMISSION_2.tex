@@ -73,6 +73,8 @@
 
 % Hyperlink & Metadata
 \usepackage{hyperref}
+\usepackage{xurl}
+\setlength{\emergencystretch}{3em}
 \hypersetup{
     unicode=true,
     pdfencoding=auto,
@@ -89,6 +91,7 @@
 % ============================================================
 %                       TRANG BÌA (COVER PAGE)
 % ============================================================
+\hypersetup{pageanchor=false}
 \begin{titlepage}
     \noindent
     \begin{tikzpicture}[remember picture, overlay]
@@ -124,6 +127,7 @@
     {\large\textbf{Thành phố Hồ Chí Minh, Tháng 10/2026}}\\[0.15cm]
     {\small\textbf{Học kỳ HK261}}
 \end{titlepage}
+\hypersetup{pageanchor=true}
 
 \setcounter{page}{1}
 \newpage
@@ -200,39 +204,47 @@
     \hline
     \textbf{Hình 1.8} & Giao diện Thực tế: Mô phỏng Sự cố Hạ tầng \& Gợi ý 1-chạm (Phân hệ SS7) & Mục 1.6 & \pageref{fig:ui-ss7-real} \\
     \hline
-    \textbf{Hình 2.1} & Sơ đồ Tuần tự Chi tiết -- UC\_SS1\_01 (Đặt xe \& Quét nhận xe) & Mục 2.1 & \pageref{fig:seq-ss1-01} \\
+    \textbf{Hình \ref{fig:seq-ss1-01}} & Sơ đồ Tuần tự Chi tiết -- UC\_SS1\_01 (Đặt xe \& Quét nhận xe) & Mục 2.1 & \pageref{fig:seq-ss1-01} \\
     \hline
-    \textbf{Hình 2.2} & Sơ đồ Tuần tự Chi tiết -- UC\_SS1\_02 (Trả xe 1-chiều \& Quyết toán ví) & Mục 2.1 & \pageref{fig:seq-ss1-02} \\
+    \textbf{Hình \ref{fig:seq-ss1-02}} & Sơ đồ Tuần tự Chi tiết -- UC\_SS1\_02 (Trả xe 1-chiều \& Quyết toán ví) & Mục 2.1 & \pageref{fig:seq-ss1-02} \\
     \hline
-    \textbf{Hình 2.3} & Sơ đồ Tuần tự Chi tiết -- UC\_SS1\_03 (Hủy đặt xe \& Hoàn cọc / Phạt No-show) & Mục 2.1 & \pageref{fig:seq-ss1-03} \\
+    \textbf{Hình \ref{fig:seq-ss1-03}} & Sơ đồ Tuần tự Chi tiết -- UC\_SS1\_03 (Hủy đặt xe \& Hoàn cọc / Phạt No-show) & Mục 2.1 & \pageref{fig:seq-ss1-03} \\
     \hline
-    \textbf{Hình 2.4} & Sơ đồ Tuần tự Chi tiết -- UC\_SS2\_01 (Đăng ký xe EV cá nhân) & Mục 2.2 & \pageref{fig:seq-ss2-01} \\
+    \textbf{Hình \ref{fig:seq-ss2-01}} & Sơ đồ Tuần tự Chi tiết -- UC\_SS2\_01 (Đăng ký xe EV cá nhân) & Mục 2.2 & \pageref{fig:seq-ss2-01} \\
     \hline
-    \textbf{Hình 2.5} & Sơ đồ Tuần tự Chi tiết -- UC\_SS2\_02 (Đặt chỗ đỗ \& Lịch sạc xe cá nhân) & Mục 2.2 & \pageref{fig:seq-ss2-02} \\
+    \textbf{Hình \ref{fig:seq-ss2-02-p1}} & Sơ đồ Tuần tự Chi tiết -- UC\_SS2\_02 (Phần 1: Xác thực, Lựa chọn xe \& Tra cứu chi phí) & Mục 2.2 & \pageref{fig:seq-ss2-02-p1} \\
     \hline
-    \textbf{Hình 2.6} & Sơ đồ Tuần tự Chi tiết -- UC\_SS2\_03 (Check-in xe EV cá nhân tại Hub) & Mục 2.2 & \pageref{fig:seq-ss2-03} \\
+    \textbf{Hình \ref{fig:seq-ss2-02-p2}} & Sơ đồ Tuần tự Chi tiết -- UC\_SS2\_02 (Phần 2: Đặt cọc \& Xác nhận giữ chỗ) & Mục 2.2 & \pageref{fig:seq-ss2-02-p2} \\
     \hline
-    \textbf{Hình 2.7} & Sơ đồ Tuần tự Chi tiết -- UC\_SS2\_04 (Check-out \& Thanh toán dịch vụ xe) & Mục 2.2 & \pageref{fig:seq-ss2-04} \\
+    \textbf{Hình \ref{fig:seq-ss2-02-p3}} & Sơ đồ Tuần tự Chi tiết -- UC\_SS2\_02 (Phần 3: Hủy đơn \& Hết hạn Check-in) & Mục 2.2 & \pageref{fig:seq-ss2-02-p3} \\
     \hline
-    \textbf{Hình 2.8} & Sơ đồ Tuần tự Chi tiết -- UC\_SS3\_01 (Giám sát trạng thái Hub thời gian thực) & Mục 2.3 & \pageref{fig:seq-ss3-01} \\
+    \textbf{Hình \ref{fig:seq-ss2-03}} & Sơ đồ Tuần tự Chi tiết -- UC\_SS2\_03 (Check-in xe EV cá nhân tại Hub) & Mục 2.2 & \pageref{fig:seq-ss2-03} \\
     \hline
-    \textbf{Hình 2.9} & Sơ đồ Tuần tự Chi tiết -- UC\_SS3\_02 (Cảnh báo quá tải \& Đề xuất điều phối) & Mục 2.3 & \pageref{fig:seq-ss3-02} \\
+    \textbf{Hình \ref{fig:seq-ss2-04-p1}} & Sơ đồ Tuần tự Chi tiết -- UC\_SS2\_04 (Phần 1: Xác thực phiên \& Lập hóa đơn) & Mục 2.2 & \pageref{fig:seq-ss2-04-p1} \\
     \hline
-    \textbf{Hình 2.10} & Sơ đồ Tuần tự Chi tiết -- UC\_SS4\_01 (Lập lệnh điều phối phương tiện) & Mục 2.4 & \pageref{fig:seq-ss4-01} \\
+    \textbf{Hình \ref{fig:seq-ss2-04-p2}} & Sơ đồ Tuần tự Chi tiết -- UC\_SS2\_04 (Phần 2: Thanh toán \& Quyết toán tiền cọc) & Mục 2.2 & \pageref{fig:seq-ss2-04-p2} \\
     \hline
-    \textbf{Hình 2.11} & Sơ đồ Tuần tự Chi tiết -- UC\_SS4\_02 (Báo cáo \& Xử lý sự cố kỹ thuật xe) & Mục 2.4 & \pageref{fig:seq-ss4-02} \\
+    \textbf{Hình \ref{fig:seq-ss2-04-p3}} & Sơ đồ Tuần tự Chi tiết -- UC\_SS2\_04 (Phần 3: Mở barie \& Giải phóng tài nguyên) & Mục 2.2 & \pageref{fig:seq-ss2-04-p3} \\
     \hline
-    \textbf{Hình 2.12} & Sơ đồ Tuần tự Chi tiết -- UC\_SS5\_01 (Lập lịch ưu tiên sạc tự động) & Mục 2.5 & \pageref{fig:seq-ss5-01} \\
+    \textbf{Hình \ref{fig:seq-ss3-01}} & Sơ đồ Tuần tự Chi tiết -- UC\_SS3\_01 (Giám sát trạng thái Hub thời gian thực) & Mục 2.3 & \pageref{fig:seq-ss3-01} \\
     \hline
-    \textbf{Hình 2.13} & Sơ đồ Tuần tự Chi tiết -- UC\_SS5\_02 (Giám sát hàng đợi sạc \& Phí chiếm dụng) & Mục 2.5 & \pageref{fig:seq-ss5-02} \\
+    \textbf{Hình \ref{fig:seq-ss3-02}} & Sơ đồ Tuần tự Chi tiết -- UC\_SS3\_02 (Cảnh báo quá tải \& Đề xuất điều phối) & Mục 2.3 & \pageref{fig:seq-ss3-02} \\
     \hline
-    \textbf{Hình 2.14} & Sơ đồ Tuần tự Chi tiết -- UC\_SS6\_01 (Mô phỏng đợt tăng đột biến Metro Surge) & Mục 2.6 & \pageref{fig:seq-ss6-01} \\
+    \textbf{Hình \ref{fig:seq-ss4-01}} & Sơ đồ Tuần tự Chi tiết -- UC\_SS4\_01 (Lập lệnh điều phối phương tiện) & Mục 2.4 & \pageref{fig:seq-ss4-01} \\
     \hline
-    \textbf{Hình 2.15} & Sơ đồ Tuần tự Chi tiết -- UC\_SS6\_02 (Dự báo nhu cầu theo giờ \& Phân tích hàng đợi) & Mục 2.6 & \pageref{fig:seq-ss6-02} \\
+    \textbf{Hình \ref{fig:seq-ss4-02}} & Sơ đồ Tuần tự Chi tiết -- UC\_SS4\_02 (Báo cáo \& Xử lý sự cố kỹ thuật xe) & Mục 2.4 & \pageref{fig:seq-ss4-02} \\
     \hline
-    \textbf{Hình 2.16} & Sơ đồ Tuần tự Chi tiết -- UC\_SS7\_01 (Mô phỏng sự cố mất điện / lỗi trụ sạc) & Mục 2.7 & \pageref{fig:seq-ss7-01} \\
+    \textbf{Hình \ref{fig:seq-ss5-01}} & Sơ đồ Tuần tự Chi tiết -- UC\_SS5\_01 (Lập lịch ưu tiên sạc tự động) & Mục 2.5 & \pageref{fig:seq-ss5-01} \\
     \hline
-    \textbf{Hình 2.17} & Sơ đồ Tuần tự Chi tiết -- UC\_SS7\_02 (Tự động phát cảnh báo \& Điều hướng 1-chạm) & Mục 2.7 & \pageref{fig:seq-ss7-02} \\
+    \textbf{Hình \ref{fig:seq-ss5-02}} & Sơ đồ Tuần tự Chi tiết -- UC\_SS5\_02 (Giám sát hàng đợi sạc \& Phí chiếm dụng) & Mục 2.5 & \pageref{fig:seq-ss5-02} \\
+    \hline
+    \textbf{Hình \ref{fig:seq-ss6-01}} & Sơ đồ Tuần tự Chi tiết -- UC\_SS6\_01 (Mô phỏng đợt tăng đột biến Metro Surge) & Mục 2.6 & \pageref{fig:seq-ss6-01} \\
+    \hline
+    \textbf{Hình \ref{fig:seq-ss6-02}} & Sơ đồ Tuần tự Chi tiết -- UC\_SS6\_02 (Dự báo nhu cầu theo giờ \& Phân tích hàng đợi) & Mục 2.6 & \pageref{fig:seq-ss6-02} \\
+    \hline
+    \textbf{Hình \ref{fig:seq-ss7-01}} & Sơ đồ Tuần tự Chi tiết -- UC\_SS7\_01 (Mô phỏng sự cố mất điện / lỗi trụ sạc) & Mục 2.7 & \pageref{fig:seq-ss7-01} \\
+    \hline
+    \textbf{Hình \ref{fig:seq-ss7-02}} & Sơ đồ Tuần tự Chi tiết -- UC\_SS7\_02 (Tự động phát cảnh báo \& Điều hướng 1-chạm) & Mục 2.7 & \pageref{fig:seq-ss7-02} \\
     \hline
     \textbf{Hình 3.1} & Sơ đồ Hoạt động Phân làn (Swimlane) -- UC\_SS1\_01 (Đặt \& Nhận xe) & Mục 3.1 & \pageref{fig:act-ss1-01} \\
     \hline
@@ -287,7 +299,7 @@
     \hline
     \textbf{Bảng 1.1} & Ma trận Đáp ứng Yêu cầu Phi chức năng trên Giao diện UI/UX & Mục 1.1 & \pageref{tab:ui-nfr-matrix} \\
     \hline
-    \textbf{Bảng 1.2} & Ma trận Phân bổ Phạm vi Hiện thực Prototype theo MoSCoW & Mục 1.2 & \pageref{tab:moscow-scope} \\
+    \textbf{Bảng 1.2} & Mức xác thực luồng Prototype theo trọng số MoSCoW & Mục 1.2 & \pageref{tab:moscow-scope} \\
     \hline
     \textbf{Bảng 1.3} & Đặc tả Các Màn hình Chức năng Phân hệ Sinh viên & Mục 1.4 & \pageref{tab:ui-student-screens} \\
     \hline
@@ -366,31 +378,7 @@ Hệ thống Smart E-Mobility Hub được xây dựng dựa trên nguyên lý t
     \end{tabularx}
 \end{table}
 
-\subsection{Kế hoạch Hiện thực Hóa Prototype theo Mô hình MoSCoW (Cam kết \texorpdfstring{$\ge 70\%$}{>= 70\%})}
-Nhằm đảm bảo tính khả thi cao trong quá trình phát triển sản phẩm thực tế theo yêu cầu của môn học (hiện thực tối thiểu 70\% chức năng cốt lõi), nhóm tiến hành phân kỳ phạm vi tính năng thông qua ma trận \textbf{MoSCoW (Must-have, Should-have, Could-have, Won't-have)}. Trong đó, các chức năng thuộc nhóm Must-have ($50\%$) và Should-have ($25\%$) chiếm $75\%$ tổng khối lượng đáp ứng vượt chuẩn cam kết tối thiểu, kết hợp cùng nhóm Could-have ($15\%$) nâng tổng mức độ hiện thực hóa prototype lên đến $\mathbf{90\%}$. Nhóm Won't-have ($10\%$) dành cho phần cứng IoT thực địa được thay thế bằng module mô phỏng telemetry.
-
-\begin{table}[H]
-    \centering
-    \small
-    \renewcommand{\arraystretch}{1.25}
-    \caption{Ma trận Phân bổ Phạm vi Hiện thực Prototype theo MoSCoW (Cam kết \texorpdfstring{$\ge 70\%$}{>= 70\%})}
-    \label{tab:moscow-scope}
-    \begin{tabularx}{\textwidth}{|l|c|X|c|}
-        \hline
-        \textbf{Phân loại MoSCoW} & \textbf{Tỷ trọng} & \textbf{Hạng mục Chức năng Hiện thực trong Prototype Streamlit} & \textbf{Mốc Nộp} \\
-        \hline
-        \textbf{Must-have} & $50\%$ & Đăng nhập VNU-SSO, Đặt cọc giữ xe 15p, Nhận xe (QR/PIN), Trả xe, Quyết toán ví nội bộ (SS1); Đăng ký xe EV cá nhân \& Check-in chỗ đỗ (SS2); Bản đồ giám sát 6 Hub thời gian thực (SS3). & Sub \#3 \& \#4 \\
-        \hline
-        \textbf{Should-have} & $25\%$ & Lập lệnh điều chuyển xe cân bằng mạng lưới, Báo cáo \& xử lý sự cố xe (SS4); Thuật toán sắp xếp hàng đợi sạc tự động theo SoC \& Phạt quá giờ Overstay Fee sau 15p (SS5). & Sub \#3 \& \#4 \\
-        \hline
-        \textbf{Could-have} & $15\%$ & Bảng điều khiển cấu hình tham số Monte Carlo mô phỏng Metro Surge (SS6) và Giả lập sự cố mất điện lưới trạm sạc \& Gợi ý điều hướng 1-chạm (SS7). & Sub \#4 \\
-        \hline
-        \textbf{Won't-have} & $10\%$ & Tích hợp phần cứng cảm biến IoT thực tế ngoài hiện trường (thay thế bằng API giả lập dữ liệu Telemetry thời gian thực). & Sau đồ án \\
-        \hline
-        \multicolumn{4}{|l|}{\textbf{Tổng mức độ cam kết hiện thực hóa của nhóm:} $\mathbf{90\%}$ khối lượng chức năng đặc tả.} \\
-        \hline
-    \end{tabularx}
-\end{table}
+\input{generated_scope.tex}
 
 \clearpage
 \subsection{Sơ đồ Luồng Màn hình Điều hướng Tổng thể (Screen Navigation Flow)}
@@ -466,7 +454,7 @@ Bảng \ref{tab:ui-student-screens} dưới đây tổng hợp danh mục và đ
         \hline
         M-03 & Đặt xe Dùng chung (SS1) & Bộ lọc chủng loại, thanh trượt pin tối thiểu, khóa cọc 50.000 VNĐ. \\
         \hline
-        M-04 & Nhận xe Thông minh (Pick-up) & Sinh mã PIN 6 số và QR động, đếm ngược 15 phút, kích hoạt mở khóa IoT. \\
+        M-04 & Nhận xe Thông minh (Pick-up) & Sinh mã PIN 4 số và QR động, đếm ngược 15 phút, kích hoạt mở khóa IoT. \\
         \hline
         M-05 & Đăng ký Xe EV Cá nhân (SS2) & Biểu mẫu thu thập biển số, model xe, dung lượng pin và cổng sạc. \\
         \hline
@@ -477,14 +465,14 @@ Bảng \ref{tab:ui-student-screens} dưới đây tổng hợp danh mục và đ
 
 \clearpage
 \subsubsection{Phân hệ SS1: Đặt xe \& Quản lý Chỗ đỗ Sinh viên (Hình \ref{fig:ui-ss1-real})}
-Giao diện phân hệ SS1 (\texttt{src/components/student\_booking.py}) thể hiện quy trình khép kín từ tra cứu đến nhận xe:
+Giao diện phân hệ SS1 (\path{src/components/student_booking.py}) thể hiện quy trình khép kín từ tra cứu đến nhận xe:
 \begin{itemize}[nosep]
-    \item \textbf{Thanh điều hướng \& Định danh sinh viên:} Sidebar trái hiển thị biểu trưng ĐH Bách Khoa, tên phân hệ và thẻ thống kê nhanh toàn mạng lưới ($6\text{ Hub}$, $40\text{ xe}$, $95/240\text{ chỗ trống}$, $25/59\text{ cổng sạc trống}$). Header chính thể hiện danh tính sinh viên (Nguyễn Văn A - MSSV: 2211234), số dư ví ($500.000\text{ VNĐ}$) và số dư cọc tạm giữ ($0\text{ VNĐ}$).
+    \item \textbf{Thanh điều hướng \& Định danh sinh viên:} Sidebar trái hiển thị biểu trưng ĐH Bách Khoa, tên phân hệ và thẻ thống kê nhanh toàn mạng lưới ($6\text{ Hub}$, $40\text{ xe}$, $95/240\text{ chỗ trống}$, $25/59\text{ cổng sạc trống}$). Header chính thể hiện danh tính sinh viên (Nguyễn Văn A - MSSV: 2211234), số dư ví ($150.000\text{ VNĐ}$) và số dư cọc tạm giữ ($0\text{ VNĐ}$).
     \item \textbf{Hệ thống 4 Tabs nghiệp vụ liên hoàn:} Phân định rõ 4 bước trong vòng đời chuyến đi: \textit{Đặt xe}, \textit{Nhận xe (Pick-up)}, \textit{Trả xe \& Quyết toán}, và \textit{Hủy đặt xe}.
     \item \textbf{Bước 1 -- Chọn Hub xuất phát:} Lựa chọn trạm xuất phát (Hub KTX Khu A) với 3 thẻ đo lường động: Chỗ đỗ trống ($15/40$), Cổng sạc trống ($4/10$), và Số xe hiện có ($8\text{ xe}$ tổng cộng, trong đó có $5\text{ xe khả dụng}$ sẵn sàng đặt).
     \item \textbf{Bước 2 -- Tìm kiếm \& Lọc phương tiện:} Bộ lọc hỗ trợ chọn đa loại hình (bike, scooter, car), thanh trượt mức pin tối thiểu ($\text{SoC} \ge 20\%$). Danh sách 5 xe khả dụng hiển thị trực quan: \texttt{EV-A001} (scooter, SoC $85\%$ - màu xanh), \texttt{EV-A005} (bike, SoC $90\%$ - màu xanh), \texttt{EV-A008} (bike, SoC $30\%$ - màu vàng cam), toàn bộ đều ở trạng thái \texttt{AVAILABLE} (các xe đang sạc hoặc đã giữ chỗ được tự động ẩn khỏi danh sách cho thuê).
     \item \textbf{Bước 3 -- Đặt giữ xe, Khóa cọc \& Voucher:} Cho phép chọn xe cụ thể (\texttt{EV-A001} - scooter, SoC $85\%$), nhập mã ưu đãi học đường \texttt{SVBK50} (giảm $5.000\text{ VNĐ}$ cước thuê). Bảng giá tham khảo minh bạch: miễn phí 30 phút đầu theo chính sách ĐHQG-HCM, cước $1.000\text{ VNĐ/phút}$ sau 30p, tiền cọc giữ chỗ $50.000\text{ VNĐ}$ được giữ trong 15 phút.
-    \item \textbf{Luồng xác nhận \& Nhận xe qua IoT:} Khi bấm [Xác nhận đặt giữ xe], hệ thống tự động khóa cọc $50.000\text{ VNĐ}$ từ ví, chuyển xe sang trạng thái \texttt{RESERVED}, sinh mã PIN 6 chữ số (\texttt{745768}) để sinh viên nhập tại trụ trạm thông minh kích hoạt mở khóa cơ điện.
+    \item \textbf{Luồng xác nhận \& Nhận xe qua IoT:} Khi bấm [Xác nhận đặt giữ xe], hệ thống tự động khóa cọc $50.000\text{ VNĐ}$ từ ví, chuyển xe sang trạng thái \texttt{RESERVED}, sinh mã PIN 4 chữ số (\texttt{7457}) để sinh viên nhập tại trụ trạm thông minh kích hoạt mở khóa cơ điện.
 \end{itemize}
 
 \begin{figure}[H]
@@ -497,17 +485,12 @@ Giao diện phân hệ SS1 (\texttt{src/components/student\_booking.py}) thể h
 
 \clearpage
 \subsubsection{Phân hệ SS2: Đăng ký Phương tiện EV Cá nhân \& Quản lý Bãi đỗ (Hình \ref{fig:ui-ss2-real})}
-Phân hệ SS2 (\texttt{src/components/personal\_ev.py}) giải quyết bài toán quản lý xe điện cá nhân của sinh viên và cán bộ khi vào gửi hoặc sạc tại Hub:
+Phân hệ SS2 (\path{src/components/personal_ev.py}) giải quyết bài toán quản lý xe điện cá nhân của sinh viên và cán bộ khi vào gửi hoặc sạc tại Hub:
 \begin{itemize}[nosep]
-    \item \textbf{Cấu trúc 3 Tabs quản trị phương tiện cá nhân:} Gồm \textit{Đăng ký xe mới}, \textit{Đặt chỗ \& Sạc}, và \textit{Xe đã đăng ký}.
-    \item \textbf{Biểu mẫu định danh phương tiện chuẩn hóa:} Thu thập đầy đủ các trường thông tin kỹ thuật phục vụ kiểm soát an ninh và lập lịch sạc:
-    \begin{itemize}[nosep]
-        \item Họ tên chủ xe: \textbf{Nguyễn Anh Tài}; Mã số sinh viên: \textbf{2213001}.
-        \item Biển số đăng ký: \textbf{59-X1 12345}; Chủng loại phương tiện: \textbf{scooter}.
-        \item Hãng sản xuất \& Model: \textbf{VinFast Klara S 2026}; Dung lượng pin danh định: $\mathbf{2.00}\textbf{ kWh}$.
-    \end{itemize}
-    \item \textbf{Hành động Đăng ký xe:} Nút bấm [Đăng ký xe] thực hiện kiểm tra tính hợp lệ dữ liệu, tự động cấp mã định danh duy nhất \texttt{PEV-2026}, liên kết trực tiếp với thẻ RFID sinh viên hoặc mã QR Check-in.
-    \item \textbf{Tích hợp vận hành bãi đỗ:} Dữ liệu xe cá nhân sau khi đăng ký được đưa vào cơ sở dữ liệu Hub, phục vụ xác thực check-in tại cổng trạm (mô phỏng tín hiệu barie) và áp dụng biểu giá sạc ưu đãi nội bộ dành riêng cho sinh viên ĐHQG-HCM.
+    \item \textbf{Cấu trúc 4 Tabs quản trị phương tiện cá nhân:} Gồm \textit{Đăng ký xe mới}, \textit{Đặt chỗ \& Sạc}, \textit{Check-in}, và \textit{Check-out \& Quyết toán}; danh sách xe đã đăng ký hiển thị phía dưới.
+    \item \textbf{Đăng ký phương tiện:} Biểu mẫu thu thập họ tên, biển số, loại xe, hãng xe và dung lượng pin. Hệ thống kiểm tra biển số trùng, cấp mã PEV duy nhất và lưu dữ liệu trong phiên.
+    \item \textbf{Đặt chỗ trước:} Chủ xe chọn Hub, giờ đến dự kiến, nhu cầu sạc và mức pin. Cọc giữ chỗ là 50.000 VNĐ; hạn Check-in là 15 phút sau giờ đến đã đặt. Prototype giữ chỗ đỗ ngay khi xác nhận, còn cổng sạc được cấp khi Check-in theo năng lực khả dụng.
+    \item \textbf{Vòng đời và quyết toán:} Check-in chuyển chỗ giữ thành xe hiện diện; Check-out hoàn cọc, giải phóng chỗ và xuất hóa đơn gộp phí đỗ, điện năng, quá giờ. QR, barie và chỉ số điện được mô phỏng; ví dùng sổ cái nội bộ.
 \end{itemize}
 
 \begin{figure}[H]
@@ -515,7 +498,7 @@ Phân hệ SS2 (\texttt{src/components/personal\_ev.py}) giải quyết bài to�
     \includegraphics[width=0.92\textwidth,height=0.36\textheight,keepaspectratio]{screenshots/ss2_personal_ev.png}
     \caption{Giao diện Thực tế Prototype: Đăng ký Phương tiện EV Cá nhân \& Quản lý Bãi đỗ (Phân hệ SS2)}
     \label{fig:ui-ss2-real}
-    Biểu mẫu trực tuyến hỗ trợ sinh viên đăng ký thông số kỹ thuật xe máy điện cá nhân (VinFast Klara S, pin 2.0 kWh), cấp mã định danh PEV phục vụ xác thực check-in tự động và lập lịch sạc thông minh.
+    Giao diện đặt chỗ sau khi đăng ký xe cá nhân, cho chọn giờ đến, nhu cầu sạc và hiển thị biểu phí/cọc; bốn tab hỗ trợ đầy đủ hành trình Đăng ký, Đặt chỗ, Check-in và Check-out.
 \end{figure}
 
 \clearpage
@@ -578,7 +561,7 @@ Hỗ trợ Operator xử lý trực tiếp tình trạng mất cân đối phư�
     \item \textbf{Ma trận trạng thái tải 6 Hub:} Hiển thị đầy đủ số xe, chỗ trống, tỷ lệ lấp đầy và phân loại trạng thái theo ngưỡng quy định:
     \begin{itemize}[nosep]
         \item Hub KTX Khu B: $10\text{ xe}$, $8\text{ chỗ trống}$, lấp đầy $\mathbf{86.7\%}$ $\rightarrow$ \textbf{Quá tải} (chấm đỏ, $>85\%$).
-        \item Hub KTX Khu A: $8\text{ xe}$, $15\text{ chỗ trống}$, lấp đầy $\mathbf{62.5\%}$ $\rightarrow$ \textbf{Mức cao} (chấm vàng theo ngưỡng giao diện prototype $>60\%$).
+        \item Hub KTX Khu A: $8\text{ xe}$, $15\text{ chỗ trống}$, lấp đầy $\mathbf{62.5\%}$ $\rightarrow$ \textbf{Bình thường} (thuộc dải an toàn $<70\%$).
         \item Hub Trường ĐH Bách Khoa: $7\text{ xe}$, $20\text{ chỗ trống}$, lấp đầy $\mathbf{60.0\%}$ $\rightarrow$ \textbf{Bình thường} (chấm xanh).
         \item Các Hub Nhà Khách ($52\%$), ĐH KHXH\&NV ($40\%$), ĐH CNTT ($37.1\%$) đều ở trạng thái bình thường.
     \end{itemize}
@@ -598,15 +581,15 @@ Hỗ trợ Operator xử lý trực tiếp tình trạng mất cân đối phư�
 \subsubsection{Phân hệ SS5: Lập lịch Sạc Thông minh \& Quản lý Hàng đợi (Hình \ref{fig:ui-ss5-real})}
 Ứng dụng thuật toán tối ưu hóa đa mục tiêu nhằm phân bổ hợp lý công suất trạm sạc cho các phương tiện:
 \begin{itemize}[nosep]
-    \item \textbf{Bộ chỉ số trạng thái hàng đợi sạc:} Tổng số xe trong hàng đợi ($14\text{ xe}$), Số lượng xe pin nguy hiểm $\text{SoC} < 20\%$ ($8\text{ xe}$), và Số lượng xe gắn lịch đặt trước của sinh viên ($0\text{ xe}$).
-    \item \textbf{Hàng đợi sạc sắp xếp tự động theo điểm ưu tiên:} Thuật toán chấm điểm dựa trên công thức đa tiêu chí hiện thực tại \texttt{src/core/scheduler.py}:
+    \item \textbf{Bộ chỉ số trạng thái hàng đợi sạc:} Tổng số xe trong hàng đợi ($8\text{ xe}$), Số lượng xe đang sạc ($0\text{ xe}$), Số lượng xe pin nguy hiểm $\text{SoC} < 20\%$ ($1\text{ xe}$), và Số lượng xe gắn lịch đặt trước của sinh viên ($0\text{ xe}$).
+    \item \textbf{Hàng đợi sạc sắp xếp tự động theo điểm ưu tiên:} Thuật toán chấm điểm dựa trên công thức đa tiêu chí hiện thực tại \path{src/core/scheduler.py}:
     \begin{equation}
         \text{Score} = (100 - \text{SoC}) \times 0.5 + 100 \times \mathbb{I}(\text{SoC} < 20\%) + 60 \times \mathbb{I}(\text{HasBooking}) + 30 \times \mathbb{I}(\text{SoC} < 50\%)
     \end{equation}
     trong đó $\mathbb{I}(\cdot)$ là hàm chỉ thị nhận giá trị $1$ nếu điều kiện thỏa mãn và $0$ nếu không. Điểm số phản ánh chính xác mức độ khẩn cấp:
     \begin{itemize}[nosep]
-        \item 8 xe có mức pin nguy hiểm ($\text{SoC} < 20\%$) được xếp ưu tiên hàng đầu và tô màu hồng/đỏ nhạt nổi bật. Ví dụ: Top 1 là \texttt{EV-B009} ($\text{SoC} = 5\%$, không booking): $\text{Score} = (100 - 5) \times 0.5 + 100 + 0 + 30 = 47.5 + 130 = \mathbf{177.5}$; Top 2 là \texttt{EV-E005} ($\text{SoC} = 7\%$): $\text{Score} = (100 - 7) \times 0.5 + 100 + 30 = \mathbf{176.5}$; Top 3 là \texttt{EV-A006} ($\text{SoC} = 8\%$): $\text{Score} = \mathbf{176.0}$, tiếp theo là \texttt{EV-C004}, \texttt{EV-F004}, \texttt{EV-B003}, \texttt{EV-D004}, \texttt{EV-A003}.
-        \item Các xe có mức pin an toàn hơn ($\text{SoC} \ge 30\%$) được xếp sau và giữ màu nền trắng. Ví dụ: \texttt{EV-A008} ($\text{SoC} = 30\%$, không booking): $\text{Score} = (100 - 30) \times 0.5 + 0 + 0 + 30 = 35.0 + 30 = \mathbf{65.0}$; \texttt{EV-B008} ($\text{SoC} = 33\%$): $\text{Score} = (100 - 33) \times 0.5 + 30 = \mathbf{63.5}$.
+        \item $1\text{ xe}$ có mức pin nguy hiểm ($\text{SoC} < 20\%$) được xếp ưu tiên hàng đầu và tô màu hồng/đỏ nhạt nổi bật: Top 1 là \texttt{EV-B005} ($\text{SoC} = 18\%$, không booking): $\text{Score} = (100 - 18) \times 0.5 + 100 + 0 + 30 = 41.0 + 130 = \mathbf{171.0}$.
+        \item Các xe có mức pin an toàn hơn ($\text{SoC} \ge 20\%$) được xếp theo sau và giữ màu nền trắng. Cụ thể: Top 2 là \texttt{EV-D002} ($\text{SoC} = 20\%$, $\text{Score} = \mathbf{70.0}$); Top 3 là \texttt{EV-E003} ($\text{SoC} = 22\%$, $\text{Score} = \mathbf{69.0}$); tiếp đến \texttt{EV-B002} ($25\%$, $\text{Score} = \mathbf{67.5}$); \texttt{EV-D007} ($30\%$, $\text{Score} = \mathbf{65.0}$); \texttt{EV-F002} ($35\%$, $\text{Score} = \mathbf{62.5}$); \texttt{EV-A002} ($42\%$, $\text{Score} = \mathbf{59.0}$); và cuối cùng là \texttt{EV-A007} ($55\%$, $\text{Score} = \mathbf{22.5}$).
     \end{itemize}
     \item \textbf{Cơ chế phạt quá hạn cổng sạc (Overstay Fee):} Khi sạc đạt ngưỡng $100\%$, đồng hồ đếm ngược 15 phút ân hạn kích hoạt. Sau thời gian này, hệ thống tự động áp phí chiếm dụng cổng nhằm giải phóng chỗ cho xe tiếp theo trong hàng đợi.
 \end{itemize}
@@ -616,12 +599,12 @@ Hỗ trợ Operator xử lý trực tiếp tình trạng mất cân đối phư�
     \includegraphics[width=0.92\textwidth,height=0.36\textheight,keepaspectratio]{screenshots/ss5_smart_charging.png}
     \caption{Giao diện Thực tế Prototype: Lập lịch Sạc Thông minh \& Quản lý Hàng đợi (Phân hệ SS5)}
     \label{fig:ui-ss5-real}
-    Bảng hàng đợi sạc thông minh được tự động sắp xếp theo điểm ưu tiên đa mục tiêu, làm nổi bật các phương tiện có mức pin nguy hiểm (<20\%) bằng mã màu hồng/đỏ để ưu tiên cấp nguồn sạc trước.
+    Bảng hàng đợi sạc thông minh được tự động sắp xếp theo điểm ưu tiên đa mục tiêu, làm nổi bật phương tiện có mức pin nguy hiểm (<20\%) bằng mã màu hồng/đỏ để ưu tiên cấp nguồn sạc trước.
 \end{figure}
 
 \clearpage
 \subsection{Giao diện Thực tế Phân hệ Mô phỏng What-if (SS6 \& SS7)}
-Công cụ phân tích và giả lập kịch bản chuyên sâu (\texttt{sim\_demand.py} và\ \texttt{sim\_infrastructure.py}) phục vụ công tác dự báo, đánh giá rủi ro và chuẩn bị phương án ứng phó vận hành:
+Công cụ phân tích và giả lập kịch bản chuyên sâu (\path{sim_demand.py} và \path{sim_infrastructure.py}) phục vụ công tác dự báo, đánh giá rủi ro và chuẩn bị phương án ứng phó vận hành:
 
 \begin{table}[H]
     \centering
@@ -669,10 +652,10 @@ Giúp nhà vận hành thử nghiệm các kịch bản gia tăng hành khách �
 \subsubsection{Phân hệ SS7: Mô phỏng Sự cố Hạ tầng \& Gợi ý Điều hướng 1-chạm (Hình \ref{fig:ui-ss7-real})}
 Giả lập sự cố mất điện trạm sạc hoặc hỏng thiết bị và tự động kích hoạt kịch bản điều hướng phương tiện thông minh:
 \begin{itemize}[nosep]
-    \item \textbf{Kịch bản giả lập Port Failure:} Lựa chọn trạm bị sự cố (Hub Trường ĐH Bách Khoa) với $3\text{ cổng sạc}$ bị ngắt kết nối đột ngột (giảm từ 5 xuống 2 cổng khả dụng).
-    \item \textbf{Nhật ký sự kiện thời gian thực (Console Alert):} Ghi nhận chính xác mốc thời gian [23:46:15], tự động chuyển đổi $2\text{ xe}$ đang sạc dở dang (\texttt{EV-D002} với SoC $20\%$ và \texttt{EV-D007} với SoC $30\%$) từ trạng thái \texttt{charging} về trạng thái chờ \texttt{waiting}.
-    \item \textbf{Bảng đề xuất điều phối tự động \& Gợi ý chuyển trạm 1-chạm:} Hệ thống tự động quét tìm trạm lân cận còn cổng sạc trống (Hub Trường ĐH KHXH\&NV đang có $6\text{ cổng trống}$), đưa ra phương án chuyển tuyến tối ưu cho 2 xe bị ảnh hưởng.
-    \item \textbf{Nút bấm Áp dụng kết quả:} Nút [Áp dụng kết quả mô phỏng] kích hoạt thông báo điều hướng 1-chạm (One-touch Rerouting Notification) gửi đến ứng dụng di động của người dùng kèm chính sách ưu đãi cộng thêm 15 phút di chuyển miễn phí.
+    \item \textbf{Kịch bản giả lập Port Failure:} Chọn Hub Trường ĐH Bách Khoa và mô phỏng hỏng 4 cổng. Kết quả phân biệt cổng rảnh và cổng đang sạc, không giảm số cổng khả dụng bằng phép trừ đơn giản khi cổng hỏng đang được sử dụng.
+    \item \textbf{Nhật ký sự kiện:} Preview ghi thời điểm chạy, xe bị gián đoạn và số cổng còn khả dụng; các xe EV-D002 và EV-D007 bị ảnh hưởng chuyển sang trạng thái WAITING trong dữ liệu xem trước.
+    \item \textbf{Gợi ý trạm thay thế:} Từ dữ liệu preview, hệ thống sắp xếp theo khoảng cách và hiển thị tối đa hai Hub còn cổng sạc; ví dụ Hub KTX Khu A và Hub Nhà Khách ĐHQG trong ảnh minh họa.
+    \item \textbf{Áp dụng và điều hướng:} Nút áp dụng tại SS7 chỉ ghi nhận sự cố mô phỏng vào trạng thái vận hành và từ chối preview đã cũ. Khi trả xe tại SS1 gặp Hub đầy, sinh viên chọn một trong hai Hub gợi ý để chuyển giữ chỗ bằng một nút bấm; hệ thống hoàn giữ chỗ cũ, giữ chỗ mới và cộng thêm 15 phút miễn phí một lần.
 \end{itemize}
 
 \begin{figure}[H]
@@ -680,7 +663,7 @@ Giả lập sự cố mất điện trạm sạc hoặc hỏng thiết bị và 
     \includegraphics[width=0.92\textwidth,height=0.36\textheight,keepaspectratio]{screenshots/ss7_sim_infrastructure.png}
     \caption{Giao diện Thực tế Prototype: Mô phỏng Sự cố Hạ tầng \& Gợi ý Điều hướng 1-chạm (Phân hệ SS7)}
     \label{fig:ui-ss7-real}
-    Bảng điều khiển giả lập sự cố mất cổng sạc tại Hub ĐH Bách Khoa (-3 cổng), hiển thị nhật ký sự kiện thời gian thực và tự động đề xuất phương án điều hướng phương tiện sang Hub ĐH KHXH\&NV.
+    Bảng điều khiển tạo preview sự cố cổng sạc tại Hub ĐH Bách Khoa, ghi nhật ký và đề xuất hai Hub còn cổng sạc lân cận; nút áp dụng chỉ cập nhật khi phiên bản dữ liệu còn hợp lệ.
 \end{figure}
 
 \clearpage
@@ -776,11 +759,11 @@ Mục này trình bày chi tiết \textbf{17 Sơ đồ Tuần tự (Sequence Dia
         2.3 & Ví điện tử & UI & Đủ số dư, khóa $50.000\text{ VNĐ}$ sang \texttt{locked\_balance} \\
         2.4 & UI & st.session\_state & Cập nhật xe $\rightarrow$ \texttt{RESERVED}, kích hoạt Timer 15 phút \\
         2.5 & st.session\_state & UI & Xác nhận đã giữ chỗ thành công \\
-        2.6 & UI & Sinh viên & Xuất mã QR/PIN 6 số nhận xe kèm đồng hồ đếm ngược \\
+        2.6 & UI & Sinh viên & Xuất mã QR/PIN 4 số nhận xe kèm đồng hồ đếm ngược \\
         \hline
         \multicolumn{4}{|l|}{\textbf{Nhóm 3: Quét QR/PIN nhận xe tại Hub hoặc Xử lý No-show}} \\
         \hline
-        3.1 & Sinh viên & UI & Quét QR code hoặc nhập mã PIN 6 số tại Hub \\
+        3.1 & Sinh viên & UI & Quét QR code hoặc nhập mã PIN 4 số tại Hub \\
         3.2 & UI & st.session\_state & Kiểm tra mã QR/PIN \& thời gian đếm ngược \\
         3.3a (No-show) & st.session\_state & Ví điện tử & Quá 15p: trừ phạt $10.000\text{ VNĐ}$, hoàn $40.000\text{ VNĐ}$ về ví \\
         3.4a (No-show) & st.session\_state & UI & Xe $\rightarrow$ \texttt{AVAILABLE}; UI thông báo quá hạn \& phí phạt \\
@@ -793,23 +776,26 @@ Mục này trình bày chi tiết \textbf{17 Sơ đồ Tuần tự (Sequence Dia
     \end{tabularx}
 \end{table}
 
+\clearpage
 \subsubsection{UC\_SS1\_02: Trả xe 1-chiều \& Quyết toán ví điện tử}
 \paragraph{Mô tả nghiệp vụ:} Sinh viên đưa xe vào chốt khóa tại Hub bất kỳ. Tín hiệu cảm biến IoT (mô phỏng) xác thực vị trí chốt, đọc dung lượng pin hiện tại, tính cước thuê xe thực tế, hoàn lại phần cọc dư vào ví và xuất hóa đơn điện tử e-Invoice.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.88\textwidth,height=0.68\textheight,keepaspectratio]{Use-case detail-scenario/SS1/Sequence diagrams/UC_SS1_02_NguyenThanhDat_sequence.png}
+    \includegraphics[width=0.88\textwidth,height=0.62\textheight,keepaspectratio]{Use-case detail-scenario/SS1/Sequence diagrams/UC_SS1_02_NguyenThanhDat_sequence.png}
     \caption{Sơ đồ Tuần tự Chi tiết -- UC\_SS1\_02 (Trả xe 1-chiều \& Quyết toán ví)}
     \label{fig:seq-ss1-02}
 \end{figure}
 
+\clearpage
 \subsubsection{UC\_SS1\_03: Hủy đặt xe \& Hoàn cọc / Phạt No-show}
 \paragraph{Mô tả nghiệp vụ:} Khi sinh viên chủ động hủy đặt chỗ trong thời hạn 15 phút, hệ thống tự động giải phóng xe về trạng thái \texttt{AVAILABLE} và hoàn $100\%$ tiền cọc ($50.000\text{ VNĐ}$) về ví điện tử. Trường hợp quá 15 phút mà sinh viên không đến nhận xe (No-show), hệ thống tự động hủy lệnh, áp dụng phí phạt giữ chỗ $10.000\text{ VNĐ}$ và hoàn trả $40.000\text{ VNĐ}$ còn lại về ví.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.88\textwidth,height=0.68\textheight,keepaspectratio]{Use-case detail-scenario/SS1/Sequence diagrams/UC_SS1_03_NguyenThanhDat_sequence.png}
+    \includegraphics[width=0.88\textwidth,height=0.62\textheight,keepaspectratio]{Use-case detail-scenario/SS1/Sequence diagrams/UC_SS1_03_NguyenThanhDat_sequence.png}
     \caption{Sơ đồ Tuần tự Chi tiết -- UC\_SS1\_03 (Hủy đặt xe \& Hoàn cọc / Phạt No-show)}
     \label{fig:seq-ss1-03}
 \end{figure}
+\clearpage
 
 % ------------------------------------------------------------
 % 2.2 SS2 - Nguyễn Anh Tài
@@ -826,16 +812,34 @@ Mục này trình bày chi tiết \textbf{17 Sơ đồ Tuần tự (Sequence Dia
 \end{figure}
 
 \clearpage
-\begin{landscape}
 \subsubsection{UC\_SS2\_02: Đặt chỗ đỗ và nhu cầu sạc xe EV cá nhân}
-\paragraph{Mô tả nghiệp vụ:} Sinh viên chọn Hub đích, thời gian gửi xe và lựa chọn dịch vụ sạc có/không có sạc; hệ thống khóa giữ chỗ đỗ và slot trụ sạc tương ứng.
+\paragraph{Mô tả nghiệp vụ:} Sinh viên chọn Hub đích, thời gian gửi xe và lựa chọn dịch vụ sạc có/không có sạc; hệ thống khóa giữ chỗ đỗ và ghi nhận nhu cầu sạc; việc cấp cổng thực hiện khi Check-in. Nhằm đảm bảo mọi nhãn thông điệp, điều kiện rẽ nhánh và ghi chú đều hiển thị rõ ràng, dễ đọc trên khổ trang in, sơ đồ được chia thành ba phần tiếp nối logic:
+\begin{itemize}[nosep]
+    \item \textbf{Phần 1 (Hình \ref{fig:seq-ss2-02-p1}):} Xác thực sinh viên qua SSO, lựa chọn xe cá nhân đã đăng ký, tra cứu khả dụng tại Hub và hiển thị dự toán biểu phí minh bạch.
+    \item \textbf{Phần 2 (Hình \ref{fig:seq-ss2-02-p2}):} Khóa cọc 50.000 VNĐ, tạo đơn RESERVED và ghi nhận nhu cầu sạc; hạn Check-in tính từ giờ đến đã đặt.
+    \item \textbf{Phần 3 (Hình \ref{fig:seq-ss2-02-p3}):} Các nhánh hủy đơn và hết hạn Check-in; giải phóng giữ chỗ và xử lý tiền cọc theo chính sách.
+\end{itemize}
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.98\linewidth,height=0.82\textheight,keepaspectratio]{Use-case detail-scenario/SS2/Sequence diagrams/UC_SS2_02_NguyenAnhTai_sequence.png}
-    \caption{Sơ đồ Tuần tự Chi tiết -- UC\_SS2\_02 (Đặt chỗ đỗ \& Lịch sạc xe cá nhân)}
-    \label{fig:seq-ss2-02}
+    \includegraphics[width=0.88\textwidth,height=0.72\textheight,keepaspectratio]{Use-case detail-scenario/SS2/Sequence diagrams/UC_SS2_02_NguyenAnhTai_sequence_p1.png}
+    \caption{Sơ đồ Tuần tự Chi tiết -- UC\_SS2\_02 (Phần 1: Xác thực, Lựa chọn xe \& Tra cứu chi phí)}
+    \label{fig:seq-ss2-02-p1}
 \end{figure}
-\end{landscape}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.88\textwidth,height=0.78\textheight,keepaspectratio]{Use-case detail-scenario/SS2/Sequence diagrams/UC_SS2_02_NguyenAnhTai_sequence_p2.png}
+    \caption{Sơ đồ Tuần tự Chi tiết -- UC\_SS2\_02 (Phần 2: Đặt cọc \& Xác nhận giữ chỗ)}
+    \label{fig:seq-ss2-02-p2}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth,height=0.78\textheight,keepaspectratio]{Use-case detail-scenario/SS2/Sequence diagrams/UC_SS2_02_NguyenAnhTai_sequence_p3.png}
+    \caption{Sơ đồ Tuần tự Chi tiết -- UC\_SS2\_02 (Phần 3: Hủy đơn \& Hết hạn Check-in)}
+    \label{fig:seq-ss2-02-p3}
+\end{figure}
 \clearpage
 
 \subsubsection{UC\_SS2\_03: Check-in xe EV cá nhân tại Hub}
@@ -848,16 +852,34 @@ Mục này trình bày chi tiết \textbf{17 Sơ đồ Tuần tự (Sequence Dia
 \end{figure}
 
 \clearpage
-\begin{landscape}
 \subsubsection{UC\_SS2\_04: Check-out và thanh toán dịch vụ xe cá nhân}
-\paragraph{Mô tả nghiệp vụ:} Khi sinh viên lấy xe ra, hệ thống tính toán tổng thời gian đỗ, điện năng tiêu thụ (kWh), tự động trừ ví điện tử và phát tín hiệu mở cổng bãi đỗ.
+\paragraph{Mô tả nghiệp vụ:} Khi sinh viên lấy xe ra, hệ thống tính toán tổng thời gian đỗ, điện năng tiêu thụ (kWh), tự động trừ ví điện tử và phát tín hiệu mở cổng bãi đỗ. Sơ đồ được trình bày qua ba phần tiếp nối:
+\begin{itemize}[nosep]
+    \item \textbf{Phần 1 (Hình \ref{fig:seq-ss2-04-p1}):} Xác thực phiên và lập hóa đơn tổng hợp phí đỗ, điện năng và quá giờ.
+    \item \textbf{Phần 2 (Hình \ref{fig:seq-ss2-04-p2}):} Thanh toán qua ví mô phỏng, quyết toán cọc và xử lý các nhánh đối soát.
+    \item \textbf{Phần 3 (Hình \ref{fig:seq-ss2-04-p3}):} Đối chiếu tại cổng ra, mở barie mô phỏng và giải phóng chỗ/cổng.
+\end{itemize}
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.98\linewidth,height=0.82\textheight,keepaspectratio]{Use-case detail-scenario/SS2/Sequence diagrams/UC_SS2_04_NguyenAnhTai_sequence.png}
-    \caption{Sơ đồ Tuần tự Chi tiết -- UC\_SS2\_04 (Check-out \& Thanh toán dịch vụ xe)}
-    \label{fig:seq-ss2-04}
+    \includegraphics[width=0.88\textwidth,height=0.78\textheight,keepaspectratio]{Use-case detail-scenario/SS2/Sequence diagrams/UC_SS2_04_NguyenAnhTai_sequence_p1.png}
+    \caption{Sơ đồ Tuần tự Chi tiết -- UC\_SS2\_04 (Phần 1: Xác thực phiên \& Lập hóa đơn)}
+    \label{fig:seq-ss2-04-p1}
 \end{figure}
-\end{landscape}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.88\textwidth,height=0.72\textheight,keepaspectratio]{Use-case detail-scenario/SS2/Sequence diagrams/UC_SS2_04_NguyenAnhTai_sequence_p2.png}
+    \caption{Sơ đồ Tuần tự Chi tiết -- UC\_SS2\_04 (Phần 2: Thanh toán \& Quyết toán tiền cọc)}
+    \label{fig:seq-ss2-04-p2}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth,height=0.78\textheight,keepaspectratio]{Use-case detail-scenario/SS2/Sequence diagrams/UC_SS2_04_NguyenAnhTai_sequence_p3.png}
+    \caption{Sơ đồ Tuần tự Chi tiết -- UC\_SS2\_04 (Phần 3: Mở barie \& Giải phóng tài nguyên)}
+    \label{fig:seq-ss2-04-p3}
+\end{figure}
 \clearpage
 
 % ------------------------------------------------------------
@@ -1068,15 +1090,13 @@ Toàn bộ 17 sơ đồ hoạt động phân làn (Swimlane Activity Diagrams) t
 \end{figure}
 
 \clearpage
-\begin{landscape}
 \subsubsection{UC\_SS2\_02: Đặt chỗ đỗ và nhu cầu sạc xe EV cá nhân}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.98\linewidth,height=0.82\textheight,keepaspectratio]{Use-case detail-scenario/SS2/Activity diagrams/UC_SS2_02_NguyenAnhTai_activity.png}
+    \includegraphics[width=0.92\textwidth,height=0.70\textheight,keepaspectratio]{Use-case detail-scenario/SS2/Activity diagrams/UC_SS2_02_NguyenAnhTai_activity.png}
     \caption{Sơ đồ Hoạt động Phân làn (Swimlane) -- UC\_SS2\_02 (Đặt chỗ đỗ \& Lịch sạc xe cá nhân)}
     \label{fig:act-ss2-02}
 \end{figure}
-\end{landscape}
 \clearpage
 
 \subsubsection{UC\_SS2\_03: Check-in xe EV cá nhân tại Hub}
@@ -1193,7 +1213,7 @@ Toàn bộ 17 sơ đồ hoạt động phân làn (Swimlane Activity Diagrams) t
 \subsection{Vòng đời trạng thái Phương tiện \& Đặt chỗ}
 Đặc tả vòng đời chuyển đổi trạng thái của phương tiện dùng chung từ khi sẵn sàng, được đặt chỗ, đang lưu thông, cho đến khi trả xe hoặc gặp sự cố:
 \begin{center}
-\small\textbf{Chuỗi chuyển trạng thái xe:} \texttt{AVAILABLE} $\xrightarrow{\text{Đặt xe}}$ \texttt{RESERVED} $\xrightarrow{\text{Mở khóa}}$ \texttt{IN\_USE} $\xrightarrow{\text{Trả xe}}$ \texttt{AVAILABLE / CHARGING}
+\small\textbf{Chuỗi chuyển trạng thái xe:} \texttt{AVAILABLE} $\xrightarrow{\text{Đặt xe}}$ \texttt{RESERVED} $\xrightarrow{\text{Mở khóa}}$ \texttt{IN\_USE} $\xrightarrow{\text{Trả xe}}$ \path{AVAILABLE / CHARGING}
 \end{center}
 
 \begin{figure}[H]
@@ -1225,8 +1245,8 @@ Toàn bộ 17 sơ đồ hoạt động phân làn (Swimlane Activity Diagrams) t
         DISPATCHED & Đến Hub tiếp nhận & KTV/Lái xe bàn giao tại Hub đích & Mở khóa xe, đưa vào danh sách đỗ & AVAILABLE \\
         Bất kỳ (AVAILABLE, IN\_USE, RESERVED, CHARGING) & Phát hiện sự cố (SS4) & KTV/SV báo cáo hỏng hóc, chập điện & Khóa phương tiện, ẩn khỏi app SV & INCIDENT \\
         INCIDENT & Sửa chữa tại chỗ & Lỗi nhẹ xử lý xong tại Hub & KTV nghiệm thu, mở khóa & AVAILABLE \\
-        INCIDENT & Lỗi nghiêm trọng & Hỏng hóc nặng cần kéo về xưởng & Chuyển xe vào diện đại tu & MAINTENANCE\_\allowbreak OFFLINE \\
-        MAINTENANCE\_\allowbreak OFFLINE & Hoàn tất đại tu & Thay thế linh kiện, kiểm định đạt & Bàn giao xe trở lại hệ thống & AVAILABLE \\
+        INCIDENT & Lỗi nghiêm trọng & Hỏng hóc nặng cần kéo về xưởng & Chuyển xe vào diện đại tu & {\scriptsize MAINTENANCE\_\allowbreak OFFLINE} \\
+        {\scriptsize MAINTENANCE\_\allowbreak OFFLINE} & Hoàn tất đại tu & Thay thế linh kiện, kiểm định đạt & Bàn giao xe trở lại hệ thống & AVAILABLE \\
         \hline
     \end{tabularx}
 \end{table}
@@ -1385,5 +1405,53 @@ smart-emobility-hub/
     +-- data/                      # Dữ liệu mô phỏng mạng lưới Hub
 \end{verbatim}
 }
+
+\clearpage
+\section{Tuyên bố Minh bạch Sử dụng Trí tuệ Nhân tạo (Generative AI Disclosure Statement)}
+\label{sec:ai-statement}
+
+Căn cứ quy định về Liêm chính Học thuật của Trường Đại học Bách Khoa -- ĐHQG-HCM và đề cương học phần Công nghệ Phần mềm (CO3001), tập thể nhóm BEE BRAVE công khai và minh bạch 100\% việc sử dụng các công cụ Trí tuệ Nhân tạo Tạo sinh (Generative AI) trong quá trình thực hiện giai đoạn \textbf{Submission \#2}:
+
+\subsection{Nguyên tắc Cốt lõi}
+\begin{itemize}[nosep]
+    \item \textbf{Minh bạch Tuyệt đối (Full Transparency):} Mọi công cụ AI hỗ trợ (Claude, ChatGPT, Gemini) đều được khai báo cụ thể theo từng thành viên và từng phân hệ phụ trách.
+    \item \textbf{AI là Trợ lý Kỹ thuật (Technical Assistant):} Công cụ AI chỉ đóng vai trò hỗ trợ kiểm tra cú pháp LaTeX/PlantUML, gợi ý boilerplate giao diện Streamlit, và rà soát lỗi chính tả bảng biểu; tuyệt đối không thay thế tư duy phân tích nghiệp vụ, mô hình hóa kiến trúc và quyết định kỹ thuật của sinh viên.
+    \item \textbf{Trách nhiệm Cá nhân (Individual Accountability):} Mỗi thành viên chịu trách nhiệm giải trình toàn diện về logic nghiệp vụ, tính đúng đắn của sơ đồ UML và mã nguồn thực thi thuộc phân hệ của mình khi bảo vệ trước Hội đồng chấm thi.
+\end{itemize}
+
+\subsection{Ma trận Khai báo Sử dụng GenAI theo Thành viên}
+\begin{table}[H]
+    \centering
+    \small
+    \renewcommand{\arraystretch}{1.2}
+    \caption{Bảng Khai báo Công cụ Generative AI theo Từng Thành viên (Submission \#2)}
+    \label{tab:ai-disclosure-members}
+    \begin{tabularx}{\textwidth}{|c|>{\raggedright\arraybackslash}p{3.2cm}|c|>{\raggedright\arraybackslash}X|p{3.2cm}|}
+        \hline
+        \textbf{STT} & \textbf{Họ và Tên} & \textbf{MSSV} & \textbf{Phân hệ Phụ trách} & \textbf{Công cụ AI Sử dụng} \\
+        \hline
+        1 & Nguyễn Thành Đạt & 2410709 & SS1: Đặt xe dùng chung (Lead) & Claude, Antigravity \\
+        2 & Nguyễn Anh Tài & 2413035 & SS2: Quản lý Xe điện Cá nhân & ChatGPT, Claude \\
+        3 & Phạm Tiến Đạt & 2410724 & SS3: Giám sát Mạng lưới Hub & Gemini, ChatGPT \\
+        4 & Đặng Hoàng Quý Nhân & 2412401 & SS4: Điều phối \& Xử lý Sự cố & ChatGPT, Claude \\
+        5 & Dương Đăng Khoa & 2411589 & SS5: Lập lịch Sạc Thông minh & ChatGPT, Claude \\
+        6 & Hoàng Văn Tấn & 2213074 & SS6: Mô phỏng Nhu cầu Sinh viên & ChatGPT, Gemini \\
+        7 & Nguyễn Trung Nguyên & 2011710 & SS7: Mô phỏng Sự cố Hạ tầng & ChatGPT, Claude \\
+        \hline
+    \end{tabularx}
+\end{table}
+
+\par Ngày 21/10/2026, Codex hỗ trợ đối chiếu truy vết SRS, đồng bộ chính sách SS2, sửa prototype, bổ sung kiểm thử và dựng lại báo cáo. Bằng chứng tự động không thay thế trách nhiệm đọc hiểu và xác nhận của từng thành viên.
+
+\clearpage
+\subsection{Quy trình Xác minh của Con người (Human Verification)}
+Nhóm sử dụng quy trình xác minh 3 bước dưới đây; kết quả tự động không xác nhận thay phần rà soát của từng thành viên:
+\begin{enumerate}[nosep]
+    \item \textbf{Bước 1 -- Tự kiểm tra độc lập (Self-check):} Thành viên tự kiểm tra tính nhất quán giữa kịch bản nghiệp vụ Use-case và sơ đồ PlantUML (Sequence, Activity, State-chart).
+    \item \textbf{Bước 2 -- Rà soát chéo (Peer Review):} Thực hiện kiểm thử chéo luồng dữ liệu và biên tập tài liệu theo phân công trong biên bản họp nhóm.
+    \item \textbf{Bước 3 -- Tổng duyệt Tích hợp (System Audit):} Nhóm trưởng xác thực việc biên dịch 0 lỗi XeLaTeX, chạy toàn bộ bộ kiểm thử tự động (\texttt{pytest}) và đối chiếu bằng chứng ảnh chụp giao diện thực tế.
+\end{enumerate}
+
+Nhật ký câu lệnh Prompt chi tiết của 7 thành viên được lưu vết đầy đủ tại thư mục: \path{docs/prompt-history/}.
 
 \end{document}
