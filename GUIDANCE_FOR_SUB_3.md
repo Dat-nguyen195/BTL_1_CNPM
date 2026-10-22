@@ -478,9 +478,17 @@ Sơ đồ tổng quan có thể lược thuộc tính/phương thức để dễ
 
 **Checklist TV1:**
 
+**Chuẩn bị và triển khai cho nhóm — đã hoàn thành:**
+
+- [x] `TV1-P01` — Hoàn thiện hướng dẫn Sub3, phân công 7 thành viên và chốt quyền sở hữu/giao tiếp dùng chung ở mục 2.2–2.3.
+- [x] `TV1-P02` — Điều chỉnh và khởi tạo cấu trúc tài liệu phù hợp dự án; có khung báo cáo, nguồn sơ đồ, truy vết và prompt history; đã kiểm tra đường dẫn/cú pháp nguồn.
+- [x] `TV1-P03` — Gửi và triển khai hướng dẫn cho nhóm, theo xác nhận trực tiếp của trưởng nhóm.
+
+**Task cá nhân và điều phối còn lại:**
+
 - [ ] `TV1-01` — Kiểm tra quy định LMS, xác nhận phạm vi cá nhân và phổ biến hướng dẫn cho nhóm.
 - [ ] `TV1-02` — Lập danh sách lớp SS1, giao tiếp sử dụng và ánh xạ đến code hiện có.
-- [ ] `TV1-03` — Tập hợp quyết định mục 2.2–2.3 vào `shared_contracts.md` để cả nhóm dùng trực tiếp.
+- [x] `TV1-03` — Tập hợp quyết định mục 2.2–2.3 vào `shared_contracts.md` để cả nhóm dùng trực tiếp.
 - [ ] `TV1-04` — Tạo class diagram SS1 nguồn + ảnh, bao phủ cả 3 UC.
 - [ ] `TV1-05` — Mô tả chính sách 30 phút, vòng đời booking và hợp đồng tài chính theo quyết định đã chốt.
 - [ ] `TV1-06` — Mô tả đầy đủ lớp/phương thức SS1 và bảng truy vết.
@@ -490,6 +498,8 @@ Sơ đồ tổng quan có thể lược thuộc tính/phương thức để dễ
 - [ ] `TV1-10` — Xuất PDF cá nhân hoàn chỉnh, bàn giao cùng nguồn và ảnh đúng phiên bản.
 - [ ] `TV1-11` — Tiếp nhận đủ 7 báo cáo và xác nhận tự kiểm tra của tác giả; tập hợp bộ file cuối.
 - [ ] `TV1-12` — Điều phối nộp theo LMS; lưu đúng bộ file đã nộp và xác nhận nộp.
+
+**Ghi nhận tiến độ:** `TV1-01` đã xong phần xác nhận phạm vi và phổ biến hướng dẫn; phần kiểm tra quy định LMS chưa có xác nhận nên task tổng vẫn để mở. Việc tạo file khung không đồng nghĩa đã hoàn thành class diagram, mô tả lớp/phương thức, PDF hoặc kiểm thử SS1. Các thành viên khác tự cập nhật phần việc của mình.
 
 ### 5.2. TV2 — Nguyễn Anh Tài — SS2: Xe cá nhân và chỗ đỗ
 
@@ -900,7 +910,7 @@ Các hạng mục theo dõi: Lớp/giao tiếp, Sơ đồ, Mô tả, PDF nháp, 
 
 | Thành viên | Tiến độ / đường dẫn sản phẩm |
 | --- | --- |
-| TV1 — Nguyễn Thành Đạt | — |
+| TV1 — Nguyễn Thành Đạt | Đã hoàn thành hướng dẫn/phân công, bộ khung thư mục, hợp đồng dùng chung và gửi hướng dẫn cho nhóm. Thiết kế/báo cáo SS1 vẫn DRAFT; kiểm tra LMS chưa xác nhận. |
 | TV2 — Nguyễn Anh Tài | — |
 | TV3 — Phạm Tiến Đạt | — |
 | TV4 — Đặng Hoàng Quý Nhân | — |
@@ -910,7 +920,9 @@ Các hạng mục theo dõi: Lớp/giao tiếp, Sơ đồ, Mô tả, PDF nháp, 
 
 | Sản phẩm chung | Chủ sở hữu / tổng hợp | Nội dung và trạng thái |
 | --- | --- | --- |
-| Hợp đồng liên phân hệ | TV1 | Tập hợp nguyên quyết định mục 2.2–2.3 và cập nhật ngoại lệ bằng văn bản nếu có; **Trạng thái:** — |
+| Hướng dẫn và phân công | TV1 | `GUIDANCE_FOR_SUB_3.md`; **Trạng thái:** đã hoàn thiện và gửi cho nhóm theo xác nhận trưởng nhóm. |
+| Cấu trúc và bộ khung Sub3 | TV1 điều phối, có hỗ trợ AI | Cây báo cáo, sơ đồ, truy vết, prompt và đầu ra theo mục 4.1; **Trạng thái:** đã khởi tạo và kiểm tra cấu trúc; nội dung cá nhân còn là khung. |
+| Hợp đồng liên phân hệ | TV1 | `docs/report/submission_3/shared/shared_contracts.md` tập hợp quyết định mục 2.2–2.3; **Trạng thái:** đã hoàn thành tài liệu hợp đồng thiết kế, chưa phải xác nhận đã triển khai code. |
 | Development/Implementation view | TV3 | Nguồn, ảnh và thuyết minh kiến trúc module; **Trạng thái:** — |
 | Deployment view | TV7 | Nguồn, ảnh và thuyết minh triển khai hiện tại; **Trạng thái:** — |
 | Class diagram cấp hệ thống | TV3 | Sơ đồ liên kết từ bản các chủ sở hữu bàn giao; **Trạng thái:** — |

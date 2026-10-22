@@ -1,14 +1,20 @@
 # Tự kiểm tra — Nguyễn Thành Đạt — SS1
 
-**Phiên bản sản phẩm:** [CHƯA ĐIỀN].  
-**Trạng thái xác nhận:** CHƯA XÁC NHẬN.  
+**Phiên bản sản phẩm:** hướng dẫn Sub3 và bộ khung tài liệu hiện hành; báo cáo SS1 vẫn DRAFT.  
+**Trạng thái xác nhận:** đã hoàn thành chuẩn bị và phổ biến hướng dẫn; chưa xác nhận chất lượng thiết kế/báo cáo SS1.  
 **Nguyên tắc:** tác giả tự kiểm tra, tự sửa và tự chịu trách nhiệm; không có kiểm tra chéo.
+
+## Chuẩn bị và triển khai cho nhóm — đã hoàn thành
+
+- [x] `TV1-P01` — Hoàn thiện hướng dẫn Sub3, phân công 7 thành viên và chốt quyền sở hữu/giao tiếp dùng chung ở mục 2.2–2.3.
+- [x] `TV1-P02` — Điều chỉnh và khởi tạo cấu trúc tài liệu phù hợp dự án; có khung báo cáo, nguồn sơ đồ, truy vết và prompt history; đã kiểm tra đường dẫn/cú pháp nguồn.
+- [x] `TV1-P03` — Gửi và triển khai hướng dẫn cho nhóm, theo xác nhận trực tiếp của trưởng nhóm.
 
 ## Task cá nhân kế thừa từ hướng dẫn
 
 - [ ] `TV1-01` — Kiểm tra quy định LMS, xác nhận phạm vi cá nhân và phổ biến hướng dẫn cho nhóm.
 - [ ] `TV1-02` — Lập danh sách lớp SS1, giao tiếp sử dụng và ánh xạ đến code hiện có.
-- [ ] `TV1-03` — Tập hợp quyết định mục 2.2–2.3 vào `shared_contracts.md` để cả nhóm dùng trực tiếp.
+- [x] `TV1-03` — Tập hợp quyết định mục 2.2–2.3 vào `shared_contracts.md` để cả nhóm dùng trực tiếp.
 - [ ] `TV1-04` — Tạo class diagram SS1 nguồn + ảnh, bao phủ cả 3 UC.
 - [ ] `TV1-05` — Mô tả chính sách 30 phút, vòng đời booking và hợp đồng tài chính theo quyết định đã chốt.
 - [ ] `TV1-06` — Mô tả đầy đủ lớp/phương thức SS1 và bảng truy vết.
@@ -18,6 +24,15 @@
 - [ ] `TV1-10` — Xuất PDF cá nhân hoàn chỉnh, bàn giao cùng nguồn và ảnh đúng phiên bản.
 - [ ] `TV1-11` — Tiếp nhận đủ 7 báo cáo và xác nhận tự kiểm tra của tác giả; tập hợp bộ file cuối.
 - [ ] `TV1-12` — Điều phối nộp theo LMS; lưu đúng bộ file đã nộp và xác nhận nộp.
+
+**Ghi nhận tiến độ:** `TV1-01` đã xong phần xác nhận phạm vi và phổ biến hướng dẫn; phần kiểm tra quy định LMS chưa có xác nhận nên task tổng vẫn để mở. Việc tạo file khung không đồng nghĩa đã hoàn thành class diagram, mô tả lớp/phương thức, PDF hoặc kiểm thử SS1.
+
+## Bằng chứng phần chuẩn bị đã hoàn thành
+
+- [Hướng dẫn và phân công](../../../../GUIDANCE_FOR_SUB_3.md) đã được trưởng nhóm xác nhận triển khai cho nhóm trong cuộc trao đổi hiện tại.
+- [Hợp đồng dùng chung](../shared/shared_contracts.md) đã tập hợp quyền sở hữu, dữ liệu và giao tiếp đã chốt.
+- [Bộ khung báo cáo Sub3](../README.md) đã có đủ thư mục cá nhân; nguồn PlantUML nằm trong cây sơ đồ Sub3.
+- Các đường dẫn Markdown của bộ khung và cú pháp 10 nguồn PlantUML đã được kiểm tra ở bước khởi tạo. Kết quả này không thay cho tự kiểm tra thiết kế SS1 khi hoàn thiện.
 
 ## Tiêu chí chất lượng trước khi bàn giao
 
