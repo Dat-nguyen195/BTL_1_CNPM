@@ -22,7 +22,7 @@ state OCCUPIED {
 
 AVAILABLE --> RESERVED : Xác nhận đặt chỗ (Cọc 50.000 VNĐ)\n[Xe đã đăng ký, chỗ khả dụng trong lịch đặt]
 RESERVED --> AVAILABLE : Hủy trước Check-in\n[Chính sách cho phép]
-RESERVED --> AVAILABLE : Chưa Check-in sau 15 phút\nkể từ giờ bắt đầu đặt / Đơn EXPIRED
+RESERVED --> AVAILABLE : Chưa Check-in sau 30 phút\nkể từ giờ bắt đầu đặt / Đơn EXPIRED
 RESERVED --> OCCUPIED : Xác thực QR/PIN tại Hub\n[Đơn hợp lệ, đã xác nhận xe vào]
 CHECK_OUT_PENDING --> AVAILABLE : Hoàn tất Check-out\n[Đã thanh toán đủ và xác nhận xe rời Hub]\n/ Đơn COMPLETED, giải phóng tài nguyên còn giữ
 

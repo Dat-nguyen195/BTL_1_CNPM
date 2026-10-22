@@ -30,7 +30,7 @@ from core.personal_ev import sweep_expired_personal_reservations
 # Centralized session state initialization
 init_session_state(st.session_state)
 
-# Automatically sweep expired reservations (shared EV 15-min & personal EV 15-min after scheduled arrival) before rendering any view
+# Automatically sweep expired reservations (shared EV 30-min & personal EV 30-min after scheduled arrival) before rendering any view
 process_expired_bookings(st.session_state)
 sweep_expired_personal_reservations(st.session_state)
 

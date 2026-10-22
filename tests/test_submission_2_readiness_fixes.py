@@ -130,7 +130,7 @@ def test_r10_personal_ev_reservation_expiry_settlement(clean_state):
     assert clean_state["wallet"]["held_deposit"] == initial_held + 50000
     assert clean_state["wallet"]["balance"] == initial_balance - 50000
 
-    # Advance time past arrival deadline (15 min)
+    # Advance time past arrival deadline (30 min)
     clean_state["current_sim_time"] = "2026-10-21 08:35:00"
 
     # Sweep expired

@@ -46,7 +46,7 @@
     <text x="177" y="152" class="uc-text" font-size="10">Hủy đặt xe &amp; Hoàn cọc</text>
     <rect x="25" y="200" width="310" height="58" rx="6" fill="#FEF3C7" stroke="#D97706" stroke-dasharray="4 3"/>
     <text x="35" y="222" class="note-text" font-weight="bold">⚙ Background Service (Non-interactive):</text>
-    <text x="35" y="242" class="note-text">• Tự động hủy cọc &amp; phạt nếu không nhận xe sau 15p</text>
+    <text x="35" y="242" class="note-text">• Tự động hủy cọc &amp; phạt nếu không nhận xe sau 30p</text>
   </g>
 
   <!-- SS2: Personal EV & Parking (4 UCs) -->

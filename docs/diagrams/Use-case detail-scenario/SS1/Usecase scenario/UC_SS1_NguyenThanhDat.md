@@ -54,7 +54,7 @@
     </tr>
     <tr>
       <td><strong>Description:</strong></td>
-      <td colspan="3">Sinh viên đăng nhập hệ thống qua VNU-SSO, tra cứu vị trí Hub, lọc xe theo mức pin (SoC &gt; 20%), chọn loại xe, xem dự toán phí thuê, áp dụng mã ưu đãi voucher sinh viên, khóa tiền cọc giữ xe trong 15 phút qua ví điện tử nội bộ. Khi đến Hub xuất phát, sinh viên quét mã QR hoặc nhập mã PIN trên xe để Nhận xe (Pick-up), hệ thống xác thực và mở khóa xe qua IoT, chuyển trạng thái sang <code>IN_USE</code> và bắt đầu tính thời gian hành trình.</td>
+      <td colspan="3">Sinh viên đăng nhập hệ thống qua VNU-SSO, tra cứu vị trí Hub, lọc xe theo mức pin (SoC &gt; 20%), chọn loại xe, xem dự toán phí thuê, áp dụng mã ưu đãi voucher sinh viên, khóa tiền cọc giữ xe trong 30 phút qua ví điện tử nội bộ. Khi đến Hub xuất phát, sinh viên quét mã QR hoặc nhập mã PIN trên xe để Nhận xe (Pick-up), hệ thống xác thực và mở khóa xe qua IoT, chuyển trạng thái sang <code>IN_USE</code> và bắt đầu tính thời gian hành trình.</td>
     </tr>
     <tr>
       <td><strong>Trigger:</strong></td>
@@ -64,14 +64,14 @@
       <td><strong>Preconditions:</strong></td>
       <td colspan="3">
         1. Sinh viên đã xác thực danh tính qua Cổng xác thực VNU-SSO, tài khoản hợp lệ với phân quyền vai trò <code>student</code> (<code>st.session_state["current_user"]["role"] == "student"</code>).<br/>
-        2. Số dư khả dụng trong ví điện tử sinh viên &ge; 50,000 VNĐ (<code>st.session_state["current_user"]["wallet_balance"] &ge; 50000</code>) để bảo đảm khả năng tạm khóa tiền cọc giữ chỗ 15 phút.<br/>
+        2. Số dư khả dụng trong ví điện tử sinh viên &ge; 50,000 VNĐ (<code>st.session_state["current_user"]["wallet_balance"] &ge; 50000</code>) để bảo đảm khả năng tạm khóa tiền cọc giữ chỗ 30 phút.<br/>
         3. Hub xuất phát còn ít nhất 01 phương tiện khả dụng ở trạng thái <code>AVAILABLE</code>.
       </td>
     </tr>
     <tr>
       <td><strong>Postconditions:</strong></td>
       <td colspan="3">
-        1. Khi cọc giữ chỗ: Phương tiện chuyển sang trạng thái <code>RESERVED</code> trong 15 phút, số tiền cọc 50,000 VNĐ được tạm khóa trong ví điện tử (chuyển sang <code>locked_balance</code>).<br/>
+        1. Khi cọc giữ chỗ: Phương tiện chuyển sang trạng thái <code>RESERVED</code> trong 30 phút, số tiền cọc 50,000 VNĐ được tạm khóa trong ví điện tử (chuyển sang <code>locked_balance</code>).<br/>
         2. Khi nhận xe thành công: Phương tiện chuyển trạng thái sang <code>IN_USE</code>, khóa thông minh trên xe tự động mở chốt an toàn thông qua tín hiệu IoT.<br/>
         3. Đồng hồ đếm thời gian chuyến đi bắt đầu hoạt động trên giao diện ứng dụng di động.<br/>
         4. Dashboard vận hành (SS3) cập nhật giảm 01 xe khả dụng tại Hub xuất phát.
@@ -82,10 +82,10 @@
       <td colspan="3">
         1. Sinh viên mở ứng dụng di động, hệ thống xác thực phiên làm việc người dùng <code>st.session_state["current_user"]</code> qua Cổng VNU-SSO và tải danh sách Hub.<br/>
         2. Sinh viên chọn Hub xuất phát mong muốn; hệ thống hiển thị danh sách xe khả dụng tại Hub kèm mức pin (% SoC), loại xe (đạp điện / máy điện) và bảng giá thuê niêm yết (miễn phí 30 phút đầu cho sinh viên ĐHQG-HCM, 1,000 VNĐ/phút tiếp theo).<br/>
-        3. Sinh viên chọn xe ưng ý, nhập Mã giảm giá / Voucher sinh viên (nếu có); hệ thống hiển thị bảng tính phí tạm tính và số tiền cọc giữ chỗ 15 phút (50,000 VNĐ).<br/>
-        4. Sinh viên nhấn "Xác nhận đặt giữ xe". Hệ thống kiểm tra số dư ví (<code>wallet_balance &ge; 50,000 VNĐ</code>), tạm khóa 50,000 VNĐ tiền cọc vào <code>locked_balance</code>, khóa giữ xe ở trạng thái <code>RESERVED</code> và cấp mã QR/PIN nhận xe kèm đồng hồ đếm ngược 15 phút.<br/>
+        3. Sinh viên chọn xe ưng ý, nhập Mã giảm giá / Voucher sinh viên (nếu có); hệ thống hiển thị bảng tính phí tạm tính và số tiền cọc giữ chỗ 30 phút (50,000 VNĐ).<br/>
+        4. Sinh viên nhấn "Xác nhận đặt giữ xe". Hệ thống kiểm tra số dư ví (<code>wallet_balance &ge; 50,000 VNĐ</code>), tạm khóa 50,000 VNĐ tiền cọc vào <code>locked_balance</code>, khóa giữ xe ở trạng thái <code>RESERVED</code> và cấp mã QR/PIN nhận xe kèm đồng hồ đếm ngược 30 phút.<br/>
         5. Sinh viên di chuyển đến Hub xuất phát, mở ứng dụng quét mã QR hoặc nhập mã PIN trên phương tiện.<br/>
-        6. Hệ thống xác thực mã trong thời hạn 15 phút, gửi tín hiệu IoT mở khóa chốt an toàn trên xe, chuyển trạng thái xe sang <code>IN_USE</code> và kích hoạt tính thời gian di chuyển thực tế.
+        6. Hệ thống xác thực mã trong thời hạn 30 phút, gửi tín hiệu IoT mở khóa chốt an toàn trên xe, chuyển trạng thái xe sang <code>IN_USE</code> và kích hoạt tính thời gian di chuyển thực tế.
       </td>
     </tr>
     <tr>
@@ -95,7 +95,7 @@
         <strong>Alternative 2 (Áp dụng Voucher sinh viên):</strong> Tại bước 3, sinh viên nhập mã ưu đãi hợp lệ. Hệ thống tự động tính lại chi phí tạm tính và số tiền cọc trước khi khóa cọc.<br/>
         <strong>Alternative 3 (Số dư ví không đủ &lt; 50,000 VNĐ):</strong> Tại bước 4, nếu <code>wallet_balance &lt; 50000</code>, hệ thống chặn giao dịch, thông báo lỗi "Số dư ví không đủ (tối thiểu 50,000 VNĐ) để đặt cọc giữ xe" và điều hướng sang giao diện nạp tiền ví điện tử.<br/>
         <strong>Alternative 4 (Phương tiện vừa bị người khác đặt trước):</strong> Tại bước 4, nếu xe vừa chuyển sang <code>RESERVED</code> bởi người dùng khác, hệ thống báo lỗi "Xe không còn khả dụng" và tự động gợi ý phương tiện khác cùng Hub.<br/>
-        <strong>Alternative 5 (Hết thời hạn 15 phút giữ chỗ - No-show Penalty):</strong> Nếu quá 15 phút sinh viên không quét mã nhận xe tại Hub, hệ thống tự động hủy giữ chỗ, khấu trừ phí phạt giữ chỗ quá giờ (10,000 VNĐ), hoàn lại 40,000 VNĐ về <code>wallet_balance</code> và giải phóng xe về trạng thái <code>AVAILABLE</code>.
+        <strong>Alternative 5 (Hết thời hạn 30 phút giữ chỗ - No-show Penalty):</strong> Nếu quá 30 phút sinh viên không quét mã nhận xe tại Hub, hệ thống tự động hủy giữ chỗ, khấu trừ phí phạt giữ chỗ quá giờ (10,000 VNĐ), hoàn lại 40,000 VNĐ về <code>wallet_balance</code> và giải phóng xe về trạng thái <code>AVAILABLE</code>.
       </td>
     </tr>
     <tr>
@@ -246,7 +246,7 @@
     </tr>
     <tr>
       <td><strong>Description:</strong></td>
-      <td colspan="3">Sinh viên chủ động hủy lệnh giữ chỗ xe đã đặt trước đó khi thay đổi kế hoạch di chuyển trong thời hạn 15 phút, giúp giải phóng phương tiện cho người dùng khác và nhận hoàn lại 100% tiền cọc 50,000 VNĐ đã tạm khóa về số dư khả dụng của ví điện tử.</td>
+      <td colspan="3">Sinh viên chủ động hủy lệnh giữ chỗ xe đã đặt trước đó khi thay đổi kế hoạch di chuyển trong thời hạn 30 phút, giúp giải phóng phương tiện cho người dùng khác và nhận hoàn lại 100% tiền cọc 50,000 VNĐ đã tạm khóa về số dư khả dụng của ví điện tử.</td>
     </tr>
     <tr>
       <td><strong>Trigger:</strong></td>
@@ -256,7 +256,7 @@
       <td><strong>Preconditions:</strong></td>
       <td colspan="3">
         1. Sinh viên đã xác thực tài khoản ĐHQG-HCM qua VNU-SSO (<code>st.session_state["current_user"]</code>).<br/>
-        2. Sinh viên đang có 01 lệnh giữ chỗ ở trạng thái <code>RESERVED</code> còn trong thời hạn 15 phút (chưa quét mã nhận xe).
+        2. Sinh viên đang có 01 lệnh giữ chỗ ở trạng thái <code>RESERVED</code> còn trong thời hạn 30 phút (chưa quét mã nhận xe).
       </td>
     </tr>
     <tr>
@@ -273,7 +273,7 @@
       <td colspan="3">
         1. Sinh viên truy cập mục "Lịch giữ chỗ của tôi" trên ứng dụng di động.<br/>
         2. Sinh viên chọn lệnh đặt xe hiện tại và nhấn nút "Hủy giữ chỗ".<br/>
-        3. Hệ thống kiểm tra thời hạn đếm ngược (còn trong 15 phút), hiển thị hộp thoại xác nhận hủy lệnh kèm thông báo cam kết hoàn lại 100% tiền cọc (50,000 VNĐ).<br/>
+        3. Hệ thống kiểm tra thời hạn đếm ngược (còn trong 30 phút), hiển thị hộp thoại xác nhận hủy lệnh kèm thông báo cam kết hoàn lại 100% tiền cọc (50,000 VNĐ).<br/>
         4. Sinh viên chọn "Đồng ý hủy".<br/>
         5. Hệ thống chuyển trạng thái xe về <code>AVAILABLE</code>, giải phóng 50,000 VNĐ từ <code>locked_balance</code> trở về <code>wallet_balance</code> và gửi thông báo hủy thành công kèm biến động số dư ví.
       </td>
@@ -287,8 +287,8 @@
     <tr>
       <td><strong>Exceptions:</strong></td>
       <td colspan="3">
-        <strong>Exception 1 (Lệnh đặt đã chuyển sang IN_USE hoặc đã hết hạn):</strong> Tại bước 2, nếu xe đã quét mã nhận hoặc lệnh đặt bị hủy tự động do quá 15 phút, hệ thống báo lỗi "Không thể hủy lệnh đặt ở trạng thái hiện tại".<br/>
-        <strong>Exception 2 (Hủy muộn do quá hạn giữ chỗ 15 phút - No-show Penalty):</strong> Nếu quá 15 phút giữ chỗ mà sinh viên không nhận xe, hệ thống tự động hủy và khấu trừ phí phạt giữ chỗ theo quy định (10,000 VNĐ), số tiền cọc còn lại (40,000 VNĐ) mới được hoàn về ví sinh viên.
+        <strong>Exception 1 (Lệnh đặt đã chuyển sang IN_USE hoặc đã hết hạn):</strong> Tại bước 2, nếu xe đã quét mã nhận hoặc lệnh đặt bị hủy tự động do quá 30 phút, hệ thống báo lỗi "Không thể hủy lệnh đặt ở trạng thái hiện tại".<br/>
+        <strong>Exception 2 (Hủy muộn do quá hạn giữ chỗ 30 phút - No-show Penalty):</strong> Nếu quá 30 phút giữ chỗ mà sinh viên không nhận xe, hệ thống tự động hủy và khấu trừ phí phạt giữ chỗ theo quy định (10,000 VNĐ), số tiền cọc còn lại (40,000 VNĐ) mới được hoàn về ví sinh viên.
       </td>
     </tr>
     <tr>
@@ -315,7 +315,7 @@ Phân hệ SS1 tập trung hoàn toàn vào luồng tác nhân **Sinh viên** (S
 | **FR-01** / US-01, US-02 | Đặt chỗ đỗ & chọn xe điện dùng chung (SoC filter, bảng giá) | `UC_SS1_01` |
 | **FR-01b** / US-02, US-03, US-04 | Tính phí thuê xe (30p miễn phí, voucher SV, cọc 50,000đ) | `UC_SS1_01`, `UC_SS1_02` |
 | **FR-01c** / US-03b, US-05b | Nhận xe QR/PIN (`IN_USE`) & Trả xe One-way (`AVAILABLE`) | `UC_SS1_01`, `UC_SS1_02` |
-| **FR-02** / US-05 | Hủy đặt xe & hoàn trả 100% tiền cọc trong 15 phút | `UC_SS1_03` |
+| **FR-02** / US-05 | Hủy đặt xe & hoàn trả 100% tiền cọc trong 30 phút | `UC_SS1_03` |
 | **FR-15b** / US-06 | Xuất hóa đơn điện tử (e-invoice) sau chuyến đi | `UC_SS1_02` |
 | **FR-15c** / US-24b | Auto-rerouting khi Hub đích hết chỗ (tích hợp SS7) | `UC_SS1_02` Exception 1 |
 | *(US-07)* | Admin xem đặt chỗ & doanh thu → Ủy quyền SS3 Dashboard | `UC_SS3_01` (xem Phụ lục A) |

@@ -1,0 +1,13 @@
+@startuml
+' SCAFFOLD_ONLY: DRAFT - CHUA HOAN THIEN
+' Khung do AI khoi tao; chu so huu tu hoan thien va chiu trach nhiem.
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultFontName SansSerif
+title Class diagram SS2 — DRAFT
+note "KHUNG CHƯA HOÀN THIỆN\nChủ sở hữu: TV2 — Nguyễn Anh Tài\nUC_SS2_01, UC_SS2_02, UC_SS2_03, UC_SS2_04\nBổ sung thiết kế thực tế trước khi sử dụng để nộp." as DRAFT
+' Lop/kieu chu tri: PersonalVehicle
+' Lop/kieu chu tri: ParkingReservation
+' Lop/kieu chu tri: ParkingSession
+' Lop/kieu chu tri: PersonalEVService
+@enduml

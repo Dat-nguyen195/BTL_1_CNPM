@@ -35,7 +35,7 @@ autonumber 4.1
 group 4. Hủy đơn hoặc hết hạn trước Check-in
     note over UI, AppState
         Các nhánh dưới đây xảy ra sau khi đặt thành công.
-        Hạn 15 phút được tính từ booking_start_time,
+        Hạn 30 phút được tính từ booking_start_time,
         không tính từ thời điểm tạo đơn.
     end note
 
@@ -62,7 +62,7 @@ group 4. Hủy đơn hoặc hết hạn trước Check-in
             UI --> Student: Từ chối hủy;\ngiữ nguyên trạng thái hiện tại
         end
 
-    else Quá booking_start_time + 15 phút và chưa Check-in
+    else Đến booking_start_time + 30 phút và chưa Check-in
         AppState -> AppState: Kiểm tra hạn nhận chỗ;\nđổi đơn = EXPIRED
         activate AppState
         AppState -> AppState: Giải phóng lịch đặt và vị trí RESERVED -> AVAILABLE

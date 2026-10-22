@@ -36,10 +36,10 @@ def test_personal_future_arrival_and_exact_expiry():
     before = hub["available_slots"]
     ok, res, msg = reserve_personal_ev_slot(s, "SV-TEST", ev["ev_id"], hub["hub_id"], booking_start_time="2026-10-21 10:00:00")
     assert ok, msg
-    assert res["arrival_deadline"] == "2026-10-21 10:15:00"
+    assert res["arrival_deadline"] == "2026-10-21 10:30:00"
     assert res["deposit_held"] == s["wallet"]["held_deposit"] == 50_000
     assert not check_in_personal_ev(s, res["reservation_id"])[0]
-    s["current_sim_time"] = "2026-10-21 10:14:59"
+    s["current_sim_time"] = "2026-10-21 10:29:59"
     assert sweep_expired_personal_reservations(s) == 0
     s["current_sim_time"] = res["arrival_deadline"]
     assert sweep_expired_personal_reservations(s) == 1

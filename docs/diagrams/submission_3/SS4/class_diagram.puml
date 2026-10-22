@@ -1,0 +1,13 @@
+@startuml
+' SCAFFOLD_ONLY: DRAFT - CHUA HOAN THIEN
+' Khung do AI khoi tao; chu so huu tu hoan thien va chiu trach nhiem.
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultFontName SansSerif
+title Class diagram SS4 — DRAFT
+note "KHUNG CHƯA HOÀN THIỆN\nChủ sở hữu: TV4 — Đặng Hoàng Quý Nhân\nUC_SS4_01, UC_SS4_02\nBổ sung thiết kế thực tế trước khi sử dụng để nộp." as DRAFT
+' Lop/kieu chu tri: DispatchOrder
+' Lop/kieu chu tri: VehicleIncident
+' Lop/kieu chu tri: DispatchService
+' Lop/kieu chu tri: IncidentService
+@enduml

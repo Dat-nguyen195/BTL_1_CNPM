@@ -64,3 +64,7 @@ docs/diagrams/
   - Sequence diagrams: 6 lifelines chuẩn theo trách nhiệm.
   - Activity diagrams: 5 swimlanes chuẩn.
   - State-chart diagrams: Chuẩn hóa định danh trạng thái `UPPER_CASE`.
+
+## Sơ đồ Submission 3
+
+Xem [cây sơ đồ Sub3](submission_3/README.md): ba nguồn dùng chung và class diagram SS1–SS7. Các nguồn khởi tạo có nhãn DRAFT; hoàn thiện rồi xuất PNG/SVG cạnh nguồn. Cây use case cũ được giữ nguyên.

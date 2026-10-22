@@ -97,3 +97,12 @@
 4. Push & tạo PR: tuân thủ PR template
 5. Code review bởi ít nhất 1 thành viên khác
 6. Merge vào `main` sau khi approve
+
+## Submission 3 — thiết kế
+
+- [Hướng dẫn và phân công](../GUIDANCE_FOR_SUB_3.md).
+- [Bộ khung báo cáo cá nhân và phần chung](report/submission_3/README.md).
+- [Sơ đồ Sub3](diagrams/submission_3/README.md).
+- [Truy vết Sub3](traceability/submission_3.md).
+
+Submission 3 áp dụng tự kiểm tra và trách nhiệm cá nhân theo hướng dẫn hiện hành.

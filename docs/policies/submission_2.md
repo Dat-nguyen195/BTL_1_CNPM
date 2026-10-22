@@ -12,12 +12,12 @@ Tài liệu này ghi nhận toàn bộ các quy chuẩn tính toán, biểu phí
 | Thông số | Giá trị chuẩn hóa | Đơn vị | Áp dụng tại | Căn cứ & Ghi chú |
 | :--- | :---: | :---: | :--- | :--- |
 | **Tiền đặt cọc giữ xe dùng chung** | 50,000 | VNĐ | SS1 (Đặt xe) | Khấu trừ từ ví điện tử khi tạo booking |
-| **Thời hạn giữ chỗ tối đa (Reservation TTL)** | 15 | Phút | SS1 | Đếm ngược kể từ thời điểm đặt thành công |
-| **Phí phạt không nhận xe (No-show Fee)** | 10,000 | VNĐ | SS1 | Tự động phạt khi quá 15 phút chưa nhận xe |
+| **Thời hạn giữ chỗ tối đa (Reservation TTL)** | 30 | Phút | SS1 | Đếm ngược kể từ thời điểm đặt thành công |
+| **Phí phạt không nhận xe (No-show Fee)** | 10,000 | VNĐ | SS1 | Tự động phạt khi quá 30 phút chưa nhận xe |
 | **Tiền hoàn cọc khi No-show** | 40,000 | VNĐ | SS1 | Hoàn trả phần cọc còn lại (50,000 - 10,000) |
-| **Hoàn cọc khi hủy chủ động trong hạn** | 50,000 | VNĐ | SS1 | Hoàn 100% nếu hủy trước mốc 15 phút |
+| **Hoàn cọc khi hủy chủ động trong hạn** | 50,000 | VNĐ | SS1 | Hoàn 100% nếu hủy trước mốc 30 phút |
 | **Cọc đặt chỗ xe cá nhân** | 50,000 | VNĐ | SS2 | Hoàn 100% khi quyết toán check-out; no-show phạt 10,000, hoàn 40,000 |
-| **Hạn check-in xe cá nhân** | 15 | Phút | SS2 | Từ booking_start_time do người dùng chọn; quá hạn tại đúng mốc deadline |
+| **Hạn check-in xe cá nhân** | 30 | Phút | SS2 | Từ booking_start_time do người dùng chọn; quá hạn tại đúng mốc deadline |
 | **Thời gian thuê xe miễn phí cho SV** | 30 | Phút | SS1 | Chính sách ưu đãi sinh viên ĐHQG-HCM |
 | **Đơn giá thuê xe sau 30 phút miễn phí** | 1,000 | VNĐ / phút | SS1 | Tính theo từng phút thực tế sau phút 30 |
 | **Voucher ưu đãi sinh viên mặc định** | 5,000 | VNĐ | SS1 | Mã `SV-ECO` giảm trực tiếp vào hóa đơn |
@@ -74,3 +74,7 @@ Căn cứ theo yêu cầu đóng băng (Frozen Requirement) tại `FR-05c` trong
 1. **Biểu phí đỗ xe cá nhân (US-09 vs Provisional Policy):**
    - *US-09:* Nêu tính phí đỗ xe theo giờ.
    - *Prototype hiện tại:* Áp dụng tạm thời 5,000 VNĐ / lượt đỗ để phù hợp với bãi giữ xe sinh viên ĐHQG-HCM. Tiêu chí này được ghi nhận mở (Provisional) và hỗ trợ mở rộng sang tính theo giờ khi có quyết định chính thức từ ban quản lý.
+
+## Thay đổi chính sách ngày 21/10/2026
+
+Theo yêu cầu cập nhật của người dùng, thời gian giữ chỗ SS1 và hạn Check-in SS2 tăng từ 15 lên 30 phút. SS1 tính từ thời điểm tạo booking; SS2 tính từ booking_start_time. Tại đúng deadline, lượt chưa nhận/Check-in chuyển EXPIRED và quyết toán no-show một lần. Ân hạn sau sạc, khối tính Overstay và ưu đãi điều hướng vẫn là 15 phút; tiền cọc và mức phạt không đổi. Các hồ sơ nộp cũ, biên bản và prompt gốc là lịch sử trước thay đổi này.

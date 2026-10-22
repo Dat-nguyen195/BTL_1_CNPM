@@ -3,10 +3,10 @@ student_booking.py – Subsystem 1 (PM): Quản lý & Đặt xe/chỗ đỗ cho 
 Smart E-Mobility Hub – ĐHQG-HCM
 
 Chức năng chuẩn hóa (UC_SS1_01 → UC_SS1_03):
-  • Đặt giữ xe 15 phút, khóa cọc 50,000₫ (UC_SS1_01)
+  • Đặt giữ xe 30 phút, khóa cọc 50,000₫ (UC_SS1_01)
   • Nhận xe bằng QR/PIN → Giải phóng slot xuất phát, xe IN_USE (UC_SS1_01)
   • Trả xe One-way, quyết toán ví qua core ledger, xuất e-invoice bền vững (UC_SS1_02)
-  • Hủy đặt xe (hoàn 100% cọc nếu trước 15p, no-show 10,000₫ nếu quá hạn) (UC_SS1_03)
+  • Hủy đặt xe (hoàn 100% cọc nếu trước 30p, no-show 10,000₫ nếu quá hạn) (UC_SS1_03)
 
 FR Covered: FR-01, FR-01b, FR-01c, FR-02, FR-15b, FR-15c
 US Covered: US-01 → US-07 (US-07 ủy quyền SS3)
@@ -346,7 +346,7 @@ def _tab_return():
             st.error(f"❌ {msg}")
 
 def _tab_cancel():
-    """Luồng hủy đặt xe: Xác nhận hủy → Hoàn 100% cọc nếu trước 15p → AVAILABLE."""
+    """Luồng hủy đặt xe: Xác nhận hủy → Hoàn 100% cọc nếu trước 30p → AVAILABLE."""
     user = st.session_state["current_user"]
     process_expired_bookings(st.session_state)
 
@@ -364,7 +364,7 @@ def _tab_cancel():
         f"- Tiền cọc đang khóa: **{SHARED_DEPOSIT_VND:,.0f} ₫**"
     )
 
-    st.info(f"💡 Hủy trước thời hạn 15 phút: **Hoàn 100% tiền cọc ({SHARED_DEPOSIT_VND:,.0f}₫)** về ví điện tử ngay lập tức.")
+    st.info(f"💡 Hủy trước thời hạn {SHARED_EXPIRY_MINUTES} phút: **Hoàn 100% tiền cọc ({SHARED_DEPOSIT_VND:,.0f}₫)** về ví điện tử ngay lập tức.")
 
     c1, c2 = st.columns(2)
     with c1:

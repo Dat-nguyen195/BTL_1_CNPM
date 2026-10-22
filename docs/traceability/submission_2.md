@@ -30,10 +30,10 @@
 |---|---|---|---|---|---|---|
 | US-01 | Là một sinh viên tôi muốn đặt một chỗ đỗ xe chung để có chỗ đỗ bảo mật khi tới campus. | FR-01 | UC_SS1_01, UC_SS1_02 | MUST / 5 | `test_booking_pickup_return_capacity_conservation` | VERIFIED |
 | US-02 | Là một sinh viên tôi muốn tra cứu danh sách xe điện khả dụng kèm mức pin (SoC %) và đơn giá thuê minh bạch (VNĐ/phút hoặc chính sách miễn phí 30 phút đầu cho SV ĐHQG-HCM) để chủ động lựa chọn phương tiện phù hợp với lộ trình. | FR-01, FR-01b | UC_SS1_01 | MUST / 4 | `test_student_ui_filters_available_vehicles_and_books_voucher` | VERIFIED |
-| US-03 | Là một sinh viên tôi muốn thanh toán tiền cọc tạm tính qua ví điện tử nội bộ và khóa giữ chỗ xe trong 15 phút để đảm bảo xe không bị người khác lấy trước khi tôi đến Hub. | FR-01b | UC_SS1_01, UC_SS1_03 | MUST / 4 | `test_noshow_expiry_and_penalty` | VERIFIED |
+| US-03 | Là một sinh viên tôi muốn thanh toán tiền cọc tạm tính qua ví điện tử nội bộ và khóa giữ chỗ xe trong 30 phút để đảm bảo xe không bị người khác lấy trước khi tôi đến Hub. | FR-01b | UC_SS1_01, UC_SS1_03 | MUST / 4 | `test_noshow_expiry_and_penalty` | VERIFIED |
 | US-03b | Là một sinh viên đã đặt giữ chỗ xe, tôi muốn quét mã QR/PIN tại Hub để Nhận xe (Pick-up) để mở khóa phương tiện và bắt đầu tính thời gian di chuyển. | FR-01c | UC_SS1_01 | MUST / 4 | `test_booking_pickup_return_capacity_conservation` | VERIFIED |
 | US-04 | Là một sinh viên tôi muốn áp dụng mã giảm giá / voucher sinh viên khi đặt xe để được hưởng ưu đãi chi phí thuê xe. | FR-01b | UC_SS1_01, UC_SS1_02 | SHOULD / 3 | `test_dashboard_shows_actual_booking_ledger_and_revenue` | VERIFIED |
-| US-05 | Là một sinh viên tôi muốn hủy đặt chỗ và được hoàn trả 100% tiền cọc về ví điện tử nếu thay đổi kế hoạch trong thời hạn 15 phút. | FR-02 | UC_SS1_03 | MUST / 5 | `test_early_cancellation_full_refund` | VERIFIED |
+| US-05 | Là một sinh viên tôi muốn hủy đặt chỗ và được hoàn trả 100% tiền cọc về ví điện tử nếu thay đổi kế hoạch trong thời hạn 30 phút. | FR-02 | UC_SS1_03 | MUST / 5 | `test_early_cancellation_full_refund` | VERIFIED |
 | US-05b | Là một sinh viên đang sử dụng xe điện dùng chung, tôi muốn Trả xe (Return Vehicle) tại Hub điểm đến để kết thúc chuyến đi, hệ thống giải phóng xe về trạng thái sẵn sàng và tự động quyết toán chi phí thuê xe vào ví điện tử. | FR-01c | UC_SS1_02 | MUST / 5 | `test_r08_alternate_hub_return_releases_destination_hold` | VERIFIED |
 | US-06 | Là một sinh viên tôi muốn xem hóa đơn điện tử chi tiết sau chuyến đi (thời gian di chuyển, quãng đường, chi phí thực tế đã trừ) để quản lý chi tiêu cá nhân minh bạch. | FR-15b | UC_SS1_02 | SHOULD / 3 | `test_dashboard_shows_actual_booking_ledger_and_revenue` | PARTIAL |
 | US-07 | Là một quản trị viên tôi muốn xem danh sách đặt chỗ hiện tại và doanh thu dịch vụ xe chung để quản lý khả năng phục vụ và hiệu quả vận hành. | FR-05, FR-15b | UC_SS3_01 | MUST / 4 | `test_dashboard_shows_actual_booking_ledger_and_revenue` | VERIFIED |
@@ -64,9 +64,9 @@
 | FR | Nội dung nguyên bản | US |
 |---|---|---|
 | FR-01 | Đặt chỗ đỗ & chọn xe điện dùng chung | US-01, US-02 |
-| FR-01b | **Tự động tính phí thuê xe điện dùng chung** dựa trên thời gian sử dụng và loại phương tiện (chính sách miễn phí 30 phút đầu cho SV ĐHQG-HCM, tạm tính cọc 15 phút, áp dụng voucher sinh viên) | US-02, US-03, US-04 |
-| FR-01c | **Xử lý Nhận xe & Trả xe điện dùng chung**:• *Nhận xe:* Xác thực mã QR/PIN trong hạn 15 phút, chuyển trạng thái xe sang `IN_USE`, bắt đầu đếm giờ chuyến đi.• *Trả xe:* Cập nhật vị trí xe mới tại Hub đích, trả xe về trạng thái `AVAILABLE`, cập nhật chỗ đỗ khả dụng tại Hub trả, chốt tổng thời gian di chuyển, tính phí thuê thực tế (sau 30 phút miễn phí) và quyết toán ví điện tử | US-03b, US-05b |
-| FR-02 | Hủy đặt xe & hoàn trả 100% tiền cọc tự động trong 15 phút | US-05 |
+| FR-01b | **Tự động tính phí thuê xe điện dùng chung** dựa trên thời gian sử dụng và loại phương tiện (chính sách miễn phí 30 phút đầu cho SV ĐHQG-HCM, tạm tính cọc 30 phút, áp dụng voucher sinh viên) | US-02, US-03, US-04 |
+| FR-01c | **Xử lý Nhận xe & Trả xe điện dùng chung**:• *Nhận xe:* Xác thực mã QR/PIN trong hạn 30 phút, chuyển trạng thái xe sang `IN_USE`, bắt đầu đếm giờ chuyến đi.• *Trả xe:* Cập nhật vị trí xe mới tại Hub đích, trả xe về trạng thái `AVAILABLE`, cập nhật chỗ đỗ khả dụng tại Hub trả, chốt tổng thời gian di chuyển, tính phí thuê thực tế (sau 30 phút miễn phí) và quyết toán ví điện tử | US-03b, US-05b |
+| FR-02 | Hủy đặt xe & hoàn trả 100% tiền cọc tự động trong 30 phút | US-05 |
 | FR-03 | Đăng ký xe EV cá nhân (biển số, loại xe, dung lượng pin) | US-08 |
 | FR-03b | **Xác thực Check-in & Check-out xe cá nhân tại cổng Hub**:• *Check-in:* Quét mã QR/biển số mở barie, kích hoạt giữ đúng slot đỗ và cổng sạc đã đặt.• *Check-out:* Xác nhận đã hoàn tất thanh toán hóa đơn tổng hợp, mở barie cho xe xuất bãi và giải phóng slot về `AVAILABLE` | US-11b |
 | FR-04 | Đặt lịch sạc cho xe cá nhân | US-10, US-12 |

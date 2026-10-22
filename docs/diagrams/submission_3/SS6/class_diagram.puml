@@ -1,0 +1,16 @@
+@startuml
+' SCAFFOLD_ONLY: DRAFT - CHUA HOAN THIEN
+' Khung do AI khoi tao; chu so huu tu hoan thien va chiu trach nhiem.
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultFontName SansSerif
+title Class diagram SS6 — DRAFT
+note "KHUNG CHƯA HOÀN THIỆN\nChủ sở hữu: TV6 — Hoàng Văn Tấn\nUC_SS6_01, UC_SS6_02\nBổ sung thiết kế thực tế trước khi sử dụng để nộp." as DRAFT
+' Lop/kieu chu tri: DemandScenario
+' Lop/kieu chu tri: ForecastResult
+' Lop/kieu chu tri: ForecastService
+' Lop/kieu chu tri: DemandSimulationService
+' Lop/kieu chu tri: SimulationPreview
+' Lop/kieu chu tri: ApplyResult
+' Lop/kieu chu tri: SimulationCoordinator
+@enduml

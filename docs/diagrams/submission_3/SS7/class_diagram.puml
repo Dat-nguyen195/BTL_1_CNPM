@@ -1,0 +1,13 @@
+@startuml
+' SCAFFOLD_ONLY: DRAFT - CHUA HOAN THIEN
+' Khung do AI khoi tao; chu so huu tu hoan thien va chiu trach nhiem.
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultFontName SansSerif
+title Class diagram SS7 — DRAFT
+note "KHUNG CHƯA HOÀN THIỆN\nChủ sở hữu: TV7 — Nguyễn Trung Nguyên\nUC_SS7_01, UC_SS7_02\nBổ sung thiết kế thực tế trước khi sử dụng để nộp." as DRAFT
+' Lop/kieu chu tri: InfrastructureFailure
+' Lop/kieu chu tri: RouteSuggestion
+' Lop/kieu chu tri: InfrastructureSimulationService
+' Lop/kieu chu tri: ReroutingService
+@enduml

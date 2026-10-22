@@ -1,0 +1,17 @@
+@startuml
+' SCAFFOLD_ONLY: DRAFT - CHUA HOAN THIEN
+' Khung do AI khoi tao; chu so huu tu hoan thien va chiu trach nhiem.
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultFontName SansSerif
+title Class diagram SS5 — DRAFT
+note "KHUNG CHƯA HOÀN THIỆN\nChủ sở hữu: TV5 — Dương Đăng Khoa\nUC_SS5_01, UC_SS5_02\nBổ sung thiết kế thực tế trước khi sử dụng để nộp." as DRAFT
+' Lop/kieu chu tri: ChargingRequest
+' Lop/kieu chu tri: ChargingRequestResult
+' Lop/kieu chu tri: ChargingSession
+' Lop/kieu chu tri: ChargingPort
+' Lop/kieu chu tri: ChargingBill
+' Lop/kieu chu tri: PortFailureResult
+' Lop/kieu chu tri: ChargingService
+' Lop/kieu chu tri: SmartChargingScheduler
+@enduml

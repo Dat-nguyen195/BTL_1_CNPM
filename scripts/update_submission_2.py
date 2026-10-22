@@ -87,7 +87,7 @@ Nhằm đảm bảo tính khả thi cao trong quá trình phát triển sản ph
         \hline
         \textbf{Phân loại MoSCoW} & \textbf{Tỷ trọng} & \textbf{Hạng mục Chức năng Hiện thực trong Prototype Streamlit} & \textbf{Mốc Nộp} \\
         \hline
-        \textbf{Must-have} & $50\%$ & Đăng nhập VNU-SSO, Đặt cọc giữ xe 15p, Nhận xe (QR/PIN), Trả xe, Quyết toán ví nội bộ (SS1); Đăng ký xe EV cá nhân \& Check-in chỗ đỗ (SS2); Bản đồ giám sát 6 Hub thời gian thực (SS3). & Sub \#3 \& \#4 \\
+        \textbf{Must-have} & $50\%$ & Đăng nhập VNU-SSO, Đặt cọc giữ xe 30p, Nhận xe (QR/PIN), Trả xe, Quyết toán ví nội bộ (SS1); Đăng ký xe EV cá nhân \& Check-in chỗ đỗ (SS2); Bản đồ giám sát 6 Hub thời gian thực (SS3). & Sub \#3 \& \#4 \\
         \hline
         \textbf{Should-have} & $25\%$ & Lập lệnh điều chuyển xe cân bằng mạng lưới, Báo cáo \& xử lý sự cố xe (SS4); Thuật toán sắp xếp hàng đợi sạc tự động theo SoC \& Phạt quá giờ Overstay Fee sau 15p (SS5). & Sub \#3 \& \#4 \\
         \hline
@@ -123,7 +123,7 @@ Sơ đồ dưới đây thể hiện luồng di chuyển tổng quan của ngư�
         
         % Student Flow
         \node[subbox, below=0.75cm of student] (book) {Bản đồ 6 Hub \& Chọn xe\\(Thời gian thực)};
-        \node[subbox, below=0.75cm of book] (qr) {Khóa cọc 50k \& Nhận QR/PIN\\(Hiệu lực 15 phút)};
+        \node[subbox, below=0.75cm of book] (qr) {Khóa cọc 50k \& Nhận QR/PIN\\(Hiệu lực 30 phút)};
         \node[subbox, below=0.75cm of qr] (return) {Cắm trả tại Hub bất kỳ\\\& Quyết toán ví e-Invoice};
         
         % Operator Flow
@@ -157,8 +157,8 @@ Giao diện phân hệ SS1 thể hiện quy trình khép kín từ tra cứu đ�
     \item \textbf{Hệ thống 4 Tabs nghiệp vụ:} Phân định rạch ròi 4 luồng thao tác: Đặt xe, Nhận xe (Pick-up), Trả xe \& Quyết toán, Hủy đặt xe.
     \item \textbf{Bước 1 -- Chọn Hub xuất phát:} Hiển thị tình trạng trạm KTX Khu A với các thẻ đo lường: $15/40$ chỗ đỗ trống, $4/10$ cổng sạc khả dụng, và $5$ xe điện sẵn sàng.
     \item \textbf{Bước 2 -- Tìm xe khả dụng:} Hỗ trợ bộ lọc loại phương tiện (E-Bike, E-Scooter, E-Car), thanh trượt mức pin tối thiểu ($\text{SoC} \ge 20\%$) và bảng danh sách xe trực quan.
-    \item \textbf{Bước 3 -- Đặt giữ xe \& Khóa cọc 15 phút:} Lựa chọn xe cụ thể (\texttt{EV-A001} - Scooter, SoC 85\%), bảng giá thuê minh bạch (miễn phí 30 phút đầu, $1.000\text{ VNĐ/phút}$ sau 30p, cọc giữ chỗ $50.000\text{ VNĐ}$), hỗ trợ áp dụng mã giảm giá SVBK50.
-    \item \textbf{Thông báo xác nhận thành công:} Tự động khóa $50.000\text{ VNĐ}$, sinh mã PIN 6 chữ số (\texttt{745768}) có hiệu lực trong 15 phút để sinh viên đến trạm mở khóa xe qua IoT.
+    \item \textbf{Bước 3 -- Đặt giữ xe \& Khóa cọc 30 phút:} Lựa chọn xe cụ thể (\texttt{EV-A001} - Scooter, SoC 85\%), bảng giá thuê minh bạch (miễn phí 30 phút đầu, $1.000\text{ VNĐ/phút}$ sau 30p, cọc giữ chỗ $50.000\text{ VNĐ}$), hỗ trợ áp dụng mã giảm giá SVBK50.
+    \item \textbf{Thông báo xác nhận thành công:} Tự động khóa $50.000\text{ VNĐ}$, sinh mã PIN 6 chữ số (\texttt{745768}) có hiệu lực trong 30 phút để sinh viên đến trạm mở khóa xe qua IoT.
 \end{itemize}
 
 \begin{figure}[H]
@@ -198,9 +198,9 @@ Phân hệ SS2 cho phép sinh viên mang phương tiện điện cá nhân vào 
         \hline
         M-02: Bản đồ 6 Hub trung tâm & Định vị và kiểm tra trạng thái trạm & Bản đồ tương tác, thẻ đo lường số xe khả dụng và cổng sạc trống. \\
         \hline
-        M-03: Đặt xe dùng chung (SS1) & Lập đơn đặt giữ xe 15 phút & Bộ chọn loại xe, bộ lọc mức pin $>20\%$, khóa cọc 50.000 VNĐ. \\
+        M-03: Đặt xe dùng chung (SS1) & Lập đơn đặt giữ xe 30 phút & Bộ chọn loại xe, bộ lọc mức pin $>20\%$, khóa cọc 50.000 VNĐ. \\
         \hline
-        M-04: Nhận xe (Pick-up QR/PIN) & Mở khóa xe tại Hub xuất phát & Mã QR động, mã PIN 6 chữ số, đồng hồ đếm ngược 15 phút. \\
+        M-04: Nhận xe (Pick-up QR/PIN) & Mở khóa xe tại Hub xuất phát & Mã QR động, mã PIN 6 chữ số, đồng hồ đếm ngược 30 phút. \\
         \hline
         M-05: Đăng ký xe cá nhân (SS2) & Quản lý xe EV cá nhân vào Hub & Form nhập biển số, model xe, dung lượng pin và loại cổng sạc. \\
         \hline

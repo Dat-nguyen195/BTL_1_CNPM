@@ -39,3 +39,7 @@ git push origin feature/<mssv>-prompt-history
 - Bao gồm **toàn bộ** lịch sử chat AI (ChatGPT, Gemini, Copilot, …).
 - Ghi rõ: **timestamp**, **nội dung prompt**, **phản hồi AI**, và **các chỉnh sửa thực tế** so với đề xuất của AI.
 - **Deadline nộp PR:** Trước hạn chót nội bộ **24–48 giờ**.
+
+## Prompt history Submission 3
+
+Dùng lại bảy thư mục cá nhân hiện có; tên tệp `prompt_history_<HoTen>_sub3.txt`. Tệp khung chưa phải lịch sử đã hoàn tất. Chỉ ghi prompt thật và mức đóng góp thực tế; áp dụng cơ chế tự kiểm tra của [hướng dẫn Sub3](../../GUIDANCE_FOR_SUB_3.md). Các bước Sprint 1 phía trên là hướng dẫn lịch sử, không bổ sung yêu cầu kiểm tra chéo cho Sub3.

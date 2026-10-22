@@ -1,0 +1,8 @@
+PROMPT HISTORY SUBMISSION 3 — Nguyễn Anh Tài — 2413035 — SS2
+
+TRẠNG THÁI: KHUNG NHẬT KÝ; KHÔNG PHẢI HỘI THOẠI CÁ NHÂN ĐÃ HOÀN TẤT.
+Tệp được khởi tạo cùng bộ khung tài liệu cấp nhóm. Không bịa prompt, phản hồi, ngày giờ hoặc xác nhận đã kiểm tra.
+
+Mỗi mục thực tế cần ghi: prompt nguyên văn; công cụ/model nếu biết; phản hồi hoặc tóm tắt có gắn nhãn; phần tự sửa/kiểm tra và quyết định của tác giả.
+
+CHƯA GHI NHẬN PROMPT CÁ NHÂN TRONG TỆP KHUNG NÀY. Thành viên bổ sung lịch sử thật của mình nếu có.

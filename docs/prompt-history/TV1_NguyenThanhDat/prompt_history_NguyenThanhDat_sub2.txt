@@ -1,0 +1,220 @@
+================================================================================
+LỊCH SỬ PROMPT VÀ TỔNG HỢP SỬ DỤNG AI - SUBMISSION #2
+================================================================================
+Sinh viên: Nguyễn Thành Đạt
+MSSV: 2410709
+Thành viên: TV1 - Leader / Project Manager
+Phân hệ cá nhân: SS1 - Quản lý và Đặt xe điện dùng chung cho sinh viên
+Dự án: Smart E-Mobility Hub - ĐHQG-HCM
+Nhóm: BEE BRAVE - Lớp L02
+Môn học: Công nghệ Phần mềm (CO3001) - HK261
+Ngày tổng hợp: 21/10/2026 (giờ Việt Nam)
+Công cụ hỗ trợ trong phiên được tổng hợp: Codex (trợ lý AI)
+Tên tệp: prompt_history_NguyenThanhDat_sub2.txt
+
+1. PHẠM VI VÀ NGUYÊN TẮC GHI CHÉP
+--------------------------------------------------------------------------------
+Tệp này tổng hợp phần trao đổi hiện có về rà soát và hoàn thiện Submission #2.
+Các yêu cầu ngắn của người dùng được trích nguyên văn khi có trong hội thoại.
+Prompt audit ban đầu được giữ nguyên trong Phụ lục A từ tệp người dùng đính kèm.
+Các phần “Tóm tắt xử lý” là bản tổng hợp kết quả công việc, không phải bản chép
+nguyên văn toàn bộ câu trả lời, suy luận nội bộ hoặc nhật ký từng lệnh của AI.
+
+Không tự tạo thời điểm gửi cho từng prompt, số phiên, URL hội thoại hoặc prompt
+không có nguồn. Những yêu cầu review lặp cùng nội dung được gộp thành một mục.
+Tệp lịch sử cũ prompt_history_NguyenThanhDat.txt được giữ riêng, không ghi đè.
+
+Các tiêu chí 70%/90%, 6 lifeline và 5 swimlane xuất hiện trong prompt ban đầu là
+nội dung yêu cầu đầu vào. Chúng không tự chứng minh đó là rubric chính thức của
+môn học. Kết quả rà soát đã phân biệt đề môn học với các gate bổ sung của dự án.
+
+2. PROMPT 01 - YÊU CẦU AUDIT TOÀN BỘ SUBMISSION #2
+--------------------------------------------------------------------------------
+Nguồn: tệp “Pasted text.txt” do người dùng đính kèm trong cuộc hội thoại.
+Nguyên văn đầy đủ: xem Phụ lục A cuối tệp này.
+
+Tóm tắt yêu cầu:
+- Đóng vai Lead Software QA và Systems Architect Audit Specialist.
+- Đối chiếu repository với đề BTL_SoftwareEngineering_HK261_v1.pdf và báo cáo
+  REPORT_SUBMISSION_2.pdf, bao gồm cây thư mục ở Phụ lục A.2.
+- Kiểm tra UI/prototype của nhóm, 17 Sequence và 17 Activity cho 7 phân hệ,
+  State-chart bonus, tính nhất quán trạng thái và chất lượng render PlantUML.
+- Đối chiếu 30 User Story, 23 Functional Requirement, Use Case, sơ đồ và code.
+- Kiểm tra luồng đặt/nhận/trả/hủy xe, ví, sức chứa Hub, lập lịch sạc, mô phỏng
+  Metro Surge, Port Failure và gợi ý điều hướng.
+- Rà soát cấu trúc 4 thư mục con cho mỗi phân hệ, khai báo AI và phân công nhóm.
+- Đề nghị báo cáo phát hiện và kế hoạch sửa cục bộ cho Antigravity; không có
+  yêu cầu Git push trong prompt gốc.
+
+Tóm tắt xử lý:
+Rà soát theo cấu phần Submission #2: UI/mockup là phần nhóm; Sequence/Activity
+là phần cá nhân; State-chart là phần bonus. Việc đánh giá prototype được tách
+khỏi yêu cầu tích hợp CSDL, SSO, thanh toán hoặc phần cứng thật. Không dùng một
+điểm số tự quy đổi để khẳng định điểm giảng viên khi thiếu rubric định lượng.
+
+3. PROMPT 02 - REVIEW MỨC ĐỘ SẴN SÀNG NỘP
+--------------------------------------------------------------------------------
+Yêu cầu nguyên văn:
+“review submission 2 đã sẵn sàng để nộp chưa”
+
+Ghi chú: yêu cầu này được gửi lặp trong hội thoại; ghi gộp tại đây.
+
+Tóm tắt xử lý:
+- Kiểm tra phiên bản tài liệu và mã nguồn đang có, thay vì giữ nguyên phát hiện
+  đã được sửa ở những lần rà soát trước.
+- Chạy kiểm thử Python và validator, kiểm tra cú pháp PlantUML, render PDF và
+  xem bố cục, ảnh giao diện, sơ đồ dài, mục lục và khai báo AI.
+- Các lỗi đã được xử lý qua các vòng rà soát gồm ảnh giao diện lệch phân hệ,
+  ảnh/sơ đồ cũ, một số lỗi sức chứa, giới hạn công suất và quyết toán tiền.
+- Ở vòng review trước khi người dùng yêu cầu hoàn thiện, bộ 22 test và 46 nguồn
+  PlantUML đã PASS nhưng chưa đủ căn cứ tuyên bố “100% READY”.
+
+Ba phát hiện chính của vòng review đó:
+F01. Ma trận đủ 30 dòng nhưng lệch tập mã SRS: thiếu US-05b, thêm US-07b; US-06,
+     US-07 và một số FR bị gán lại ý nghĩa.
+F02. Một số dòng VERIFIED chỉ liên kết test mở trang hoặc tính khoảng cách,
+     chưa kiểm tra nghiệp vụ điều chuyển, sự cố, dự báo 24h hoặc điều hướng.
+F03. Chính sách SS2 không khớp: code dùng cọc 20.000đ/30 phút, còn thiết kế ghi
+     50.000đ/15 phút sau giờ đến đã đặt.
+
+Tài liệu kết quả: REVIEW_READINESS_SUBMISSION_2.md và bằng chứng trong
+                    docs/audit/submission_2/.
+
+4. PROMPT 03 - HOÀN THIỆN ĐỂ SẴN SÀNG NỘP
+--------------------------------------------------------------------------------
+Yêu cầu nguyên văn:
+“hoàn thành giúp tôi để sẵn sàng nộp”
+
+Tóm tắt xử lý và thay đổi đã thực hiện:
+
+4.1. Sửa truy vết SRS và cách tính MoSCoW
+- Khôi phục US-05b; bỏ US-07b không thuộc baseline.
+- Giữ đúng US-06 là hóa đơn; US-07 là danh sách đặt chỗ và doanh thu.
+- Generator lấy nội dung US/FR từ SRS để tránh đổi nghĩa yêu cầu trong ma trận.
+- Validator kiểm tra ID, nội dung, liên kết, tệp, hàm và test thay vì chỉ đếm số
+  lượng. Bổ sung test ngăn lỗi đổi mã, đổi nghĩa FR, trỏ test không tồn tại và
+  khai khống tỷ lệ bao phủ.
+- MoSCoW được tính từ từng dòng và trạng thái thực tế; PARTIAL không được cộng
+  đủ trọng số xác thực. Không giữ con số 100% nhập cứng từ bản trước.
+
+4.2. Đồng bộ SS2
+- Chọn cọc 50.000đ; hạn Check-in bằng giờ đến đã đặt cộng 15 phút.
+- Thêm chọn giờ đến trong UI; từ chối giờ quá khứ và Check-in sớm.
+- Kiểm tra đúng mốc deadline, hoàn sức chứa và quyết toán no-show một lần:
+  phạt 10.000đ, hoàn 40.000đ.
+- Cọc được hoàn khi quyết toán Check-out; chỗ đỗ giữ ngay khi xác nhận, còn
+  cổng sạc cấp khi Check-in theo năng lực khả dụng.
+- Đồng bộ code, UI, policy, scenario, Sequence/Activity và nội dung PDF.
+
+4.3. Bổ sung kiểm thử hành vi và sửa lỗi phát hiện trong quá trình kiểm thử
+- Điều chuyển xe: tạo lệnh, chuyển DISPATCHED, giữ chỗ đích, tiếp nhận xe và
+  kiểm tra thay đổi sức chứa/trạng thái.
+- Sự cố: báo cáo, cách ly xe INCIDENT, xác nhận tiếp nhận, sửa chữa, phục hồi
+  AVAILABLE và lưu lịch sử/thời điểm xử lý.
+- Dự báo 24h: kiểm tra số mốc giờ, tính tái lập, hàng đợi tích lũy và thời gian
+  chờ; kiểm tra biểu đồ hiển thị trong prototype.
+- Điều hướng: chọn hai Hub phù hợp, chuyển giữ chỗ cũ sang mới, bảo toàn ví và
+  chỉ cộng ưu đãi 15 phút miễn phí một lần.
+- Preview sự cố: giữ nguyên dữ liệu vận hành trước áp dụng, từ chối preview
+  cũ và áp dụng preview hợp lệ; hiển thị cảnh báo OFFLINE trên dashboard.
+- Dashboard: sửa đọc wallet.ledger, hiển thị đặt chỗ hiện tại và doanh thu
+  từ giao dịch thực tế; hiển thị tiền cọc theo held_deposit.
+- Sạc: giữ thông báo qua rerun, lưu/hiển thị biên nhận và phí điện; xe cá nhân
+  quyết toán gộp tại SS2 để tránh thu tiền hoặc giải phóng cổng hai lần.
+
+4.4. Hoàn thiện báo cáo và hồ sơ bàn giao
+- Sinh lại ma trận JSON/Markdown và bảng phạm vi dùng trong báo cáo.
+- Chụp lại giao diện của 7 phân hệ từ ứng dụng chạy thực tế.
+- Chia mỗi sơ đồ dài UC_SS2_02 và UC_SS2_04 thành 3 panel, tổng 6 panel; giữ số
+  thông điệp và kiểm tra các nhóm nghiệp vụ không bị bỏ sót khi chia.
+- Dựng lại PDF bằng XeLaTeX/latexmk; kiểm tra render toàn bộ trang và các trang
+  thay đổi ở độ phân giải cao; sửa tham chiếu và tràn dòng.
+- Bổ sung khai báo hỗ trợ Codex, phiên bản thư viện đã kiểm thử, hướng dẫn
+  chạy/demo, checklist và bằng chứng thực thi.
+- Đóng gói nguồn, báo cáo và bằng chứng vào ZIP; kiểm tra CRC và SHA-256.
+
+5. KẾT QUẢ ĐƯỢC GHI NHẬN SAU PHIÊN HOÀN THIỆN
+--------------------------------------------------------------------------------
+- Kiểm thử: 39 test; 0 lỗi hoặc thất bại trong pytest.xml.
+- PlantUML canonical: 46 nguồn hợp lệ, gồm 17 Sequence, 17 Activity,
+  11 State-chart và 1 sơ đồ phụ trợ. Sáu panel SS2 là ảnh bổ sung cho sơ đồ gốc.
+- Cấu trúc: 7 phân hệ x 4 thư mục con = 28 thư mục.
+- Truy vết: 30 US, 23 FR, 17 UC.
+- Báo cáo cuối của phiên hoàn thiện: 71 trang.
+- Bằng chứng prototype: 27/30 US VERIFIED, 3 US PARTIAL.
+- Trọng số xác thực: 108/119 = 90.76%.
+  Đây là phép tính nội bộ của nhóm, không phải điểm chấm chính thức.
+
+Giới hạn được công khai, không ghi là hoàn thành 100%:
+- US-06: có hóa đơn thời gian/phí/voucher, chưa đo quãng đường chuyến đi.
+- US-12: có trạng thái sạc, biểu phí và quyết toán mô phỏng, chưa xác thực đầy
+  đủ hành trình thanh toán riêng của nhân viên vận hành.
+- US-21: có Metro Surge, preview/apply và hàng đợi, chưa mô hình hóa biến động
+  doanh thu theo nhu cầu.
+- SSO, QR/barie, IoT và thanh toán thật được mô phỏng trong phiên Streamlit.
+- Thiết kế hiện có 4–8 lifeline và 2–6 swimlane; không tuyên bố đã đạt đồng loạt
+  gate bổ sung 6 lifeline/5 swimlane trong prompt đầu vào.
+
+6. PROMPT 04 - TỔNG HỢP LỊCH SỬ PROMPT ĐỂ NỘP
+--------------------------------------------------------------------------------
+Yêu cầu trước đó:
+“tổng hợp và tạo file pomt_history_NguyenThanhDat_sub2.txt cho tôi”
+
+Yêu cầu được làm rõ và dùng để đặt tên/lưu tệp:
+“tổng hợp và tạo file prompt_history_NguyenThanhDat_sub2.txt cho tôi để nó trong
+folder TV1_NguyenThanhDat để tôi nộp bài”
+
+Tóm tắt xử lý:
+Tạo tệp UTF-8 này trong docs/prompt-history/TV1_NguyenThanhDat/; tổng hợp các
+prompt và kết quả có nguồn, phân biệt nội dung trích dẫn với bản tóm tắt, giữ
+lịch sử cũ riêng và không tự bổ sung prompt hoặc thời điểm không có dữ liệu.
+
+7. ĐỐI CHIẾU BẰNG CHỨNG TRONG REPOSITORY
+--------------------------------------------------------------------------------
+- SRS: docs/requirements-analysis.md
+- Truy vết: docs/traceability/submission_2.json và submission_2.md
+- Review cuối: REVIEW_READINESS_SUBMISSION_2.md
+- Hướng dẫn bàn giao/demo: SUBMISSION_2_HANDOFF.md
+- Kiểm thử: tests/test_submission_2_acceptance.py;
+  tests/test_traceability_baseline.py và các test core liên quan
+- Kết quả chạy: docs/audit/submission_2/final/pytest.txt, pytest.xml,
+  validation.txt, panels.txt, screenshots.txt, pdf-build.txt
+- Báo cáo: docs/report/submission_2/REPORT_SUBMISSION_2.pdf
+- Khai báo AI: docs/ai-statement.md và Phụ lục B của báo cáo
+
+Vai trò của người học:
+Sinh viên chịu trách nhiệm đọc hiểu phần SS1 và các thay đổi liên quan, đối
+chiếu yêu cầu với bằng chứng, chạy demo và giải thích khi bảo vệ. Nhật ký này
+không xác nhận thay việc tự kiểm tra, rà soát chéo hoặc phê duyệt của từng thành
+viên. Các sửa đổi ở phân hệ khác trong phiên là hỗ trợ tích hợp/audit theo yêu
+cầu hoàn thiện dự án, không được hiểu là toàn bộ công việc cá nhân do TV1 tự
+thực hiện mà không có hỗ trợ AI.
+
+================================================================================
+PHỤ LỤC A - PROMPT AUDIT GỐC TỪ TỆP NGƯỜI DÙNG ĐÍNH KÈM
+Giữ nguyên nội dung đầu vào, bao gồm cách escape Markdown/HTML của bản gốc.
+Các tuyên bố trong prompt là yêu cầu đầu vào, không thay thế kết quả xác minh.
+================================================================================
+
+Role: Lead Software Quality Assurance (QA) &amp; Systems Architect Audit Specialist Project Context: "Smart E-Mobility Hub – Hệ thống Điều phối Phương tiện Điện trong Khu đô thị ĐHQG-HCM" (BTL CO3001 - HK261, HCMUT). Target Milestone: SUBMISSION #2 - Architectural Design, UI Mockups &amp; Detailed UML Diagrams. Primary Reference Documents: 1\. BTL\_SoftwareEngineering\_HK261\_v1.pdf (Official Course Specification &amp; Assessment Rubric). 2\. REPORT\_SUBMISSION\_2.pdf - Appendix A.2 (Official Repository Directory Tree). Task: Conduct a comprehensive audit of the entire project repository for Submission #2, evaluate compliance against official course rubrics, and generate a complete, production-ready \`PLAN.md\` file specifically structured for \*\*Antigravity\*\* to read, execute, and refactor the project automatically. --- ### I. OFFICIAL EVALUATION STANDARDS &amp; RUBRIC (FROM BTL\_SoftwareEngineering\_HK261\_v1.pdf): 1\. DELIVERABLES STRUCTURE &amp; WORK SPLIT: - Group Work (Tập thể nhóm): \* UI Design / Mockup (Streamlit Prototype interactive screen navigation flow). Must meet MoSCoW commitment (Course requirement &gt;= 70%, Project commits 90%). - Individual Work (Từng cá nhân): \* Detailed Sequence Diagrams for each assigned Use-case (17 UCs across 7 subsystems: SS1-SS7). \* Swimlane Activity Diagrams for each assigned Use-case (17 UCs across 7 subsystems: SS1-SS7). - Bonus Work (Điểm thưởng học thuật): \* State-chart Diagrams (State Machine Diagrams) for EV Vehicle &amp; Charging Port lifecycles. 2\. ACADEMIC INTEGRITY &amp; GENAI DISCLOSURE POLICY: - Mandatory requirement: Clear Statement defining how Generative AI was used (\`docs/ai-statement.md\`). - Strict penalty for verbatim copying or lack of domain understanding during demonstration. 3\. UML QUALITY GATES &amp; NOTATION STANDARDS: - Sequence Diagrams: Must feature 6 layered lifelines (Student/Operator -&gt; UI -&gt; VNU-SSO -&gt; st.session\_state -&gt; E-Wallet/Billing -&gt; IoT Lock/Hub Hardware) with proper autonumbering, activation bars, and correct arrow types (\`-&gt;\` sync call, \`--&gt;\` return). - Activity Diagrams: Must use 5-Swimlane Partitions (Actor, UI Layer, Control &amp; State, E-Wallet, IoT Hardware/Hub), decision diamonds, and fork/join bars for concurrent execution. - Clean Rendering: ZERO PlantUML syntax warnings (no yellow warning boxes on rendered \`.png\` files). - Standardized States: All system states strictly in \`UPPER\_CASE\` (\`AVAILABLE\`, \`RESERVED\`, \`IN\_USE\`, \`OCCUPIED\`, \`CHARGING\`, \`INCIDENT\`, \`DISPATCHED\`, \`OFFLINE\`, \`COMPLETED\`, \`CANCELLED\`). --- ### II. REPOSITORY DIRECTORY TREE REFERENCE (FROM APPENDIX A.2): smart-emobility-hub/ ├── README.md &amp; requirements.txt ├── docs/ │ ├── ai-statement.md, tasks-assignment.md, meeting-minutes/, prompt-history/ │ ├── diagrams/ │ │ ├── system/ (smartEhub.drawio) │ │ └── Use-case detail-scenario/ │ │ ├── SS1/ (Nguyễn Thành Đạt - 3 UCs: UC\_SS1\_01, UC\_SS1\_02, UC\_SS1\_03) │ │ ├── SS2/ (Nguyễn Anh Tài - 4 UCs: UC\_SS2\_01, UC\_SS2\_02, UC\_SS2\_03, UC\_SS2\_04) │ │ ├── SS3/ (Phạm Tiến Đạt - 2 UCs: UC\_SS3\_01, UC\_SS3\_02) │ │ ├── SS4/ (Đặng Hoàng Quý Nhân - 2 UCs: UC\_SS4\_01, UC\_SS4\_02) │ │ ├── SS5/ (Dương Đăng Khoa - 2 UCs: UC\_SS5\_01, UC\_SS5\_02) │ │ ├── SS6/ (Hoàng Văn Tấn - 2 UCs: UC\_SS6\_01, UC\_SS6\_02) │ │ └── SS7/ (Nguyễn Trung Nguyên - 2 UCs: UC\_SS7\_01, UC\_SS7\_02) │ │ \*(Each SS folder MUST contain 4 subfolders: Activity diagrams/, Sequence diagrams/, State-chart diagrams/, Usecase scenario/)\* │ └── report/ │ └── submission\_2/ (REPORT\_SUBMISSION\_2.tex, REPORT\_SUBMISSION\_2.pdf) └── src/ ├── app.py (Entry point running Streamlit MVP) ├── components/ (student\_booking.py, personal\_ev.py, hub\_monitor.py, dispatch\_incident.py, smart\_charging.py, sim\_demand.py, sim\_infrastructure.py) ├── core/ (scheduler.py, simulator.py) └── data/ (mock\_hubs.json) --- ### III. AUDIT SCOPE &amp; DETAILED CHECKLIST: 1\. DESIGN VS. SPECIFICATION ALIGNMENT (THIẾT KẾ VS. ĐẶC TẢ) - Detailed Sequence Diagrams: Verify all 17 UCs across SS1-SS7\. Must reflect the 14 Use-case Scenarios and 30 User Stories (US-01 to US-24b). - Swimlane Activity Diagrams: Verify 5-Swimlane Partitions, decision diamonds, and fork/join bars. - State-chart Diagrams (Bonus Work): Verify EV Lifecycle &amp; Charging Port Lifecycle state machines. Confirm no obsolete PlantUML warning boxes exist. 2\. CODE IMPLEMENTATION &amp; PROTOTYPE READINESS (MÃ NGUỒN PROTOTYPE) - Streamlit Entry Point (\`src/app.py\`): Runs smoothly, links all 7 UI components (\`src/components/\`). - Core Logic Engines (\`src/core/\`): \* \`scheduler.py\`: Scoring algorithm, peak power capping, overstay fee calculation. \* \`simulator.py\`: What-if simulation, metro surge, port failure, 1-click auto-rerouting (\`UC\_SS7\_02\`). - State Persistence (\`src/data/mock\_hubs.json\`): Data correctly loaded into \`st.session\_state\`. 3\. SYSTEM-WIDE SYNCHRONIZATION &amp; TRACEABILITY (SỰ ĐỒNG BỘ HỆ THỐNG) - 1-to-1 Traceability Matrix: User Stories (US-01 to US-24b) -&gt; Functional Requirements (FR-01 to FR-15c) -&gt; Use-case Scenarios -&gt; UML Diagrams -&gt; Streamlit Code. - Directory Compliance: Enforce the 4-subfolder structure under \`docs/diagrams/Use-case detail-scenario/\` for all subsystems SS1 to SS7\. 4\. SUBMISSION #2 REPORT STANDARDS (\`docs/report/submission\_2/REPORT\_SUBMISSION\_2.pdf\`) - Confirm inclusion of UI Mockups (Section 1), Sequence Diagrams (Section 2), Swimlane Activity Diagrams (Section 3), State-chart Diagrams (Section 4), and Directory Tree / GitHub links (Appendix A). - Governance: AI Transparency Statement (\`ai-statement.md\`) &amp; Peer Evaluation Matrix (\`tasks-assignment.md\`). --- ### IV. REQUIRED OUTPUT DELIVERABLES FROM GPT 6.1 SOL: 1\. Executive Quality Scorecard: Overall score out of 100 based on official course rubrics (\`BTL\_SoftwareEngineering\_HK261\_v1.pdf\`), pass/fail readiness status. 2\. Defect &amp; Gap Matrix: Detailed table listing Defect ID, Subsystem/File Path, Issue Description, Severity Level (High/Medium/Low), and Recommended Fix. 3\. COMPLETE \`PLAN.MD\` FILE CONTENT FOR ANTIGRAVITY: - Output a fully-formatted, standalone Markdown code block representing the exact content to be saved as \`PLAN.md\` in the root folder. - The \`PLAN.md\` file MUST contain step-by-step instructions for \*\*Antigravity\*\* to execute directly: \* Directory restructuring commands (\`mkdir -p\`, \`mv\`) to enforce the 4-subfolder structure for SS1-SS7\. \* PlantUML syntax refactoring steps and re-rendering instructions for missing/faulty Sequence, Activity, and State-chart diagrams. \* Python code fixes in \`src/\` to ensure all 7 components and core engines align with specifications. \* LaTeX compilation steps for \`docs/report/submission\_2/REPORT\_SUBMISSION\_2.tex\`. - NOTE: Do NOT include Git push commands. The plan must focus purely on local codebase refactoring and asset generation.
+
+================================================================================
+KẾT THÚC TỆP TỔNG HỢP
+================================================================================
+
+================================================================================
+BỔ SUNG YÊU CẦU THAY ĐỔI CHÍNH SÁCH GIỮ CHỖ NGÀY 21/10/2026
+================================================================================
+Prompt nguyên văn:
+“cập nhật cho toàn dự án tôi muốn thời gian giữ chỗ tăng từ 15 lên 30 phút”
+
+Tóm tắt thực hiện:
+- Đổi thời hạn SS1 và SS2 thành 30 phút; SS1 tính từ lúc đặt, SS2 tính từ giờ
+  đến đã chọn. Tại đúng deadline, lượt chưa nhận/Check-in chuyển EXPIRED.
+- Giữ nguyên tiền cọc/phạt, 15 phút ân hạn sau sạc, khối tính Overstay và ưu
+  đãi điều hướng 15 phút.
+- Đồng bộ code, UI, SRS, đặc tả Markdown/Word, ma trận, nguồn/ảnh UML, sơ đồ
+  hệ thống và PDF; chụp lại giao diện, cập nhật gói ZIP.
+- Bổ sung 10 kiểm thử thời điểm biên; tổng 49 test PASS.
+- Các mô tả 15 phút trong phần lịch sử phía trên ghi lại chính sách trước
+  thay đổi này, không phải chính sách áp dụng cho bản bàn giao hiện tại.

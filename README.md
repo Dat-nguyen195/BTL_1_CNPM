@@ -181,3 +181,5 @@ latexmk -xelatex -interaction=nonstopmode -halt-on-error REPORT_SUBMISSION_2.tex
 ```
 
 Các test xác thực luồng prototype với dữ liệu trong phiên. SSO, IoT, barie và cổng thanh toán thật được mô phỏng; ba tiêu chí PARTIAL được công khai trong ma trận và báo cáo.
+
+Chính sách giữ chỗ cập nhật ngày 21/10/2026: SS1 có hạn 30 phút kể từ khi đặt; SS2 có hạn Check-in 30 phút kể từ giờ đến đã chọn. Tại đúng deadline, lượt chưa nhận/Check-in hết hiệu lực. Cọc vẫn 50.000đ, phí no-show 10.000đ, hoàn 40.000đ. Ân hạn rút sạc và ưu đãi điều hướng vẫn 15 phút. Các booking đã lưu deadline trước đó giữ thông tin của thời điểm tạo; dùng phiên demo mới/Reset để kiểm tra chính sách mới.

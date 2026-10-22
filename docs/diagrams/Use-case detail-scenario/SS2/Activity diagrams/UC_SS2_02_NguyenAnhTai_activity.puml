@@ -80,7 +80,7 @@ endif
 
 |Control & State (st.session_state)|
 :Xác nhận đơn, liên kết xe và vị trí;\ngiữ chỗ AVAILABLE -> RESERVED\ntheo lịch đặt;
-:Đặt hạn nhận chỗ =\nbooking_start_time + 15 phút;
+:Đặt hạn nhận chỗ =\nbooking_start_time + 30 phút;
 
 if (Có yêu cầu sạc?) then (Có)
   |Phân hệ lập lịch sạc (SS5)|

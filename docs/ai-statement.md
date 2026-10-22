@@ -70,3 +70,5 @@ Nhóm thực hiện nghiêm túc quy định lưu vết Prompt:
 ## 7. Bổ sung phiên hoàn thiện Submission #2 ngày 21/10/2026
 
 Codex hỗ trợ đối chiếu mã US/FR với SRS, sửa chính sách đặt chỗ SS2, sửa đọc ledger trên dashboard, bổ sung kiểm thử hành vi Streamlit/core, sửa tài liệu truy vết và dựng lại PDF. Kết quả kiểm thử tự động được lưu cùng hồ sơ; không thay cho việc từng thành viên đọc hiểu và xác nhận phần được phân công. Các tỷ lệ đóng góp AI ở bảng cũ là ước lượng của nhóm cho giai đoạn trước, không được dùng để suy ra tỷ lệ của phiên hỗ trợ này. Không có xác nhận thay mặt thành viên hoặc kết luận đã bảo vệ đồ án.
+
+Bổ sung cùng ngày: Codex hỗ trợ thay đổi thời hạn giữ chỗ SS1/SS2 từ 15 lên 30 phút, đồng bộ nguồn/tài liệu/ảnh và kiểm thử biên. Các mốc 15 phút thuộc ân hạn sạc hoặc điều hướng được giữ đúng mục đích.

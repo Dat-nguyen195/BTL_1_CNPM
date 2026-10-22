@@ -403,7 +403,7 @@ Sơ đồ dưới đây thể hiện luồng di chuyển tổng quan của ngư�
         
         % Student Flow
         \node[subbox, below=0.75cm of student] (book) {Bản đồ 6 Hub \& Chọn xe\\(Thời gian thực)};
-        \node[subbox, below=0.75cm of book] (qr) {Khóa cọc 50k \& Nhận QR/PIN\\(Hiệu lực 15 phút)};
+        \node[subbox, below=0.75cm of book] (qr) {Khóa cọc 50k \& Nhận QR/PIN\\(Hiệu lực 30 phút)};
         \node[subbox, below=0.75cm of qr] (return) {Cắm trả tại Hub bất kỳ\\\& Quyết toán ví e-Invoice};
         
         % Operator Flow
@@ -454,7 +454,7 @@ Bảng \ref{tab:ui-student-screens} dưới đây tổng hợp danh mục và đ
         \hline
         M-03 & Đặt xe Dùng chung (SS1) & Bộ lọc chủng loại, thanh trượt pin tối thiểu, khóa cọc 50.000 VNĐ. \\
         \hline
-        M-04 & Nhận xe Thông minh (Pick-up) & Sinh mã PIN 4 số và QR động, đếm ngược 15 phút, kích hoạt mở khóa IoT. \\
+        M-04 & Nhận xe Thông minh (Pick-up) & Sinh mã PIN 4 số và QR động, đếm ngược 30 phút, kích hoạt mở khóa IoT. \\
         \hline
         M-05 & Đăng ký Xe EV Cá nhân (SS2) & Biểu mẫu thu thập biển số, model xe, dung lượng pin và cổng sạc. \\
         \hline
@@ -471,7 +471,7 @@ Giao diện phân hệ SS1 (\path{src/components/student_booking.py}) thể hi�
     \item \textbf{Hệ thống 4 Tabs nghiệp vụ liên hoàn:} Phân định rõ 4 bước trong vòng đời chuyến đi: \textit{Đặt xe}, \textit{Nhận xe (Pick-up)}, \textit{Trả xe \& Quyết toán}, và \textit{Hủy đặt xe}.
     \item \textbf{Bước 1 -- Chọn Hub xuất phát:} Lựa chọn trạm xuất phát (Hub KTX Khu A) với 3 thẻ đo lường động: Chỗ đỗ trống ($15/40$), Cổng sạc trống ($4/10$), và Số xe hiện có ($8\text{ xe}$ tổng cộng, trong đó có $5\text{ xe khả dụng}$ sẵn sàng đặt).
     \item \textbf{Bước 2 -- Tìm kiếm \& Lọc phương tiện:} Bộ lọc hỗ trợ chọn đa loại hình (bike, scooter, car), thanh trượt mức pin tối thiểu ($\text{SoC} \ge 20\%$). Danh sách 5 xe khả dụng hiển thị trực quan: \texttt{EV-A001} (scooter, SoC $85\%$ - màu xanh), \texttt{EV-A005} (bike, SoC $90\%$ - màu xanh), \texttt{EV-A008} (bike, SoC $30\%$ - màu vàng cam), toàn bộ đều ở trạng thái \texttt{AVAILABLE} (các xe đang sạc hoặc đã giữ chỗ được tự động ẩn khỏi danh sách cho thuê).
-    \item \textbf{Bước 3 -- Đặt giữ xe, Khóa cọc \& Voucher:} Cho phép chọn xe cụ thể (\texttt{EV-A001} - scooter, SoC $85\%$), nhập mã ưu đãi học đường \texttt{SVBK50} (giảm $5.000\text{ VNĐ}$ cước thuê). Bảng giá tham khảo minh bạch: miễn phí 30 phút đầu theo chính sách ĐHQG-HCM, cước $1.000\text{ VNĐ/phút}$ sau 30p, tiền cọc giữ chỗ $50.000\text{ VNĐ}$ được giữ trong 15 phút.
+    \item \textbf{Bước 3 -- Đặt giữ xe, Khóa cọc \& Voucher:} Cho phép chọn xe cụ thể (\texttt{EV-A001} - scooter, SoC $85\%$), nhập mã ưu đãi học đường \texttt{SVBK50} (giảm $5.000\text{ VNĐ}$ cước thuê). Bảng giá tham khảo minh bạch: miễn phí 30 phút đầu theo chính sách ĐHQG-HCM, cước $1.000\text{ VNĐ/phút}$ sau 30p, tiền cọc giữ chỗ $50.000\text{ VNĐ}$ được giữ trong 30 phút.
     \item \textbf{Luồng xác nhận \& Nhận xe qua IoT:} Khi bấm [Xác nhận đặt giữ xe], hệ thống tự động khóa cọc $50.000\text{ VNĐ}$ từ ví, chuyển xe sang trạng thái \texttt{RESERVED}, sinh mã PIN 4 chữ số (\texttt{7457}) để sinh viên nhập tại trụ trạm thông minh kích hoạt mở khóa cơ điện.
 \end{itemize}
 
@@ -480,7 +480,7 @@ Giao diện phân hệ SS1 (\path{src/components/student_booking.py}) thể hi�
     \includegraphics[width=0.92\textwidth,height=0.36\textheight,keepaspectratio]{screenshots/ss1_student_booking.png}
     \caption{Giao diện Thực tế Prototype: Đặt xe \& Quản lý Chỗ đỗ dành cho Sinh viên (Phân hệ SS1)}
     \label{fig:ui-ss1-real}
-    Giao diện thực tế thể hiện sinh viên Nguyễn Văn A đang thực hiện quy trình 3 bước tại Hub KTX Khu A: chọn trạm, lọc danh sách xe khả dụng với mã màu pin trực quan, áp dụng voucher sinh viên và sẵn sàng khóa cọc 15 phút.
+    Giao diện thực tế thể hiện sinh viên Nguyễn Văn A đang thực hiện quy trình 3 bước tại Hub KTX Khu A: chọn trạm, lọc danh sách xe khả dụng với mã màu pin trực quan, áp dụng voucher sinh viên và sẵn sàng khóa cọc 30 phút.
 \end{figure}
 
 \clearpage
@@ -489,7 +489,7 @@ Phân hệ SS2 (\path{src/components/personal_ev.py}) giải quyết bài toán 
 \begin{itemize}[nosep]
     \item \textbf{Cấu trúc 4 Tabs quản trị phương tiện cá nhân:} Gồm \textit{Đăng ký xe mới}, \textit{Đặt chỗ \& Sạc}, \textit{Check-in}, và \textit{Check-out \& Quyết toán}; danh sách xe đã đăng ký hiển thị phía dưới.
     \item \textbf{Đăng ký phương tiện:} Biểu mẫu thu thập họ tên, biển số, loại xe, hãng xe và dung lượng pin. Hệ thống kiểm tra biển số trùng, cấp mã PEV duy nhất và lưu dữ liệu trong phiên.
-    \item \textbf{Đặt chỗ trước:} Chủ xe chọn Hub, giờ đến dự kiến, nhu cầu sạc và mức pin. Cọc giữ chỗ là 50.000 VNĐ; hạn Check-in là 15 phút sau giờ đến đã đặt. Prototype giữ chỗ đỗ ngay khi xác nhận, còn cổng sạc được cấp khi Check-in theo năng lực khả dụng.
+    \item \textbf{Đặt chỗ trước:} Chủ xe chọn Hub, giờ đến dự kiến, nhu cầu sạc và mức pin. Cọc giữ chỗ là 50.000 VNĐ; hạn Check-in là 30 phút sau giờ đến đã đặt. Prototype giữ chỗ đỗ ngay khi xác nhận, còn cổng sạc được cấp khi Check-in theo năng lực khả dụng.
     \item \textbf{Vòng đời và quyết toán:} Check-in chuyển chỗ giữ thành xe hiện diện; Check-out hoàn cọc, giải phóng chỗ và xuất hóa đơn gộp phí đỗ, điện năng, quá giờ. QR, barie và chỉ số điện được mô phỏng; ví dùng sổ cái nội bộ.
 \end{itemize}
 
@@ -655,7 +655,7 @@ Giả lập sự cố mất điện trạm sạc hoặc hỏng thiết bị và 
     \item \textbf{Kịch bản giả lập Port Failure:} Chọn Hub Trường ĐH Bách Khoa và mô phỏng hỏng 4 cổng. Kết quả phân biệt cổng rảnh và cổng đang sạc, không giảm số cổng khả dụng bằng phép trừ đơn giản khi cổng hỏng đang được sử dụng.
     \item \textbf{Nhật ký sự kiện:} Preview ghi thời điểm chạy, xe bị gián đoạn và số cổng còn khả dụng; các xe EV-D002 và EV-D007 bị ảnh hưởng chuyển sang trạng thái WAITING trong dữ liệu xem trước.
     \item \textbf{Gợi ý trạm thay thế:} Từ dữ liệu preview, hệ thống sắp xếp theo khoảng cách và hiển thị tối đa hai Hub còn cổng sạc; ví dụ Hub KTX Khu A và Hub Nhà Khách ĐHQG trong ảnh minh họa.
-    \item \textbf{Áp dụng và điều hướng:} Nút áp dụng tại SS7 chỉ ghi nhận sự cố mô phỏng vào trạng thái vận hành và từ chối preview đã cũ. Khi trả xe tại SS1 gặp Hub đầy, sinh viên chọn một trong hai Hub gợi ý để chuyển giữ chỗ bằng một nút bấm; hệ thống hoàn giữ chỗ cũ, giữ chỗ mới và cộng thêm 15 phút miễn phí một lần.
+    \item \textbf{Áp dụng và điều hướng:} Nút áp dụng tại SS7 chỉ ghi nhận sự cố mô phỏng vào trạng thái vận hành và từ chối preview đã cũ. Khi trả xe tại SS1 gặp Hub đầy, sinh viên chọn một trong hai Hub gợi ý để chuyển giữ chỗ bằng một nút bấm; hệ thống hoàn giữ chỗ cũ, giữ chỗ mới và cộng thêm 30 phút miễn phí một lần.
 \end{itemize}
 
 \begin{figure}[H]
@@ -678,7 +678,7 @@ Mục này trình bày chi tiết \textbf{17 Sơ đồ Tuần tự (Sequence Dia
 Để đảm bảo tính chuẩn xác theo chuẩn UML 2.5 và phản hồi chuyên môn từ Giảng viên, toàn bộ các sơ đồ tuần tự tuân thủ nghiêm ngặt các nguyên lý:
 \begin{itemize}[nosep]
     \item \textbf{Phân định minh bạch Operator và Admin:} Tác nhân \textit{Nhân viên Vận hành (Operator)} trực tiếp tương tác trên dữ liệu thời gian thực (giám sát, kích hoạt/tắt thiết bị, phát lệnh điều chuyển xe). Trong khi đó, \textit{Quản trị viên (Admin)} chỉ đảm nhiệm phân quyền tài khoản (RBAC), cấu hình thông số ban đầu và can thiệp hỗ trợ khẩn cấp.
-    \item \textbf{Xử lý Yêu cầu Phi tương tác (Non-interactive FRs):} Các tiến trình tự động chạy ngầm (lập lịch sạc tối ưu theo SoC, quét kiểm tra quá hạn giữ chỗ 15 phút, đồng bộ dữ liệu cảm biến IoT) được kích hoạt bởi chu kỳ thời gian (Timer/Cron) hoặc sự kiện bất đồng bộ, được biểu diễn qua Lifeline của các thành phần nội tại hệ thống (\texttt{:SchedulerService}, \texttt{:ChargingOptimizerEngine}), tuyệt đối không mô hình hóa bộ lập lịch ngầm thành một Actor con người bên ngoài.
+    \item \textbf{Xử lý Yêu cầu Phi tương tác (Non-interactive FRs):} Các tiến trình tự động chạy ngầm (lập lịch sạc tối ưu theo SoC, quét kiểm tra quá hạn giữ chỗ 30 phút, đồng bộ dữ liệu cảm biến IoT) được kích hoạt bởi chu kỳ thời gian (Timer/Cron) hoặc sự kiện bất đồng bộ, được biểu diễn qua Lifeline của các thành phần nội tại hệ thống (\texttt{:SchedulerService}, \texttt{:ChargingOptimizerEngine}), tuyệt đối không mô hình hóa bộ lập lịch ngầm thành một Actor con người bên ngoài.
 \end{itemize}
 
 \begin{table}[H]
@@ -724,7 +724,7 @@ Mục này trình bày chi tiết \textbf{17 Sơ đồ Tuần tự (Sequence Dia
 \subsection{Phân hệ SS1: Đặt \& Quản lý Xe dùng chung (Nguyễn Thành Đạt)}
 
 \subsubsection{UC\_SS1\_01: Đặt giữ chỗ \& Quét QR/PIN nhận xe}
-\paragraph{Mô tả nghiệp vụ:} Sinh viên chọn Hub, chọn xe điện, thực hiện khóa cọc 50.000 VNĐ trong ví VNU-Pay. Hệ thống sinh mã OTP/QR có hiệu lực 15 phút. Tại trạm Hub, sinh viên quét QR mở khóa xe, chuyển trạng thái xe sang \texttt{IN\_USE}.
+\paragraph{Mô tả nghiệp vụ:} Sinh viên chọn Hub, chọn xe điện, thực hiện khóa cọc 50.000 VNĐ trong ví VNU-Pay. Hệ thống sinh mã OTP/QR có hiệu lực 30 phút. Tại trạm Hub, sinh viên quét QR mở khóa xe, chuyển trạng thái xe sang \texttt{IN\_USE}.
 
 \begin{figure}[H]
     \centering
@@ -752,12 +752,12 @@ Mục này trình bày chi tiết \textbf{17 Sơ đồ Tuần tự (Sequence Dia
         1.5 & st.session\_state & UI & Trả về danh sách xe thỏa điều kiện \\
         1.6 & UI & Sinh viên & Hiển thị thẻ xe khả dụng trên giao diện \\
         \hline
-        \multicolumn{4}{|l|}{\textbf{Nhóm 2: Đặt cọc ví điện tử \& Giữ chỗ 15 phút}} \\
+        \multicolumn{4}{|l|}{\textbf{Nhóm 2: Đặt cọc ví điện tử \& Giữ chỗ 30 phút}} \\
         \hline
         2.1 & Sinh viên & UI & Chọn xe cụ thể \& áp dụng mã ưu đãi (Voucher) \\
         2.2 & UI & Ví điện tử & Kiểm tra số dư khả dụng (\texttt{wallet\_balance} $\ge 50.000\text{ VNĐ}$) \\
         2.3 & Ví điện tử & UI & Đủ số dư, khóa $50.000\text{ VNĐ}$ sang \texttt{locked\_balance} \\
-        2.4 & UI & st.session\_state & Cập nhật xe $\rightarrow$ \texttt{RESERVED}, kích hoạt Timer 15 phút \\
+        2.4 & UI & st.session\_state & Cập nhật xe $\rightarrow$ \texttt{RESERVED}, kích hoạt Timer 30 phút \\
         2.5 & st.session\_state & UI & Xác nhận đã giữ chỗ thành công \\
         2.6 & UI & Sinh viên & Xuất mã QR/PIN 4 số nhận xe kèm đồng hồ đếm ngược \\
         \hline
@@ -765,9 +765,9 @@ Mục này trình bày chi tiết \textbf{17 Sơ đồ Tuần tự (Sequence Dia
         \hline
         3.1 & Sinh viên & UI & Quét QR code hoặc nhập mã PIN 4 số tại Hub \\
         3.2 & UI & st.session\_state & Kiểm tra mã QR/PIN \& thời gian đếm ngược \\
-        3.3a (No-show) & st.session\_state & Ví điện tử & Quá 15p: trừ phạt $10.000\text{ VNĐ}$, hoàn $40.000\text{ VNĐ}$ về ví \\
+        3.3a (No-show) & st.session\_state & Ví điện tử & Quá 30p: trừ phạt $10.000\text{ VNĐ}$, hoàn $40.000\text{ VNĐ}$ về ví \\
         3.4a (No-show) & st.session\_state & UI & Xe $\rightarrow$ \texttt{AVAILABLE}; UI thông báo quá hạn \& phí phạt \\
-        3.3b (Main) & st.session\_state & UI & Mã QR/PIN hợp lệ (trong hạn 15 phút) \\
+        3.3b (Main) & st.session\_state & UI & Mã QR/PIN hợp lệ (trong hạn 30 phút) \\
         3.4b (Main) & UI & Khóa IoT & Gửi tín hiệu mở chốt cơ điện (\texttt{unlock()}) \\
         3.5b (Main) & Khóa IoT & UI & Phản hồi chốt khóa vật lý đã mở \\
         3.6b (Main) & UI & st.session\_state & Đổi xe $\rightarrow$ \texttt{IN\_USE}, bắt đầu tính giờ chuyến đi \\
@@ -788,7 +788,7 @@ Mục này trình bày chi tiết \textbf{17 Sơ đồ Tuần tự (Sequence Dia
 
 \clearpage
 \subsubsection{UC\_SS1\_03: Hủy đặt xe \& Hoàn cọc / Phạt No-show}
-\paragraph{Mô tả nghiệp vụ:} Khi sinh viên chủ động hủy đặt chỗ trong thời hạn 15 phút, hệ thống tự động giải phóng xe về trạng thái \texttt{AVAILABLE} và hoàn $100\%$ tiền cọc ($50.000\text{ VNĐ}$) về ví điện tử. Trường hợp quá 15 phút mà sinh viên không đến nhận xe (No-show), hệ thống tự động hủy lệnh, áp dụng phí phạt giữ chỗ $10.000\text{ VNĐ}$ và hoàn trả $40.000\text{ VNĐ}$ còn lại về ví.
+\paragraph{Mô tả nghiệp vụ:} Khi sinh viên chủ động hủy đặt chỗ trong thời hạn 30 phút, hệ thống tự động giải phóng xe về trạng thái \texttt{AVAILABLE} và hoàn $100\%$ tiền cọc ($50.000\text{ VNĐ}$) về ví điện tử. Trường hợp quá 30 phút mà sinh viên không đến nhận xe (No-show), hệ thống tự động hủy lệnh, áp dụng phí phạt giữ chỗ $10.000\text{ VNĐ}$ và hoàn trả $40.000\text{ VNĐ}$ còn lại về ví.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.88\textwidth,height=0.62\textheight,keepaspectratio]{Use-case detail-scenario/SS1/Sequence diagrams/UC_SS1_03_NguyenThanhDat_sequence.png}
@@ -1008,7 +1008,7 @@ Sơ đồ hoạt động (Activity Diagram) thể hiện luồng điều khiển
 \subsection*{Nguyên tắc Chuẩn hóa Luồng Nghiệp vụ (Alternative vs. Exception Flows)}
 Toàn bộ 17 sơ đồ hoạt động phân làn (Swimlane Activity Diagrams) tuân thủ triệt để nguyên tắc phân định luồng rẽ nhánh:
 \begin{itemize}[nosep]
-    \item \textbf{Luồng Rẽ nhánh Nghiệp vụ (Alternative Flow):} Được biểu diễn qua các nút quyết định (\texttt{Decision Node}) với điều kiện bảo vệ (\texttt{Guard Condition}). Đây là các kịch bản nghiệp vụ hợp lệ có thể xảy ra trong thực tế (vd: số dư ví không đủ $\rightarrow$ gợi ý nạp tiền; hết xe khả dụng $\rightarrow$ đề xuất trạm lân cận; hết 15 phút ân hạn $\rightarrow$ áp dụng phí phạt giữ chỗ). Hệ thống luôn kiểm soát và điều hướng an toàn để kết thúc phiên.
+    \item \textbf{Luồng Rẽ nhánh Nghiệp vụ (Alternative Flow):} Được biểu diễn qua các nút quyết định (\texttt{Decision Node}) với điều kiện bảo vệ (\texttt{Guard Condition}). Đây là các kịch bản nghiệp vụ hợp lệ có thể xảy ra trong thực tế (vd: số dư ví không đủ $\rightarrow$ gợi ý nạp tiền; hết xe khả dụng $\rightarrow$ đề xuất trạm lân cận; hết 30 phút giữ chỗ $\rightarrow$ áp dụng phí phạt giữ chỗ). Hệ thống luôn kiểm soát và điều hướng an toàn để kết thúc phiên.
     \item \textbf{Luồng Xử lý Ngoại lệ Kỹ thuật (Exception Flow):} Được bao bọc trong vùng ngắt có thể gián đoạn (\texttt{Interruptible Activity Region}) dẫn tới nút hủy (\texttt{Flow Final} hoặc \texttt{Activity Final}). Luồng này chỉ kích hoạt khi xảy ra sự cố kỹ thuật bất thường ngoài tầm kiểm soát nghiệp vụ (vd: mất kết nối internet/CSDL, cổng sạc quá nhiệt ngắt mạch, mất điện lưới diện rộng).
 \end{itemize}
 
@@ -1022,9 +1022,9 @@ Toàn bộ 17 sơ đồ hoạt động phân làn (Swimlane Activity Diagrams) t
         \hline
         \textbf{Phân hệ} & \textbf{Mã UC} & \textbf{Luồng Rẽ Nhánh (Alternate Flow)} & \textbf{Luồng Ngoại Lệ (Exception Flow)} \\
         \hline
-        SS1 & UC\_SS1\_01 & Nhập mã PIN thủ công thay vì quét QR & Số dư ví không đủ 50.000 VNĐ; quá 15p No-show (phạt 10k, hoàn 40k) \\
+        SS1 & UC\_SS1\_01 & Nhập mã PIN thủ công thay vì quét QR & Số dư ví không đủ 50.000 VNĐ; quá 30p No-show (phạt 10k, hoàn 40k) \\
         SS1 & UC\_SS1\_02 & Trả xe tại Hub khác điểm mượn & Hub đích đầy/offline: kích hoạt gợi ý 1-chạm sang Hub lân cận \\
-        SS1 & UC\_SS1\_03 & Hủy trong 15p hoàn 100\% cọc; chọn tìm Hub khác & Quá 15p không nhận (No-show: phạt 10k, hoàn 40k) \\
+        SS1 & UC\_SS1\_03 & Hủy trong 30p hoàn 100\% cọc; chọn tìm Hub khác & Quá 30p không nhận (No-show: phạt 10k, hoàn 40k) \\
         \hline
         SS2 & UC\_SS2\_01 & Bổ sung giấy tờ xe qua xác minh thủ công & Biển số xe đã tồn tại trên hệ thống \\
         SS2 & UC\_SS2\_02 & Chỉ đỗ xe không sạc điện & Hết chỗ đỗ hoặc không có cổng sạc phù hợp \\
@@ -1055,7 +1055,7 @@ Toàn bộ 17 sơ đồ hoạt động phân làn (Swimlane Activity Diagrams) t
 \paragraph{Phân tích làn bơi (Swimlane):}
 \begin{itemize}[nosep]
     \item \textbf{Làn bơi Sinh viên (Actor):} Mở app $\rightarrow$ Chọn Hub \& Xe $\rightarrow$ Xác nhận đặt cọc $\rightarrow$ Quét mã QR/PIN tại Hub.
-    \item \textbf{Làn bơi Hệ thống (Backend/IoT):} Kiểm tra ví $\ge 50$k $\rightarrow$ Khóa xe 15p $\rightarrow$ Xác thực mã PIN/QR $\rightarrow$ Mở khóa vật lý $\rightarrow$ Chuyển \texttt{IN\_USE}.
+    \item \textbf{Làn bơi Hệ thống (Backend/IoT):} Kiểm tra ví $\ge 50$k $\rightarrow$ Khóa xe 30p $\rightarrow$ Xác thực mã PIN/QR $\rightarrow$ Mở khóa vật lý $\rightarrow$ Chuyển \texttt{IN\_USE}.
 \end{itemize}
 \begin{figure}[H]
     \centering
@@ -1235,9 +1235,9 @@ Toàn bộ 17 sơ đồ hoạt động phân làn (Swimlane Activity Diagrams) t
         \textbf{Trạng thái gốc} & \textbf{Sự kiện (Event)} & \textbf{Điều kiện (Guard)} & \textbf{Hành động (Action)} & \textbf{Trạng thái đích} \\
         \hline
         AVAILABLE & Sinh viên đặt chỗ & Số dư ví $\ge 50.000$đ & Khóa cọc, sinh mã QR/PIN & RESERVED \\
-        RESERVED & Quét mã QR/PIN & Mã hợp lệ, $< 15$ phút & Mở chốt điện, tính giờ & IN\_USE \\
-        RESERVED & Sinh viên hủy & Trong hạn 15 phút & Hủy đặt, hoàn 100\% cọc (50k) & AVAILABLE \\
-        RESERVED & Timeout hủy (No-show) & Quá 15 phút chưa nhận & Tự hủy, phạt 10k, hoàn 40k cọc & AVAILABLE \\
+        RESERVED & Quét mã QR/PIN & Mã hợp lệ, $< 30$ phút & Mở chốt điện, tính giờ & IN\_USE \\
+        RESERVED & Sinh viên hủy & Trong hạn 30 phút & Hủy đặt, hoàn 100\% cọc (50k) & AVAILABLE \\
+        RESERVED & Timeout hủy (No-show) & Quá 30 phút chưa nhận & Tự hủy, phạt 10k, hoàn 40k cọc & AVAILABLE \\
         IN\_USE & Cắm trả tại Hub & Cổng khóa nhận diện, $\text{SoC} \ge 20\%$ & Tính cước, hoàn cọc thừa & AVAILABLE \\
         IN\_USE & Pin yếu & Cắm trả tại Hub, $\text{SoC} < 20\%$ & Chuyển sang hàng đợi sạc & CHARGING \\
         CHARGING & Sạc hoàn tất & Pin $\text{SoC} \ge 80\%$ (đủ chuẩn) & Rút sạc, chuyển xe khả dụng & AVAILABLE \\

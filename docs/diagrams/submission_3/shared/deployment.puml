@@ -1,0 +1,10 @@
+@startuml
+' SCAFFOLD_ONLY: DRAFT - CHUA HOAN THIEN
+' Khung do AI khoi tao; chu so huu tu hoan thien va chiu trach nhiem.
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultFontName SansSerif
+title Deployment view — DRAFT
+note "KHUNG CHƯA HOÀN THIỆN\nChủ sở hữu: TV7 — Nguyễn Trung Nguyên\nMô tả trình duyệt, Streamlit/Python, seed và session.\nBổ sung thiết kế thực tế trước khi sử dụng để nộp." as DRAFT
+
+@enduml

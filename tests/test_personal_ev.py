@@ -75,7 +75,7 @@ def test_reserve_and_checkin_checkout_lifecycle(clean_state):
     assert hub["destination_holds"] == initial_holds + 1
     assert hub["available_slots"] == initial_avail - 1
     assert clean_state["wallet"]["held_deposit"] == 50000
-    assert res["arrival_deadline"] == "2026-10-21 08:15:00"
+    assert res["arrival_deadline"] == "2026-10-21 08:30:00"
 
     # Check-in
     ok_in, msg_in = check_in_personal_ev(clean_state, res["reservation_id"])

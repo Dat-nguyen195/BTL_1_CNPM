@@ -11,7 +11,7 @@ start
 |UI Layer (student_booking.py)|
 :Kiểm tra thời gian đếm ngược;
 
-if (Thời gian còn trong 15 phút?) then (Quá 15p - No-show)
+if (Đã đến hạn 30 phút?) then (Đã đủ 30p - No-show)
   |Tài khoản & Ví điện tử|
   :Khấu trừ phạt No-show 10,000 VNĐ,\nhoàn 40,000 VNĐ về wallet_balance;
   
@@ -19,8 +19,8 @@ if (Thời gian còn trong 15 phút?) then (Quá 15p - No-show)
   :Chuyển xe từ RESERVED\nvề AVAILABLE;
   
   |UI Layer (student_booking.py)|
-  :Thông báo tự hủy do quá hạn 15p\n(Phạt 10.000đ, hoàn 40.000đ);
-else (Còn trong 15p - Hủy chủ động)
+  :Thông báo tự hủy do quá hạn 30p\n(Phạt 10.000đ, hoàn 40.000đ);
+else (Chưa đủ 30p - Hủy chủ động)
   |Tài khoản & Ví điện tử|
   :Giải phóng 100% cọc 50,000 VNĐ\ntừ locked_balance trở về\nwallet_balance khả dụng;
   

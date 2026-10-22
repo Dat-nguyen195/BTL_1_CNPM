@@ -89,7 +89,7 @@ def process_expired_bookings(state: Dict[str, Any]) -> int:
                     "time": sim_now_str,
                     "type": "WARNING",
                     "title": "Hết hạn giữ chỗ đặt xe",
-                    "message": f"Đặt chỗ #{b['booking_id']} đã hết hạn 15 phút. Phí giữ chỗ không nhận (10,000 VNĐ) đã được áp dụng."
+                    "message": f"Đặt chỗ #{b['booking_id']} đã hết hạn {SHARED_EXPIRY_MINUTES} phút. Phí giữ chỗ không nhận (10,000 VNĐ) đã được áp dụng."
                 })
 
     if expired_count > 0:
@@ -105,7 +105,7 @@ def create_shared_booking(
     destination_hub_id: Optional[str] = None
 ) -> Tuple[bool, Optional[Dict[str, Any]], str]:
     """
-    Creates a new shared EV booking with 15-minute countdown and deposit hold.
+    Creates a new shared EV booking with 30-minute countdown and deposit hold.
     """
     # 1. Clean up any expired bookings first
     process_expired_bookings(state)
@@ -191,7 +191,7 @@ def create_shared_booking(
     
     state.setdefault("bookings", []).append(booking_record)
     bump_state_version(state)
-    return True, booking_record, "Đặt giữ chỗ xe thành công! Mã PIN nhận xe có hiệu lực trong 15 phút."
+    return True, booking_record, f"Đặt giữ chỗ xe thành công! Mã PIN nhận xe có hiệu lực trong {SHARED_EXPIRY_MINUTES} phút."
 
 def pickup_shared_vehicle(
     state: Dict[str, Any],
@@ -217,7 +217,7 @@ def pickup_shared_vehicle(
     expires_at = parse_time(booking.get("expires_at", sim_now_str))
     if sim_now >= expires_at:
         process_expired_bookings(state)
-        return False, "Mã PIN nhận xe đã quá hạn 15 phút. Lượt đặt chỗ đã bị hủy tự động."
+        return False, f"Mã PIN nhận xe đã quá hạn {SHARED_EXPIRY_MINUTES} phút. Lượt đặt chỗ đã bị hủy tự động."
         
     if str(booking.get("pin_code")).strip() != str(entered_pin).strip():
         return False, "Mã PIN nhận xe không chính xác. Vui lòng kiểm tra lại."
@@ -249,7 +249,7 @@ def cancel_shared_booking(
 ) -> Tuple[bool, str]:
     """
     Cancels an active RESERVED booking.
-    If within 15 minutes: 100% deposit refunded.
+    If within 30 minutes: 100% deposit refunded.
     If overdue: settles no-show penalty.
     """
     sim_now_str = state.get("current_sim_time", datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
@@ -295,7 +295,7 @@ def cancel_shared_booking(
         booking["status"] = ReservationStatus.EXPIRED.value
         booking["expired_at"] = sim_now_str
         bump_state_version(state)
-        return False, "Đặt chỗ đã quá hạn 15 phút. Hệ thống đã tự động khấu trừ 10,000 VNĐ phí no-show và hoàn trả 40,000 VNĐ."
+        return False, f"Đặt chỗ đã quá hạn {SHARED_EXPIRY_MINUTES} phút. Hệ thống đã tự động khấu trừ 10,000 VNĐ phí no-show và hoàn trả 40,000 VNĐ."
 
 def return_shared_vehicle(
     state: Dict[str, Any],

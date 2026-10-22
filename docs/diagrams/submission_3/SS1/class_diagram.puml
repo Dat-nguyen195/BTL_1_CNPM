@@ -1,0 +1,22 @@
+@startuml
+' SCAFFOLD_ONLY: DRAFT - CHUA HOAN THIEN
+' Khung do AI khoi tao; chu so huu tu hoan thien va chiu trach nhiem.
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultFontName SansSerif
+title Class diagram SS1 — DRAFT
+note "KHUNG CHƯA HOÀN THIỆN\nChủ sở hữu: TV1 — Nguyễn Thành Đạt\nUC_SS1_01, UC_SS1_02, UC_SS1_03\nBổ sung thiết kế thực tế trước khi sử dụng để nộp." as DRAFT
+' Lop/kieu chu tri: User
+' Lop/kieu chu tri: Vehicle
+' Lop/kieu chu tri: SharedVehicle
+' Lop/kieu chu tri: Booking
+' Lop/kieu chu tri: BookingService
+' Lop/kieu chu tri: OperationResult
+' Lop/kieu chu tri: Wallet
+' Lop/kieu chu tri: Transaction
+' Lop/kieu chu tri: Invoice
+' Lop/kieu chu tri: ChargeLine
+' Lop/kieu chu tri: DepositResult
+' Lop/kieu chu tri: SettlementResult
+' Lop/kieu chu tri: BillingService
+@enduml

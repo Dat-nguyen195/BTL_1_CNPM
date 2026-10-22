@@ -8,6 +8,7 @@ from datetime import datetime, time
 import uuid
 from core.policies import (
     SHARED_DEPOSIT_VND,
+    SHARED_EXPIRY_MINUTES,
     SHARED_NOSHOW_PENALTY_VND,
     SHARED_NOSHOW_REFUND_VND,
     SHARED_FREE_MINUTES,
@@ -82,7 +83,7 @@ def release_held_deposit_full(
     booking_id: Optional[str] = None,
     sim_time: Optional[str] = None
 ) -> bool:
-    """Refunds 100% of held deposit back to balance (e.g. early cancellation within 15 min)."""
+    """Refunds 100% of held deposit back to balance (e.g. early cancellation within 30 min)."""
     held = wallet.get("held_deposit", wallet.get("held", 0))
     if held < amount:
         amount = held
@@ -97,7 +98,7 @@ def release_held_deposit_full(
         tx_type="REFUND_DEPOSIT_FULL",
         amount=amount,
         booking_id=booking_id,
-        note=f"Hoàn trả 100% tiền cọc do hủy đặt chỗ hợp lệ trong 15 phút ({amount:,} VNĐ)",
+        note=f"Hoàn trả 100% tiền cọc do hủy đặt chỗ hợp lệ trong {SHARED_EXPIRY_MINUTES} phút ({amount:,} VNĐ)",
         sim_time=sim_time
     )
     return True
@@ -118,7 +119,7 @@ def settle_noshow_penalty(
         tx_type="PENALTY_NOSHOW",
         amount=-SHARED_NOSHOW_PENALTY_VND,
         booking_id=booking_id,
-        note=f"Khấu trừ phí giữ chỗ quá 15 phút không nhận xe ({SHARED_NOSHOW_PENALTY_VND:,} VNĐ)",
+        note=f"Khấu trừ phí giữ chỗ quá {SHARED_EXPIRY_MINUTES} phút không nhận xe ({SHARED_NOSHOW_PENALTY_VND:,} VNĐ)",
         sim_time=sim_time
     )
     record_transaction(

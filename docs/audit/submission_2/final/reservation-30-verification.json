@@ -1,0 +1,17 @@
+{
+  "change": "Reservation expiry increased from 15 to 30 minutes at user request",
+  "date": "2026-10-21",
+  "shared_expiry_minutes": 30,
+  "personal_arrival_expiry_minutes": 30,
+  "overstay_grace_minutes": 15,
+  "overstay_block_minutes": 15,
+  "rerouting_extra_free_minutes": 15,
+  "test_count": 49,
+  "canonical_plantuml_count": 46,
+  "rendered_pdf_pages": 69,
+  "docx_rendered_pages": {
+    "SS1": 6,
+    "SS2": 5
+  },
+  "visual_review": "Reviewed all final DOCX pages, final PDF contact sheets and detailed changed PDF pages; no clipping, overlap or missing glyphs in changed documents."
+}

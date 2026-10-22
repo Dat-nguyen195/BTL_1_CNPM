@@ -47,7 +47,7 @@ def create_drawio_xml():
         ('uc_ss1_01', 'UC_SS1_01: Tra cứu & Đặt xe\n(kèm Nhận xe QR/PIN)', 'pkg_ss1', 310, 150, 160, 55),
         ('uc_ss1_02', 'UC_SS1_02: Trả xe & Quyết toán', 'pkg_ss1', 485, 150, 160, 55),
         ('uc_ss1_03', 'UC_SS1_03: Hủy đặt chỗ & Hoàn cọc', 'pkg_ss1', 390, 230, 170, 50),
-        ('uc_ss1_note', 'Tự động hủy cọc quá 15p (Non-interactive)', 'pkg_ss1', 350, 310, 250, 35),
+        ('uc_ss1_note', 'Tự động hủy cọc quá 30p (Non-interactive)', 'pkg_ss1', 350, 310, 250, 35),
 
         # SS2 (4 UCs)
         ('uc_ss2_01', 'UC_SS2_01: Đăng ký xe EV cá nhân', 'pkg_ss2', 705, 150, 155, 50),
@@ -241,7 +241,7 @@ def create_svg():
     <text x="177" y="152" class="uc-text" font-size="10">Hủy đặt xe &amp; Hoàn cọc</text>
     <rect x="25" y="200" width="310" height="58" rx="6" fill="#FEF3C7" stroke="#D97706" stroke-dasharray="4 3"/>
     <text x="35" y="222" class="note-text" font-weight="bold">⚙ Background Service (Non-interactive):</text>
-    <text x="35" y="242" class="note-text">• Tự động hủy cọc &amp; phạt nếu không nhận xe sau 15p</text>
+    <text x="35" y="242" class="note-text">• Tự động hủy cọc &amp; phạt nếu không nhận xe sau 30p</text>
   </g>
 
   <!-- SS2: Personal EV & Parking (4 UCs) -->
@@ -355,7 +355,7 @@ def create_svg():
     <text x="45" y="222" class="note-text" font-weight="bold">⚙ Non-interactive Simulation Engines &amp; Rerouting:</text>
     <text x="45" y="242" class="note-text">• Tự động snapshot dữ liệu lưới điện &amp; vị trí xe (Deep-copy isolation)</text>
     <text x="45" y="262" class="note-text">• Thuật toán Monte Carlo tính toán ma trận phân bổ phụ tải 24h</text>
-    <text x="45" y="282" class="note-text">• Tự động đề xuất gợi ý điều hướng 1-chạm bảo toàn cọc &amp; cộng 15 phút</text>
+    <text x="45" y="282" class="note-text">• Tự động đề xuất gợi ý điều hướng 1-chạm bảo toàn cọc &amp; cộng 30 phút</text>
     <text x="45" y="302" class="note-text">• Tách biệt rõ 4 primary UCs: SS6_01, SS6_02 (Nhu cầu) &amp; SS7_01, SS7_02 (Sự cố)</text>
   </g>
 

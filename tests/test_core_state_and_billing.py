@@ -165,8 +165,8 @@ def test_noshow_expiry_and_penalty():
     assert state["wallet"]["balance"] == initial_balance - 50_000
     assert state["wallet"]["held_deposit"] == 50_000
     
-    # Advance time by 16 minutes (> 15 minutes TTL)
-    advance_sim_time(state, minutes=16)
+    # Advance time by 31 minutes (> 30 minutes TTL)
+    advance_sim_time(state, minutes=31)
     
     # Processing expired bookings
     expired = process_expired_bookings(state)
@@ -193,7 +193,7 @@ def test_early_cancellation_full_refund():
         vehicle_id=v["vehicle_id"]
     )
     assert ok
-    # Advance only 5 minutes (< 15 min TTL)
+    # Advance only 5 minutes (< 30 min TTL)
     advance_sim_time(state, minutes=5)
     
     ok_cancel, msg_cancel = cancel_shared_booking(state, b["booking_id"])

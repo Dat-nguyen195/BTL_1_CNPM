@@ -1,0 +1,14 @@
+@startuml
+' SCAFFOLD_ONLY: DRAFT - CHUA HOAN THIEN
+' Khung do AI khoi tao; chu so huu tu hoan thien va chiu trach nhiem.
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultFontName SansSerif
+title Class diagram SS3 — DRAFT
+note "KHUNG CHƯA HOÀN THIỆN\nChủ sở hữu: TV3 — Phạm Tiến Đạt\nUC_SS3_01, UC_SS3_02\nBổ sung thiết kế thực tế trước khi sử dụng để nộp." as DRAFT
+' Lop/kieu chu tri: Hub
+' Lop/kieu chu tri: OccupancySnapshot
+' Lop/kieu chu tri: NetworkSnapshot
+' Lop/kieu chu tri: Alert
+' Lop/kieu chu tri: MonitoringService
+@enduml

@@ -258,7 +258,7 @@
 | **Cổng sạc** | `CHARGING` | Đang cấp điện sạc cho phương tiện | SS2, SS5 |
 | **Cổng sạc** | `ERROR` / `OFFLINE` | Cổng sạc bị hỏng phần cứng hoặc mất điện cục bộ | **SS7** &rarr; SS3, SS4 |
 | **Phương tiện** | `AVAILABLE` | Xe điện sẵn sàng cho thuê hoặc chỗ đỗ sẵn sàng | SS1, SS2 |
-| **Phương tiện** | `RESERVED` | Đang được khóa giữ chỗ trước (15 phút) | SS1, SS2, **SS7** |
+| **Phương tiện** | `RESERVED` | Đang được khóa giữ chỗ trước (30 phút) | SS1, SS2, **SS7** |
 | **Phương tiện** | `IN_USE` | Đang trong hành trình di chuyển thực tế của sinh viên | SS1, **SS7** |
 | **Phương tiện** | `WAITING` | Đang cắm sạc nhưng bị ngưng do mất điện lưới / chờ điều phối | **SS7** &rarr; SS4, SS5 |
 | **Phương tiện** | `INCIDENT` | Xe gặp sự cố kỹ thuật trên đường | SS4 |

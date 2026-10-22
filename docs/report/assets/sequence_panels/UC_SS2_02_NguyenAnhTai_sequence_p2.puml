@@ -62,7 +62,7 @@ group 3. Đặt cọc và xác nhận giữ chỗ
 
     UI -> AppState: Tạo đơn liên kết sinh viên, xe, Hub và lịch;\ngiữ vị trí AVAILABLE -> RESERVED
     activate AppState
-    AppState -> AppState: Đặt hạn Check-in = booking_start_time + 15 phút
+    AppState -> AppState: Đặt hạn Check-in = booking_start_time + 30 phút
     AppState --> UI: Kết quả tạo đơn và giữ chỗ
     deactivate AppState
 
